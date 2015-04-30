@@ -5,6 +5,7 @@
  */
 package cl.diinf.sessionBeans;
 
+import cl.diinf.objetoAprendizaje.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -13,7 +14,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
 import java.util.List;
-import cl.diinf.ObjetoAprendizaje.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,17 +37,24 @@ public class OA_Reader {
         this.contenidoFile = contenidoFile;
     }
       
+    /**
+     * 
+     * @return Devuelve una vista generada a partir del string entregado. 
+     */
     public List<ObjetoAprendizaje> readOA() {
         
         List<ObjetoAprendizaje> Objects = new ArrayList<ObjetoAprendizaje>();
+        
+        if(this.contenidoFile == null){
+            return Objects;
+        }
         
         try {
             File OA_XML_File = this.stringToFile(contenidoFile);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc;
-            doc = dBuilder.parse(OA_XML_File);
-            this.DeletePreviousFile(OA_XML_File);
+            Document doc = dBuilder.parse(OA_XML_File);
+            OA_XML_File.delete();
             doc.getDocumentElement().normalize();
 
             NodeList OA = doc.getElementsByTagName("object");
@@ -57,14 +64,23 @@ public class OA_Reader {
                 devolver tantos ObjetoAprendizaje como hayan sido especificados.
             */
             
+            /*
+                En esta lista se guardar los objetos de aprendizaje que lean del archivo
+            */
             List<ObjetoAprendizaje> nueva = new ArrayList<ObjetoAprendizaje>();
             
             if(OA.getLength() == 0){
-                /*Lista vacia en casos de formato inválido o vacío*/
+                /*
+                Lista vacia en casos de formato inválido o vacío
+                */
                 return nueva;
             }
                 
             for (int i = 0; i < OA.getLength(); i++) {
+                /*
+                    Recorre todos los hijos de Object (Slides) y las 
+                    agrega al objeto que corresponda (OA.item(i))
+                */
                 ObjetoAprendizaje nuevoOA = new ObjetoAprendizaje();         
                 Node ObjectNode = OA.item(i);                
                 Element currentNode = (Element) ObjectNode;                      
@@ -74,16 +90,25 @@ public class OA_Reader {
                 //System.out.println("Título Objeto: "+nuevoOA.getTitle()+" Realizado por: "+nuevoOA.getAuthor());
                 
                 Element slideNode = (Element) currentNode;
-                NodeList slides = slideNode.getElementsByTagName("scene");           
+                NodeList slides = slideNode.getElementsByTagName("scene");  
+                
                 List<Slide> currentSlides = new ArrayList<Slide>();
                 
                 if(slides.getLength() == 0){
+                    /*
+                        Si no encuentra slides, devuelve un objeto vacío.
+                    */
                     nuevoOA.addContent(new Slide());
                     nueva.add(nuevoOA);
                     return nueva;
                 }
                 
                 for(int j = 0; j < slides.getLength(); j++){
+                    
+                    /*
+                        De encontrar, al menos una slide, lee los textos y voces asociados.
+                    */
+                    
                     Slide nuevaSlide = new Slide();                    
                     Element currentNode2 = (Element) slides.item(j);
                     nuevaSlide.setTitle(currentNode2.getAttribute("sceneTitle"));
@@ -136,6 +161,12 @@ public class OA_Reader {
 }
     
     public File stringToFile(String str) throws IOException{
+        /*
+            Recibe un string y lo procesa para que sea un archivo.
+            Este archivo estará momentaneamente en el directorio del 
+            programa, por ello, se le asigna el nombre que, probablemente,
+            no genere conflictos con otro que se esté creando a la vez.
+        */
         String chain = (Math.random()*100000+1)+".xml";
         File nuevo;
         nuevo = new File(chain);
@@ -145,10 +176,7 @@ public class OA_Reader {
         fw.close();
         return nuevo;
     }
-    
-    public void DeletePreviousFile(File fl){
-        fl.delete();
-    }
+
 }
 
 

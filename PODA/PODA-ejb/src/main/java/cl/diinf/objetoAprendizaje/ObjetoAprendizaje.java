@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cl.diinf.ObjetoAprendizaje;
+package cl.diinf.objetoAprendizaje;
 
 import java.util.ArrayList;
 import java.util.List;
