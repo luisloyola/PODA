@@ -9,10 +9,10 @@
 
     </h:head>
                   
-    <h:body>
+    <h:body style="background-color: whitesmoke">
 
         <header >      
-          <div class="navbar-inverse navbar-fixed-top " style="background-color: #1B65BC">
+          <div class="navbar-inverse navbar-fixed-top " >
            <div class="container">
              <div class="navbar-header">
                <a class="navbar-brand" href="#">PODA</a>
@@ -29,21 +29,20 @@
         </header>
         
         <div id="subir" class="jumbotron text-center" style="background-color: #1B65BC">
-                <h1 style="color: white">PODA</h1>
+                <h1 style="color: white"><strong>P&nbsp;O&nbsp;D&nbsp;A</strong></h1>
                 <p style="color: white">Proyecto de Objetos de Aprendizaje</p> 
      
                 <h:form id="form" enctype="multipart/form-data">
-                    
-                        <h:inputText value="c:\\objetodeaprendizaje.dll" styleClass="form-control"/>
-                    
-                        <h:inputFile id="file" value="#{fileUpload.file}" validator="#{fileUpload.validateFile}" styleClass="btn btn-warning" />
-                        
+                    <div class="row"> 
+                        <div class="col-md-3 col-lg-offset-3">
+                        <h:inputFile id="file" value="#{fileUpload.file}" validator="#{fileUpload.validateFile}" />
+                        </div><div class="col-md-4">&nbsp;&nbsp;&nbsp;
                         <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning"></h:commandButton>                    
-                    
+                    </div>
                     <h:panelGrid columns = "2" rendered="#{fileUpload.fileContent != null}">
                         <h:outputText value="#{fileUpload.fileContent}"/>
                     </h:panelGrid>
-                    
+                    </div>
                  </h:form>
             </div>
         
@@ -69,7 +68,7 @@
               </div><!-- /.row -->  
         
         <div class="container">
-                  <hr class="featurette-divider"></hr>
+                  <hr ></hr>
 
                     <div id="uno" class="featurette">
                         <img class="featurette-image img-circle pull-right" src="resources/archivo1.jpg" width='450' height='450'></img>
@@ -79,10 +78,10 @@
                       <a href="#dos"> <button class="btn btn-warning">Ir al Paso 2</button></a>
                     </div>
 
-                    <hr class="featurette-divider"></hr>
+                    <hr></hr>
 
-                    <div id="dos">
-                        <div class="row">
+                    <div id="dos" class="row">
+                        
                         <div class="col-md-6">
                       <img class=" img-circle pull-left" src="resources/eti.jpg" width='450' height='450'></img>
                       </div>
@@ -116,10 +115,10 @@
                         </table>
                           <a href="#tres"> <button class="btn btn-warning">Ir al Paso 3</button></a>
                     
-                                </div>
+                                
                   </div>  </div>
 
-                    <hr class="featurette-divider"></hr>
+                    <hr></hr>
 
                     <div id="tres" class="featurette">
                       <img class="featurette-image img-circle pull-right" src="resources/guardar.png" width='450' height='450'></img>
