@@ -30,14 +30,20 @@
         
         <div id="subir" class="jumbotron text-center" style="background-color: #1B65BC">
                 <h1 style="color: white">PODA</h1>
-                <p style="color: white">Proyecto de Objetos de Aprendizaje</p>      
-                <h:form >
-                
-                    <h:inputText value="c:\\objetodeaprendizaje.dll" styleClass="form-control"/>
+                <p style="color: white">Proyecto de Objetos de Aprendizaje</p> 
+     
+                <h:form id="form" enctype="multipart/form-data">
                     
-                    <h:commandButton action="#{algo.buscar}" value="Buscar Archivo" styleClass="btn btn-warning"/>
-                      &nbsp;
-                    <h:commandButton action="#{algo.crear}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning"/>
+                        <h:inputText value="c:\\objetodeaprendizaje.dll" styleClass="form-control"/>
+                    
+                        <h:inputFile id="file" value="#{fileUpload.file}" validator="#{fileUpload.validateFile}" styleClass="btn btn-warning" />
+                        
+                        <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning"></h:commandButton>                    
+                    
+                    <h:panelGrid columns = "2" rendered="#{fileUpload.fileContent != null}">
+                        <h:outputText value="#{fileUpload.fileContent}"/>
+                    </h:panelGrid>
+                    
                  </h:form>
             </div>
         
