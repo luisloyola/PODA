@@ -5,6 +5,7 @@
  */
 package cl.diinf.managedBeans;
 
+import cl.diinf.sessionBeans.OA_Reader;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 
@@ -20,6 +21,12 @@ public class FileUpload {
      * Creates a new instance of FileUpload
      */
     public FileUpload() {
+        OA_Reader nuevo = new OA_Reader();
+
     }
+    
+    
+    
+    
     
 }
