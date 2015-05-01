@@ -33,8 +33,12 @@ public class FileUpload {
  
     public void upload() {
         try {
-          fileContent = new Scanner(file.getInputStream())
-              .useDelimiter("\\A").next();
+            if(!file.equals(null)){            
+                fileContent = new Scanner(file.getInputStream()).useDelimiter("\\A").next();
+            }
+            else{
+                fileContent = "Error: debe ingresar un archivo";
+            }
         } catch (IOException e) {
           // Error handling
         }
@@ -70,11 +74,9 @@ public class FileUpload {
         List<FacesMessage> msgs = new ArrayList<FacesMessage>();
         
         Part file = (Part)value;
-        if (file.getSize() > 1024) {
-          msgs.add(new FacesMessage("file too big"));
-        }
-        if (!"text/plain".equals(file.getContentType())) {
-          msgs.add(new FacesMessage("not a text file"));
+        
+        if (file.equals(null)) {
+          msgs.add(new FacesMessage("No hay archivo"));
         }
         if (!msgs.isEmpty()) {
           throw new ValidatorException(msgs);

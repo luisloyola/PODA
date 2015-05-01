@@ -42,6 +42,9 @@
                     <h:panelGrid columns = "2" rendered="#{fileUpload.fileContent != null}">
                         <h:outputText value="#{fileUpload.fileContent}"/>
                     </h:panelGrid>
+                    <h:panelGrid columns = "2" rendered="#{fileUpload.fileContent eq null}">
+                        <h:outputText value="Ingrese un archivo"/>
+                    </h:panelGrid>
                     </div>
                  </h:form>
             </div>
