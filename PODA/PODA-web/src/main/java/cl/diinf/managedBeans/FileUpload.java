@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package cl.diinf.managedBeans;
- 
- 
+
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable; 
 import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,20 +16,18 @@ import java.util.Scanner;
 import cl.diinf.sessionBeans.OA_Reader;
 import cl.diinf.sessionBeans.OA_TranslateHtml;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import javax.servlet.http.Part;
- 
+import javax.servlet.http.Part; 
 /**
  *
- * @author teban
+ * @author nacho
  */
 @Named(value = "fileUpload")
-@RequestScoped
-public class FileUpload {
+@SessionScoped
+public class FileUpload implements Serializable {
    
     private Part file;
     private String fileContent;
@@ -106,4 +106,5 @@ public class FileUpload {
           throw new ValidatorException(msgs);
         }
     }            
+    
 }

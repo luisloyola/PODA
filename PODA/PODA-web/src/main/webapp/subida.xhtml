@@ -70,14 +70,15 @@
                         </div>&nbsp;&nbsp;&nbsp;                 
 
                             <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"></h:commandButton>
-                    
-                    <h:panelGrid columns = "2" rendered="#{fileUpload.fileContent != null}">
-                        <h:outputText value="#{fileUpload.path_html}"/>
-                    </h:panelGrid>
-                    
-                 </h:form>
-            </div>
         
+        <div>
+            <h:panelGrid columns = "2" rendered="#{fileUpload.fileContent != null}">
+                <h:button outcome="index.xhtml" value="Ir a OA" ></h:button>
+            </h:panelGrid>
+        </div>
+        
+                </h:form>
+            </div>
             <div class="row">
                 <div class="col-md-4 text-center">
                   <img class="img-circle" src="resources/TXT.png" width='140' height='140'></img>
