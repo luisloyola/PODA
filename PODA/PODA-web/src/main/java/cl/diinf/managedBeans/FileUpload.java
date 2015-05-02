@@ -6,11 +6,13 @@
 package cl.diinf.managedBeans;
 
 
+import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import cl.diinf.sessionBeans.OA_Reader;
+import cl.diinf.sessionBeans.OA_TranslateHtml;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -41,6 +43,21 @@ public class FileUpload {
             }
         } catch (IOException e) {
           // Error handling
+            fileContent = null;
+        }
+        if (fileContent!=null){
+            OA_Reader nuevoOAR = new OA_Reader();
+            OA_TranslateHtml nuevoTrans = new OA_TranslateHtml();
+            nuevoOAR.setContenidoFile(fileContent);
+            List<ObjetoAprendizaje> objetos = nuevoOAR.readOA();
+            for(int i = 0; i < objetos.size(); i++){
+                try{
+                    nuevoTrans.writeHtml(objetos.get(i));
+                }
+                catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
