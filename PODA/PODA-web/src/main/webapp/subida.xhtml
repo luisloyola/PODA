@@ -48,10 +48,10 @@
                             <h:inputFile id="file" value="#{fileUpload.file}" validator="#{fileUpload.validateFile}"/>
                         </div>&nbsp;&nbsp;&nbsp;                 
 
-                            <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"></h:commandButton>                    
+                            <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"></h:commandButton>
                     
                     <h:panelGrid columns = "2" rendered="#{fileUpload.fileContent != null}">
-                        <h:outputText value="#{fileUpload.fileContent}"/>
+                        <h:outputText value="#{fileUpload.path_html}"/>
                     </h:panelGrid>
                     
                  </h:form>

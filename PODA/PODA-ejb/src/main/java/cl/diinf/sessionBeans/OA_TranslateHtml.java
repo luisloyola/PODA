@@ -37,9 +37,24 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     }
 */    
     
-    public void write_headHtml(ObjetoAprendizaje object, PrintWriter pWriter)throws IOException{
+    
+    public String writeHtml(ObjetoAprendizaje object) throws IOException{
         
-        //Head del HTML
+        File file;
+        FileWriter fWriter = null;
+        BufferedWriter bWriter = null;
+        PrintWriter pWriter = null;
+        
+        String nameHtml = object.getTitle() + ".html";
+        String todo = "";
+        file = new File( nameHtml);
+        
+        try{
+            fWriter = new FileWriter(file);
+            bWriter = new BufferedWriter(fWriter);
+            pWriter = new PrintWriter(bWriter);
+
+                   //Head del HTML
         String htmlHeader = "<!DOCTYPE html>\n" +
                             "<html>\n" +
                             "<head>\n" +
@@ -63,10 +78,10 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "<div class=\"deck-container\">\n";
 
         pWriter.write(htmlHeader);
-    }
-    
-    public void write_sceneHtml(ObjetoAprendizaje object, PrintWriter pWriter)throws IOException{
-        //Codigo de las escenas
+        todo = htmlHeader;
+        
+        
+            //Codigo de las escenas
         Slide scene;
         String string_num;
         String title_scene;
@@ -75,13 +90,14 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
 
         for (int i = 0; i < object.getContent().size(); i++){
 
-            scene = object.getContent().get(i);
+            scene = object.getContent().get(i);            
 
             //Escritura del head y titulo de una escena
             string_num = Integer.toString(i+1);
             title_scene =   "<section class=\"slide\" id=\"slide-"+string_num+"\">\n" +
-                            "<h2>"+scene.getTitle()+"<h2>\n";
+                            "<h2>"+scene.getTitle()+"</h2>\n";
             pWriter.append(title_scene);
+            todo = todo + "\n" + title_scene;
 
             //ArrayList <String> list_txts = new ArrayList<String>();
             ArrayList<String> list_exam = new ArrayList<String>();
@@ -90,43 +106,51 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             Random rand = new Random();
 
             for(int j = 0; j < scene.getText().size(); j++){
-
+                                                
                 if( scene.getText().get(j).getType().equals("text") ){
-
+                    
                     if(!list_exam.isEmpty()){
                         int index_exa = rand.nextInt(list_exam.size());
-                        texts = "<p>"+list_exam.get(index_exa)+"<p>\n";
+                        texts = "<p>"+list_exam.get(index_exa)+"</p>\n";
                         pWriter.append(texts);
+                        todo = todo + "\n" + texts;
                         list_exam.clear();
                     }
 
-                    texts = "<p>"+scene.getText().get(j).getContent()+"<p>\n";
+                    texts = "<p>"+scene.getText().get(j).getContent()+"</p>\n";
                     pWriter.append(texts);                        
+                    todo = todo + "\n" + texts;
                 }
                 else if( scene.getText().get(j).getType().equals("example") ){
-
+                    
                     list_exam.add(scene.getText().get(j).getContent());
                     //cont_exa = true;
                 }
                 else{
-                    pWriter.append("<p>ERROR<p>\n");
+                    pWriter.append("<p>ERROR</p>\n");
+                    todo = todo + "\n" + "<p>ERROR</p>\n";
                 }
 
-                if( j+1 > scene.getText().size() && !list_exam.isEmpty()){
+                if( j+1 >= scene.getText().size() && !list_exam.isEmpty()){
+                    String nstr = Integer.toString(2);
+                    todo = todo + nstr + nstr + nstr + nstr + nstr + nstr + nstr + nstr + nstr;
                     int index_exa = rand.nextInt(list_exam.size());
-                    texts = "<p>"+list_exam.get(index_exa)+"<p>\n";
+                    texts = "<p>"+list_exam.get(index_exa)+"</p>\n";
                     pWriter.append(texts);
                     list_exam.clear();
+                    todo = todo + "\n" + texts;
+                    
                 }
             }
 
             finish_scene = "</section>\n";
             pWriter.append(finish_scene);
+            todo = todo + "\n" + finish_scene;
         }
-    }
-    public void write_libHtml(ObjetoAprendizaje object, PrintWriter pWriter) throws IOException{
         
-        //Importe de las librerias necesarias
+        
+        
+            //Importe de las librerias necesarias
             
         String htmlLibrs=  "    <!-- deck.navigation snippet -->\n" +
                             "    <div aria-role=\"navigation\">\n" +
@@ -158,24 +182,20 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "<script src=\"resources/extensions/deck.events/deck.events.js\"></script>\n";
 
         pWriter.append(htmlLibrs);
-    }
-    
-    public void write_voiceHtml(ObjetoAprendizaje object, PrintWriter pWriter) throws IOException{
-        //Head del script para la voz
-            
-        String htmlScriptBase = "<script>\n" +
+        todo = todo + "\n" + htmlLibrs;
+        
+            String htmlScriptBase = "<script>\n" +
                                 "  $(function() {\n" +
                                 "    $.deck('.slide');\n" +
                                 "  });\n" +
                                 "</script>\n";
 
         pWriter.append(htmlScriptBase);
+        todo = todo + "\n" + htmlScriptBase;
 
         //Procesamiento de la voz por cada escena
 
         String htmlScriptVoice;
-        Slide scene;
-        String string_num;
         
         for (int i = 0; i < object.getContent().size(); i++){
             
@@ -197,31 +217,14 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                                 "</script>\n";
 
             pWriter.append(htmlScriptVoice);
+            todo = todo + "\n" + htmlScriptVoice;
         }
 
         //Fin del HTML
         String htmlEnd = "</body>\n" + "</html>";
         pWriter.append(htmlEnd);
-    }
-    
-    public void writeHtml(ObjetoAprendizaje object) throws IOException{
-        
-        File file;
-        FileWriter fWriter = null;
-        BufferedWriter bWriter = null;
-        PrintWriter pWriter = null;
-        file = new File(object.getTitle() + ".html");
-        
-        try{
-            fWriter = new FileWriter(file);
-            bWriter = new BufferedWriter(fWriter);
-            pWriter = new PrintWriter(bWriter);
-
-            write_headHtml(object, pWriter);
-            write_sceneHtml(object, pWriter);
-            write_libHtml(object, pWriter);
-            write_voiceHtml(object, pWriter);
-                                    
+        todo = todo + "\n" + htmlEnd;
+                                                    
         }               
         catch(IOException e){
             e.printStackTrace();
@@ -237,5 +240,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 e2.printStackTrace();            
            }
         }
-    }        
+        return todo;
+    }           
+    
 }
