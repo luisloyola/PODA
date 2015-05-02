@@ -5,23 +5,54 @@
     <h:head>
         <title>Proyecto de Objetos de Aprendizaje</title>
         <h:outputStylesheet name="css/ag-bootstrap.css"/>
-
+        <script>
+            function validar(){
+                 var campo1 = document.getElementById('form:file');
+                    if(campo1.value ==''){
+                      alert("No ha seleccionado ningún archivo");
+                      return false;
+                    }
+                    return true;
+            }
+            function mostrarOcultar(id){
+                mostrado=0;
+                elem = document.getElementById(id);
+                if(elem.style.display=='block')mostrado=1;
+                elem.style.display='none';
+                if(mostrado!=1)elem.style.display='block';
+                
+            }
+            function cambio(){
+                
+                elem = document.getElementById('mostrar');
+                elem2 = document.getElementById('ocultar');
+                
+                if(elem.style.display=='block'){
+                    elem2.style.display='block';
+                    elem.style.display='none';
+                }
+                else{
+                    elem2.style.display='none';
+                    elem.style.display='block';
+                }
+            }
+        </script>
 
     </h:head>
                   
-    <h:body>
+    <h:body >
 
         <header >      
-          <div class="navbar-inverse navbar-fixed-top " style="background-color: #1B65BC">
+          <div class="navbar-inverse navbar-fixed-top " >
            <div class="container">
              <div class="navbar-header">
-               <a class="navbar-brand" href="#">PODA</a>
+               <a class="navbar-brand" href="#"><b>PODA</b></a>
              </div>
              <div class="collapse navbar-collapse">
                <ul class="nav navbar-nav">
-                 <li><a href="#" >Home</a></li>
-                 <li><a href="#about">Acerca</a></li>
-                 <li><a href="#contact">Contacto</a></li>
+                   <li><a href="#" >Home</a></li>
+                 <li><a href="index.html">Acerca</a></li>
+
                </ul>
              </div><!--/.nav-collapse -->
            </div>
@@ -29,23 +60,30 @@
         </header>
         
         <div id="subir" class="jumbotron text-center" style="background-color: #1B65BC">
-                <h1 style="color: white">PODA</h1>
-                <p style="color: white">Proyecto de Objetos de Aprendizaje</p>      
-                <h:form >
-                
-                    <h:inputText value="c:\\objetodeaprendizaje.dll" styleClass="form-control"/>
-                    
-                    <h:commandButton action="#{algo.buscar}" value="Buscar Archivo" styleClass="btn btn-warning"/>
-                      &nbsp;
-                    <h:commandButton action="#{algo.crear}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning"/>
-                 </h:form>
-            </div>
+                <h1 style="color: white"><strong>P&nbsp;O&nbsp;D&nbsp;A</strong></h1>
+                <p style="color: white">Proyecto de Objetos de Aprendizaje</p> 
+     
+                <h:form id="form" enctype="multipart/form-data">
+                     
+                        <div class="col-md-3 col-lg-offset-3">
+                            <h:inputFile id="file" value="#{fileUpload.file}" validator="#{fileUpload.validateFile}"/>
+                        </div>&nbsp;&nbsp;&nbsp;                 
+
+                            <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"></h:commandButton>
         
+        <div>
+            <h:panelGrid columns = "2" rendered="#{fileUpload.fileContent != null}">
+                <h:button outcome="index.xhtml" value="Ir a OA" ></h:button>
+            </h:panelGrid>
+        </div>
+        
+                </h:form>
+            </div>
             <div class="row">
                 <div class="col-md-4 text-center">
                   <img class="img-circle" src="resources/TXT.png" width='140' height='140'></img>
                   <h2>Genera</h2>
-                  <p>Abre un archivo de texto plano y agrega lo que quieras.</p>
+                  <p>Abre un archivo de texto XML y agrega lo que quieras.</p>
                   <p><a class="btn btn-warning" href="#uno">Ver Detalles »</a></p>
                 </div>
                 <div class="col-md-4 text-center">
@@ -57,63 +95,72 @@
                 <div class="col-md-4 text-center">
                   <img class="img-circle" src="resources/check.png" width='140' height='140'></img>
                   <h2>Eso es todo!</h2>
-                  <p>Ya tienes tu Objeto de Aprendizaje listo para usar.</p>
+                  <p>Ya tienes tu Objeto de Aprendizaje listo para usar!.</p>
                   <p><a class="btn btn-warning" href="#tres">Ver Detalles »</a></p>
                 </div>
               </div><!-- /.row -->  
         
         <div class="container">
-                  <hr class="featurette-divider"></hr>
+                  <hr ></hr>
 
                     <div id="uno" class="featurette">
                         <img class="featurette-image img-circle pull-right" src="resources/archivo1.jpg" width='450' height='450'></img>
                       <h2 class="featurette-heading">Paso 1: Descarga el archivo base.</h2>
                       <p class="lead">Lo primero que debes hacer es cargar el archivo base para empezar a crear tu Objeto
-                          de Aprendizaje, este lo puedes descargar desde <a href="#">Aquí</a></p>
+                          de Aprendizaje, este lo puedes descargar desde <a href="#" style="color: #eb9316">Aquí</a></p>
                       <a href="#dos"> <button class="btn btn-warning">Ir al Paso 2</button></a>
                     </div>
 
-                    <hr class="featurette-divider"></hr>
+                  <hr id="dos"></hr>
 
-                    <div id="dos">
-                        <div class="row">
+                    <div  class="row">
+                        
                         <div class="col-md-6">
                       <img class=" img-circle pull-left" src="resources/eti.jpg" width='450' height='450'></img>
                       </div>
                             <div class="col-md-6"><h2 class="featurette-heading">Paso 2: Colocándo etiquetas.</h2>
                       <p class="lead">Una vez descargado el archivo base, debes colocar algunas de las equiquetas dependiendo
                           de lo que quieras visualizar en tu Objeto de Aprendizaje, como imágenes, texto, audio, etc.
-                          A continuación, está el listado de etiquetas que puedes utilizar:</p>
-                      
+                          Para ver las etiquetas haz click en en link Mostrar etiquetas.<a href="javascript:mostrarOcultar('tabla1')" style="color: #eb9316" ><p id="mostrar" style="display: block" onclick="cambio()" >Mostrar etiquetas</p><p id="ocultar" style="display: none" onclick="cambio()">Ocultar etiquetas</p></a></p>
+                                 
+                      <div id="tabla1" style="display: none">
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Etiqueta</th>
+                                    <th>Etiqueta / Fin etiqueta</th>
                                     <th>Descripción</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>scene</td>
-                                    <td>Esta etiqueta indica el slide de la presentación</td>
+                                    <td>&lt;object title="tituloObjeto"&gt; &lt;/object&gt;</td>
+                                    <td>Etiqueta principal que indica la intención de crear un objeto de aprendizaje</td>
+                                </tr>
+
+                                <tr>
+                                    <td>&lt;scene sceneTitle="nombreEscena"&gt; &lt;/scene&gt;</td>
+                                    <td>Define el dominio de una escena, aquellos elementos que se mostrarán juntos en el flujo de reproducción</td>
+                                </tr>
+
+                                <tr>
+                                    <td>&lt;text type="text"&gt; &lt;/text&gt;</td>
+                                    <td> Define el espacio en donde se encuentra texto que se desea mostrar en cierta escena</td>
                                 </tr>
                                 <tr>
-                                    <td>Title</td>
-                                    <td>Esta etiqueta indica el título</td>
+                                    <td>&lt;voice&gt; &lt;/voice&gt;</td>
+                                    <td>Define el espacio del texto que debe ser incluido para ser reproducido</td>
                                 </tr>
-                                <tr>
-                                    <td>audio</td>
-                                    <td>Esta etiqueta indica que ese párrafo debe ser hablado</td>
-                                </tr>
+
                             </tbody>
                         </table>
+                          </div>
                           <a href="#tres"> <button class="btn btn-warning">Ir al Paso 3</button></a>
                     
-                                </div>
+                                
                   </div>  </div>
 
-                    <hr class="featurette-divider"></hr>
+                    <hr></hr>
 
                     <div id="tres" class="featurette">
                       <img class="featurette-image img-circle pull-right" src="resources/guardar.png" width='450' height='450'></img>
@@ -125,9 +172,13 @@
         </div>
         <br></br>
         <div class="footer">
-            <div class="container">
-                <p class="text-muted text-center">Home hecho por <a>Alex Gárate</a></p>
-            </div>
+            <div class="row" >
+				
+                <div class="text-center" style="color: whitesmoke">
+                PODA por PODA TEAM está licenciado bajo la licencia:
+                <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
+                </div>
+            </div>			
         </div>
     </h:body>
 </html>
