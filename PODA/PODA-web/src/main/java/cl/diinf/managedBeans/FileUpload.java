@@ -30,16 +30,15 @@ import javax.servlet.http.Part;
 public class FileUpload implements Serializable {
    
     private Part file;
-    private String fileContent;
-    private boolean fileUp;
-    private String path_html;
+    private String fileContent;    
+    private String code_html;
  
-    public String getPath_html() {
-        return path_html;
+    public String getCode_html() {
+        return code_html;
     }
  
-    public void setPath_html(String path_html) {
-        this.path_html = path_html;
+    public void setCode_html(String path_html) {
+        this.code_html = path_html;
     }
  
      public void upload() throws IOException {
@@ -56,15 +55,18 @@ public class FileUpload implements Serializable {
         }
         if (fileContent!=null){
            
-            OA_Reader nuevoOAR = new OA_Reader();  
+            OA_Reader nuevoOAR = new OA_Reader();
+            
             nuevoOAR.setContenidoFile(fileContent);
+            
             List<ObjetoAprendizaje> lista = nuevoOAR.readOA();
+            
             OA_TranslateHtml n = new OA_TranslateHtml();
-            path_html = n.writeHtml(lista.get(0));
-           
+            
+            code_html = n.writeHtml(lista.get(0));           
         }
         else{
-            path_html = "Algo anda muy mal";
+            code_html = "<h2>Error: Intente nuevamente colocando un archivo con la estructura definida<h2>";
         }
     }
  
@@ -83,14 +85,6 @@ public class FileUpload implements Serializable {
  
     public void setFileContent(String fileContent) {
         this.fileContent = fileContent;        
-    }
- 
-    public boolean isFileUp() {
-        return fileUp;
-    }
- 
-    public void setFileUp(boolean fileUp) {
-        this.fileUp = fileUp;
     }
    
     public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
