@@ -85,6 +85,9 @@ public class FileUpload implements Serializable {
             
                 code_html = OA_translate.writeHtml(lista.get(0));
             }
+            else{
+                code_html = "Archivo no válido.";
+            }
             
                        
         }
