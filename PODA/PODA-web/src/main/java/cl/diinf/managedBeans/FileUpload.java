@@ -27,7 +27,7 @@ import javax.servlet.http.Part;
  */
 @Named(value = "fileUpload")
 @SessionScoped
-public class FileUpload implements Serializable {
+public class FileUpload implements Serializable{
    
     private Part file;
     private String fileContent;    
@@ -69,7 +69,7 @@ public class FileUpload implements Serializable {
             }
         } catch (IOException e) {
           // Error handling
-            fileContent = null;
+            
         }
         if (fileContent!=null){
            
@@ -79,9 +79,15 @@ public class FileUpload implements Serializable {
             
             List<ObjetoAprendizaje> lista = nuevoOAR.readOA();
             
-            OA_TranslateHtml OA_translate = new OA_TranslateHtml();
+            if(lista.size()!=0){
+                /*Cargara el objeto SÓLO si es válido*/
+                OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
-            code_html = OA_translate.writeHtml(lista.get(0));           
+                code_html = OA_translate.writeHtml(lista.get(0));
+            }
+            else{
+                code_html = "<h2>Archivo no válido<h2>";
+            }     
         }
         else{
             code_html = "<h2>Error: Intente nuevamente colocando un archivo con la estructura definida<h2>";

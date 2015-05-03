@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Proyecto de Objetos de Aprendizaje</title>
         <h:outputStylesheet name="css/ag-bootstrap.css"/>
@@ -72,18 +73,19 @@
                         <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"> &nbsp;
                             <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.fileContent != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
         
-                </h:form>
+                </h:form>                                                                
+                
             </div>
             <div class="row">
                 <div class="col-md-4 text-center">
                   <img class="img-circle" src="resources/TXT.png" width='140' height='140'></img>
-                  <h2>Crea tu OA!</h2>
+                  <h2>Crea tu objeto de aprendizaje!</h2>
                   <p>Abre el archivo de texto XML con nuestras etiquetas y empieza a escribir tu OA!</p>
                   <p><a class="btn btn-warning" href="#uno">Ver Detalles »</a></p>
                 </div>
                 <div class="col-md-4 text-center">
                   <img class="img-circle" src="resources/carga.png" width='140' height='140'></img>
-                  <h2>Carga tu OA!</h2>
+                  <h2>Carga tu objeto de aprendizaje!</h2>
                   <p>Carga en la barra de arriba el archivo desde tu ordenador de manera fácil y presiona "Generar"!.</p>
                   <p><a class="btn btn-warning" href="#dos">Ver Detalles »</a></p>
                 </div>
@@ -101,11 +103,17 @@
                     <div id="uno" class="featurette">
                         <img class="featurette-image img-circle pull-right" src="resources/archivo1.jpg" width='450' height='450'></img>
                       <h2 class="featurette-heading">Paso 1: Descarga el archivo base!</h2>
-                      <p class="lead">Lo primero que debes hacer es descargar el archivo base para empezar a crear tu objeto
-                          de aprendizaje, este lo puedes descargar desde <a href="#" style="color: #eb9316">Aquí</a></p>
+                      <p class="lead">Lo primero que debes hacer es descargar nuestra plantilla de ejemplo para empezar a crear tu propio objeto
+                          de aprendizaje. Haz click en Descargar Plantilla 
+                            <h:form>
+                                <p:commandButton value="&nbsp;&nbsp;&nbsp;Descargar Plantilla&nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" ajax="false">
+                                    <p:fileDownload value="#{FileDownload.file}" />
+                                </p:commandButton>
+                            </h:form>
+                      </p>                                                  
                       <a href="#dos"> <button class="btn btn-warning">Ir al Paso 2</button></a>
-                    </div>
-
+                    </div>                    
+                  
                   <hr id="dos"></hr>
 
                     <div  class="row">
@@ -114,8 +122,8 @@
                       <img class=" img-circle pull-left" src="resources/eti.jpg" width='450' height='450'></img>
                       </div>
                             <div class="col-md-6"><h2 class="featurette-heading">Paso 2: Escribiendo con etiquetas!</h2>
-                      <p class="lead">Una vez descargado el archivo base, debes colocar algunas de las etiquetas dependiendo
-                          de lo que quieras visualizar en tu objeto de aprendizaje, como imágenes, texto, audio, etc.
+                      <p class="lead">Una vez descargado el archivo base, debes escribir todo el contenido de tu objeto de aprendizaje usando
+                          las siguientes etiquetas dependiendo las funcionalidades que deseas agregar. 
                           Para ver las etiquetas haz click en en link Mostrar etiquetas.<a href="javascript:mostrarOcultar('tabla1')" style="color: #eb9316" ><p id="mostrar" style="display: block" onclick="cambio()" >Mostrar etiquetas</p><p id="ocultar" style="display: none" onclick="cambio()">Ocultar etiquetas</p></a></p>
                                  
                       <div id="tabla1" style="display: none">
@@ -128,23 +136,31 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                
+                                <tr>
+                                    <td>&lt;object&gt; &lt;/object&gt;</td>
+                                    <td>Etiqueta para indicar el inicio y final del objeto de aprendizaje, todo lo que se encuentre
+                                        dentro de esta etiqueta corresponderá al objeto de aprendizaje.</td>
+                                </tr>
+                                
                                 <tr>
                                     <td>&lt;object title="tituloObjeto"&gt; &lt;/object&gt;</td>
-                                    <td>Etiqueta principal que indica la intención de crear un objeto de aprendizaje</td>
+                                    <td>Una vez definida la etiqueta anterior, para darle un título al objeto de aprendizaje la etiqueta anterior se complementa con title.</td>
                                 </tr>
 
                                 <tr>
                                     <td>&lt;scene sceneTitle="nombreEscena"&gt; &lt;/scene&gt;</td>
-                                    <td>Define el dominio de una escena, aquellos elementos que se mostrarán juntos en el flujo de reproducción</td>
+                                    <td>Etiqueta que indica el inicio y final de una escena, indicando el nombre de la escena para su identificación, todo lo que
+                                        se defina dentro de estas etiquetas estará contenido en la escena del objeto de aprendizaje.</td>
                                 </tr>
 
                                 <tr>
                                     <td>&lt;text type="text"&gt; &lt;/text&gt;</td>
-                                    <td> Define el espacio en donde se encuentra texto que se desea mostrar en cierta escena</td>
+                                    <td>Etiqueta que define el texto que aparecerá en la escena en particular del objeto de aprendizaje.</td>
                                 </tr>
                                 <tr>
                                     <td>&lt;voice&gt; &lt;/voice&gt;</td>
-                                    <td>Define el espacio del texto que debe ser incluido para ser reproducido</td>
+                                    <td>Etiqueta que contiene un texto que será leido por una voz en tiempo real en la escena en particular del objeto de aprendizaje.</td>
                                 </tr>
 
                             </tbody>

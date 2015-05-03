@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<begin>
+	<object title="Título del Objeto de Aprendizaje" author="nombre del autor">
+
+		<scene sceneTitle="Título Escena 1">
+			<text type="text" font="default">Texto de un primer parrafo de la primera escena</text>
+			<text type="example" font="default">Ejemplo 1 del primer conjunto de ejemplos de la primera escena</text>
+			<text type="example" font="default">Ejemplo 2 del primer conjunto la primera escena</text>
+			<text type="text" font="default">Texto de un segundo parrafo de la primera escena</text>
+			<text type="example" font="default">Ejemplo 1 del segundo conjunto de ejemplos de la primera escena</text>
+			<text type="example" font="default">Ejemplo 2 del segundo conjunto de ejemplos de la primera escena</text>
+			<voice>Texto a ser reproducido por voz en la primera escena</voice>
+		</scene>
+
+		<scene sceneTitle="Título Escena 2">
+			<text type="text" font="default">Texto de un parrafo de la segunda escena</text>
+			<text type="example" font="default">Ejemplo 1 del primer conjunto de ejemplos de la segunda escena</text>
+			<text type="example" font="default">Ejemplo 2 del primer conjunto de ejemplos de la segunda escena</text>
+			<voice>Texto a ser reproducido por voz en la segunda escena</voice>
+		</scene>
+
+	</object>
+</begin>
