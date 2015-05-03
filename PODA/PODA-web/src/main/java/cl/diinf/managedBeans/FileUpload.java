@@ -32,16 +32,34 @@ public class FileUpload implements Serializable {
     private Part file;
     private String fileContent;    
     private String code_html;
- 
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
+    }
+
+    public String getFileContent() {
+        return fileContent;
+    }
+
+    public void setFileContent(String fileContent) {
+        this.fileContent = fileContent;
+    }
+
     public String getCode_html() {
         return code_html;
     }
- 
-    public void setCode_html(String path_html) {
-        this.code_html = path_html;
+
+    public void setCode_html(String code_html) {
+        this.code_html = code_html;
     }
  
-     public void upload() throws IOException {
+    
+ 
+    public void upload() throws IOException {
         try {
             if(!file.equals(null)){            
                 fileContent = new Scanner(file.getInputStream()).useDelimiter("\\A").next();
@@ -61,32 +79,15 @@ public class FileUpload implements Serializable {
             
             List<ObjetoAprendizaje> lista = nuevoOAR.readOA();
             
-            OA_TranslateHtml n = new OA_TranslateHtml();
+            OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
-            code_html = n.writeHtml(lista.get(0));           
+            code_html = OA_translate.writeHtml(lista.get(0));           
         }
         else{
             code_html = "<h2>Error: Intente nuevamente colocando un archivo con la estructura definida<h2>";
         }
     }
- 
-    public Part getFile() {
-      return file;
-    }
- 
-    public void setFile(Part file) {
-      this.file = file;
-     
-    }
- 
-    public String getFileContent() {
-        return fileContent;
-    }
- 
-    public void setFileContent(String fileContent) {
-        this.fileContent = fileContent;        
-    }
-   
+        
     public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
        
         List<FacesMessage> msgs = new ArrayList<FacesMessage>();

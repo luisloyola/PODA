@@ -70,7 +70,8 @@
                             <h:inputFile id="file" value="#{fileUpload.file}" validator="#{fileUpload.validateFile}"/>
                         </div>&nbsp;&nbsp;&nbsp;                 
 
-                        <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"> &nbsp;<h:button outcome="index.xhtml" value="Ir a OA" rendered="#{fileUpload.fileContent != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
+                        <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"> &nbsp;
+                            <h:button outcome="index.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.fileContent != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
         
                 </h:form>
             </div>

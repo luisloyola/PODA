@@ -53,7 +53,15 @@ public class OA_Reader {
             File OA_XML_File = this.stringToFile(contenidoFile);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(OA_XML_File);
+            Document doc = dBuilder.newDocument();
+            try{
+                doc = dBuilder.parse(OA_XML_File); //Aqui tiro excepcion
+            }
+            catch(org.xml.sax.SAXException e){
+                //e.printStackTrace();
+                System.out.println("ARCHIVO NO VÁLIDO");
+                return Objects;
+            }
             OA_XML_File.delete();
             doc.getDocumentElement().normalize();
 
@@ -171,11 +179,12 @@ public class OA_Reader {
         File nuevo;
         nuevo = new File(chain);
         nuevo.setWritable(true);
-        FileWriter fw = new FileWriter(nuevo);
-        fw.write(str);
-        fw.close();
+        try (FileWriter fw = new FileWriter(nuevo)) {
+            fw.write(str);
+        }
         return nuevo;
     }
+
 
 }
 
