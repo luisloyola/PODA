@@ -6,18 +6,18 @@
     }
 }*/
 
+
 if (typeof responsiveVoice != 'undefined') {
     console.log('ResponsiveVoice already loaded');
     console.log(responsiveVoice);
 } else {
-
     var ResponsiveVoice = function () {
 
+        var TTS_LOADED = new Event('TTS_LOADED');
         var self = this;
 
         self.version = 1;
         console.log("ResponsiveVoice r" + self.version);
-
         // Ourn own collection of voices
         var responsivevoices = [
             {name: 'UK English Female', voiceIDs: [3, 5, 1, 6, 7, 8]},
@@ -131,9 +131,7 @@ if (typeof responsiveVoice != 'undefined') {
         self.default_rv = responsivevoices[0];
 
 
-
         self.OnVoiceReady = null;
-
 
         //We should use jQuery if it's available
         if (typeof $ === 'undefined') {
@@ -141,7 +139,6 @@ if (typeof responsiveVoice != 'undefined') {
                 init();
             });
         } else {
-
             $(document).ready(function () {
                 init();
             });
@@ -155,52 +152,41 @@ if (typeof responsiveVoice != 'undefined') {
                 return;
             }*/
 
-
             if (typeof speechSynthesis === 'undefined') {
-
                 console.log('RV: Voice synthesis not supported');
                 enableFallbackMode();
 
             } else {
-
 
                 //Waiting a few ms before calling getVoices() fixes some issues with safari on IOS as well as Chrome
                 setTimeout(function () {
                     var gsvinterval = setInterval(function () {
 
                         var v = window.speechSynthesis.getVoices();
-
                         if (v.length == 0 && (systemvoices == null || systemvoices.length == 0)) {
                             //console.log('Voice support NOT ready');
-
                             voicesupport_attempts++;
                             if (voicesupport_attempts > VOICESUPPORT_ATTEMPTLIMIT) {
-                                
                                 clearInterval(gsvinterval);
                                 
                                 //On IOS, sometimes getVoices is just empty, but speech works. So we use a cached voice collection.
                                 if (window.speechSynthesis != null) {
-                                    
                                     if (self.iOS) {
-                                        
                                         console.log('RV: Voice support ready (cached)');
                                         systemVoicesReady(cache_ios_voices);
                                         
                                     }else{
-                                        
                                         console.log("RV: speechSynthesis present but no system voices found");
                                         enableFallbackMode();
                                     }
                                     
                                 } else {
-                                
                                     //We don't support voices. Using fallback
                                     enableFallbackMode();
                                 }
                             }
 
                         } else {
-
                             console.log('RV: Voice support ready');
                             systemVoicesReady(v);
                             
@@ -215,29 +201,31 @@ if (typeof responsiveVoice != 'undefined') {
 
         function systemVoicesReady(v) {
             systemvoices = v;
-
             mapRVs();
 
             if (self.OnVoiceReady != null)
-                self.OnVoiceReady.call();            
+            {
+                self.OnVoiceReady.call();
+            }
+
+            document.dispatchEvent(TTS_LOADED);        
         }
 
         function enableFallbackMode() {
-
             fallbackMode = true;
             console.log('RV: Enabling fallback mode');
 
             mapRVs();
 
             if (self.OnVoiceReady != null)
+            {
                 self.OnVoiceReady.call();
-
+            }
 
         }
 
 
         self.getVoices = function () {
-
             //Create voices array
 
             var v = [];
@@ -245,7 +233,6 @@ if (typeof responsiveVoice != 'undefined') {
             for (var i = 0; i < responsivevoices.length; i++) {
                 v.push({name: responsivevoices[i].name});
             }
-
             return v;
 
         }
