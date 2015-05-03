@@ -6,7 +6,7 @@
 package cl.diinf.managedBeans;
 
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import java.io.Serializable; 
 import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
 import java.io.IOException;
@@ -26,8 +26,8 @@ import javax.servlet.http.Part;
  * @author nacho
  */
 @Named(value = "fileUpload")
-@RequestScoped
-public class FileUpload{
+@SessionScoped
+public class FileUpload implements Serializable{
    
     private Part file;
     private String fileContent;    
@@ -69,7 +69,7 @@ public class FileUpload{
             }
         } catch (IOException e) {
           // Error handling
-            fileContent = null;
+            
         }
         if (fileContent!=null){
            
@@ -86,10 +86,8 @@ public class FileUpload{
                 code_html = OA_translate.writeHtml(lista.get(0));
             }
             else{
-                code_html = "Archivo no válido.";
-            }
-            
-                       
+                code_html = "<h2>Archivo no válido<h2>";
+            }     
         }
         else{
             code_html = "<h2>Error: Intente nuevamente colocando un archivo con la estructura definida<h2>";

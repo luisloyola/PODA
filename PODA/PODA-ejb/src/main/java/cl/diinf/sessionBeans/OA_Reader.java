@@ -184,8 +184,6 @@ public class OA_Reader {
         }
         return nuevo;
     }
-
-
 }
 
 
