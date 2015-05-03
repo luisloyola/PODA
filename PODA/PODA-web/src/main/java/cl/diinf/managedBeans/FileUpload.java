@@ -86,12 +86,9 @@ public class FileUpload implements Serializable{
                 code_html = OA_translate.writeHtml(lista.get(0));
             }
             else{
-                code_html = "<h2>Archivo no válido<h2>";
+                code_html = null;
             }     
-        }
-        else{
-            code_html = "<h2>Error: Intente nuevamente colocando un archivo con la estructura definida<h2>";
-        }
+        }        
     }
         
     public void validateFile(FacesContext ctx, UIComponent comp, Object value) {

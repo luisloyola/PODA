@@ -43,7 +43,6 @@
     </h:head>
                   
     <h:body >
-
         <header >      
           <div class="navbar-inverse navbar-fixed-top " >
            <div class="container">
@@ -54,7 +53,6 @@
                <ul class="nav navbar-nav">
                    <li><a href="/PODA-web/" >Home</a></li>
                  <li><a href="acerca_poda.html">Acerca</a></li>
-
                </ul>
              </div><!--/.nav-collapse -->
            </div>
@@ -72,7 +70,7 @@
                         </div>&nbsp;&nbsp;&nbsp;                 
 
                         <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"> &nbsp;
-                            <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.fileContent != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
+                            <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
         
                 </h:form>                                                                
                 
@@ -185,7 +183,7 @@
         <br></br>
         <div class="footer">
             <div class="row" >
-				
+                <br></br>
                 <div class="text-center" style="color: whitesmoke">
                 PODA por PODA TEAM está licenciado bajo la licencia:
                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
