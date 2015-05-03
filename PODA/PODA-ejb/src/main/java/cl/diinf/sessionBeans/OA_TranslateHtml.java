@@ -61,7 +61,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" +"\n" +                                       
                             "  <script src=\"resources/modernizr.custom.js\"></script>\n" +
                             "</head>\n" +"\n" + "<body>" +
-                            "<div class=\"deck-container\">\n";
+                            "<div class=\"deck-container\" >\n";
                 
         return htmlHeader;
     }
