@@ -6,7 +6,7 @@
 package cl.diinf.managedBeans;
 
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import java.io.Serializable; 
 import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
 import java.io.IOException;
@@ -26,8 +26,8 @@ import javax.servlet.http.Part;
  * @author nacho
  */
 @Named(value = "fileUpload")
-@SessionScoped
-public class FileUpload implements Serializable {
+@RequestScoped
+public class FileUpload{
    
     private Part file;
     private String fileContent;    

@@ -6,10 +6,11 @@
 package cl.diinf.managedBeans;
 
 import javax.inject.Named;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 //package org.primefaces.showcase.view.file;
  
 import java.io.InputStream;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -21,22 +22,20 @@ import org.primefaces.model.StreamedContent;
  * @author nacho
  */
 @Named(value = "FileDownload")
-@ApplicationScoped
-public class FileDownload {
+@RequestScoped
+public class FileDownload implements Serializable{
 
     private StreamedContent file;
 
     public void setFile(StreamedContent file) {
         this.file = file;
     }
-                 
-    public FileDownload() {        
-        InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/plantilla_oa.xml");
-        file = new DefaultStreamedContent(stream, "text/plain", "plantilla_objeto.xml");
-    }
  
     public StreamedContent getFile() {
+        
+        InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/plantilla_oa.xml");
+        file = new DefaultStreamedContent(stream, "text/plain", "plantilla_objeto.xml");
+        
         return file;
-    }
-    
+    }   
 }

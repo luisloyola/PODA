@@ -103,17 +103,17 @@
                     <div id="uno" class="featurette">
                         <img class="featurette-image img-circle pull-right" src="resources/archivo1.jpg" width='450' height='450'></img>
                       <h2 class="featurette-heading">Paso 1: Descarga el archivo base!</h2>
-                      <p class="lead">Lo primero que debes hacer es descargar el archivo base para empezar a crear tu objeto
-                          de aprendizaje, este lo puedes descargar desde <a href="#" style="color: #eb9316 ">Aquí </a></p>
+                      <p class="lead">Lo primero que debes hacer es descargar nuestra plantilla de ejemplo para empezar a crear tu propio objeto
+                          de aprendizaje. Haz click en Descargar Plantilla 
+                            <h:form>
+                                <p:commandButton value="&nbsp;&nbsp;&nbsp;Descargar Plantilla&nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" ajax="false">
+                                    <p:fileDownload value="#{FileDownload.file}" />
+                                </p:commandButton>
+                            </h:form>
+                      </p>                                                  
                       <a href="#dos"> <button class="btn btn-warning">Ir al Paso 2</button></a>
-                    </div>
- 
-                    <h:form>
-                        <p:commandButton value="Download" ajax="false" icon="ui-icon-arrowthick-1-s">
-                            <p:fileDownload value="#{FileDownload.file}" />
-                        </p:commandButton>
-                    </h:form>
-                   
+                    </div>                    
+                  
                   <hr id="dos"></hr>
 
                     <div  class="row">
