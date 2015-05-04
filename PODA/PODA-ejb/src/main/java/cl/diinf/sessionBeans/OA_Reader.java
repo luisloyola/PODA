@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author teban
+ * @author teamPODA
  */
 public class OA_Reader {
     
@@ -38,8 +38,8 @@ public class OA_Reader {
     }
       
     /**
-     * 
-     * @return Devuelve una vista generada a partir del string entregado. 
+     * Devuelve una vista generada a partir del string entregado.
+     * @return Objects  
      */
     public List<ObjetoAprendizaje> readOA() {
         
@@ -167,7 +167,13 @@ public class OA_Reader {
         
     return Objects;
 }
-    
+    /**
+     * Toma el string recibido y lo lleva a un archivo temporal para poder ser
+     * dado como parámetro a la función que realiza el parser del .xml
+     * @param str
+     * @return String como Archivo xml
+     * @throws IOException 
+     */
     public File stringToFile(String str) throws IOException{
         /*
             Recibe un string y lo procesa para que sea un archivo.

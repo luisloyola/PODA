@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author teban
+ * @author teamPODA
  */
 public class ObjetoAprendizaje {
     private String title;
@@ -21,26 +21,49 @@ public class ObjetoAprendizaje {
         content = new ArrayList<Slide>();
     };
 
+    /**
+     * Devuelve el valor del atributo privado.
+     * @return String title
+     */
     public String getTitle() {
         return title;
     }
-
+    
+    /**
+     * Asigna el valor title al atributo privado.
+     * @param title 
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+        /**
+     * Devuelve el valor del atributo privado.
+     * @return String Author
+     */
     public String getAuthor() {
         return author;
     }
-
+    /**
+     * Asigna el valor title al atributo privado.
+     * @param author 
+     */
     public void setAuthor(String author) {
         this.author = author;
     }
     
+    /**
+     * Agrega una slide a la lista de slides de la presentación.
+     * @param slide 
+     */
     public void addContent(Slide slide){
         this.content.add(slide);
     }
     
+        /**
+     * Devuelve el valor del atributo privado.
+     * @return Slide[] title
+     */
     public List<Slide> getContent(){
         return this.content;
     }

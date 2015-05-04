@@ -5,7 +5,6 @@
  */
 package cl.diinf.managedBeans;
 
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable; 
 import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
@@ -23,7 +22,7 @@ import javax.faces.validator.ValidatorException;
 import javax.servlet.http.Part; 
 /**
  *
- * @author nacho
+ * @author teamPODA
  */
 @Named(value = "fileUpload")
 @SessionScoped
@@ -58,7 +57,11 @@ public class FileUpload implements Serializable{
     }
  
     
- 
+    /**
+     * Cambia el contenido del la variable privada code_html para ser mostrada
+     * como objeto de aprendizaje.
+     * @throws IOException 
+     */
     public void upload() throws IOException {
         try {
             if(!file.equals(null)){            
@@ -68,10 +71,9 @@ public class FileUpload implements Serializable{
                 fileContent = "Error: debe ingresar un archivo";
             }
         } catch (IOException e) {
-          // Error handling
             
         }
-        if (fileContent!=null){
+        if (fileContent != null){
            
             OA_Reader nuevoOAR = new OA_Reader();
             
@@ -79,18 +81,23 @@ public class FileUpload implements Serializable{
             
             List<ObjetoAprendizaje> lista = nuevoOAR.readOA();
             
-            if(lista.size()!=0){
+            if(lista.size() > 0){
                 /*Cargara el objeto SÓLO si es válido*/
                 OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
                 code_html = OA_translate.writeHtml(lista.get(0));
             }
             else{
-                code_html = "hola";
+                code_html = "Archivo no valido.";
             }     
         }        
     }
-        
+        /**
+         * Validador del archivo para el frontend.
+         * @param ctx
+         * @param comp
+         * @param value 
+         */
     public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
        
         List<FacesMessage> msgs = new ArrayList<FacesMessage>();

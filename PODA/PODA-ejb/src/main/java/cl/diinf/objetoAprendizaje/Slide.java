@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author teban
+ * @author teamPODA
  */
 public class Slide {
     private String title;
