@@ -13,7 +13,10 @@
                       alert("No ha seleccionado ningún archivo");
                       return false;
                     }
+                    alert("El archivo está siendo procesado, si no aparece el botón Ver Objeto de Aprendizaje\n\
+            revise su archivo pues tiene errores");
                     return true;
+                    
             }
             function mostrarOcultar(id){
                 mostrado=0;
@@ -67,7 +70,6 @@
                         <div class="col-md-3 col-lg-offset-3">
                             <h:inputFile id="file" value="#{fileUpload.file}" validator="#{fileUpload.validateFile}"/>
                         </div>&nbsp;&nbsp;&nbsp;                 
-
                         <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"> &nbsp;
                             <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
         
