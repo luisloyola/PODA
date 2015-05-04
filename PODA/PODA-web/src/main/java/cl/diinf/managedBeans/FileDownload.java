@@ -7,10 +7,8 @@ package cl.diinf.managedBeans;
 
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
-//package org.primefaces.showcase.view.file;
  
 import java.io.InputStream;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
  
@@ -18,7 +16,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 /**
  *
- * @author nacho
+ * @author teamPODA
  */
 @Named(value = "FileDownload")
 @ApplicationScoped
@@ -30,6 +28,10 @@ public class FileDownload {
         this.file = file;
     }        
  
+    /**
+     * Devuelve un stream para ser capaz de ser descargado.
+     * @return 
+     */
     public StreamedContent getFile() {
         InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/plantilla_oa.xml");
         file = new DefaultStreamedContent(stream, "text/plain", "plantilla_objeto.xml");

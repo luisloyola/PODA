@@ -7,7 +7,7 @@ package cl.diinf.objetoAprendizaje;
 
 /**
  *
- * @author teban
+ * @author teamPODA
  */
 public class Texto {
     private String type;

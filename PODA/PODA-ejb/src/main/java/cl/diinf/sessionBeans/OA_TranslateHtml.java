@@ -7,17 +7,13 @@ package cl.diinf.sessionBeans;
 
 import javax.ejb.Stateless;
 import cl.diinf.objetoAprendizaje.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  *
- * @author nacho
+ * @author teamPODA
  */
 @Stateless
 public class OA_TranslateHtml implements OA_TranslateHtmlLocal {    
@@ -26,6 +22,13 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     
     }
 
+    /**
+     * Devuelve una página web completa para ser instroducida en el contenedor
+     * en la capa de vista.
+     * @param object 
+     * @return String codeHtml;
+     * @throws IOException 
+     */
     public String writeHtml(ObjetoAprendizaje object) throws IOException{
                     
         String codeHtml;
@@ -39,6 +42,11 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return codeHtml;
     }
     
+    /**
+     * Escribe el header de la página web.
+     * @param object
+     * @return 
+     */
     public String write_headerHtml(ObjetoAprendizaje object){
         //Head del HTML
         String htmlHeader = "<!DOCTYPE html>\n" +
@@ -65,7 +73,13 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
         return htmlHeader;
     }
-
+    
+    /**
+     * Escribe todas las escenas o "slides" del objeto en la página.
+     * @param object
+     * @param codeHtml
+     * @return 
+     */
     public String write_slidesHtml(ObjetoAprendizaje object, String codeHtml){
         //Codigo de las escenas
         Slide scene;
@@ -124,10 +138,15 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         }
         return codeHtml;
     }
-
+    
+    /**
+     * Escribe liberías necesarias para utilizar el framework en el que está
+     * construido el objeto.
+     * @param object
+     * @param codeHtml
+     * @return 
+     */
     public String write_librsHtml(ObjetoAprendizaje object, String codeHtml){
-
-        //Importe de las librerias necesarias
 
         String htmlLibrs=  "    <!-- deck.navigation snippet -->\n" +
                             "    <div aria-role=\"navigation\">\n" +
@@ -158,12 +177,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "<script src=\"resources/extensions/scale/deck.scale.js\"></script>\n" +
                             "<script src=\"resources/extensions/deck.events/deck.events.js\"></script>\n";
 
-        //pWriter.append(htmlLibrs);
         codeHtml = codeHtml + "\n" + htmlLibrs;
 
         return codeHtml;
     }
 
+    /**
+     * Escribe la función que hace referencia al framework.
+     * @param object
+     * @param codeHtml
+     * @return 
+     */
     public String write_scriptHtml(ObjetoAprendizaje object, String codeHtml){
 
         String htmlScriptBase = "<script>\n" +
@@ -176,6 +200,12 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return codeHtml;
     }
 
+    /**
+     * Escribe en la página el código para reproducir voz.
+     * @param object
+     * @param codeHtml
+     * @return 
+     */
     public String write_voiceHtml(ObjetoAprendizaje object, String codeHtml){
         //Procesamiento de la voz por cada escena
         String htmlScriptVoice;            

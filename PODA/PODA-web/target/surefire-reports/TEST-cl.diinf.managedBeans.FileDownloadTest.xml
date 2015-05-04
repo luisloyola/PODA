@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="1" time="0.005" errors="0" skipped="0" tests="1" name="cl.diinf.sessionBeans.OA_TranslateHtmlTest">
+<testsuite failures="0" time="0.249" errors="1" skipped="0" tests="1" name="cl.diinf.managedBeans.FileDownloadTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-oracle/jre/lib/amd64"/>
@@ -13,8 +13,9 @@
     <property name="user.country" value="CL"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
+    <property name="test" value="cl.diinf.managedBeans.FileDownloadTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/teban/NetBeansProjects/proyecto-pingeso/PODA"/>
+    <property name="user.dir" value="/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-web"/>
     <property name="java.runtime.version" value="1.7.0_76-b13"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-7-oracle/jre/lib/endorsed"/>
@@ -24,7 +25,7 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Linux"/>
-    <property name="maven.ext.class.path" value="/home/teban/netbeans-8.0.2/java/maven-nblib/netbeans-eventspy.jar"/>
+    <property name="maven.ext.class.path" value="/home/teban/netbeans-8.0.2/java/maven-nblib/netbeans-eventspy.jar:/home/teban/netbeans-8.0.2/java/maven-nblib/netbeans-cos.jar"/>
     <property name="classworlds.conf" value="/home/teban/netbeans-8.0.2/java/maven/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/usr/lib/jvm/java-7-oracle/jre/lib/amd64:/usr/lib/jvm/java-7-oracle/jre/lib/i386::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
@@ -35,14 +36,14 @@
     <property name="user.home" value="/home/teban"/>
     <property name="user.timezone" value="America/Santiago"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
-    <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="1.7"/>
+    <property name="file.encoding" value="UTF-8"/>
     <property name="user.name" value="teban"/>
     <property name="java.class.path" value="/home/teban/netbeans-8.0.2/java/maven/boot/plexus-classworlds-2.4.jar"/>
     <property name="java.vm.specification.version" value="1.7"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/usr/lib/jvm/java-7-oracle/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=/home/teban/netbeans-8.0.2/java/maven-nblib/netbeans-eventspy.jar --also-make --projects PODA-ear install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=cl.diinf.managedBeans.FileDownloadTest -Dmaven.ext.class.path=/home/teban/netbeans-8.0.2/java/maven-nblib/netbeans-eventspy.jar:/home/teban/netbeans-8.0.2/java/maven-nblib/netbeans-cos.jar surefire:test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="es"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -60,19 +61,9 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.005" classname="cl.diinf.sessionBeans.OA_TranslateHtmlTest" name="testWriteHtml">
-    <failure message="expected:&lt;...ass=&quot;deck-container&quot;[]&gt;
-
-&lt;section class=&quot;s...&gt; but was:&lt;...ass=&quot;deck-container&quot;[ ]&gt;
-
-&lt;section class=&quot;s...&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;...ass=&quot;deck-container&quot;[]&gt;
-
-&lt;section class=&quot;s...&gt; but was:&lt;...ass=&quot;deck-container&quot;[ ]&gt;
-
-&lt;section class=&quot;s...&gt;
-	at org.junit.Assert.assertEquals(Assert.java:125)
-	at org.junit.Assert.assertEquals(Assert.java:147)
-	at cl.diinf.sessionBeans.OA_TranslateHtmlTest.testWriteHtml(OA_TranslateHtmlTest.java:158)
+  <testcase time="0.098" classname="cl.diinf.managedBeans.FileDownloadTest" name="testGetFile">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at cl.diinf.managedBeans.FileDownloadTest.testGetFile(FileDownloadTest.java:51)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -106,6 +97,6 @@
 	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
-</failure>
+</error>
   </testcase>
 </testsuite>
