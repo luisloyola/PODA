@@ -13,7 +13,7 @@
                       alert("No ha seleccionado ningún archivo");
                       return false;
                     }
-                    alert("El archivo está siendo procesado, si no aparece el botón Ver Objeto de Aprendizaje\n\
+                    alert("El archivo está siendo procesado, si no aparece el botón \"Ver Objeto de Aprendizaje\"\n\
             revise su archivo pues tiene errores");
                     return true;
                     
@@ -61,20 +61,19 @@
          </div>
         </header>
         
-        <div id="subir" class="jumbotron text-center" style="background-color: #1B65BC">
-                <h1 style="color: white"><strong>P&nbsp;O&nbsp;D&nbsp;A</strong></h1>
-                <p style="color: white">Proyecto de Objetos de Aprendizaje</p> 
+        <div id="subir" style="background-color: #1B65BC">
+            <div align="center"><img src="resources/logo.png" width='240' height='240' ></img></div>
      
                 <h:form id="form" enctype="multipart/form-data" >
                      
-                        <div class="col-md-3 col-lg-offset-3">
+                        <div class="col-md-4 col-lg-offset-4">
                             <h:inputFile id="file" value="#{fileUpload.file}" validator="#{fileUpload.validateFile}"/>
-                        </div>&nbsp;&nbsp;&nbsp;                 
-                        <h:commandButton action="#{fileUpload.upload}" value="&nbsp;&nbsp;&nbsp;Generar &nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" onclick=" return validar()"> &nbsp;
+                        </div>                 
+                        <h:commandButton action="#{fileUpload.upload}" value="Generar " styleClass="btn btn-warning" onclick=" return validar()"> &nbsp;
                             <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
         
                 </h:form>                                                                
-                
+                <br></br>
             </div>
             <div class="container">
                 <div class="col-md-4 text-center">
