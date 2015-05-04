@@ -13,8 +13,7 @@
                       alert("No ha seleccionado ningún archivo");
                       return false;
                     }
-                    alert("El archivo está siendo procesado, si no aparece el botón \"Ver Objeto de Aprendizaje\"\n\
-            revise su archivo pues tiene errores");
+                    alert("El archivo está siendo procesado, si no aparece el botón \"Ver Objeto de Aprendizaje\" revise su archivo pues tiene errores");
                     return true;
                     
             }
@@ -62,7 +61,7 @@
         </header>
         
         <div id="subir" style="background-color: #1B65BC">
-            <div align="center"><img src="resources/logo.png" width='240' height='240' ></img></div>
+            <div align="center"><img src="resources/logo.png" width='700' height='240' ></img></div>
      
                 <h:form id="form" enctype="multipart/form-data" >
                      
@@ -71,6 +70,7 @@
                         </div>                 
                         <h:commandButton action="#{fileUpload.upload}" value="Generar " styleClass="btn btn-warning" onclick=" return validar()"> &nbsp;
                             <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
+                    
         
                 </h:form>                                                                
                 <br></br>

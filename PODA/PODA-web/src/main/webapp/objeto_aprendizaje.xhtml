@@ -7,7 +7,7 @@
         <h:outputStylesheet name="css/ag-bootstrap.css"/>      
         <script>
         window.addEventListener("keydown", HideFooter);
-        setTimeout('alert(\'Presione la tecla Esc para aumentar/disminuir la visualización\')', 1000);
+        setTimeout('alert(\'Presione la tecla Esc para activar/desactivar la pantalla completa\')', 1000);
         function HideFooter(evento){
             if(evento.keyCode==27){
                 var display = document.getElementById("footer").style.display;
