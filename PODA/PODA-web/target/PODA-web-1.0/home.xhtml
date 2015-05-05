@@ -7,16 +7,17 @@
         <title>Proyecto de Objetos de Aprendizaje</title>
         <h:outputStylesheet name="css/ag-bootstrap.css"/>
         <script>
-            function validar(){
+            function ValidateFileFE(){
                  var campo1 = document.getElementById('form:file');
                     if(campo1.value ==''){
                       alert("No ha seleccionado ningún archivo");
                       return false;
                     }
-                    alert("Procesando su archivo de entrada\nHaga click en Ir a Objeto de Aprendizaje para visualizarlo\n\Si este no aparece hay errores en su archivo")return true;
+                    alert("Procesando su archivo de entrada\nHaga click en Ir a Objeto de Aprendizaje para visualizarlo\n\Si este no aparece hay errores en su archivo");
+                    return true;
                     
             }
-            function mostrarOcultar(id){
+            function hideShow(id){
                 mostrado=0;
                 elem = document.getElementById(id);
                 if(elem.style.display=='block')mostrado=1;
@@ -24,7 +25,7 @@
                 if(mostrado!=1)elem.style.display='block';
                 
             }
-            function cambio(){
+            function changeShow(){
                 
                 elem = document.getElementById('mostrar');
                 elem2 = document.getElementById('ocultar');
@@ -65,9 +66,9 @@
                 <h:form id="form" enctype="multipart/form-data" >
                      
                         <div class="col-md-4 col-lg-offset-4">
-                            <h:inputFile id="file" value="#{fileUpload.file}" validator="#{fileUpload.validateFile}"/>
+                            <h:inputFile id="file" value="#{fileUpload.file}" /> <!--validator="{fileUpload.ValidateFileFE}"/>-->
                         </div>                 
-                        <h:commandButton action="#{fileUpload.upload}" value="Generar " styleClass="btn btn-warning" onclick=" return validar()"> &nbsp;
+                        <h:commandButton action="#{fileUpload.upload}" value="Generar " styleClass="btn btn-warning" onclick=" return ValidateFileFE()"> &nbsp;
                             <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
                     
         
@@ -122,7 +123,7 @@
                             <div class="col-md-6"><h2 class="featurette-heading">Paso 2: Escribiendo con etiquetas!</h2>
                       <p class="lead">Una vez descargado el archivo base, debes escribir todo el contenido de tu objeto de aprendizaje usando
                           las siguientes etiquetas dependiendo las funcionalidades que deseas agregar. 
-                          Para ver las etiquetas haz click en en link Mostrar etiquetas.<a href="javascript:mostrarOcultar('tabla1')" style="color: #eb9316" ><p id="mostrar" style="display: block" onclick="cambio()" >Mostrar etiquetas</p><p id="ocultar" style="display: none" onclick="cambio()">Ocultar etiquetas</p></a></p>
+                          Para ver las etiquetas haz click en en link Mostrar etiquetas.<a href="javascript:hideShow('tabla1')" style="color: #eb9316" ><p id="mostrar" style="display: block" onclick="changeShow()" >Mostrar etiquetas</p><p id="ocultar" style="display: none" onclick="changeShow()">Ocultar etiquetas</p></a></p>
                                  
                       <div id="tabla1" style="display: none">
                         <table class="table table-bordered table-striped">

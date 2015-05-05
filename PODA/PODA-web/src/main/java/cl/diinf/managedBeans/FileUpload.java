@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 import cl.diinf.sessionBeans.OA_Reader;
 import cl.diinf.sessionBeans.OA_TranslateHtml;
+import java.util.NoSuchElementException;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -65,7 +66,13 @@ public class FileUpload implements Serializable{
     public void upload() throws IOException {
         try {
             if(!file.equals(null)){            
-                fileContent = new Scanner(file.getInputStream()).useDelimiter("\\A").next();
+                Scanner scan = new Scanner(file.getInputStream());
+                try{
+                    fileContent = scan.useDelimiter("\\A").next();
+                }
+                catch(NoSuchElementException e){
+                    code_html = null;
+                }
             }
             else{
                 fileContent = "Error: debe ingresar un archivo";
@@ -73,7 +80,7 @@ public class FileUpload implements Serializable{
         } catch (IOException e) {
             
         }
-        if (fileContent != null){
+        if (fileContent != null && !fileContent.isEmpty()){
            
             OA_Reader nuevoOAR = new OA_Reader();
             
@@ -88,7 +95,7 @@ public class FileUpload implements Serializable{
                 code_html = OA_translate.writeHtml(OA_List.get(0));
             }
             else{
-                code_html = "Archivo no valido.";
+                code_html = null;
             }     
         }        
     }
@@ -98,7 +105,7 @@ public class FileUpload implements Serializable{
          * @param comp
          * @param value 
          */
-    public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
+    /*public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
        
         List<FacesMessage> msgs = new ArrayList<FacesMessage>();
        
@@ -110,6 +117,6 @@ public class FileUpload implements Serializable{
         if (!msgs.isEmpty()) {
           throw new ValidatorException(msgs);
         }
-    }            
+    }     */       
     
 }
