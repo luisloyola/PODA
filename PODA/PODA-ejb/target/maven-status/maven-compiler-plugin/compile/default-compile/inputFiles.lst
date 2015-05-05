@@ -1,7 +1,7 @@
-/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_TranslateHtmlLocal.java
-/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_TranslateHtml.java
-/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/Texto.java
-/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/ObjetoAprendizaje.java
-/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/Slide.java
-/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_Reader.java
-/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_ReaderLocal.java
+/home/luis/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_TranslateHtmlLocal.java
+/home/luis/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/ObjetoAprendizaje.java
+/home/luis/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_ReaderLocal.java
+/home/luis/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/Slide.java
+/home/luis/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/Texto.java
+/home/luis/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_TranslateHtml.java
+/home/luis/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_Reader.java
