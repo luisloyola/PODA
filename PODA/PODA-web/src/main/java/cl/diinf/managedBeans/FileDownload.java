@@ -30,7 +30,7 @@ public class FileDownload {
  
     /**
      * Devuelve un stream para ser capaz de ser descargado.
-     * @return 
+     * @return StreamedContent file
      */
     public StreamedContent getFile() {
         InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/plantilla_oa.xml");
