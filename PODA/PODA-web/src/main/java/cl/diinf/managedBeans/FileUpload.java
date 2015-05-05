@@ -77,15 +77,15 @@ public class FileUpload implements Serializable{
            
             OA_Reader nuevoOAR = new OA_Reader();
             
-            nuevoOAR.setContenidoFile(fileContent);
+            nuevoOAR.setFileContent(fileContent);
             
-            List<ObjetoAprendizaje> lista = nuevoOAR.readOA();
+            List<ObjetoAprendizaje> OA_List = nuevoOAR.readOA();
             
-            if(lista.size() > 0){
+            if(OA_List.size() > 0){
                 /*Cargara el objeto SÓLO si es válido*/
                 OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
-                code_html = OA_translate.writeHtml(lista.get(0));
+                code_html = OA_translate.writeHtml(OA_List.get(0));
             }
             else{
                 code_html = "Archivo no valido.";

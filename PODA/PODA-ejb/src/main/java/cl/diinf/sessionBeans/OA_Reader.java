@@ -25,16 +25,16 @@ import java.util.ArrayList;
  */
 public class OA_Reader {
     
-    private String contenidoFile;
+    private String fileContent;
     
     public OA_Reader(){
         
     }
-    public String getContenidoFile() {
-        return contenidoFile;
+    public String getFileContent() {
+        return fileContent;
     }
-    public void setContenidoFile(String contenidoFile) {
-        this.contenidoFile = contenidoFile;
+    public void setFileContent(String fileContent) {
+        this.fileContent = fileContent;
     }
       
     /**
@@ -45,20 +45,19 @@ public class OA_Reader {
         
         List<ObjetoAprendizaje> Objects = new ArrayList<ObjetoAprendizaje>();
         
-        if(this.contenidoFile == null){
+        if(this.fileContent == null){
             return Objects;
         }
         
         try {
-            File OA_XML_File = this.stringToFile(contenidoFile);
+            File OA_XML_File = this.stringToFile(fileContent);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
             try{
-                doc = dBuilder.parse(OA_XML_File); //Aqui tiro excepcion
+                doc = dBuilder.parse(OA_XML_File);
             }
             catch(org.xml.sax.SAXException e){
-                //e.printStackTrace();
                 System.out.println("ARCHIVO NO VÁLIDO");
                 return Objects;
             }
@@ -75,13 +74,13 @@ public class OA_Reader {
             /*
                 En esta lista se guardar los objetos de aprendizaje que lean del archivo
             */
-            List<ObjetoAprendizaje> nueva = new ArrayList<ObjetoAprendizaje>();
+            List<ObjetoAprendizaje> newOAList = new ArrayList<ObjetoAprendizaje>();
             
             if(OA.getLength() == 0){
                 /*
                 Lista vacia en casos de formato inválido o vacío
                 */
-                return nueva;
+                return newOAList;
             }
                 
             for (int i = 0; i < OA.getLength(); i++) {
@@ -89,11 +88,11 @@ public class OA_Reader {
                     Recorre todos los hijos de Object (Slides) y las 
                     agrega al objeto que corresponda (OA.item(i))
                 */
-                ObjetoAprendizaje nuevoOA = new ObjetoAprendizaje();         
+                ObjetoAprendizaje newOA = new ObjetoAprendizaje();         
                 Node ObjectNode = OA.item(i);                
                 Element currentNode = (Element) ObjectNode;                      
-                nuevoOA.setTitle(currentNode.getAttribute("title"));
-                nuevoOA.setAuthor(currentNode.getAttribute("author"));                
+                newOA.setTitle(currentNode.getAttribute("title"));
+                newOA.setAuthor(currentNode.getAttribute("author"));                
                 
                 //System.out.println("Título Objeto: "+nuevoOA.getTitle()+" Realizado por: "+nuevoOA.getAuthor());
                 
@@ -106,9 +105,9 @@ public class OA_Reader {
                     /*
                         Si no encuentra slides, devuelve un objeto vacío.
                     */
-                    nuevoOA.addContent(new Slide());
-                    nueva.add(nuevoOA);
-                    return nueva;
+                    newOA.addContent(new Slide());
+                    newOAList.add(newOA);
+                    return newOAList;
                 }
                 
                 for(int j = 0; j < slides.getLength(); j++){
@@ -117,28 +116,28 @@ public class OA_Reader {
                         De encontrar, al menos una slide, lee los textos y voces asociados.
                     */
                     
-                    Slide nuevaSlide = new Slide();                    
+                    Slide newSlide = new Slide();                    
                     Element currentNode2 = (Element) slides.item(j);
-                    nuevaSlide.setTitle(currentNode2.getAttribute("sceneTitle"));
-                    nuevaSlide.setTime(currentNode2.getAttribute("time"));
+                    newSlide.setTitle(currentNode2.getAttribute("sceneTitle"));
+                    newSlide.setTime(currentNode2.getAttribute("time"));
          
                     //System.out.println("\tDiapositiva: "+nuevaSlide.getTitle()+" Duración: "+nuevaSlide.getTime());
                     
                     Element contenidoSlide = (Element) currentNode2;
-                    NodeList xmlTextos = contenidoSlide.getElementsByTagName("text");
+                    NodeList xmlText = contenidoSlide.getElementsByTagName("text");
                     NodeList xmlVoices = contenidoSlide.getElementsByTagName("voice");
                     
-                    if(xmlTextos.getLength() == 0 && xmlVoices.getLength() == 0){
-                        Texto txVacio = new Texto();
-                        txVacio.setContent("vacio");
-                        txVacio.setFont("default");
-                        txVacio.setType("text");
-                        nuevaSlide.addText(txVacio);
-                        nuevaSlide.addVoice("");
+                    if(xmlText.getLength() == 0 && xmlVoices.getLength() == 0){
+                        Texto emptyTxt = new Texto();
+                        emptyTxt.setContent("vacio");
+                        emptyTxt.setFont("default");
+                        emptyTxt.setType("text");
+                        newSlide.addText(emptyTxt);
+                        newSlide.addVoice("");
                     }
                     
-                    for(int x = 0; x < xmlTextos.getLength(); x++){
-                        Element textoFinal = (Element)xmlTextos.item(x);
+                    for(int x = 0; x < xmlText.getLength(); x++){
+                        Element textoFinal = (Element)xmlText.item(x);
                                            
                         //System.out.println("\t\tTipo: "+textoFinal.getAttribute("type")+" Fuente: "+textoFinal.getAttribute("font")+" Contenido: "+textoFinal.getTextContent());
                         
@@ -146,7 +145,7 @@ public class OA_Reader {
                         nuevoTexto.setContent(textoFinal.getTextContent());
                         nuevoTexto.setFont(textoFinal.getAttribute("font"));
                         nuevoTexto.setType(textoFinal.getAttribute("type"));
-                        nuevaSlide.addText(nuevoTexto);
+                        newSlide.addText(nuevoTexto);
                     }
                     
                     for(int y = 0; y < xmlVoices.getLength(); y++){
@@ -154,11 +153,11 @@ public class OA_Reader {
                         
                         //System.out.println("\t\tVoz: "+vocesFinal.getTextContent());
                         
-                       nuevaSlide.addVoice(vocesFinal.getTextContent());
+                       newSlide.addVoice(vocesFinal.getTextContent());
                     }
-                    nuevoOA.addContent(nuevaSlide);
+                    newOA.addContent(newSlide);
                 }
-                Objects.add(nuevoOA);
+                Objects.add(newOA);
             }    
         }
         catch (Exception e) {
@@ -182,13 +181,13 @@ public class OA_Reader {
             no genere conflictos con otro que se esté creando a la vez.
         */
         String chain = (Math.random()*100000+1)+".xml";
-        File nuevo;
-        nuevo = new File(chain);
-        nuevo.setWritable(true);
-        try (FileWriter fw = new FileWriter(nuevo)) {
+        File newFile;
+        newFile = new File(chain);
+        newFile.setWritable(true);
+        try (FileWriter fw = new FileWriter(newFile)) {
             fw.write(str);
         }
-        return nuevo;
+        return newFile;
     }
 }
 

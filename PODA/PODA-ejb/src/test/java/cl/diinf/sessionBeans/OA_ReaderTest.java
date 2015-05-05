@@ -47,9 +47,9 @@ public class OA_ReaderTest {
     public void testGetContenidoFile() {
         //System.out.println("getContenidoFile");
         OA_Reader instance = new OA_Reader();
-        instance.setContenidoFile("Contenido");
+        instance.setFileContent("Contenido");
         boolean prueba = false;
-        if(instance.getContenidoFile().length() > 0){
+        if(instance.getFileContent().length() > 0){
             prueba = true;
         }
         assertEquals(true,prueba);
@@ -62,9 +62,9 @@ public class OA_ReaderTest {
     public void testSetContenidoFile() {
         String contenidoFile = "Contenido";
         OA_Reader instance = new OA_Reader();
-        instance.setContenidoFile(contenidoFile);
+        instance.setFileContent(contenidoFile);
         boolean prueba = false;
-        if(instance.getContenidoFile()!=null){
+        if(instance.getFileContent()!=null){
             prueba = true;
         }
         assertEquals(true,prueba);
@@ -76,7 +76,7 @@ public class OA_ReaderTest {
     @Test
     public void testReadOA() {
         OA_Reader instance = new OA_Reader();
-        instance.setContenidoFile("<?xml version=\"1.0\"?>\n" +
+        instance.setFileContent("<?xml version=\"1.0\"?>\n" +
 "\n" +
 "<begin>\n" +
 "	<object title=\"QWERTY\" author=\"ASDFG\">\n" +

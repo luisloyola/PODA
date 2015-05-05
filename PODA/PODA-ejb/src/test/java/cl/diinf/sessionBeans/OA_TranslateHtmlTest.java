@@ -49,7 +49,7 @@ public class OA_TranslateHtmlTest {
           como deben.
         */
         OA_Reader test = new OA_Reader();
-        test.setContenidoFile("<?xml version=\"1.0\"?>\n" +
+        test.setFileContent("<?xml version=\"1.0\"?>\n" +
 "\n" +
 "<begin>\n" +
 "	<object title=\"PRUEBA\" author=\"\">\n" +
@@ -88,7 +88,7 @@ public class OA_TranslateHtmlTest {
 "  <script src=\"resources/modernizr.custom.js\"></script>\n" +
 "</head>\n" +
 "\n" +
-"<body><div class=\"deck-container\">\n" +
+"<body><div class=\"deck-container\" >\n" +
 "\n" +
 "<section class=\"slide\" id=\"slide-1\">\n" +
 "<h2></h2>\n" +
@@ -155,8 +155,7 @@ public class OA_TranslateHtmlTest {
 "\n" +
 "</body>\n" +
 "</html>";
-        assertEquals(1, 1);
-        
-        
+        assertEquals(result, expected);
+
     }
 }
