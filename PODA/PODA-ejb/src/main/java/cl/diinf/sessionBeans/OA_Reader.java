@@ -39,7 +39,7 @@ public class OA_Reader {
       
     /**
      * Devuelve una vista generada a partir del string entregado.
-     * @return Objects  
+     * @return Objects como lista de objetos de aprendizaje.  
      */
     public List<ObjetoAprendizaje> readOA() {
         
@@ -169,7 +169,7 @@ public class OA_Reader {
     /**
      * Toma el string recibido y lo lleva a un archivo temporal para poder ser
      * dado como parámetro a la función que realiza el parser del .xml
-     * @param str
+     * @param str como string contenido del archivo.
      * @return String como Archivo xml
      * @throws IOException 
      */

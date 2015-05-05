@@ -25,8 +25,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     /**
      * Devuelve una página web completa para ser instroducida en el contenedor
      * en la capa de vista.
-     * @param object 
-     * @return String codeHtml;
+     * @param object objeto de aprendizaje construido por la clase de reader.
+     * @return String codeHtml, resultado que estará como presentación del OA
      * @throws IOException 
      */
     public String writeHtml(ObjetoAprendizaje object) throws IOException{
@@ -44,8 +44,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     
     /**
      * Escribe el header de la página web.
-     * @param object
-     * @return 
+     * @param object objeto de aprendizaje construido por la clase de reader.
+     * @return string con el header incorporado.
      */
     public String write_headerHtml(ObjetoAprendizaje object){
         //Head del HTML
@@ -76,9 +76,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     
     /**
      * Escribe todas las escenas o "slides" del objeto en la página.
-     * @param object
-     * @param codeHtml
-     * @return 
+     * @param object objeto de aprendizaje construido por la clase de reader.
+     * @param codeHtml 
+     * @return string con todas las slides incorporadas.
      */
     public String write_slidesHtml(ObjetoAprendizaje object, String codeHtml){
         //Codigo de las escenas
@@ -142,9 +142,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     /**
      * Escribe liberías necesarias para utilizar el framework en el que está
      * construido el objeto.
-     * @param object
-     * @param codeHtml
-     * @return 
+     * @param object objeto de aprendizaje construido por la clase de reader.
+     * @param codeHtml 
+     * @return string con las librerías incorporadas.
      */
     public String write_librsHtml(ObjetoAprendizaje object, String codeHtml){
 
@@ -184,9 +184,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
 
     /**
      * Escribe la función que hace referencia al framework.
-     * @param object
-     * @param codeHtml
-     * @return 
+     * @param object objeto de aprendizaje construido por la clase de reader.
+     * @param codeHtml 
+     * @return strig con el los script incorporados.
      */
     public String write_scriptHtml(ObjetoAprendizaje object, String codeHtml){
 
