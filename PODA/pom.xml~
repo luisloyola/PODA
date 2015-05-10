@@ -9,6 +9,7 @@
   <scm>
     	<developerConnection>scm:git:git@bitbucket.org:gmartinez/proyecto-pingeso.git</developerConnection>
   </scm>
+  <distributionManagement>https://bitbucket.org/gmartinez/proyecto-pingeso<distributionManagement>
   <modules>
     <module>PODA-ear</module>
     <module>PODA-web</module>

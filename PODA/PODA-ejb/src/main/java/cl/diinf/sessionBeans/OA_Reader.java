@@ -17,6 +17,7 @@ import java.util.List;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -58,7 +59,7 @@ public class OA_Reader {
                 doc = dBuilder.parse(OA_XML_File);
             }
             catch(org.xml.sax.SAXException e){
-                System.out.println("ARCHIVO NO VÁLIDO");
+                /*Error en el parser*/
                 return Objects;
             }
             OA_XML_File.delete();
@@ -92,9 +93,11 @@ public class OA_Reader {
                 Node ObjectNode = OA.item(i);                
                 Element currentNode = (Element) ObjectNode;                      
                 newOA.setTitle(currentNode.getAttribute("title"));
-                newOA.setAuthor(currentNode.getAttribute("author"));                
+                newOA.setAuthor(currentNode.getAttribute("author"));  
+                newOA.setTemplate(currentNode.getAttribute("template"));
+                newOA.setCreationDate(new Date());
                 
-                //System.out.println("Título Objeto: "+nuevoOA.getTitle()+" Realizado por: "+nuevoOA.getAuthor());
+                //System.out.println("Título Objeto: "+newOA.getTitle()+" Realizado por: "+newOA.getAuthor()+" Template: "+newOA.getTemplate());
                 
                 Element slideNode = (Element) currentNode;
                 NodeList slides = slideNode.getElementsByTagName("scene");  
@@ -120,12 +123,14 @@ public class OA_Reader {
                     Element currentNode2 = (Element) slides.item(j);
                     newSlide.setTitle(currentNode2.getAttribute("sceneTitle"));
                     newSlide.setTime(currentNode2.getAttribute("time"));
+                    newSlide.setDesign(currentNode2.getAttribute("design"));
          
-                    //System.out.println("\tDiapositiva: "+nuevaSlide.getTitle()+" Duración: "+nuevaSlide.getTime());
+                    //System.out.println("\tDiapositiva: "+newSlide.getTitle()+" Duración: "+newSlide.getTime() + " Diseño: "+newSlide.getDesign());
                     
                     Element contenidoSlide = (Element) currentNode2;
                     NodeList xmlText = contenidoSlide.getElementsByTagName("text");
                     NodeList xmlVoices = contenidoSlide.getElementsByTagName("voice");
+                    NodeList xmlMedia = contenidoSlide.getElementsByTagName("media");
                     
                     if(xmlText.getLength() == 0 && xmlVoices.getLength() == 0){
                         Texto emptyTxt = new Texto();
@@ -155,6 +160,19 @@ public class OA_Reader {
                         
                        newSlide.addVoice(vocesFinal.getTextContent());
                     }
+                    
+                    for(int w = 0; w < xmlMedia.getLength(); w++){
+                        Element mediaFinal = (Element)xmlMedia.item(w);
+                        Media media = new Media();
+                        media.setPosition(mediaFinal.getAttribute("position"));
+                        media.setType(mediaFinal.getAttribute("type"));
+                        media.setContent(mediaFinal.getTextContent());
+                        newSlide.addMedia(media);
+                        
+                        //System.out.println("\t\tPosicion: "+media.getPosition()+" tipo: "+media.getType()+" Contenido: "+media.getContent());
+
+                    }
+
                     newOA.addContent(newSlide);
                 }
                 Objects.add(newOA);

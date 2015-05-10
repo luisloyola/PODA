@@ -7,17 +7,14 @@ package cl.diinf.objetoAprendizaje;
 
 /**
  *
- * @author teamPODA
+ * @author teban
  */
-public class Texto {
+public class Media {
     private String type;
     private String position;
-    private String font;
     private String content;
     
-    public Texto(){
-    
-    }
+    public Media(){};
 
     public String getType() {
         return type;
@@ -27,12 +24,12 @@ public class Texto {
         this.type = type;
     }
 
-    public String getFont() {
-        return font;
+    public String getPosition() {
+        return position;
     }
 
-    public void setFont(String font) {
-        this.font = font;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getContent() {
