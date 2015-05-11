@@ -25,11 +25,10 @@ import java.util.Date;
  * @author teamPODA
  */
 public class OA_Reader {
-    
+    private String parsingError;
     private String fileContent;
     
     public OA_Reader(){
-        
     }
     public String getFileContent() {
         return fileContent;
@@ -37,6 +36,16 @@ public class OA_Reader {
     public void setFileContent(String fileContent) {
         this.fileContent = fileContent;
     }
+
+    public String getParsingError() {
+        return parsingError;
+    }
+
+    public void setParsingError(String parsingError) {
+        this.parsingError = parsingError;
+    }
+    
+    
       
     /**
      * Devuelve una vista generada a partir del string entregado.
@@ -60,6 +69,7 @@ public class OA_Reader {
             }
             catch(org.xml.sax.SAXException e){
                 /*Error en el parser*/
+                parsingError = e.getLocalizedMessage();
                 return Objects;
             }
             OA_XML_File.delete();

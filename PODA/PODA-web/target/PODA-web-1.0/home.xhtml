@@ -70,7 +70,8 @@
                         </div>                 
                         <h:commandButton action="#{fileUpload.upload}" value="Generar " styleClass="btn btn-warning" onclick=" return ValidateFileFE()"> &nbsp;
                             <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
-                    
+                            <h:outputText style="color:red; font-weight:bold; text-align: center" value="#{fileUpload.error_Message}"/>
+
         
                 </h:form>                                                                
                 <br></br>
