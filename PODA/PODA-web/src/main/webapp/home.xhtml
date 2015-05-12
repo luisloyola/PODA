@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Proyecto de Objetos de Aprendizaje</title>
+        <h:outputStylesheet name="css/ag-bootstrap.css"/>
+        <script>
+            function ValidateFileFE(){
+                 var campo1 = document.getElementById('form:file');
+                    if(campo1.value ==''){
+                      alert("No ha seleccionado ningún archivo");
+                      return false;
+                    }
+                    alert("Procesando su archivo de entrada\nHaga click en Ir a Objeto de Aprendizaje para visualizarlo\n\Si este no aparece hay errores en su archivo");
+                    return true;
+                    
+            }
+            function hideShow(id){
+                mostrado=0;
+                elem = document.getElementById(id);
+                if(elem.style.display=='block')mostrado=1;
+                elem.style.display='none';
+                if(mostrado!=1)elem.style.display='block';
+                
+            }
+            function changeShow(){
+                
+                elem = document.getElementById('mostrar');
+                elem2 = document.getElementById('ocultar');
+                
+                if(elem.style.display=='block'){
+                    elem2.style.display='block';
+                    elem.style.display='none';
+                }
+                else{
+                    elem2.style.display='none';
+                    elem.style.display='block';
+                }
+            }
+        </script>
+
+    </h:head>
+                  
+    <h:body >
+        <header>      
+          <div class="navbar-inverse navbar-fixed-top ">
+           <div class="container">
+             <div class="navbar-header">
+               <a class="navbar-brand" href="/PODA-web/"><b>PODA</b></a>
+             </div>
+             <div class="collapse navbar-collapse">
+               <ul class="nav navbar-nav">
+                   <li><a href="/PODA-web/" >Home</a></li>
+                 <li><a href="acerca_poda.html">Acerca</a></li>
+               </ul>
+             </div><!--/.nav-collapse -->
+           </div>
+         </div>
+        </header>
+        
+        <div id="subir" style="background-color: #1B65BC">
+            <div align="center"><img src="resources/logo.png" width='700' height='240' ></img></div>
+     
+                <h:form id="form" enctype="multipart/form-data" >
+                     
+                        <div class="col-md-4 col-lg-offset-4">
+                            <h:inputFile id="file" value="#{fileUpload.file}" /> <!--validator="{fileUpload.ValidateFileFE}"/>-->
+                        </div>                 
+                        <h:commandButton action="#{fileUpload.upload}" value="Generar " styleClass="btn btn-warning" onclick=" return ValidateFileFE()"> &nbsp;
+                            <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
+                            <h:outputText style="color:red; font-weight:bold; text-align: center" value="#{fileUpload.error_Message}"/>
+
+        
+                </h:form>                                                                
+                <br></br>
+            </div>
+            <div class="container">
+                <div class="col-md-4 text-center">
+                  <img class="img-circle" src="resources/TXT.png" width='140' height='140'></img>
+                  <h2>Crea tu objeto de aprendizaje!</h2>
+                  <p>Abre el archivo de texto XML con nuestras etiquetas y empieza a escribir tu OA!</p>
+                  <p><a class="btn btn-warning" href="#uno">Ver Detalles »</a></p>
+                </div>
+                <div class="col-md-4 text-center">
+                  <img class="img-circle" src="resources/carga.png" width='140' height='140'></img>
+                  <h2>Carga tu objeto de aprendizaje!</h2>
+                  <p>Carga en la barra de arriba el archivo desde tu ordenador de manera fácil y presiona "Generar".</p>
+                  <p><a class="btn btn-warning" href="#dos">Ver Detalles »</a></p>
+                </div>
+                <div class="col-md-4 text-center">
+                  <img class="img-circle" src="resources/check.png" width='140' height='140'></img>
+                  <h2>Eso es todo!<p style="color: #DEE1DD">adasdadasdasdadads </p></h2>
+                  <p>Ya tienes tu objeto de aprendizaje listo para usar, solo debes hacer click en "Ver Objeto de Aprendizaje".</p>
+                  <p><a class="btn btn-warning" href="#tres">Ver Detalles »</a></p>
+                </div>
+              </div><!-- /.row -->  
+        
+        <div class="container">
+                  <hr ></hr>
+
+                    <div id="uno" class="featurette">
+                        <img class="featurette-image img-circle pull-right" src="resources/archivo1.jpg" width='450' height='450'></img>
+                      <h2 class="featurette-heading">Paso 1: Descarga el archivo base!</h2>
+                      <p class="lead">Lo primero que debes hacer es descargar nuestra plantilla de ejemplo para empezar a crear tu propio objeto
+                          de aprendizaje. Haz click en Descargar Plantilla 
+                            <h:form>
+                                <p:commandButton value="&nbsp;&nbsp;&nbsp;Descargar Plantilla&nbsp;&nbsp;&nbsp;" styleClass="btn btn-warning" ajax="false">
+                                    <p:fileDownload value="#{FileDownload.file}" />
+                                </p:commandButton>
+                            </h:form>
+                      </p>                                                  
+                      <a href="#dos"> <button class="btn btn-warning">Ir al Paso 2</button></a>
+                    </div>                    
+                  
+                  <hr id="dos"></hr>
+
+                    <div  class="row">
+                        
+                        <div class="col-md-6">
+                      <img class=" img-circle pull-left" src="resources/eti.jpg" width='450' height='450'></img>
+                      </div>
+                            <div class="col-md-6"><h2 class="featurette-heading">Paso 2: Escribiendo con etiquetas!</h2>
+                      <p class="lead">Una vez descargado el archivo base, debes escribir todo el contenido de tu objeto de aprendizaje usando
+                          las siguientes etiquetas dependiendo las funcionalidades que deseas agregar. 
+                          Para ver las etiquetas haz click en en link Mostrar etiquetas.<a href="javascript:hideShow('tabla1')" style="color: #eb9316" ><p id="mostrar" style="display: block" onclick="changeShow()" >Mostrar etiquetas</p><p id="ocultar" style="display: none" onclick="changeShow()">Ocultar etiquetas</p></a></p>
+                                 
+                      <div id="tabla1" style="display: none">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Etiqueta / Fin etiqueta</th>
+                                    <th>Descripción</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td>&lt;object&gt; &lt;/object&gt;</td>
+                                    <td>Etiqueta para indicar el inicio y final del objeto de aprendizaje, todo lo que se encuentre
+                                        dentro de esta etiqueta corresponderá al objeto de aprendizaje.</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>&lt;object title="tituloObjeto"&gt; &lt;/object&gt;</td>
+                                    <td>Una vez definida la etiqueta anterior, para darle un título al objeto de aprendizaje la etiqueta anterior se complementa con title.</td>
+                                </tr>
+
+                                <tr>
+                                    <td>&lt;scene sceneTitle="nombreEscena"&gt; &lt;/scene&gt;</td>
+                                    <td>Etiqueta que indica el inicio y final de una escena, indicando el nombre de la escena para su identificación, todo lo que
+                                        se defina dentro de estas etiquetas estará contenido en la escena del objeto de aprendizaje.</td>
+                                </tr>
+
+                                <tr>
+                                    <td>&lt;text type="text"&gt; &lt;/text&gt;</td>
+                                    <td>Etiqueta que define el texto que aparecerá en la escena en particular del objeto de aprendizaje.</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;voice&gt; &lt;/voice&gt;</td>
+                                    <td>Etiqueta que contiene un texto que será leido por una voz en tiempo real en la escena en particular del objeto de aprendizaje.</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                          </div>
+                          <a href="#tres"> <button class="btn btn-warning">Ir al Paso 3</button></a>
+                    
+                                
+                  </div>  </div>
+
+                    <hr></hr>
+
+                    <div id="tres" class="featurette">
+                      <img class="featurette-image img-circle pull-right" src="resources/guardar.png" width='450' height='450'></img>
+                      <h2 class="featurette-heading">Paso 3: Genera tu OA!.</h2>
+                      <p class="lead">Cuando hayas terminado crear tu archivo XML, cárgalo en la barra de arriba, presiona el bóton 
+                          "Generar", luego presiona el bóton "Ir a OA" y verás tu objeto de aprendizaje ya generado.</p>
+                     <a href="#subir"><button class="btn btn-warning btn-lg ">Genera tu objeto de aprendizaje Ahora!</button></a>
+                    </div>
+        </div>
+        <br></br>
+        <footer >
+            
+                <br></br>
+                <div class="text-center" style="color: whitesmoke">
+                PODA por PODA TEAM está licenciado bajo la licencia:
+                <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
+                </div>
+            			
+        </footer>
+    </h:body>
+</html>
+

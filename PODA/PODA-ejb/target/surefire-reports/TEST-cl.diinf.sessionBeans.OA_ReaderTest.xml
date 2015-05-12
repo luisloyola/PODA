@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<<<<<<< HEAD
 <testsuite failures="0" time="0" errors="0" skipped="0" tests="3" name="cl.diinf.sessionBeans.OA_ReaderTest">
+=======
+<testsuite failures="0" time="0.117" errors="0" skipped="0" tests="3" name="cl.diinf.sessionBeans.OA_ReaderTest">
+>>>>>>> 191d9aa98c83a9bcdd763ded951d04acdd42685d
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-oracle/jre/lib/i386"/>
@@ -14,8 +18,13 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+<<<<<<< HEAD
     <property name="user.dir" value="/home/alex/Escritorio/pingeso/proyecto-pingeso/PODA"/>
     <property name="java.runtime.version" value="1.7.0_80-b15"/>
+=======
+    <property name="user.dir" value="/home/teban/NetBeansProjects/proyecto-pingeso/PODA"/>
+    <property name="java.runtime.version" value="1.7.0_76-b13"/>
+>>>>>>> 191d9aa98c83a9bcdd763ded951d04acdd42685d
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-7-oracle/jre/lib/endorsed"/>
     <property name="os.arch" value="i386"/>
@@ -37,12 +46,21 @@
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="1.7"/>
+<<<<<<< HEAD
     <property name="user.name" value="alex"/>
     <property name="java.class.path" value="/home/alex/netbeans-8.0.2/java/maven/boot/plexus-classworlds-2.4.jar"/>
+=======
+    <property name="user.name" value="teban"/>
+    <property name="java.class.path" value="/home/teban/netbeans-8.0.2/java/maven/boot/plexus-classworlds-2.4.jar"/>
+>>>>>>> 191d9aa98c83a9bcdd763ded951d04acdd42685d
     <property name="java.vm.specification.version" value="1.7"/>
     <property name="sun.arch.data.model" value="32"/>
     <property name="java.home" value="/usr/lib/jvm/java-7-oracle/jre"/>
+<<<<<<< HEAD
     <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=/home/alex/netbeans-8.0.2/java/maven-nblib/netbeans-eventspy.jar --also-make --projects PODA-ear install"/>
+=======
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=/home/teban/netbeans-8.0.2/java/maven-nblib/netbeans-eventspy.jar --also-make --projects PODA-ear install"/>
+>>>>>>> 191d9aa98c83a9bcdd763ded951d04acdd42685d
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="es"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -60,7 +78,13 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
+<<<<<<< HEAD
   <testcase time="0" classname="cl.diinf.sessionBeans.OA_ReaderTest" name="testGetContenidoFile"/>
   <testcase time="0" classname="cl.diinf.sessionBeans.OA_ReaderTest" name="testSetContenidoFile"/>
   <testcase time="0" classname="cl.diinf.sessionBeans.OA_ReaderTest" name="testReadOA"/>
+=======
+  <testcase time="0.007" classname="cl.diinf.sessionBeans.OA_ReaderTest" name="testGetContenidoFile"/>
+  <testcase time="0" classname="cl.diinf.sessionBeans.OA_ReaderTest" name="testSetContenidoFile"/>
+  <testcase time="0.038" classname="cl.diinf.sessionBeans.OA_ReaderTest" name="testReadOA"/>
+>>>>>>> 191d9aa98c83a9bcdd763ded951d04acdd42685d
 </testsuite>
