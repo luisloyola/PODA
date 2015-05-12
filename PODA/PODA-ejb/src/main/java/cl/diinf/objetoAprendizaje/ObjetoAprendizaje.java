@@ -6,6 +6,7 @@
 package cl.diinf.objetoAprendizaje;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,6 +17,8 @@ public class ObjetoAprendizaje {
     private String title;
     private String author;
     private List<Slide> content;
+    private String template;
+    private Date creationDate;
     
     public ObjetoAprendizaje(){
         content = new ArrayList<Slide>();
@@ -67,5 +70,23 @@ public class ObjetoAprendizaje {
     public List<Slide> getContent(){
         return this.content;
     }
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+    
+    
     
 }

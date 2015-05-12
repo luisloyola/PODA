@@ -6,9 +6,13 @@
   <version>1.0</version>
   <packaging>pom</packaging>
   <name>PODA</name>
+  <scm>
+    	<developerConnection>scm:git:git@bitbucket.org:gmartinez/proyecto-pingeso.git</developerConnection>
+  </scm>
   <modules>
     <module>PODA-ear</module>
     <module>PODA-web</module>
     <module>PODA-ejb</module>
   </modules>
+  
 </project>

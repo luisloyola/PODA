@@ -11,6 +11,7 @@ package cl.diinf.objetoAprendizaje;
  */
 public class Texto {
     private String type;
+    private String position;
     private String font;
     private String content;
     

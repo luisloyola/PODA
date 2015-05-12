@@ -9,17 +9,12 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable; 
 import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import cl.diinf.sessionBeans.OA_Reader;
 import cl.diinf.sessionBeans.OA_TranslateHtml;
 import java.util.NoSuchElementException;
 import javax.inject.Named;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 import javax.servlet.http.Part; 
 /**
  *
@@ -32,6 +27,7 @@ public class FileUpload implements Serializable{
     private Part file;
     private String fileContent;    
     private String code_html;
+    private String error_Message;
 
     public Part getFile() {
         return file;
@@ -56,7 +52,16 @@ public class FileUpload implements Serializable{
     public void setCode_html(String code_html) {
         this.code_html = code_html;
     }
+
+    public String getError_Message() {
+        return error_Message;
+    }
+
+    public void setError_Message(String error_Message) {
+        this.error_Message = error_Message;
+    }
  
+    
     
     /**
      * Cambia el contenido del la variable privada code_html para ser mostrada
@@ -69,9 +74,12 @@ public class FileUpload implements Serializable{
                 Scanner scan = new Scanner(file.getInputStream());
                 try{
                     fileContent = scan.useDelimiter("\\A").next();
+                    error_Message = null;
                 }
                 catch(NoSuchElementException e){
+                    /*Archivo vacío*/
                     code_html = null;
+                    error_Message = "El archivo ingresado se encuenra vacío.";
                 }
             }
             else{
@@ -93,9 +101,12 @@ public class FileUpload implements Serializable{
                 OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
                 code_html = OA_translate.writeHtml(OA_List.get(0));
+                error_Message = null;
             }
             else{
+                /*Archivo con errores o inválido.*/
                 code_html = null;
+                error_Message = nuevoOAR.getParsingError();
             }     
         }        
     }

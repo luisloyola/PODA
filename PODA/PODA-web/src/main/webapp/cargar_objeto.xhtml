@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Proyecto de Objetos de Aprendizaje</title>
+        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/style.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <script>
+            function ValidateFileFE(){
+                 var campo1 = document.getElementById('form:file');
+                    if(campo1.value ==''){
+                      alert("No ha seleccionado ningún archivo");
+                      return false;
+                    }
+                    return true;
+                    
+            }
+            function hideShow(id){
+                mostrado=0;
+                elem = document.getElementById(id);
+                if(elem.style.display=='block')mostrado=1;
+                elem.style.display='none';
+                if(mostrado!=1)elem.style.display='block';
+                
+            }
+            function changeShow(){
+                
+                elem = document.getElementById('mostrar');
+                elem2 = document.getElementById('ocultar');
+                
+                if(elem.style.display=='block'){
+                    elem2.style.display='block';
+                    elem.style.display='none';
+                }
+                else{
+                    elem2.style.display='none';
+                    elem.style.display='block';
+                }
+            }
+        </script>
+
+    </h:head>
+                  
+    <h:body >
+        <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+             <div class="navbar-header">
+             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+               <a href="/PODA-web/"><img src="resources/logo.png" WIDTH="150" HEIGHT="45"></img></a>
+             </div>
+             <div class="collapse navbar-collapse" id="navbar-main">
+               <ul class="nav navbar-nav">
+                    <li><a href="/PODA-web/" >Home</a></li>
+                    <li><a href="cargar_objeto.xhtml">Acerca</a></li>
+               </ul>
+
+             </div><!--/.nav-collapse -->
+           </div>
+         </div>
+
+        <div id="home" style="background-image: url(resources/aprender2.jpg)">
+            <div class="overlay">
+                <div class="container">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default">Ver mis Objetos de Aprendizaje</button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default">Generar un nuevo Objeto de Aprendizaje</button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default">Instrucciones</button>
+                  </div>
+                </div><br></br><br></br><br></br>
+                <div class="row">
+                <h:form id="form" enctype="multipart/form-data" >
+                     
+                        <div class="col-md-4 col-lg-offset-4">
+                            <h:inputFile id="file" value="#{fileUpload.file}" /> <!--validator="{fileUpload.ValidateFileFE}"/>-->
+                        </div>                 
+                        <h:commandButton action="#{fileUpload.upload}" value="Generar " styleClass="btn btn-warning" onclick=" return ValidateFileFE()"> &nbsp;
+                            <h:button outcome="objeto_aprendizaje.xhtml" value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-warning" ></h:button></h:commandButton>
+                            <h:outputText style="color:red; font-weight:bold; text-align: center" value="#{fileUpload.error_Message}"/>
+
+        
+                </h:form>                                                                
+               </div> 
+            </div>
+        </div>
+        </div>
+
+
+        <footer>
+            
+            <br></br>
+            <div class="text-center" style="color: whitesmoke">
+            PODA por PODA TEAM está licenciado bajo la licencia:
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
+            </div>
+            			
+        </footer>
+    </h:body>
+</html>
+
