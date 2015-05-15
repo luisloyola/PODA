@@ -185,11 +185,29 @@ public class OA_Reader {
                             Block newBlock = new Block();
                             
                             for(int l = 0; l < readedIdea.getLength(); l++){
+
                                 
                                 Idea newIdea = new Idea();
                                 
-                                Element currentIdea = (Element) readedIdea.item(l);
-                                                                                            
+                                Element currentIdea = (Element) readedIdea.item(l);                                                     
+                                
+                                int aparitionOrder = 0  ;
+                                
+                                try{
+                                    aparitionOrder = Integer.parseInt(currentIdea.getAttribute("ordenAparicion"));
+                                    if(aparitionOrder < 0){
+                                        this.parsingError = this.parsingError + "\nOrden de apareción inválido en: "+newSlide.getTitle()+".";
+                                        return new ArrayList<ObjetoAprendizaje>();
+                                    }
+                                }
+                                catch(Exception e){
+                                    
+                                    this.parsingError = this.parsingError + "\nOrden de apareción inválido en: "+newSlide.getTitle()+".";
+                                    return new ArrayList<ObjetoAprendizaje>();
+                                }
+                                
+                                newIdea.setAparitionOrder(aparitionOrder);
+                                
                                 NodeList textNode = currentIdea.getElementsByTagName("texto");
                                 
                                 for(int m = 0; m < textNode.getLength(); m++){
