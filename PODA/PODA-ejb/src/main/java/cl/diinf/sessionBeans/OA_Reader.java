@@ -120,7 +120,9 @@ public class OA_Reader {
                         newSlide.setDesign(currentSlide.getAttribute("tipo"));
                         if(newSlide.getDesign().equals("")){
                             this.setParsingError("No se especificó diseño de escena: "+newSlide.getTitle()+".");
+                            
                             newSlide.setDesign("1Col");
+                            return new ArrayList<ObjetoAprendizaje>();
                         }
                         //System.out.println("\nEscena: "+(j+1)+"\n\tTítulo: "+newSlide.getTitle()+"\n\tTipo: "+newSlide.getDesign());
                         
