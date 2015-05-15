@@ -90,7 +90,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
 
         for (int i = 0; i < object.getContent().size(); i++){
 
-            scene = object.getContent().get(i);            
+            /*scene = object.getContent().get(i);            
 
             //Escritura del head y titulo de una escena
             string_num = Integer.toString(i+1);
@@ -134,7 +134,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             }
 
             finish_scene = "</section>\n";
-            codeHtml = codeHtml + "\n" + finish_scene;
+            codeHtml = codeHtml + "\n" + finish_scene;*/
         }
         return codeHtml;
     }
@@ -216,9 +216,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             String string_num = Integer.toString(i+1);                
             String txt_voice = "";
 
-            for( int j = 0; j < scene.getVoice().size(); j++){
+            /*for( int j = 0; j < scene.getVoice().size(); j++){
                 txt_voice = txt_voice + scene.getVoice().get(j);
-            }
+            }*/
 
             htmlScriptVoice = "";
 

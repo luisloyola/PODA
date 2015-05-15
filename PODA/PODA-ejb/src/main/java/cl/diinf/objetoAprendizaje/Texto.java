@@ -11,8 +11,6 @@ package cl.diinf.objetoAprendizaje;
  */
 public class Texto {
     private String type;
-    private String position;
-    private String font;
     private String content;
     
     public Texto(){
@@ -27,21 +25,12 @@ public class Texto {
         this.type = type;
     }
 
-    public String getFont() {
-        return font;
-    }
-
-    public void setFont(String font) {
-        this.font = font;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-    
+    }  
     
 }

@@ -16,9 +16,9 @@ import java.util.List;
 public class ObjetoAprendizaje {
     private String title;
     private String author;
-    private List<Slide> content;
     private String template;
     private Date creationDate;
+    private List<Slide> content;
     
     public ObjetoAprendizaje(){
         content = new ArrayList<Slide>();

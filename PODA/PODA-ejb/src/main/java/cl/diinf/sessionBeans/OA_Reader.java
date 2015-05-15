@@ -69,13 +69,13 @@ public class OA_Reader {
             }
             catch(org.xml.sax.SAXException e){
                 /*Error en el parser*/
-                parsingError = e.getLocalizedMessage();
+                this.parsingError = e.getLocalizedMessage();
                 return Objects;
             }
             OA_XML_File.delete();
             doc.getDocumentElement().normalize();
 
-            NodeList OA = doc.getElementsByTagName("object");
+            NodeList OA = doc.getElementsByTagName("objeto");
 
             /*
                 Recorre todos los objetos encontrados en el archivo de entrada para
@@ -101,89 +101,146 @@ public class OA_Reader {
                 */
                 ObjetoAprendizaje newOA = new ObjetoAprendizaje();         
                 Node ObjectNode = OA.item(i);                
-                Element currentNode = (Element) ObjectNode;                      
-                newOA.setTitle(currentNode.getAttribute("title"));
-                newOA.setAuthor(currentNode.getAttribute("author"));  
-                newOA.setTemplate(currentNode.getAttribute("template"));
+                Element currentNode = (Element) ObjectNode;     
+                
+                newOA.setTitle(currentNode.getAttribute("titulo"));
+                newOA.setAuthor(currentNode.getAttribute("autor"));  
+                newOA.setTemplate(currentNode.getAttribute("tema"));
                 newOA.setCreationDate(new Date());
                 
-                //System.out.println("Título Objeto: "+newOA.getTitle()+" Realizado por: "+newOA.getAuthor()+" Template: "+newOA.getTemplate());
+                //System.out.println("Título Objeto: "+newOA.getTitle()+" Realizado por: "+newOA.getAuthor()+" Template: "+newOA.getTemplate() + " Fecha creación: "+newOA.getCreationDate());
                 
                 Element slideNode = (Element) currentNode;
-                NodeList slides = slideNode.getElementsByTagName("scene");  
+                NodeList slides = slideNode.getElementsByTagName("escena");  
                 
-                List<Slide> currentSlides = new ArrayList<Slide>();
-                
-                if(slides.getLength() == 0){
-                    /*
-                        Si no encuentra slides, devuelve un objeto vacío.
-                    */
-                    newOA.addContent(new Slide());
-                    newOAList.add(newOA);
-                    return newOAList;
-                }
-                
-                for(int j = 0; j < slides.getLength(); j++){
-                    
-                    /*
-                        De encontrar, al menos una slide, lee los textos y voces asociados.
-                    */
-                    
-                    Slide newSlide = new Slide();                    
-                    Element currentNode2 = (Element) slides.item(j);
-                    newSlide.setTitle(currentNode2.getAttribute("sceneTitle"));
-                    newSlide.setTime(currentNode2.getAttribute("time"));
-                    newSlide.setDesign(currentNode2.getAttribute("design"));
-         
-                    //System.out.println("\tDiapositiva: "+newSlide.getTitle()+" Duración: "+newSlide.getTime() + " Diseño: "+newSlide.getDesign());
-                    
-                    Element contenidoSlide = (Element) currentNode2;
-                    NodeList xmlText = contenidoSlide.getElementsByTagName("text");
-                    NodeList xmlVoices = contenidoSlide.getElementsByTagName("voice");
-                    NodeList xmlMedia = contenidoSlide.getElementsByTagName("media");
-                    
-                    if(xmlText.getLength() == 0 && xmlVoices.getLength() == 0){
-                        Texto emptyTxt = new Texto();
-                        emptyTxt.setContent("vacio");
-                        emptyTxt.setFont("default");
-                        emptyTxt.setType("text");
-                        newSlide.addText(emptyTxt);
-                        newSlide.addVoice("");
-                    }
-                    
-                    for(int x = 0; x < xmlText.getLength(); x++){
-                        Element textoFinal = (Element)xmlText.item(x);
-                                           
-                        //System.out.println("\t\tTipo: "+textoFinal.getAttribute("type")+" Fuente: "+textoFinal.getAttribute("font")+" Contenido: "+textoFinal.getTextContent());
+                for(int j = 0; j < slides.getLength(); j++ ){
+                        Slide newSlide = new Slide();
+                        Element currentSlide = (Element) slides.item(j);
+                        newSlide.setTitle(currentSlide.getAttribute("titulo"));
+                        newSlide.setDesign(currentSlide.getAttribute("tipo"));
+                        if(newSlide.getDesign().equals("")){
+                            this.setParsingError("No se especificó diseño de escena: "+newSlide.getTitle()+".");
+                            newSlide.setDesign("1Col");
+                        }
+                        //System.out.println("\nEscena: "+(j+1)+"\n\tTítulo: "+newSlide.getTitle()+"\n\tTipo: "+newSlide.getDesign());
                         
-                        Texto nuevoTexto = new Texto();                  
-                        nuevoTexto.setContent(textoFinal.getTextContent());
-                        nuevoTexto.setFont(textoFinal.getAttribute("font"));
-                        nuevoTexto.setType(textoFinal.getAttribute("type"));
-                        newSlide.addText(nuevoTexto);
-                    }
-                    
-                    for(int y = 0; y < xmlVoices.getLength(); y++){
-                        Element vocesFinal = (Element)xmlVoices.item(y);
-                        
-                        //System.out.println("\t\tVoz: "+vocesFinal.getTextContent());
-                        
-                       newSlide.addVoice(vocesFinal.getTextContent());
-                    }
-                    
-                    for(int w = 0; w < xmlMedia.getLength(); w++){
-                        Element mediaFinal = (Element)xmlMedia.item(w);
-                        Media media = new Media();
-                        media.setPosition(mediaFinal.getAttribute("position"));
-                        media.setType(mediaFinal.getAttribute("type"));
-                        media.setContent(mediaFinal.getTextContent());
-                        newSlide.addMedia(media);
-                        
-                        //System.out.println("\t\tPosicion: "+media.getPosition()+" tipo: "+media.getType()+" Contenido: "+media.getContent());
+                        NodeList readedBlocks  = currentSlide.getElementsByTagName("bloque");
+                            
+                        for(int k = 0; k < readedBlocks.getLength(); k++){
+                            int breaker = -1;
+                            switch(newSlide.getDesign()){
+                                case "1Col":
+                                    if(readedBlocks.getLength()  != 1){
+                                        breaker = 1;
+                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                    }
+                                    break;
+                                case "1Row2Col":
+                                    if(readedBlocks.getLength()  != 3){
+                                        breaker = 3;
+                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                    }
+                                    break;
+                                case "2Col":
+                                    if(readedBlocks.getLength()  != 2){
+                                        breaker = 2;
+                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                    }
+                                    break;
+                                case "3Col":
+                                    if(readedBlocks.getLength()  != 3){
+                                        breaker = 3;
+                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                    }
+                                    break;
+                                case "1Row3Col":
+                                    if(readedBlocks.getLength()  != 4){
+                                        breaker = 4;
+                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                    }
+                                    break;
+                                case "2Row2Col":
+                                    if(readedBlocks.getLength()  != 4){
+                                        breaker = 4;
+                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                    }
+                                    break;
+                                default:
+                                    breaker = 1;
+                                    this.parsingError = this.parsingError + "\nTipo de diseño inválido.";
+                                    newSlide.setDesign("1Col");
+                                    break;
+                            }
+                            
+                            if(k == breaker-1){
+                                return new ArrayList<ObjetoAprendizaje>();
+                            }
+                            
+                            Element currentBlock = (Element) readedBlocks.item(k);
+                            
+                            NodeList readedIdea = currentBlock.getElementsByTagName("idea");
 
-                    }
+                            Block newBlock = new Block();
+                            
+                            for(int l = 0; l < readedIdea.getLength(); l++){
+                                
+                                Idea newIdea = new Idea();
+                                
+                                Element currentIdea = (Element) readedIdea.item(l);
+                                                                                            
+                                NodeList textNode = currentIdea.getElementsByTagName("texto");
+                                
+                                for(int m = 0; m < textNode.getLength(); m++){
+                                    
+                                    Element currentText = (Element) textNode.item(m);
+                                    
+                                    Texto newText = new Texto();
+                                    
+                                    newText.setContent(currentText.getTextContent());
+                                    
+                                    newText.setType(currentText.getAttribute("tipo"));
+                                    
+                                    switch(newText.getType()){
+                                        case "normal":
+                                            break;
+                                        case "manuscrito":
+                                            break;
+                                        case "codigo":
+                                            break;
+                                        case "ejemplo":
+                                            break;
+                                        default:
 
-                    newOA.addContent(newSlide);
+                                            newText.setType("normal");
+                                            this.parsingError = this.parsingError + "\nTipo de texto no soportado.";
+                                            return new ArrayList<ObjetoAprendizaje>();
+                                    }
+                                    
+                                    newIdea.addText(newText);
+                                    /*System.out.println("\t\tTexto: "+newText.getContent());
+                                    if(newText.getType()!=""){
+                                        System.out.println("\t\tTipo texto: "+newText.getType());
+                                    }*/
+                                    
+                                }
+                                
+                                NodeList voiceNode = currentIdea.getElementsByTagName("voz");
+                                
+                                if(voiceNode.getLength() > 0){
+                                    newIdea.setVoice(voiceNode.item(0).getTextContent());
+                                    //System.out.println("\t\tVoz: "+newIdea.getVoice()+"\n   ");
+                                }
+                                else if(voiceNode.getLength() >= 1){
+                                    
+                                    this.parsingError = this.parsingError + "\n Sólo se permite una voz por idea.";
+                                    new ArrayList<ObjetoAprendizaje>();
+                                }   
+                                newBlock.addIdeas(newIdea);
+                            }
+                            newSlide.addBlocks(newBlock);
+                        }
+                        
+                        newOA.addContent(newSlide);
                 }
                 Objects.add(newOA);
             }    
@@ -191,6 +248,7 @@ public class OA_Reader {
         catch (Exception e) {
             e.printStackTrace();
         }      
+        
         
     return Objects;
 }
