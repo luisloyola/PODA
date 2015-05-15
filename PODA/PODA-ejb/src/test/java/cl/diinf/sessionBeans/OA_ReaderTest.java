@@ -76,31 +76,143 @@ public class OA_ReaderTest {
     @Test
     public void testReadOA() {
         OA_Reader instance = new OA_Reader();
-        instance.setFileContent("<?xml version=\"1.0\"?>\n" +
-"\n" +
-"<begin>\n" +
-"	<object title=\"QWERTY\" author=\"ASDFG\">\n" +
-"		<scene sceneTitle=\"1\" time=\"default\">\n" +
-"			<text type=\"text\" font=\"default\">Text1.1</text>	\n" +
-"			<voice>Voice1.1</voice>	\n" +
-"		</scene>\n" +
-"		<scene sceneTitle=\"2\" time=\"default\">\n" +
-"			<text type=\"example\" font=\"default\">Text1.2</text>\n" +
-"			<text type=\"example\" font=\"default\">Text1.3</text>\n" +
-"			<text type=\"example\" font=\"default\">Text1.4</text>	\n" +
-"			<voice>Voice1.2</voice>	\n" +
-"		</scene>\n" +
-"	</object>\n" +
-"	<object Title=\"QWERTY2\" author=\"ASDFG2\">\n" +
-"		<scene sceneTitle=\"1\" time=\"default\">\n" +
-"			<text type=\"example\" font=\"default\">text2.1</text>\n" +
-"			<text type=\"example\" font=\"default\">text2.2</text>	\n" +
-"			<voice>Voice2.1</voice>	\n" +
-"		</scene>\n" +
-"	</object>\n" +
+        instance.setFileContent(" <begin>\n" +
+"	<objeto titulo=\"Prueba v3\" autor=\"PODATeam\" tema=\"default\">\n" +
+"		<escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"normal\">texto 1Col: 1</texto>\n" +
+"					<texto tipo=\"codigo\">texto 1Col: 2</texto>\n" +
+"					<voz>Voz 1Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"		<escena titulo=\"Escena 1 Fila 2 Columnas\" tipo=\"1Row2Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"ejemplo\">texto 1Row2Col: 1</texto>\n" +
+"					<texto tipo=\"manuscrito\">texto 1Row2Col: 2</texto>\n" +
+"					<voz>Voz 1Row2Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>	\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo=\"normal\">texto 1Row2Col: 3</texto>\n" +
+"					<texto tipo=\"manuscrito\">texto 1Row2Col: 4</texto>\n" +
+"					<voz>Voz 1Row2Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"3\">\n" +
+"					<texto tipo=\"ejemplo\">texto 1Row2Col: 5</texto>\n" +
+"					<texto tipo=\"ejemplo\">texto 1Row2Col: 6</texto>\n" +
+"					<voz>Voz 1Row2Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>		\n" +
+"		</escena>\n" +
+"		<escena titulo=\"Escena 2 Columnas\" tipo=\"2Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"normal\">texto 1Row2Col: 1</texto>\n" +
+"					<texto tipo=\"codigo\">texto 1Row2Col: 2</texto>\n" +
+"					<voz>Voz 1Row2Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>	\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo=\"manuscrito\">texto 1Row2Col: 3</texto>\n" +
+"					<texto tipo=\"manuscrito\">texto 1Row2Col: 4</texto>\n" +
+"					<voz>Voz 1Row2Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"		<escena titulo=\"Escena 3 Columnas\" tipo=\"3Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"codigo\">texto 3Col: 1</texto>\n" +
+"					<texto tipo=\"codigo\">texto 3Col: 2</texto>\n" +
+"					<voz>Voz 3Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo=\"manuscrito\">texto 3Col: 3</texto>\n" +
+"					<texto tipo=\"codigo\">texto 3Col: 4</texto>\n" +
+"					<voz>Voz 3Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"3\">\n" +
+"					<texto tipo=\"normal\">texto 3Col: 5</texto>\n" +
+"					<texto tipo=\"normal\">texto 3Col: 6</texto>\n" +
+"					<voz>Voz 3Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"		<escena titulo=\"Escena 1 Fila 3 Columnas\" tipo=\"1Row3Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"normal\">texto 1Row3Col: 1</texto>\n" +
+"					<texto tipo=\"codigo\">texto 1Row3Col: 2</texto>\n" +
+"					<voz>Voz 1Row3Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo=\"normal\">texto 1Row3Col: 3</texto>\n" +
+"					<texto tipo=\"normal\">texto 1Row3Col: 4</texto>\n" +
+"					<voz>Voz 1Row3Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"3\">\n" +
+"					<texto tipo=\"normal\">texto 1Row3Col: 5</texto>\n" +
+"					<texto tipo=\"codigo\">texto 1Row3Col: 6</texto>\n" +
+"					<voz>Voz 1Row3Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"4\">\n" +
+"					<texto tipo=\"normal\">texto 1Row3Col: 7</texto>\n" +
+"					<texto tipo=\"normal\">texto 1Row3Col: 8</texto>\n" +
+"					<voz>Voz 1Row3Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"		<escena titulo=\"Escena 2 Filas 2 Columnas\" tipo=\"2Row2Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"normal\">texto 2Row2Col: 1</texto>\n" +
+"					<texto tipo=\"normal\">texto 2Row2Col: 2</texto>\n" +
+"					<voz>Voz 2Row2Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo=\"normal\">texto 2Row2Col: 3</texto>\n" +
+"					<texto tipo=\"normal\">texto 2Row2Col: 4</texto>\n" +
+"					<voz>Voz 2Row2Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"3\">\n" +
+"					<texto tipo=\"normal\">texto 2Row2Col: 5</texto>\n" +
+"					<texto tipo=\"manuscrito\">texto 2Row2Col: 6</texto>\n" +
+"					<voz>Voz 2Row2Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"4\">\n" +
+"					<texto tipo=\"normal\">texto 2Row2Col: 7</texto>\n" +
+"					<texto tipo=\"normal\">texto 2Row2Col: 8</texto>\n" +
+"					<voz>Voz 2Row2Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"	</objeto>\n" +
 "</begin>");
         int result = instance.readOA().size();
-        assertEquals(2, result);
+        assertEquals(1, result);
     }
 
     
