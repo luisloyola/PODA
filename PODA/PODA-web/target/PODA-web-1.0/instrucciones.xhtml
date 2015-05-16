@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Proyecto de Objetos de Aprendizaje</title>
+        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/style.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <script>
+            function hideShow(id){
+                mostrado=0;
+                elem = document.getElementById(id);
+                if(elem.style.display=='block')mostrado=1;
+                elem.style.display='none';
+                if(mostrado!=1)elem.style.display='block';
+                
+            }
+            function changeShow(){
+                
+                elem = document.getElementById('mostrar');
+                elem2 = document.getElementById('ocultar');
+                
+                if(elem.style.display=='block'){
+                    elem2.style.display='block';
+                    elem.style.display='none';
+                }
+                else{
+                    elem2.style.display='none';
+                    elem.style.display='block';
+                }
+            }
+        </script>
+    </h:head>
+                  
+    <h:body >
+         <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+             <div class="navbar-header">
+             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+               <a href="/PODA-web/"><img src="resources/logo.png" WIDTH="150" HEIGHT="45"></img></a>
+             </div>
+             <div class="collapse navbar-collapse" id="navbar-main">
+               <ul class="nav navbar-nav">
+                    <li><a href="/PODA-web/" >Home</a></li>
+                    <li><a href="acerca_poda.html">Acerca</a></li>
+               </ul>
+
+             </div><!--/.nav-collapse -->
+           </div>
+         </div>
+
+                <div class="container">
+                  <hr ></hr>
+
+                    <div id="uno" class="featurette"><br></br>
+                        <img class="featurette-image img-circle pull-right" src="resources/archivo1.jpg" width='450' height='450'></img>
+                      <h2 class="featurette-heading">Paso 1: Descarga el archivo base!</h2>
+                      <p class="lead">Lo primero que debes hacer es descargar nuestra plantilla de ejemplo para empezar a crear tu propio objeto
+                          de aprendizaje. Haz click en Descargar Plantilla 
+                            <h:form>
+                                <h:commandButton value="&nbsp;&nbsp;&nbsp;Descargar Plantilla&nbsp;&nbsp;&nbsp;" styleClass="btn btn-default">
+                                    <p:fileDownload value="#{FileDownload.file}" />
+                                </h:commandButton>
+                            </h:form>
+                      </p>                                                  
+                      <a href="#dos"> <button class="btn btn-success">Ir al Paso 2</button></a>
+                    </div>                    
+                  
+                  <hr id="dos"></hr>
+
+                    <div  class="row">
+                        
+                        <div class="col-md-6">
+                      <img class=" img-circle pull-left" src="resources/eti.jpg" width='450' height='450'></img>
+                      </div>
+                            <div class="col-md-6">
+                                <h2 class="featurette-heading">Paso 2: Escribiendo con etiquetas!</h2>
+                      <p class="lead">Una vez descargado el archivo base, debes escribir todo el contenido de tu objeto de aprendizaje usando
+                          las siguientes etiquetas dependiendo las funcionalidades que deseas agregar. 
+                          Para ver las etiquetas haz click en en link Mostrar etiquetas.</p>
+                    <a href="javascript:hideShow('tabla1')" style="color: #1B65BC; text-decoration: none" >
+                    <p id="mostrar" style="display: block" onclick="changeShow()" >Mostrar etiquetas</p>
+                    <p id="ocultar" style="display: none" onclick="changeShow()">Ocultar etiquetas</p></a>
+                                 
+                      <div id="tabla1" style="display: none">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Etiqueta / Fin etiqueta</th>
+                                    <th>Descripción</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td>&lt;object&gt; &lt;/object&gt;</td>
+                                    <td>Etiqueta para indicar el inicio y final del objeto de aprendizaje, todo lo que se encuentre
+                                        dentro de esta etiqueta corresponderá al objeto de aprendizaje.</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>&lt;object title="tituloObjeto"&gt; &lt;/object&gt;</td>
+                                    <td>Una vez definida la etiqueta anterior, para darle un título al objeto de aprendizaje la etiqueta anterior se complementa con title.</td>
+                                </tr>
+
+                                <tr>
+                                    <td>&lt;scene sceneTitle="nombreEscena"&gt; &lt;/scene&gt;</td>
+                                    <td>Etiqueta que indica el inicio y final de una escena, indicando el nombre de la escena para su identificación, todo lo que
+                                        se defina dentro de estas etiquetas estará contenido en la escena del objeto de aprendizaje.</td>
+                                </tr>
+
+                                <tr>
+                                    <td>&lt;text type="text"&gt; &lt;/text&gt;</td>
+                                    <td>Etiqueta que define el texto que aparecerá en la escena en particular del objeto de aprendizaje.</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;voice&gt; &lt;/voice&gt;</td>
+                                    <td>Etiqueta que contiene un texto que será leido por una voz en tiempo real en la escena en particular del objeto de aprendizaje.</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                          </div>
+                          <a href="#tres"> <button class="btn btn-success">Ir al Paso 3</button></a>
+                    
+                                
+                  </div>  </div>
+
+                    <hr></hr>
+
+                    <div id="tres" class="featurette">
+                      <img class="featurette-image img-circle pull-right" src="resources/guardar.png" width='450' height='450'></img>
+                      <h2 class="featurette-heading">Paso 3: Genera tu OA!.</h2>
+                      <p class="lead">Cuando hayas terminado crear tu archivo XML, cárgalo en la barra de arriba, presiona el bóton 
+                          "Generar", luego presiona el bóton "Ir a OA" y verás tu objeto de aprendizaje ya generado.</p>
+                     <a href="home.xhtml"><button class="btn btn-success btn-lg ">Genera tu objeto de aprendizaje Ahora!</button></a>
+                    </div>
+        </div>
+        <br></br>
+        <footer>
+            
+            <br></br>
+            <div class="text-center" style="color: whitesmoke">
+            PODA por PODA TEAM está licenciado bajo la licencia:
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
+            </div>
+            			
+        </footer>
+    </h:body>
+</html>

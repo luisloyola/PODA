@@ -3,28 +3,32 @@
     <head>
         <title>Acerca</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="resources/css/ag-bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
     </head>
     <body >
-        <header >      
-            <div class="navbar-inverse navbar-fixed-top">
-           <div class="container">
+         <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
              <div class="navbar-header">
-               <a class="navbar-brand" href="/PODA-web/"><b>PODA</b></a>
+             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+               <a href="/PODA-web/"><img src="resources/logo.png" WIDTH="150" HEIGHT="45"></a>
              </div>
-             <div class="collapse navbar-collapse">
+             <div class="collapse navbar-collapse" id="navbar-main">
                <ul class="nav navbar-nav">
-                   <li><a href="/PODA-web/" >Home</a></li>
-                 <li><a href="acerca_poda.html">Acerca</a></li>
+                    <li><a href="/PODA-web/" >Home</a></li>
+                    <li><a href="acerca_poda.html">Acerca</a></li>
                </ul>
+
              </div><!--/.nav-collapse -->
            </div>
          </div>
-        </header>
-        
-        <div class="container">
-            
-        </div>
+    <br>
       <div class="container">
         <h1 class="page-header">Historia</h1>  
         <p class="lead">El proyecto PODA nace como una propuesta hacia lo que es la creación de objetos de aprendizaje, 
@@ -64,14 +68,15 @@
             </div>
         </div>
     <br>
-        <footer >
+        <footer>
             
-                <br>
-                <div class="text-center" style="color: whitesmoke">
-                PODA por PODA TEAM está licenciado bajo la licencia: <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a>
-                </div>
-          		
-        </footer>			
+            <br>
+            <div class="text-center" style="color: whitesmoke">
+            PODA por PODA TEAM está licenciado bajo la licencia:
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a>
+            </div>
+            			
+        </footer>		
         
     </body>
 </html>
