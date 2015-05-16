@@ -184,6 +184,12 @@ public class OA_Reader {
                                         this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
                                     }
                                     break;
+                                case "2Col1Fil":
+                                    if(readedBlocks.getLength()  != 3){
+                                        breaker = 3;
+                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                    }
+                                    break;    
                                 default:
                                     breaker = 1;
                                     this.parsingError = this.parsingError + "\nTipo de diseño inválido.";
