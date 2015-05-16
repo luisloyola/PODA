@@ -5,6 +5,7 @@
  */
 package cl.diinf.sessionBeans;
 
+import cl.diinf.handlers.SimpleErrorHandler;
 import cl.diinf.objetoAprendizaje.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -62,17 +63,33 @@ public class OA_Reader {
         try {
             File OA_XML_File = this.stringToFile(fileContent);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            dbFactory.setValidating(true);
+            
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            
+            SimpleErrorHandler errorHandler = new SimpleErrorHandler();
+            
+            dBuilder.setErrorHandler(errorHandler);
             Document doc = dBuilder.newDocument();
+            
             try{
+                
                 doc = dBuilder.parse(OA_XML_File);
+                if(!errorHandler.getErrorMessage().equals("NO_ERROR")){
+                    this.parsingError = this.parsingError +"\n"+ errorHandler.getErrorMessage();
+                    OA_XML_File.delete();
+                    return Objects;
+                }
+                else{
+                    OA_XML_File.delete();
+                }
             }
             catch(org.xml.sax.SAXException e){
                 /*Error en el parser*/
                 this.parsingError = e.getLocalizedMessage();
                 return Objects;
             }
-            OA_XML_File.delete();
+            
             doc.getDocumentElement().normalize();
 
             NodeList OA = doc.getElementsByTagName("objeto");
@@ -137,7 +154,7 @@ public class OA_Reader {
                                         this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
                                     }
                                     break;
-                                case "1Row2Col":
+                                case "1Fil2Col":
                                     if(readedBlocks.getLength()  != 3){
                                         breaker = 3;
                                         this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
@@ -155,13 +172,13 @@ public class OA_Reader {
                                         this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
                                     }
                                     break;
-                                case "1Row3Col":
+                                case "1Fil3Col":
                                     if(readedBlocks.getLength()  != 4){
                                         breaker = 4;
                                         this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
                                     }
                                     break;
-                                case "2Row2Col":
+                                case "2Fil2Col":
                                     if(readedBlocks.getLength()  != 4){
                                         breaker = 4;
                                         this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
