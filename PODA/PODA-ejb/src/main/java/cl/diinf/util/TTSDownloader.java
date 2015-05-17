@@ -82,4 +82,16 @@ public class TTSDownloader {
                 StandardCopyOption.REPLACE_EXISTING);
         return fileName;
     }
+    
+    /**
+     * Busca la ruta del deply de la app en wildfly
+     * @return ruta del del OA
+     */
+    public static String generatePathForOA(){
+        String OAPath = new File("").getAbsolutePath(); // Wildfly/bin
+        OAPath = OAPath.replaceAll("bin", "");
+        OAPath += ("/standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war");
+        OAPath = OAPath.replaceAll("localhost:8080", "");
+        return OAPath;
+    }
 }

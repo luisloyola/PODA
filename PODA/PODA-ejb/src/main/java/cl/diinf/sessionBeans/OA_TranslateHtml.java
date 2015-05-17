@@ -43,7 +43,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         codeHtml += write_contentHtml(object);
         codeHtml += write_librsHtml(object);
         codeHtml += write_scriptHtml(object);
-        //codeHtml = write_voiceHtml(object);
+        codeHtml += write_voiceHtml(object);
         
         return codeHtml;
     }
@@ -147,7 +147,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     }
     
     
-    public String write_block(Block block, String OAPath, int numberSlide, int numberBlock){
+    public String write_block(Block block, String OAPath, String OAName, int numberSlide, int numberBlock){
         
         String codeHtml = "";
         
@@ -201,11 +201,11 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             
             String audioFileName;
             try {
-                audioFileName = TTSDownloader.downloadFromGoogleTTS(idea.getVoice(), OAPath + "resources/audios/");
+                audioFileName = TTSDownloader.downloadFromGoogleTTS(idea.getVoice(), OAPath);
                 
                 //<audio id="audio-numberSlide-numberBlock-numberIdea" source src="resources/audios/audioFileName.mp3" type="audio/ogg"></audio> 
                 codeHtml += ("<audio id=\"audio-" + numberSlide + "-" + numberBlock + "-" + i + "\" ");
-                codeHtml += ("source src=\""+OAPath +"resources/audios/"+ audioFileName +"\" ");
+                codeHtml += ("source src=\"resources/audios/" + OAName+ "/"+audioFileName +"\" ");
                 codeHtml += ("type=\"audio/ogg\"></audio>");
                 
                         
@@ -246,7 +246,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return codeHtml;
     }
     
-    public String write_slideHtml(Slide scene, int nro_slide, String OAPath){
+    public String write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName){
         
         String codeHtml = "";
         
@@ -258,7 +258,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             case "1Col":
                 //escribir contenido del primer bloque
                 
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
                 codeHtml += "</section>";
                 break;
                 
@@ -266,17 +266,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-2columnas-1up\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-2columnas-1up\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1up\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                         
@@ -286,12 +286,12 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                                 
                 codeHtml += "<div class=\"left-2columnas\">";
                 //escribir contenido del primer bloque
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas\">";
                 //escribir contenido del segundo bloque
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
                 codeHtml += "</div>" + "</section>";
                 
                 break;
@@ -299,17 +299,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"left-3columnas\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"center-3columnas\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-3columnas\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                 
@@ -318,22 +318,22 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-3columnas-1up\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-3columnas-1up\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"center-3columnas-1up\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-3columnas-1up\">";
                 //bloque 4
-                codeHtml += write_block(scene.getBlocks().get(3), OAPath, nro_slide, 3);
+                codeHtml += write_block(scene.getBlocks().get(3), OAPath, OAName, nro_slide, 3);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                 
@@ -342,22 +342,22 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-2columnas-1up-1down\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-2columnas-1up-1down\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1up-1down\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"down-2columnas-1up-1down\">";
                 //bloque 4
-                codeHtml += write_block(scene.getBlocks().get(3), OAPath, nro_slide, 3);
+                codeHtml += write_block(scene.getBlocks().get(3), OAPath, OAName, nro_slide, 3);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                 
@@ -366,17 +366,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                  codeHtml += "<div class=\"left-2columnas-1down\">";
                 //bloque 1
-                 codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
+                 codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1down \">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"down-2columnas-1down \">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                 
@@ -402,8 +402,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         OAName += ("" + System.currentTimeMillis() + "_OA");
         
         /* Obtener la ruta donde guardar el OA*/
-        String OAPath = new File("").getAbsolutePath(); // Wildfly/bin
-        OAPath = OAPath.concat("/OAs/" + OAName +"/");
+        String OAPath = TTSDownloader.generatePathForOA(); // Wildfly/standalone/deplayments/...ear/...web.war
+        
+        OAPath = OAPath.concat("/resources/audios/" + OAName +"/");
 
         //Codigo de las escenas
         String codeHtml = "";
@@ -411,7 +412,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         
         for (int i = 0; i < object.getContent().size(); i++){
 
-            codeHtml += write_slideHtml(object.getContent().get(i), i+1, OAPath);
+            codeHtml += write_slideHtml(object.getContent().get(i), i+1, OAPath, OAName);
                                     
         }
         return codeHtml;
