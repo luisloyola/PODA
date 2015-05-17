@@ -1,0 +1,17 @@
+<!ELEMENT comenzar (objeto)>
+<!ELEMENT objeto (escena+)>
+<!ELEMENT escena (bloque+)>
+<!ELEMENT bloque (idea+)>
+<!ELEMENT idea (texto*, voz)>
+<!ELEMENT texto (#PCDATA)>
+<!ELEMENT voz (#PCDATA)>
+
+<!ATTLIST objeto titulo CDATA #REQUIRED>
+<!ATTLIST objeto autor CDATA #REQUIRED>
+<!ATTLIST objeto tema CDATA #REQUIRED>
+<!ATTLIST escena titulo CDATA #REQUIRED>
+<!ATTLIST escena tipo CDATA #REQUIRED>
+
+<!ATTLIST idea ordenAparicion CDATA #REQUIRED>
+<!ATTLIST texto tipo CDATA #REQUIRED>
+

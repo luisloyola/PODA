@@ -39,4 +39,11 @@ public class FileDownload {
         return file;
     }
     
+    public StreamedContent getZipFile(String path){
+        InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream(path);
+        file = new DefaultStreamedContent(stream, "application/zip","ObjetoAprendizaje.zip");
+        
+        return file;
+    }
+    
 }
