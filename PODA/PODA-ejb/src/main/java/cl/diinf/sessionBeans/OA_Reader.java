@@ -80,8 +80,11 @@ public class OA_Reader {
                     if(tempErrorHandler[0].equals("Attribute")){
                         this.parsingError = "En el elemento: "+tempErrorHandler[11]+" debe añadirse el atributo: "+tempErrorHandler[1];
                     }
-                    else if(tempErrorHandler[0].equals("The") && tempErrorHandler[1].equals("content")){
+                    else if(tempErrorHandler[0].equals("The") && tempErrorHandler[1].equals("content") && !tempErrorHandler[7].equals("incomplete,")){
                         this.parsingError = "El elemento: "+tempErrorHandler[5] +" debe cumplir el patrón: "+tempErrorHandler[8];
+                    }
+                    else if(tempErrorHandler[7].equals("incomplete,")){
+                        this.parsingError = "El elemento: "+tempErrorHandler[5]+" Está incompleto, debe cumplir el patrón: "+tempErrorHandler[11];
                     }
                     else{
                         this.parsingError = errorHandler.getErrorMessage();

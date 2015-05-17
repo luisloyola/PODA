@@ -21,6 +21,7 @@ public class Idea {
     public Idea(){
         text = new ArrayList<Texto>();
         media = new ArrayList<Media>();
+        voice = "";
     }
 
     public int getAparitionOrder() {
