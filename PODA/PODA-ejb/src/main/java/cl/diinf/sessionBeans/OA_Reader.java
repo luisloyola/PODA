@@ -86,7 +86,14 @@ public class OA_Reader {
             }
             catch(org.xml.sax.SAXException e){
                 /*Error en el parser*/
-                this.parsingError = e.getLocalizedMessage();
+                if(e.getLocalizedMessage().equals("Content is not allowed in prolog.")){
+                    this.parsingError = "Error: Archivo no soportado.";
+                }
+                else{
+                    String[] translate = e.getLocalizedMessage().split(" ");
+                    this.parsingError = "Error: El elemento "+translate[3]+" debe terminar con "+translate[11];
+                }
+                
                 return Objects;
             }
             

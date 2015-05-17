@@ -79,14 +79,14 @@ public class FileUpload implements Serializable{
                 catch(NoSuchElementException e){
                     /*Archivo vacío*/
                     code_html = null;
-                    error_Message = "El archivo ingresado se encuenra vacío.";
+                    error_Message = "El archivo ingresado se encuentra vacío.";
                 }
             }
             else{
                 fileContent = "Error: debe ingresar un archivo";
             }
         } catch (IOException e) {
-            
+            error_Message = "Archivo inválido";
         }
         if (fileContent != null && !fileContent.isEmpty()){
            
