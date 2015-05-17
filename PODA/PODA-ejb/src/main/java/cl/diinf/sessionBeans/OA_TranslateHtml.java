@@ -8,10 +8,12 @@ package cl.diinf.sessionBeans;
 import javax.ejb.Stateless;
 import cl.diinf.objetoAprendizaje.*;
 import cl.diinf.util.TTSDownloader;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,6 +101,18 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "       document.write(ejemplos[index])\n" +
                             "   }\n" +
                             "</script> " +
+                            "<script>\n" +
+                            "  function play(idaudio){\n" +
+                            "  var audio = document.getElementById(idaudio);\n" +
+                            "  audio.play();\n" +
+                            "}\n" +
+                            "\n" +
+                            "function pause(idaudio){\n" +
+                            "  var audio = document.getElementById(idaudio);\n" +
+                            "  audio.pause();\n" +
+                            "  audio.currentTime = 0;\n" +
+                            "}\n" +
+                            "</script>\n"+
                             "</head>\n" +"\n" + "<body>" +
                             "<div class=\"deck-container\" >\n";
                 
@@ -133,7 +147,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     }
     
     
-    public String write_block(Block block){
+    public String write_block(Block block, String OAPath, int numberSlide, int numberBlock){
         
         String codeHtml = "";
         
@@ -184,12 +198,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             }
             
             //Escrbir codigo html para la voz de esta idea idea.getVoice()
-            String path = "/resources/audios";
+            
             String audioFileName;
-            System.out.println("idea.getVoice: "+idea.getVoice());
             try {
-                audioFileName = TTSDownloader.downloadFromGoogleTTS(idea.getVoice(), path);
-                System.out.println("audioFileName: " + audioFileName);
+                audioFileName = TTSDownloader.downloadFromGoogleTTS(idea.getVoice(), OAPath + "resources/audios/");
+                
+                //<audio id="audio-numberSlide-numberBlock-numberIdea" source src="resources/audios/audioFileName.mp3" type="audio/ogg"></audio> 
+                codeHtml += ("<audio id=\"audio-" + numberSlide + "-" + numberBlock + "-" + i + "\" ");
+                codeHtml += ("source src=\""+OAPath +"resources/audios/"+ audioFileName +"\" ");
+                codeHtml += ("type=\"audio/ogg\"></audio>");
+                
+                        
             } catch (IOException ex) {
                 Logger.getLogger(OA_TranslateHtml.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -227,7 +246,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return codeHtml;
     }
     
-    public String write_slideHtml(Slide scene, int nro_slide){
+    public String write_slideHtml(Slide scene, int nro_slide, String OAPath){
         
         String codeHtml = "";
         
@@ -239,7 +258,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             case "1Col":
                 //escribir contenido del primer bloque
                 
-                codeHtml += write_block(scene.getBlocks().get(0));
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
                 codeHtml += "</section>";
                 break;
                 
@@ -247,17 +266,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-2columnas-1up\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0));
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-2columnas-1up\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1));
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1up\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2));
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                         
@@ -267,12 +286,12 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                                 
                 codeHtml += "<div class=\"left-2columnas\">";
                 //escribir contenido del primer bloque
-                codeHtml += write_block(scene.getBlocks().get(0));
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas\">";
                 //escribir contenido del segundo bloque
-                codeHtml += write_block(scene.getBlocks().get(1));
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
                 codeHtml += "</div>" + "</section>";
                 
                 break;
@@ -280,17 +299,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"left-3columnas\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0));
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"center-3columnas\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1));
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-3columnas\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2));
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                 
@@ -299,22 +318,22 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-3columnas-1up\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0));
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-3columnas-1up\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1));
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"center-3columnas-1up\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2));
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-3columnas-1up\">";
                 //bloque 4
-                codeHtml += write_block(scene.getBlocks().get(3));
+                codeHtml += write_block(scene.getBlocks().get(3), OAPath, nro_slide, 3);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                 
@@ -323,22 +342,22 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-2columnas-1up-1down\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0));
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-2columnas-1up-1down\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1));
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1up-1down\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2));
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"down-2columnas-1up-1down\">";
                 //bloque 4
-                codeHtml += write_block(scene.getBlocks().get(3));
+                codeHtml += write_block(scene.getBlocks().get(3), OAPath, nro_slide, 3);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                 
@@ -347,17 +366,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                  codeHtml += "<div class=\"left-2columnas-1down\">";
                 //bloque 1
-                 codeHtml += write_block(scene.getBlocks().get(0));
+                 codeHtml += write_block(scene.getBlocks().get(0), OAPath, nro_slide, 0);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1down \">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1));
+                codeHtml += write_block(scene.getBlocks().get(1), OAPath, nro_slide, 1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"down-2columnas-1down \">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2));
+                codeHtml += write_block(scene.getBlocks().get(2), OAPath, nro_slide, 2);
                 codeHtml += "</div>";
                 codeHtml += "</section>";
                 
@@ -377,13 +396,22 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
      * @return string con todas las slides incorporadas.
      */
     public String write_contentHtml(ObjetoAprendizaje object){
+
+        /* Crear un nombre unico para el OA*/
+        String OAName = UUID.randomUUID().toString();
+        OAName += ("" + System.currentTimeMillis() + "_OA");
+        
+        /* Obtener la ruta donde guardar el OA*/
+        String OAPath = new File("").getAbsolutePath(); // Wildfly/bin
+        OAPath = OAPath.concat("/OAs/" + OAName +"/");
+
         //Codigo de las escenas
         String codeHtml = "";
         codeHtml += write_titleHtml(object);
         
         for (int i = 0; i < object.getContent().size(); i++){
 
-            codeHtml += write_slideHtml(object.getContent().get(i), i+1);
+            codeHtml += write_slideHtml(object.getContent().get(i), i+1, OAPath);
                                     
         }
         return codeHtml;
@@ -463,7 +491,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
      * @param codeHtml
      * @return 
      */
-    /*
+    
     public String write_voiceHtml(ObjetoAprendizaje object){
         //Procesamiento de la voz por cada escena
         String codeHtml = "";
@@ -471,36 +499,26 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
 
         for (int i = 0; i < object.getContent().size(); i++){
 
-            Slide scene = object.getContent().get(i);                        
-            String string_num = Integer.toString(i+1);                
-            String txt_voice = "";
-*/
-            /*for( int j = 0; j < scene.getVoice().size(); j++){
-                txt_voice = txt_voice + scene.getVoice().get(j);
-            }*/
-/*
-            htmlScriptVoice = "";
+            Slide scene = object.getContent().get(i);                                    
 
-            if(i == 0){
+            for(int j=0 ; j < scene.getBlocks().size(); j++){
+                for( int k=0 ; k < scene.getBlocks().get(j).getIdeas().size(); k++){
+                
+                    if(!scene.getBlocks().get(j).getIdeas().get(k).getVoice().equals(null)){
+                        htmlScriptVoice = "<script>\n" +
+                                            "  $(\"#slide-"+(i+1)+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
+                                            "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                            "    play(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                            "  });\n" +
+                                            "  $(\"#slide-"+(i+1)+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                            "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                            "  });\n" +
+                                            "</script>\n";            
 
-                htmlScriptVoice =   "<script>\n" + "  document.addEventListener(\"TTS_LOADED\", function(event) {\n" +                                    
-                                    "    $(\"#slide-"+string_num +"\").trigger('deck.becameCurrent');\n" +
-                                    "  });\n" + "</script>";
-
+                        codeHtml += "\n" + htmlScriptVoice;
+                    }
+                }
             }
-
-            htmlScriptVoice =   htmlScriptVoice +
-                                "<script>\n" +
-                                "  $(\"#slide-"+string_num+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
-                                "    var texto_a_reproducir = '"+txt_voice+"';\n" +
-                                "    responsiveVoice.cancel();\n" +
-                                "    if(texto_a_reproducir != ''){\n" +
-                                "      responsiveVoice.speak(texto_a_reproducir,'Spanish Female');\n" +
-                                "    }\n" +
-                                "  });\n" +
-                                "</script>\n";            
-
-            codeHtml = codeHtml + "\n" + htmlScriptVoice;
         }
 
         //Fin del HTML
@@ -509,5 +527,5 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         codeHtml = codeHtml + "\n" + htmlEnd;
 
         return codeHtml;
-    }            */                                                   
+    }                                                               
 }
