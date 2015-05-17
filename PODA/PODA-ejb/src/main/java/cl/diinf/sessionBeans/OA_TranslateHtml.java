@@ -7,10 +7,13 @@ package cl.diinf.sessionBeans;
 
 import javax.ejb.Stateless;
 import cl.diinf.objetoAprendizaje.*;
+import cl.diinf.util.TTSDownloader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -180,7 +183,16 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 list_examples.clear();
             }
             
-            //Escrbir codigo html para la voz de esta idea idea.getVoice()                        
+            //Escrbir codigo html para la voz de esta idea idea.getVoice()
+            String path = "/resources/audios";
+            String audioFileName;
+            System.out.println("idea.getVoice: "+idea.getVoice());
+            try {
+                audioFileName = TTSDownloader.downloadFromGoogleTTS(idea.getVoice(), path);
+                System.out.println("audioFileName: " + audioFileName);
+            } catch (IOException ex) {
+                Logger.getLogger(OA_TranslateHtml.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return codeHtml;
