@@ -76,7 +76,16 @@ public class OA_Reader {
                 
                 doc = dBuilder.parse(OA_XML_File);
                 if(!errorHandler.getErrorMessage().equals("NO_ERROR")){
-                    this.parsingError = this.parsingError +"\n"+ errorHandler.getErrorMessage();
+                    String[] tempErrorHandler = errorHandler.getErrorMessage().split(" ");
+                    if(tempErrorHandler[0].equals("Attribute")){
+                        this.parsingError = "En el elemento: "+tempErrorHandler[11]+" debe añadirse el atributo: "+tempErrorHandler[1];
+                    }
+                    else if(tempErrorHandler[0].equals("The") && tempErrorHandler[1].equals("content")){
+                        this.parsingError = "El elemento: "+tempErrorHandler[5] +" debe cumplir el patrón: "+tempErrorHandler[8];
+                    }
+                    else{
+                        this.parsingError = errorHandler.getErrorMessage();
+                    }
                     OA_XML_File.delete();
                     return Objects;
                 }
@@ -158,48 +167,48 @@ public class OA_Reader {
                                 case "1Col":
                                     if(readedBlocks.getLength()  != 1){
                                         breaker = 1;
-                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                        this.parsingError = "\nCantidad de bloques inválido.";
                                     }
                                     break;
                                 case "1Fil2Col":
                                     if(readedBlocks.getLength()  != 3){
                                         breaker = 3;
-                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                        this.parsingError = "\nCantidad de bloques inválido.";
                                     }
                                     break;
                                 case "2Col":
                                     if(readedBlocks.getLength()  != 2){
                                         breaker = 2;
-                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                        this.parsingError = "\nCantidad de bloques inválido.";
                                     }
                                     break;
                                 case "3Col":
                                     if(readedBlocks.getLength()  != 3){
                                         breaker = 3;
-                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                        this.parsingError = "\nCantidad de bloques inválido.";
                                     }
                                     break;
                                 case "1Fil3Col":
                                     if(readedBlocks.getLength()  != 4){
                                         breaker = 4;
-                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                        this.parsingError = "\nCantidad de bloques inválido.";
                                     }
                                     break;
                                 case "2Fil2Col":
                                     if(readedBlocks.getLength()  != 4){
                                         breaker = 4;
-                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                        this.parsingError = "\nCantidad de bloques inválido.";
                                     }
                                     break;
                                 case "2Col1Fil":
                                     if(readedBlocks.getLength()  != 3){
                                         breaker = 3;
-                                        this.parsingError = this.parsingError + "\nCantidad de bloques inválido.";
+                                        this.parsingError = "\nCantidad de bloques inválido.";
                                     }
                                     break;    
                                 default:
                                     breaker = 1;
-                                    this.parsingError = this.parsingError + "\nTipo de diseño inválido.";
+                                    this.parsingError = "\nTipo de diseño inválido.";
                                     newSlide.setDesign("1Col");
                                     break;
                             }
@@ -226,13 +235,13 @@ public class OA_Reader {
                                 try{
                                     aparitionOrder = Integer.parseInt(currentIdea.getAttribute("ordenAparicion"));
                                     if(aparitionOrder < 0){
-                                        this.parsingError = this.parsingError + "\nOrden de apareción inválido en: "+newSlide.getTitle()+".";
+                                        this.parsingError = "\nOrden de apareción inválido en: "+newSlide.getTitle()+".";
                                         return new ArrayList<ObjetoAprendizaje>();
                                     }
                                 }
                                 catch(Exception e){
                                     
-                                    this.parsingError = this.parsingError + "\nOrden de apareción inválido en: "+newSlide.getTitle()+".";
+                                    this.parsingError = "\nOrden de apareción inválido en: "+newSlide.getTitle()+".";
                                     return new ArrayList<ObjetoAprendizaje>();
                                 }
                                 
@@ -262,7 +271,7 @@ public class OA_Reader {
                                         default:
 
                                             newText.setType("normal");
-                                            this.parsingError = this.parsingError + "\nTipo de texto no soportado.";
+                                            this.parsingError = "\nTipo de texto no soportado.";
                                             return new ArrayList<ObjetoAprendizaje>();
                                     }
                                     
@@ -282,7 +291,7 @@ public class OA_Reader {
                                 }
                                 else if(voiceNode.getLength() >= 1){
                                     
-                                    this.parsingError = this.parsingError + "\n Sólo se permite una voz por idea.";
+                                    this.parsingError = "\n Sólo se permite una voz por idea.";
                                     new ArrayList<ObjetoAprendizaje>();
                                 }   
                                 newBlock.addIdeas(newIdea);
