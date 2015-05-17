@@ -76,18 +76,21 @@ public class OA_ReaderTest {
     @Test
     public void testReadOA() {
         OA_Reader instance = new OA_Reader();
-        instance.setFileContent(" <begin>\n" +
-"	<objeto titulo=\"Prueba v3\" autor=\"PODATeam\" tema=\"default\">\n" +
+        instance.setFileContent("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+"<!DOCTYPE comenzar SYSTEM \"validator.dtd\"> \n" +
+"\n" +
+"<comenzar>\n" +
+"	<objeto titulo=\"Prueba v3\" autor=\"Probador\" tema=\"default\">\n" +
 "		<escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"1\">\n" +
 "					<texto tipo=\"normal\">texto 1Col: 1</texto>\n" +
-"					<texto tipo=\"codigo\">texto 1Col: 2</texto>\n" +
+"					<texto tipo=\"codigo\">texto 1Col: 2 </texto>\n" +
 "					<voz>Voz 1Col</voz>\n" +
 "				</idea>\n" +
 "			</bloque>\n" +
 "		</escena>\n" +
-"		<escena titulo=\"Escena 1 Fila 2 Columnas\" tipo=\"1Row2Col\">\n" +
+"		<escena titulo=\"Escena 1 Fila 2 Columnas\" tipo=\"1Fil2Col\">\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"1\">\n" +
 "					<texto tipo=\"ejemplo\">texto 1Row2Col: 1</texto>\n" +
@@ -149,7 +152,7 @@ public class OA_ReaderTest {
 "				</idea>\n" +
 "			</bloque>\n" +
 "		</escena>\n" +
-"		<escena titulo=\"Escena 1 Fila 3 Columnas\" tipo=\"1Row3Col\">\n" +
+"		<escena titulo=\"Escena 1 Fila 3 Columnas\" tipo=\"1Fil3Col\">\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"1\">\n" +
 "					<texto tipo=\"normal\">texto 1Row3Col: 1</texto>\n" +
@@ -179,7 +182,7 @@ public class OA_ReaderTest {
 "				</idea>\n" +
 "			</bloque>\n" +
 "		</escena>\n" +
-"		<escena titulo=\"Escena 2 Filas 2 Columnas\" tipo=\"2Row2Col\">\n" +
+"		<escena titulo=\"Escena 2 Filas 2 Columnas\" tipo=\"2Fil2Col\">\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"1\">\n" +
 "					<texto tipo=\"normal\">texto 2Row2Col: 1</texto>\n" +
@@ -210,9 +213,9 @@ public class OA_ReaderTest {
 "			</bloque>\n" +
 "		</escena>\n" +
 "	</objeto>\n" +
-"</begin>");
+"</comenzar>");
         int result = instance.readOA().size();
-                assertEquals(1, 1);
+        assertEquals(1, result);
     }
 
     
