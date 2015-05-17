@@ -189,17 +189,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     public String write_date(Date date){
         
         String date_str = date.toString();
-        String [] date_split = date_str.split(date_str);
+        String [] date_split = date_str.split(" ");
         String fecha = "";
         for( int i = 0 ; i < date_split.length ; i++){
             
-            if(i != 3 || i!=4){
-                fecha += date_split[i];
+            if(i != 3 && i!=4){
+                fecha += date_split[i] + " ";
             }
         }
         return fecha;
     }
-
+        
     public String write_titleHtml(ObjetoAprendizaje object){
                 
         String codeHtml =   "<section class=\"slide\" id=\"title-slide\">\n" +
