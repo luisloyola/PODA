@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import cl.diinf.objetoAprendizaje.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -78,7 +79,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "  <!--<link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/swiss.css\"> -->\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/swiss.css\">\n" + "\n" +
                             "  <!-- Estilo colores usach -->\n" +
-                            "  <!--<link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/usach-colores.css\"> -->\n" + "\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/usach-colores.css\">\n" + "\n" +
                             "  <!-- Tema transicion -->\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/transition/horizontal-slide.css\">\n" + "\n" +
                             "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" + "\n" +
@@ -113,7 +114,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     
     public String write_examples(ArrayList<String> list_examples){
         
-        String examples = "<ul><li><script>\nvar ejemplos = new Array(";
+        String examples = "<script>\nvar ejemplos = new Array(";
         
         for( int i = 0 ; i < list_examples.size(); i++){
             
@@ -122,7 +123,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             else
                 examples += ", \""+ list_examples.get(i) +"\"";
         }
-        examples += "</script></li></ul>";        
+        examples += ")</script>";
+        examples += "<ul><li><script language=javascript>ej_aleatorio()</script></li></ul>";
         
         return examples;
     }
@@ -183,13 +185,31 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         
         return codeHtml;
     }
-          
-    String write_titleHtml(ObjetoAprendizaje object){
+    
+    public String write_date(Date date){
+        
+        String date_str = date.toString();
+        String [] date_split = date_str.split(date_str);
+        String fecha = "";
+        for( int i = 0 ; i < date_split.length ; i++){
+            
+            if(i != 3 || i!=4){
+                fecha += date_split[i];
+            }
+        }
+        return fecha;
+    }
+
+    public String write_titleHtml(ObjetoAprendizaje object){
                 
         String codeHtml =   "<section class=\"slide\" id=\"title-slide\">\n" +
-                            "   <h1>"+ object.getTitle() + "</h1>\n" +
-                            "   <h2>"+ object.getTitle() + "</h2>\n" +
-                            "   <h2>"+ object.getTitle() + "</h2>\n" +
+                            "<h1>" + object.getTitle() + "</h1>"+
+                            "   <div class=\"autor\"> \n" +
+                            "<h3>" + object.getAuthor() + "</h3> \n" +
+                            "</div>\n" +
+                            "<div class=\"fecha\"> \n" +
+                            "<h3>" + write_date(object.getCreationDate()) + "</h3> \n" +
+                            "</div>" +
                             "</section>";
         
         return codeHtml;
@@ -227,6 +247,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 3
                 codeHtml += write_block(scene.getBlocks().get(2));
                 codeHtml += "</div>";
+                codeHtml += "</section>";
                         
                 break;
                 
@@ -259,6 +280,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 3
                 codeHtml += write_block(scene.getBlocks().get(2));
                 codeHtml += "</div>";
+                codeHtml += "</section>";
                 
                 break;
             case "1Fil3Col":
@@ -282,6 +304,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 4
                 codeHtml += write_block(scene.getBlocks().get(3));
                 codeHtml += "</div>";
+                codeHtml += "</section>";
                 
                 break;
             case "2Fil2Col":
@@ -305,6 +328,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 4
                 codeHtml += write_block(scene.getBlocks().get(3));
                 codeHtml += "</div>";
+                codeHtml += "</section>";
                 
                 break;
             case "2Col1Fil":
@@ -323,6 +347,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 3
                 codeHtml += write_block(scene.getBlocks().get(2));
                 codeHtml += "</div>";
+                codeHtml += "</section>";
                 
                 break;
                 
@@ -412,6 +437,11 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "</script>\n";
 
         codeHtml = codeHtml + "\n" + htmlScriptBase;
+        
+         //Fin del HTML
+                
+        codeHtml += "\n" + "</body>\n" + "</html>";
+        
         return codeHtml;
     }
 

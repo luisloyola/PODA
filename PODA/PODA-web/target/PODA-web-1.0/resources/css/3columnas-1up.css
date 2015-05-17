@@ -1,0 +1,14 @@
+.left-3columnas-1up {
+	float: left;
+	width: 33%;
+}
+
+.center-3columnas-1up {
+	display: inline-block; 
+	width: 33%;
+}
+
+.right-3columnas-1up {
+	float: right;
+	width: 33%;
+}
