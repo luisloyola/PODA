@@ -7,6 +7,8 @@ package cl.diinf.sessionBeans;
 
 import javax.ejb.Stateless;
 import cl.diinf.objetoAprendizaje.*;
+import cl.diinf.util.CreateDirectory;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,13 +36,23 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                     
         String codeHtml;
         
+        CreateDirectory create = new CreateDirectory();
+        
+        
         codeHtml = write_headerHtml(object);
         codeHtml += write_contentHtml(object);
         codeHtml += write_librsHtml(object);
         codeHtml += write_scriptHtml(object);
         //codeHtml = write_voiceHtml(object);
-        
+        create.createDirectory(codeHtml);   //crea un directorio con el archivo html generado
+        String destino = new File("").getAbsolutePath(); // Wildfly/bin
+        String origen = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources";
+        destino += ("/DIR/resources/");
+        File file = new File(destino);
+        File file2 = new File(origen);
+        CreateDirectory.copyFolder(file2,file);
         return codeHtml;
+        
     }
     
     /**
