@@ -39,7 +39,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                     
         String codeHtml;
         
-        CreateDirectory create = new CreateDirectory();
+        //CreateDirectory create = new CreateDirectory();
         
         /* Crear un nombre unico para el OA*/
         String OATitle= object.getTitle();
@@ -51,19 +51,20 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         codeHtml += write_scriptHtml(object);
 
         codeHtml += write_voiceHtml(object);
-        create.createDirectory(codeHtml,OAName, OATitle);   //crea un directorio con el archivo html generado
-        String destino = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName+"/resources"; 
-        String origen = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources";
+        //create.createDirectory(codeHtml,OAName, OATitle);   //crea un directorio con el archivo html generado
+        //String destino = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName+"/resources"; 
+        //String origen = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources";
         
-        File file = new File(destino);
-        File file2 = new File(origen);
-        CreateDirectory.copyFolder(file2,file);
-        String destinoAudio = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName+"/resources/audios/"+OAName; 
-        String origenAudio = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources/audios/"+OAName;
+        //File file = new File(destino);
+        //File file2 = new File(origen);
+        //CreateDirectory.copyFolder(file2,file);
+        //String destinoAudio = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName+"/resources/audios/"+OAName; 
+        //String origenAudio = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources/audios/"+OAName;
         
-        File fileAudio = new File(destinoAudio);
-        File fileAudio2 = new File(origenAudio);
-        CreateDirectory.copyFolder(fileAudio2,fileAudio);        
+        //File fileAudio = new File(destinoAudio);
+        //File fileAudio2 = new File(origenAudio);
+        //CreateDirectory.copyFolder(fileAudio2,fileAudio);      
+        //System.out.println(codeHtml);
         return codeHtml;        
     }
     
