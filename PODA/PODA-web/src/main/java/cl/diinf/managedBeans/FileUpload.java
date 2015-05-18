@@ -37,13 +37,22 @@ import org.apache.commons.io.FileUtils;
 public class FileUpload implements Serializable{
    
     private Part file;
+    private StreamedContent zipFile;
     private String fileContent;    
     private String code_html;
     private String error_Message;
     private String error_Message_Donwload;
-    
+    private String generatedZipPath;
+    private String OA_Name;
 
+    public String getGeneratedZipPath() {
+        return generatedZipPath;
+    }
 
+    public void setGeneratedZipPath(String generatedZipPath) {
+        this.generatedZipPath = generatedZipPath;
+    }
+       
     public Part getFile() {
         return file;
     }
@@ -124,7 +133,9 @@ public class FileUpload implements Serializable{
                 OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
                 code_html = OA_translate.writeHtml(OA_List.get(0));
-                prepareDownload();
+                
+                this.OA_Name = OA_List.get(0).getTitle();
+                //prepareDownload();
                 error_Message = null;
             }
             else{
@@ -135,7 +146,7 @@ public class FileUpload implements Serializable{
         }        
     }
     
-    public File prepareDownload(){
+    public String prepareDownload(){
         
         String folderName = String.valueOf(Math.random()*100000+1);
         String folderPath = "";
@@ -169,7 +180,14 @@ public class FileUpload implements Serializable{
                 this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
             }
         }
-        return new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
+        return folderName+".zip";
+        //return new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
+    }
+    
+    public StreamedContent getZipFile() {
+        InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("../"+this.prepareDownload());
+        zipFile = new DefaultStreamedContent(stream, "application/zip", "PODA-"+this.OA_Name+".zip");    
+        return zipFile;
     }
     
     public void copyDirectory(File sourceLocation , File targetLocation)
