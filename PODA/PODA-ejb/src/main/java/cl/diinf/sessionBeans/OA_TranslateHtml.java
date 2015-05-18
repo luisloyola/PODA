@@ -68,7 +68,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         //File fileAudio = new File(destinoAudio);
         //File fileAudio2 = new File(origenAudio);
         //CreateDirectory.copyFolder(fileAudio2,fileAudio);      
-        System.out.println(codeHtml);
+        //System.out.println(codeHtml);
         return codeHtml;
         
     }
