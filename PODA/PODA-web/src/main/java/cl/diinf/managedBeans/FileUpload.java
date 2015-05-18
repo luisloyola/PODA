@@ -14,7 +14,12 @@ import java.util.Scanner;
 import cl.diinf.sessionBeans.OA_Reader;
 import cl.diinf.sessionBeans.OA_TranslateHtml;
 import cl.diinf.util.Compressor;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.NoSuchElementException;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -22,6 +27,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Part; 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.apache.commons.io.FileUtils;
 /**
  *
  * @author teamPODA
@@ -33,14 +39,11 @@ public class FileUpload implements Serializable{
     private Part file;
     private String fileContent;    
     private String code_html;
-    private String name_oa;
     private String error_Message;
+    private String error_Message_Donwload;
+    
 
-    private StreamedContent file2;
 
-    public void setFile2(StreamedContent file2) {
-        this.file2 = file2;
-    }
     public Part getFile() {
         return file;
     }
@@ -71,6 +74,14 @@ public class FileUpload implements Serializable{
 
     public void setError_Message(String error_Message) {
         this.error_Message = error_Message;
+    }
+
+    public String getError_Message_Donwload() {
+        return error_Message_Donwload;
+    }
+
+    public void setError_Message_Donwload(String error_Message_Donwload) {
+        this.error_Message_Donwload = error_Message_Donwload;
     }
  
     
@@ -112,8 +123,8 @@ public class FileUpload implements Serializable{
                 /*Cargara el objeto SÓLO si es válido*/
                 OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
-                name_oa = OA_List.get(0).getName_file();
                 code_html = OA_translate.writeHtml(OA_List.get(0));
+                prepareDownload();
                 error_Message = null;
             }
             else{
@@ -124,7 +135,73 @@ public class FileUpload implements Serializable{
         }        
     }
     
-    public StreamedContent getFile2(){
+    public File prepareDownload(){
+        
+        String folderName = String.valueOf(Math.random()*100000+1);
+        String folderPath = "";
+        File newDirectory = new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName);
+        if(!newDirectory.exists()){
+            try{
+                newDirectory.mkdir();
+                folderPath = newDirectory.getAbsolutePath();
+                    System.out.println(folderPath);
+                File createdOA = new File(folderPath+"/index.html");
+                try{
+                    FileWriter fw = new FileWriter(createdOA);
+                    fw.write(code_html);
+                    fw.close();
+                    // /standalone/deployments/PODA-web-1.0.war/resources
+                    File source = new File("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources");
+                    File target = new File(folderPath+"/resources");
+                    this.copyDirectory(source,target);
+                    Compressor compress = new Compressor();
+                    compress.setInputPath(folderPath);
+                    compress.setOutputPath("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
+                    compress.zipIt();
+                    FileUtils.deleteDirectory(new File(folderPath));
+                    
+                }
+                catch(IOException e){
+                    this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
+                }
+            }
+            catch(SecurityException ex){
+                this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
+            }
+        }
+        return new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
+    }
+    
+    public void copyDirectory(File sourceLocation , File targetLocation)
+    throws IOException {
+        
+        if (sourceLocation.isDirectory()) {
+            if (!targetLocation.exists()) {
+                targetLocation.mkdir();
+            }
+            
+            String[] children = sourceLocation.list();
+            for (int i=0; i<children.length; i++) {
+                copyDirectory(new File(sourceLocation, children[i]),
+                        new File(targetLocation, children[i]));
+            }
+        } else {
+            
+            InputStream in = new FileInputStream(sourceLocation);
+            OutputStream out = new FileOutputStream(targetLocation);
+            
+            // Copy the bits from instream to outstream
+            byte[] buf = new byte[1024*100];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+        }
+    }
+    
+    /*public StreamedContent getFile2(){
          
         Compressor comp=new Compressor();
         comp.setInputPath("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+name_oa);
@@ -136,7 +213,9 @@ public class FileUpload implements Serializable{
         
       
         return file2;
-    }
+    }*/
+    
+    
         /**
          * Validador del archivo para el frontend.
          * @param ctx

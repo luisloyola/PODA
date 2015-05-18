@@ -59,7 +59,7 @@ public class Compressor {
             zos.setLevel(9);
             addFolder(zos,this.inputPath,this.inputPath);
             zos.close();
-            System.out.println("¡Compresión Exitosa!");
+            //System.out.println("¡Compresión Exitosa!");
         } 
         catch (Exception ex) {
             
@@ -77,7 +77,7 @@ public class Compressor {
             if(f.isDirectory()){
                 if(!folderName.equalsIgnoreCase(baseFolderName)){
                     String entryName = folderName.substring(baseFolderName.length()+1,folderName.length()) + File.separatorChar;
-                    System.out.println("Agregando: " + entryName);
+                    //System.out.println("Agregando: " + entryName);
                     ZipEntry ze= new ZipEntry(entryName);
                     zos.putNextEntry(ze);    
                 }
@@ -87,7 +87,7 @@ public class Compressor {
                 }
             }else{
                 String entryName = folderName.substring(baseFolderName.length()+1,folderName.length());
-                System.out.print("Agregando: " + entryName + "...");
+                //System.out.print("Agregando: " + entryName + "...");
                 ZipEntry ze= new ZipEntry(entryName);
                 zos.putNextEntry(ze);
                 FileInputStream in = new FileInputStream(folderName);
@@ -98,7 +98,7 @@ public class Compressor {
                 }
                 in.close();
                 zos.closeEntry();
-                System.out.println("OK!");
+                //System.out.println("OK!");
  
             }
         }else{
