@@ -13,9 +13,15 @@ import java.util.List;
 import java.util.Scanner;
 import cl.diinf.sessionBeans.OA_Reader;
 import cl.diinf.sessionBeans.OA_TranslateHtml;
+import cl.diinf.util.Compressor;
+import java.io.InputStream;
 import java.util.NoSuchElementException;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Part; 
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 /**
  *
  * @author teamPODA
@@ -27,8 +33,14 @@ public class FileUpload implements Serializable{
     private Part file;
     private String fileContent;    
     private String code_html;
+    private String name_oa;
     private String error_Message;
 
+    private StreamedContent file2;
+
+    public void setFile2(StreamedContent file2) {
+        this.file2 = file2;
+    }
     public Part getFile() {
         return file;
     }
@@ -94,12 +106,13 @@ public class FileUpload implements Serializable{
             
             nuevoOAR.setFileContent(fileContent);
             
-            List<ObjetoAprendizaje> OA_List = nuevoOAR.readOA();
+            List<ObjetoAprendizaje> OA_List = nuevoOAR.readOA();                        
             
             if(OA_List.size() > 0){
                 /*Cargara el objeto SÓLO si es válido*/
                 OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
+                name_oa = OA_List.get(0).getName_file();
                 code_html = OA_translate.writeHtml(OA_List.get(0));
                 error_Message = null;
             }
@@ -109,6 +122,20 @@ public class FileUpload implements Serializable{
                 error_Message = nuevoOAR.getParsingError();
             }     
         }        
+    }
+    
+    public StreamedContent getFile2(){
+         
+        Compressor comp=new Compressor();
+        comp.setInputPath("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+name_oa);
+        comp.setOutputPath("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/");
+        String salida = comp.zipIt();
+        System.out.println(salida);
+        InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream(salida);
+        file2 = new DefaultStreamedContent(stream, "application/zip","ObjetoAprendizaje.zip");
+        
+      
+        return file2;
     }
         /**
          * Validador del archivo para el frontend.

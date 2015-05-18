@@ -5,6 +5,7 @@
  */
 package cl.diinf.managedBeans;
 
+
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
  
@@ -45,5 +46,5 @@ public class FileDownload {
         
         return file;
     }
-    
+
 }

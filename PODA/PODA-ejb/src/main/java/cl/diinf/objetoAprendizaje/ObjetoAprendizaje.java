@@ -17,6 +17,7 @@ public class ObjetoAprendizaje {
     private String title;
     private String author;
     private String template;
+    private String name_file;
     private Date creationDate;
     private List<Slide> content;
     
@@ -69,6 +70,14 @@ public class ObjetoAprendizaje {
      */
     public List<Slide> getContent(){
         return this.content;
+    }
+
+    public String getName_file() {
+        return name_file;
+    }
+
+    public void setName_file(String name_file) {
+        this.name_file = name_file;
     }
 
     public String getTemplate() {

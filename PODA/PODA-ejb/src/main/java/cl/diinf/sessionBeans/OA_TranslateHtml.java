@@ -7,6 +7,7 @@ package cl.diinf.sessionBeans;
 
 import javax.ejb.Stateless;
 import cl.diinf.objetoAprendizaje.*;
+import cl.diinf.util.CreateDirectory;
 import cl.diinf.util.TTSDownloader;
 import java.io.File;
 import java.io.IOException;
@@ -42,13 +43,33 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                     
         String codeHtml;
         
+        CreateDirectory create = new CreateDirectory();
+        
+        /* Crear un nombre unico para el OA*/
+        String OATitle= object.getTitle();
+        String OAName = object.getName_file();
+        
         codeHtml = write_headerHtml(object);
-        codeHtml += write_contentHtml(object);
+        codeHtml += write_contentHtml(object, OAName);
         codeHtml += write_librsHtml(object);
         codeHtml += write_scriptHtml(object);
+
         codeHtml += write_voiceHtml(object);
+        create.createDirectory(codeHtml,OAName, OATitle);   //crea un directorio con el archivo html generado
+        String destino = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName+"/resources"; 
+        String origen = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources";
         
+        File file = new File(destino);
+        File file2 = new File(origen);
+        CreateDirectory.copyFolder(file2,file);
+        String destinoAudio = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName+"/resources/audios/"+OAName; 
+        String origenAudio = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources/audios/"+OAName;
+        
+        File fileAudio = new File(destinoAudio);
+        File fileAudio2 = new File(origenAudio);
+        CreateDirectory.copyFolder(fileAudio2,fileAudio);        
         return codeHtml;
+        
     }
     
     /**
@@ -444,12 +465,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
      * @param codeHtml 
      * @return string con todas las slides incorporadas.
      */
-    public String write_contentHtml(ObjetoAprendizaje object){
+    public String write_contentHtml(ObjetoAprendizaje object, String OAName){
 
-        /* Crear un nombre unico para el OA*/
-        String OAName = UUID.randomUUID().toString();
-        OAName += ("" + System.currentTimeMillis() + "_OA");
-        
         /* Obtener la ruta donde guardar el OA*/
         String OAPath = TTSDownloader.generatePathForOA(); // Wildfly/standalone/deplayments/...ear/...web.war
         
