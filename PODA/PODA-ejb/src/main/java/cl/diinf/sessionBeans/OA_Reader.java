@@ -77,9 +77,10 @@ public class OA_Reader {
                 
                 doc = dBuilder.parse(OA_XML_File);
                 if(!errorHandler.getErrorMessage().equals("NO_ERROR")){
+                    System.out.println(errorHandler.getErrorMessage());
                     String[] tempErrorHandler = errorHandler.getErrorMessage().split(" ");
                     if(tempErrorHandler[0].equals("Attribute")){
-                        this.parsingError = "En el elemento: "+tempErrorHandler[11]+" debe añadirse el atributo: "+tempErrorHandler[1];
+                        this.parsingError = "En el elemento: "+tempErrorHandler[8]+" debe añadirse el atributo: "+tempErrorHandler[1];
                     }
                     else if(tempErrorHandler[0].equals("The") && tempErrorHandler[1].equals("content") && !tempErrorHandler[7].equals("incomplete,")){
                         this.parsingError = "El elemento: "+tempErrorHandler[5] +" debe cumplir el patrón: "+tempErrorHandler[8];
@@ -169,60 +170,56 @@ public class OA_Reader {
                         NodeList readedBlocks  = currentSlide.getElementsByTagName("bloque");
                             
                         for(int k = 0; k < readedBlocks.getLength(); k++){
-                            int breaker = -1;
+                            
                             switch(newSlide.getDesign()){
                                 case "1Col":
                                     if(readedBlocks.getLength()  != 1){
-                                        breaker = 1;
                                         this.parsingError = "\nCantidad de bloques inválido.";
+                                        return new ArrayList<ObjetoAprendizaje>();
                                     }
                                     break;
                                 case "1Fil2Col":
                                     if(readedBlocks.getLength()  != 3){
-                                        breaker = 3;
                                         this.parsingError = "\nCantidad de bloques inválido.";
+                                        return new ArrayList<ObjetoAprendizaje>();
                                     }
                                     break;
                                 case "2Col":
                                     if(readedBlocks.getLength()  != 2){
-                                        breaker = 2;
                                         this.parsingError = "\nCantidad de bloques inválido.";
+                                        return new ArrayList<ObjetoAprendizaje>();
                                     }
                                     break;
                                 case "3Col":
                                     if(readedBlocks.getLength()  != 3){
-                                        breaker = 3;
                                         this.parsingError = "\nCantidad de bloques inválido.";
+                                        return new ArrayList<ObjetoAprendizaje>();
                                     }
                                     break;
                                 case "1Fil3Col":
                                     if(readedBlocks.getLength()  != 4){
-                                        breaker = 4;
                                         this.parsingError = "\nCantidad de bloques inválido.";
+                                        return new ArrayList<ObjetoAprendizaje>();
                                     }
                                     break;
                                 case "2Fil2Col":
                                     if(readedBlocks.getLength()  != 4){
-                                        breaker = 4;
                                         this.parsingError = "\nCantidad de bloques inválido.";
+                                        return new ArrayList<ObjetoAprendizaje>();
                                     }
                                     break;
                                 case "2Col1Fil":
                                     if(readedBlocks.getLength()  != 3){
-                                        breaker = 3;
                                         this.parsingError = "\nCantidad de bloques inválido.";
+                                        return new ArrayList<ObjetoAprendizaje>();
                                     }
                                     break;    
                                 default:
-                                    breaker = 1;
                                     this.parsingError = "\nTipo de diseño inválido.";
-                                    newSlide.setDesign("1Col");
-                                    break;
+                                    return new ArrayList<ObjetoAprendizaje>();
+                                    
                             }
                             
-                            if(k == breaker-1){
-                                return new ArrayList<ObjetoAprendizaje>();
-                            }
                             
                             Element currentBlock = (Element) readedBlocks.item(k);
                             
