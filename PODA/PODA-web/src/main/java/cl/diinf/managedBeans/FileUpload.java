@@ -160,8 +160,10 @@ public class FileUpload implements Serializable{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", this.getError_Message()));
         }
         //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", this.getError_Message()));
-    }
-    
+    }    
+    public void reset_message(){
+        this.error_Message = null;
+    }    
     public String prepareDownload(){
         
         String folderName = String.valueOf(Math.random()*100000+1);

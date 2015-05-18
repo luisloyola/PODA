@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Proyecto de Objetos de Aprendizaje</title>
         <h:outputStylesheet name="css/bootstrap.css"/>
@@ -64,16 +65,13 @@
                <ul class="nav navbar-nav">
                     <li><a href="/PODA-web/" >Home</a></li>
                     <li><a href="acerca_poda.html">Acerca</a></li>
-               </ul>
-                        
-
-             </div><!--/.nav-collapse -->
+               </ul>                                 
+             </div><!--/.nav-collapse -->             
            </div>
-             
+             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
          </div>         
-        <div id="home" style="background-image: url(resources/aprender2.jpg)">                            
-            <div class="overlay">
-                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+        <div id="home" style="background-image: url(resources/aprender2.jpg)">            
+            <div class="overlay">                               
                             <!-- overylay class usage !-->                
                     <h1>BIENVENIDO A PODA </h1>
                     <h2>Generador de Objetos de Aprendizaje</h2>                   
@@ -89,9 +87,34 @@
                             <h:button outcome="objeto_aprendizaje.xhtml"  value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-success" />
                             
                         </div>
-                    <h:commandButton action="#{fileUpload.upload}" value="Generar" styleClass="btn btn-warning" onclick=" return ValidateFileFE()"/>                    
+                    <h:commandButton action="#{fileUpload.upload}" value="Generar" styleClass="btn btn-warning" onclick=" return ValidateFileFE()"/>
                 </h:form>                                                                                    
-                    </div>                                   
+                                 <!--       
+                    <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                        <f:facet name="default">
+                            <h:outputText value="Status: StandBy" />
+                        </f:facet>
+
+                        <f:facet name="start">
+                            <p:graphicImage name="resources/loading.gif" />
+                        </f:facet>
+
+                        <f:facet name="complete">
+                            <h:outputText value="Status: Completed" />
+                        </f:facet>
+                    </p:ajaxStatus>
+ 
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <p:graphicImage name="resources/loading.gif" />
+                    </p:dialog>
+ 
+                    <h:form>
+                        <p:commandButton value="Send" icon="ui-icon-refresh" />
+                    </h:form>!-->
+
+                </div>                                   
             </div>
     
         <section id="services">
@@ -120,11 +143,9 @@
                 <p><a class="btn btn-lg btn-success btn-block" href="instrucciones.xhtml">Ver Detalles »</a></p>
             </div>
                
-        </section>
-    
+        </section>    
 
-        <footer>
-            
+        <footer>            
             <br></br>
             <div class="text-center" style="color: whitesmoke">
             PODA por PODA TEAM está licenciado bajo la licencia:
