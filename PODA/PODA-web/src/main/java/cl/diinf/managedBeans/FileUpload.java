@@ -152,10 +152,14 @@ public class FileUpload implements Serializable{
     
     public void show_message(){
             
-        if(!this.error_Message.equals("Su objeto de aprendizaje ha sido creado correctamente"))
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información:", this.getError_Message()));
-        else
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", this.getError_Message()));
+        if(this.error_Message != null){
+            
+            if("Su objeto de aprendizaje ha sido creado correctamente".equals(this.error_Message))
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", this.getError_Message()));
+            else
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", this.getError_Message()));
+        }
+        //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", this.getError_Message()));
     }
     
     public String prepareDownload(){
