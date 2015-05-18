@@ -11,11 +11,14 @@ import cl.diinf.util.TTSDownloader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -129,7 +132,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
        return text;
     }
     
-    public String write_examples(ArrayList<String> list_examples){
+    public String write_examples(ArrayList<String> list_examples, String start, String end){
         
         String examples = "<script>\nvar ejemplos = new Array(";
         
@@ -141,11 +144,10 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 examples += ", \""+ list_examples.get(i) +"\"";
         }
         examples += ")</script>";
-        examples += "<ul><li><script language=javascript>ej_aleatorio()</script></li></ul>";
+        examples += "<p>"+start+"<script language=javascript>ej_aleatorio()</script>"+ end +"</p>";
         
         return examples;
-    }
-    
+    }    
     
     public String write_block(Block block, String OAPath, String OAName, int numberSlide, int numberBlock){
         
@@ -154,16 +156,23 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         ArrayList<String> list_examples = new ArrayList<>();
         
         for(int i = 0; i < block.getIdeas().size(); i++){
-                
+                                        
             Idea idea = block.getIdeas().get(i);
-
+            String order = Integer.toString(idea.getAparitionOrder());
+            String start_label = "", end_label = "";
+            
+            if(idea.getAparitionOrder() != 1){
+                start_label = "<span class = \"order-" + order + "\">";
+                end_label = "</span>";
+            }
+            
             for(int j = 0; j < idea.getText().size(); j++){
                 
                 if(!idea.getText().get(j).getType().equals("ejemplo")){
                     
                     if(!list_examples.isEmpty()){
-                        
-                        codeHtml += write_examples(list_examples);
+                                                
+                        codeHtml += write_examples(list_examples, start_label, end_label);                        
                         list_examples.clear();
                     }
                 }
@@ -171,49 +180,35 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 switch(idea.getText().get(j).getType()){
 
                     case "normal":
-                        codeHtml += "<p>";
+                        codeHtml += "<p>"+ start_label;
                         codeHtml += write_text(idea.getText().get(j).getContent());
-                        codeHtml += "</p>";
+                        codeHtml += end_label+"</p>";
                         break;
                     case "manuscrito":
-                        codeHtml += "<p id=\"manuscrita\">";
+                        codeHtml += "<p id=\"manuscrita\">"+ start_label;
                         codeHtml += write_text(idea.getText().get(j).getContent());
-                        codeHtml += "</p>";
+                        codeHtml += end_label+"</p>";
                         break;
                     case "codigo":
-                        codeHtml += "<pre class=\"brush: js\">";
+                        codeHtml += start_label+"<pre class=\"brush: js\">";
                         codeHtml += idea.getText().get(j).getContent();
-                        codeHtml += "</pre>";
+                        codeHtml += "</pre>"+ end_label;
                         break;
                     case "ejemplo":
                         list_examples.add(idea.getText().get(j).getContent());
-                        break;                            
+                        break;    
+                    default:
+                        break;
                 };
             }
             
             if(!list_examples.isEmpty()){
                         
-                codeHtml += write_examples(list_examples);
+                codeHtml += write_examples(list_examples, start_label, end_label);
                 list_examples.clear();
-            }
+            }            
             
-            //Escrbir codigo html para la voz de esta idea idea.getVoice()
-            
-            String audioFileName;
-            try {
-                audioFileName = TTSDownloader.downloadFromGoogleTTS(idea.getVoice(), OAPath);
-                
-                //<audio id="audio-numberSlide-numberBlock-numberIdea" source src="resources/audios/audioFileName.mp3" type="audio/ogg"></audio> 
-                codeHtml += ("<audio id=\"audio-" + numberSlide + "-" + numberBlock + "-" + i + "\" ");
-                codeHtml += ("source src=\"resources/audios/" + OAName+ "/"+audioFileName +"\" ");
-                codeHtml += ("type=\"audio/ogg\"></audio>");
-                
-                        
-            } catch (IOException ex) {
-                Logger.getLogger(OA_TranslateHtml.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
+        }        
         return codeHtml;
     }
     
@@ -246,6 +241,63 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return codeHtml;
     }
     
+    
+    public String write_animationHtml(Slide scene, int number_slide, String OAPath, String OAName ){
+        
+        String codeHtml = "";
+        ArrayList<Idea> orderedIdea = new ArrayList<>();
+        
+        ArrayList<ArrayList<Idea>> blockIdea = new ArrayList<ArrayList<Idea>>();
+        
+        for(int i=0 ; i < scene.getBlocks().size(); i++){
+                
+            blockIdea.add(new ArrayList<Idea>());
+                
+            for(int j=0 ; j < scene.getBlocks().get(i).getIdeas().size(); j++){
+                
+                orderedIdea.add(scene.getBlocks().get(i).getIdeas().get(j));
+                blockIdea.get(i).add(scene.getBlocks().get(i).getIdeas().get(j));
+            }
+        }
+        
+        Collections.sort(orderedIdea);
+        
+        for (int i = 0; i < orderedIdea.size(); i++){
+            
+            int number_idea = -1, number_block = -1;
+            
+            for(int j = 0; j < blockIdea.size(); j++){
+                                
+                int aux = blockIdea.get(j).indexOf(orderedIdea.get(i));
+
+                if( aux != -1){
+                    number_idea= aux;
+                    number_block= j;
+                    break;
+                }
+            }                        
+            
+            if(orderedIdea.get(i).getAparitionOrder() != 1)
+                codeHtml += "<div class=\"anim-show slide\" data-what=\".order-" + orderedIdea.get(i).getAparitionOrder() + "\" id=\"animacion-" + number_slide + "-" + number_block + "-" + number_idea + "\"></div>";
+
+            if(!orderedIdea.get(i).getVoice().equals("")){
+                String audioFileName;            
+                try {
+                    audioFileName = TTSDownloader.downloadFromGoogleTTS(orderedIdea.get(i).getVoice(), OAPath);
+
+                    //<audio id="audio-numberSlide-numberBlock-numberIdea" source src="resources/audios/audioFileName.mp3" type="audio/ogg"></audio> 
+                    codeHtml += ("<audio id=\"audio-" + number_slide + "-" + number_block + "-" + number_idea + "\" ");
+                    codeHtml += ("source src=\"resources/audios/" + OAName+ "/"+audioFileName +"\" ");
+                    codeHtml += ("type=\"audio/ogg\"></audio>");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(OA_TranslateHtml.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return codeHtml;
+    }
+    
     public String write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName){
         
         String codeHtml = "";
@@ -258,8 +310,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             case "1Col":
                 //escribir contenido del primer bloque
                 
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
-                codeHtml += "</section>";
+                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);                
                 break;
                 
             case "1Fil2Col":
@@ -278,7 +329,6 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 3
                 codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
                 codeHtml += "</div>";
-                codeHtml += "</section>";
                         
                 break;
                 
@@ -292,7 +342,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 codeHtml += "<div class=\"right-2columnas\">";
                 //escribir contenido del segundo bloque
                 codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
-                codeHtml += "</div>" + "</section>";
+                codeHtml += "</div>";
                 
                 break;
             case "3Col":
@@ -311,7 +361,6 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 3
                 codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
                 codeHtml += "</div>";
-                codeHtml += "</section>";
                 
                 break;
             case "1Fil3Col":
@@ -335,7 +384,6 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 4
                 codeHtml += write_block(scene.getBlocks().get(3), OAPath, OAName, nro_slide, 3);
                 codeHtml += "</div>";
-                codeHtml += "</section>";
                 
                 break;
             case "2Fil2Col":
@@ -359,7 +407,6 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 4
                 codeHtml += write_block(scene.getBlocks().get(3), OAPath, OAName, nro_slide, 3);
                 codeHtml += "</div>";
-                codeHtml += "</section>";
                 
                 break;
             case "2Col1Fil":
@@ -378,13 +425,15 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 //bloque 3
                 codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
                 codeHtml += "</div>";
-                codeHtml += "</section>";
                 
                 break;
                 
             default:
                 break;            
         }
+        
+        codeHtml += write_animationHtml(scene, nro_slide, OAPath, OAName);
+        codeHtml += "</section>";        
         
         return codeHtml;
     }
@@ -455,7 +504,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "<script src=\"resources/extensions/status/deck.status.js\"></script>\n" +
                             "<script src=\"resources/extensions/navigation/deck.navigation.js\"></script>\n" +
                             "<script src=\"resources/extensions/scale/deck.scale.js\"></script>\n" +
-                            "<script src=\"resources/extensions/deck.events/deck.events.js\"></script>\n";
+                            "<script src=\"resources/extensions/deck.events/deck.events.js\"></script>\n" +
+                            "<script src=\"resources/extensions/anim/deck.anim.js\"></script>\n" +
+                            "<script src=\"resources/extensions/step/deck.step.js\"></script>";
 
         codeHtml = codeHtml + "\n" + htmlLibrs;
 
@@ -496,7 +547,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     public String write_voiceHtml(ObjetoAprendizaje object){
         //Procesamiento de la voz por cada escena
         String codeHtml = "";
-        String htmlScriptVoice;            
+        String htmlScriptVoice = "";            
 
         for (int i = 0; i < object.getContent().size(); i++){
 
@@ -505,28 +556,43 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             for(int j=0 ; j < scene.getBlocks().size(); j++){
                 for( int k=0 ; k < scene.getBlocks().get(j).getIdeas().size(); k++){
                 
-                    if(!scene.getBlocks().get(j).getIdeas().get(k).getVoice().equals(null)){
-                        htmlScriptVoice = "<script>\n" +
-                                            "  $(\"#slide-"+(i+1)+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
-                                            "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
-                                            "    play(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
-                                            "  });\n" +
-                                            "  $(\"#slide-"+(i+1)+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
-                                            "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
-                                            "  });\n" +
-                                            "</script>\n";            
-
+                    if(!scene.getBlocks().get(j).getIdeas().get(k).getVoice().equals("")){
+                        
+                        if(scene.getBlocks().get(j).getIdeas().get(k).getAparitionOrder() != 1){
+                            htmlScriptVoice = "<script>\n" +
+                                                "  $(\"#animacion-"+(i+1) +"-"+ j +"-"+ k +"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
+                                                "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                                "    play(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                                "  });\n" +
+                                                "  $(\"#animacion-"+(i+1) +"-"+ j +"-"+ k +"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                                "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                                "  });\n" +
+                                                "</script>\n";                            
+                        }
+                        else if(scene.getBlocks().get(j).getIdeas().get(k).getAparitionOrder() == 1){
+                            htmlScriptVoice = "<script>\n" +
+                                                "  $(\"#slide-"+(i+1)+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
+                                                "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                                "    play(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                                "  });\n" +
+                                                "  $(\"#slide-"+(i+1)+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                                "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                                "  });\n" +
+                                                "</script>\n";                                                    
+                        }
+                        else{
+                            
+                        }
                         codeHtml += "\n" + htmlScriptVoice;
                     }
                 }
             }
-        }
-
+        }    
         //Fin del HTML
         String htmlEnd = "</body>\n" + "</html>";
         //pWriter.append(htmlEnd);
         codeHtml = codeHtml + "\n" + htmlEnd;
 
         return codeHtml;
-    }                                                               
+    }
 }

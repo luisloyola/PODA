@@ -7,12 +7,13 @@ package cl.diinf.objetoAprendizaje;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Comparator;
 
 /**
  *
  * @author teban
  */
-public class Idea {
+public class Idea implements Comparable<Idea>{
     int aparitionOrder;
     String voice;
     List<Texto> text;
@@ -64,4 +65,16 @@ public class Idea {
         this.media.add(media);
     }
     
+    @Override     
+    public int compareTo( Idea idea ) {
+        if(aparitionOrder < idea.aparitionOrder){
+            return -1;
+        }
+        else if(aparitionOrder > idea.aparitionOrder){
+            return 1;
+        }
+        return 0;
+    }
 }
+
+
