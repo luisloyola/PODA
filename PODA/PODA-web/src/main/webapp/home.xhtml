@@ -17,14 +17,15 @@
             
         <script>
             function ValidateFileFE(){
-                 var campo1 = document.getElementById('form:file');
-                    if(campo1.value ==''){
-                        alertify.alert('<b>Atención!</b>','No ha seleccionado ningún archivo'); 
-                        return false; 
-                    }
-                    return true;
-                    
-            }
+                 var campo1 = document.getElementById('form:file');
+                    if(campo1.value ==''){
+                        alertify.alert('<b>Atención!</b>','No ha seleccionado ningún archivo'); 
+                        return false; 
+                    }
+                    alertify.alert('...','Procesando su archivo, Por favor espere...','');
+                    return true;
+                    
+            }
             function hideShow(id){
                 mostrado=0;
                 elem = document.getElementById(id);
@@ -83,11 +84,12 @@
               
                             <h:inputFile id="file" value="#{fileUpload.file}" /> <!--validator="{fileUpload.ValidateFileFE}"/>-->
                         </div>  
-                        <div class="col-md-4 col-lg-offset-7 " ><br></br>
-                            <h:button outcome="objeto_aprendizaje.xhtml"  value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-success" />
-                            
+                        <div class="col-md-4 col-lg-offset-6 " ><br></br>                         
+                        
+                            <h:commandButton action="#{fileUpload.upload}" value="Generar" styleClass="btn btn-info" onclick=" return ValidateFileFE()"/>&nbsp;
+                    <h:button outcome="objeto_aprendizaje.xhtml"  value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-success" />
+
                         </div>
-                    <h:commandButton action="#{fileUpload.upload}" value="Generar" styleClass="btn btn-warning" onclick=" return ValidateFileFE()"/>
                 </h:form>                                                                                    
                                  <!--       
                     <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
