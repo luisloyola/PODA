@@ -189,17 +189,16 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             String order = Integer.toString(idea.getAparitionOrder());
             String start_label = "", end_label = "";
             
-            if(idea.getAparitionOrder() != 1){
-                start_label = "<span class = \"order-" + order + "\">";
-                end_label = "</span>";
-            }
+            //if(idea.getAparitionOrder() != 1){
+            start_label = "<span class = \"order-" + order + "\">";
+            end_label = "</span>";
+            //}
             
             for(int j = 0; j < idea.getText().size(); j++){
                 
                 if(!idea.getText().get(j).getType().equals("ejemplo")){
                     
                     if(!list_examples.isEmpty()){
-                                                
                         codeHtml += write_examples(list_examples, start_label, end_label);                        
                         list_examples.clear();
                     }
@@ -304,8 +303,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 }
             }                        
             
-            if(orderedIdea.get(i).getAparitionOrder() != 1)
-                codeHtml += "<div class=\"anim-show slide\" data-what=\".order-" + orderedIdea.get(i).getAparitionOrder() + "\" id=\"animacion-" + number_slide + "-" + number_block + "-" + number_idea + "\"></div>";
+            //if(orderedIdea.get(i).getAparitionOrder() != 1)
+            codeHtml += "<div class=\"anim-show slide\" data-what=\".order-" + orderedIdea.get(i).getAparitionOrder() + "\" id=\"animacion-" + number_slide + "-" + number_block + "-" + number_idea + "\"></div>";
 
             if(!orderedIdea.get(i).getVoice().equals("")){
                 String audioFileName;            
@@ -576,8 +575,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                     if(!scene.getBlocks().get(j).getIdeas().get(k).getVoice().equals("")){
                         
-                        if(scene.getBlocks().get(j).getIdeas().get(k).getAparitionOrder() != 1){
-                            htmlScriptVoice = "<script>\n" +
+                        //if(scene.getBlocks().get(j).getIdeas().get(k).getAparitionOrder() != 1){
+                        htmlScriptVoice = "<script>\n" +
                                                 "  $(\"#animacion-"+(i+1) +"-"+ j +"-"+ k +"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
                                                 "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
                                                 "    play(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
@@ -586,8 +585,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                                                 "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
                                                 "  });\n" +
                                                 "</script>\n";                            
-                        }
-                        else if(scene.getBlocks().get(j).getIdeas().get(k).getAparitionOrder() == 1){
+                        //}
+                        /*else if(scene.getBlocks().get(j).getIdeas().get(k).getAparitionOrder() == 1){
                             htmlScriptVoice = "<script>\n" +
                                                 "  $(\"#slide-"+(i+1)+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
                                                 "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
@@ -600,7 +599,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                         }
                         else{
                             
-                        }
+                        }*/
                         codeHtml += "\n" + htmlScriptVoice;
                     }
                 }
