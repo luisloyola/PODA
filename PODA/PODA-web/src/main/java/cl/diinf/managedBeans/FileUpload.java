@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package cl.diinf.managedBeans;
+ 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable; 
@@ -130,7 +133,7 @@ public class FileUpload implements Serializable{
                 OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
 
-                error_Message = "Su objeto de aprendizaje ha sido creado correctamente";                
+                error_Message = "Su objeto de aprendizaje ha sido creado correctamente";
                 code_html = OA_translate.writeHtml(OA_List.get(0));                                
                 prepareDownload();                
 
@@ -145,6 +148,14 @@ public class FileUpload implements Serializable{
                 error_Message = nuevoOAR.getParsingError();
             }     
         }        
+    }
+    
+    public void show_message(){
+            
+        if(!this.error_Message.equals("Su objeto de aprendizaje ha sido creado correctamente"))
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información:", this.getError_Message()));
+        else
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", this.getError_Message()));
     }
     
     public String prepareDownload(){
