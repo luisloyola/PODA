@@ -12,14 +12,10 @@ import cl.diinf.util.TTSDownloader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  *
@@ -68,8 +64,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         File fileAudio = new File(destinoAudio);
         File fileAudio2 = new File(origenAudio);
         CreateDirectory.copyFolder(fileAudio2,fileAudio);        
-        return codeHtml;
-        
+        return codeHtml;        
     }
     
     /**
@@ -79,6 +74,20 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
      */
     public String write_headerHtml(ObjetoAprendizaje object){
         //Head del HTML
+        
+        String templateHtml;
+        switch (object.getTemplate()){
+            case "dafault":
+                templateHtml = "default.css";
+                break;
+            case "usach":
+                templateHtml = "usach-colores.css";
+                break;
+            default:
+                templateHtml = "default.css";
+                break;
+        }
+        
         String htmlHeader = "<!DOCTYPE html>\n" +
                             "<html>\n" +
                             "<head>\n" +
@@ -87,37 +96,26 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "  <meta name=\"viewport\" content=\"width=1024, user-scalable=no\">\n" +
                             "\n" + "  <title>" + object.getTitle() + "</title>"+                                
                             "<link rel=\"stylesheet\" media=\"screen\" href=\"resources/core/deck.core.css\">\n" + "\n" +
-                            "  <!-- Extensiones deckjs -->\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/goto/deck.goto.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/menu/deck.menu.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/navigation/deck.navigation.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/status/deck.status.css\">\n" +
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/scale/deck.scale.css\">\n" + "\n" +
-                            "  <!-- CSS bloques -->\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/scale/deck.scale.css\">\n" + "\n" +                            
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1up.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1down.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1up-1down.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas.css\">\n" +
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas-1up.css\">\n" + "\n" + "\n" +
-                            "  <!-- Archivos necesarios para voz realtime. -->\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas-1up.css\">\n" + "\n" + "\n" +                            
                             "  <script src=\"resources/voice/AJAX_GOOGLE.js\"></script>\n" +
-                            "  <script src=\"resources/voice/voice.js\"></script>\n" + "\n" +
-                            "  <!-- Estilos -->\n" +
-                            "  <!-- Estilo por defecto -->\n" +
-                            "  <!--<link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/swiss.css\"> -->\n" +
+                            "  <script src=\"resources/voice/voice.js\"></script>\n" + "\n"+        
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/swiss.css\">\n" + "\n" +
-                            "  <!-- Estilo colores usach -->\n" +
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/usach-colores.css\">\n" + "\n" +
-                            "  <!-- Tema transicion -->\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/" + templateHtml +"\">\n" + "\n" +                            
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/transition/horizontal-slide.css\">\n" + "\n" +
-                            "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" + "\n" +
-                            "  <!-- Archivo modernizr necesario -->\n" +
-                            "  <script src=\"resources/modernizr.custom.js\"></script>\n" + " \n" +
-                            "  <!-- Falta hacerlo online -->\n" +
-                            "  <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>\n" + "  \n" +
-                            "  <!-- CSS letra manuscrita -->\n" +
+                            "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" + "\n" +                            
+                            "  <script src=\"resources/modernizr.custom.js\"></script>\n" + " \n" +                                                        
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/font-manuscrita.css\">"+
+                            "<script src=\"resources/extensions/deck.syntaxhighlighter.js\"></script>"+                
                             "<script>\n"+
                             "   function ej_aleatorio(){\n" +
                             "       index = Math.random() * ejemplos.length\n" +
@@ -143,14 +141,22 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return htmlHeader;
     }
     
-    public String write_text(String text){
-                        
+    public String write_text(String text, String desing){
+        String color;
+        switch (desing){
+            case "usach":
+                color = "orange";
+                break;
+            default:
+                color = "green";
+                break;                    
+        }        
         text = text.replaceAll("/d", "<mark>");
         text = text.replaceAll("d/", "</mark>");
-        text = text.replaceAll("/e", "<font color=green>");
-        text = text.replaceAll("e/", "</font>"); 
+        text = text.replaceAll("/e", "<font color="+color+">");
+        text = text.replaceAll("e/", "</font>");         
         
-       return text;
+        return text;
     }
     
     public String write_examples(ArrayList<String> list_examples, String start, String end){
@@ -170,7 +176,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return examples;
     }    
     
-    public String write_block(Block block, String OAPath, String OAName, int numberSlide, int numberBlock){
+    public String write_block(Block block, int numberSlide, int numberBlock, String design){
         
         String codeHtml = "";
         
@@ -202,12 +208,12 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
 
                     case "normal":
                         codeHtml += "<p>"+ start_label;
-                        codeHtml += write_text(idea.getText().get(j).getContent());
+                        codeHtml += write_text(idea.getText().get(j).getContent(), design);
                         codeHtml += end_label+"</p>";
                         break;
                     case "manuscrito":
                         codeHtml += "<p id=\"manuscrita\">"+ start_label;
-                        codeHtml += write_text(idea.getText().get(j).getContent());
+                        codeHtml += write_text(idea.getText().get(j).getContent(), design);
                         codeHtml += end_label+"</p>";
                         break;
                     case "codigo":
@@ -261,8 +267,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         
         return codeHtml;
     }
-    
-    
+
     public String write_animationHtml(Slide scene, int number_slide, String OAPath, String OAName ){
         
         String codeHtml = "";
@@ -319,7 +324,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return codeHtml;
     }
     
-    public String write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName){
+    public String write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName, String design){
         
         String codeHtml = "";
         
@@ -331,24 +336,24 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             case "1Col":
                 //escribir contenido del primer bloque
                 
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);                
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);                
                 break;
                 
             case "1Fil2Col":
                 
                 codeHtml += "<div class=\"up-2columnas-1up\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design );
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-2columnas-1up\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1up\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design);
                 codeHtml += "</div>";
                         
                 break;
@@ -357,12 +362,12 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                                 
                 codeHtml += "<div class=\"left-2columnas\">";
                 //escribir contenido del primer bloque
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas\">";
                 //escribir contenido del segundo bloque
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
                 codeHtml += "</div>";
                 
                 break;
@@ -370,17 +375,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"left-3columnas\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"center-3columnas\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-3columnas\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2), nro_slide, 2, design);
                 codeHtml += "</div>";
                 
                 break;
@@ -388,22 +393,22 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-3columnas-1up\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-3columnas-1up\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"center-3columnas-1up\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2), nro_slide, 2, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-3columnas-1up\">";
                 //bloque 4
-                codeHtml += write_block(scene.getBlocks().get(3), OAPath, OAName, nro_slide, 3);
+                codeHtml += write_block(scene.getBlocks().get(3), nro_slide, 3, design);
                 codeHtml += "</div>";
                 
                 break;
@@ -411,22 +416,22 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-2columnas-1up-1down\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-2columnas-1up-1down\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1up-1down\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2), nro_slide, 2, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"down-2columnas-1up-1down\">";
                 //bloque 4
-                codeHtml += write_block(scene.getBlocks().get(3), OAPath, OAName, nro_slide, 3);
+                codeHtml += write_block(scene.getBlocks().get(3), nro_slide, 3, design);
                 codeHtml += "</div>";
                 
                 break;
@@ -434,17 +439,17 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                  codeHtml += "<div class=\"left-2columnas-1down\">";
                 //bloque 1
-                 codeHtml += write_block(scene.getBlocks().get(0), OAPath, OAName, nro_slide, 0);
+                 codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1down \">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), OAPath, OAName, nro_slide, 1);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"down-2columnas-1down \">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), OAPath, OAName, nro_slide, 2);
+                codeHtml += write_block(scene.getBlocks().get(2), nro_slide, 2, design);
                 codeHtml += "</div>";
                 
                 break;
@@ -463,6 +468,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
      * Escribe todas las escenas o "slides" del objeto en la página.
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @param codeHtml 
+     * @param OAName 
      * @return string con todas las slides incorporadas.
      */
     public String write_contentHtml(ObjetoAprendizaje object, String OAName){
@@ -478,7 +484,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         
         for (int i = 0; i < object.getContent().size(); i++){
 
-            codeHtml += write_slideHtml(object.getContent().get(i), i+1, OAPath, OAName);
+            codeHtml += write_slideHtml(object.getContent().get(i), i+1, OAPath, OAName, object.getTemplate());
                                     
         }
         return codeHtml;
@@ -494,28 +500,22 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     public String write_librsHtml(ObjetoAprendizaje object){
 
         String codeHtml = "";
-        String htmlLibrs=  "    <!-- deck.navigation snippet -->\n" +
-                            "    <div aria-role=\"navigation\">\n" +
+        String htmlLibrs=   "    <div aria-role=\"navigation\">\n" +
                             "      <a href=\"#\" class=\"deck-prev-link\" title=\"Previous\">&#8592;</a>\n" +
                             "      <a href=\"#\" class=\"deck-next-link\" title=\"Next\">&#8594;</a>\n" +
                             "    </div>\n" + "\n" +
-                            "    <!-- deck.status snippet -->\n" +
                             "    <p class=\"deck-status\" aria-role=\"status\">\n" +
                             "      <span class=\"deck-status-current\"></span>\n" + "/\n" +
                             "      <span class=\"deck-status-total\"></span>\n" + "    </p>\n" + "\n" +
-                            "    <!-- deck.goto snippet -->\n" +
                             "    <form action=\".\" method=\"get\" class=\"goto-form\">\n" +
                             "      <label for=\"goto-slide\">Go to slide:</label>\n" +
                             "      <input type=\"text\" name=\"slidenum\" id=\"goto-slide\" list=\"goto-datalist\">\n" +
                             "      <datalist id=\"goto-datalist\"></datalist>\n" +
                             "      <input type=\"submit\" value=\"Go\">\n" +
                             "    </form>\n" + "\n" +
-                            "    <!-- End extension snippets. -->\n" +
                             "  </div>\n" + "\n" +
-                            "<!-- Archivos JS necesarios -->\n" +
                             "<script src=\"resources/jquery.min.js\"></script>\n" +
                             "<script src=\"resources/core/deck.core.js\"></script>\n" + "\n" +
-                            "<!-- Archivos JS de extensiones deckjs -->\n" +
                             "<script src=\"resources/extensions/menu/deck.menu.js\"></script>\n" +
                             "<script src=\"resources/extensions/goto/deck.goto.js\"></script>\n" +
                             "<script src=\"resources/extensions/status/deck.status.js\"></script>\n" +

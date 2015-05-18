@@ -72,9 +72,7 @@ public class FileUpload implements Serializable{
     public void setError_Message(String error_Message) {
         this.error_Message = error_Message;
     }
- 
-    
-    
+        
     /**
      * Cambia el contenido del la variable privada code_html para ser mostrada
      * como objeto de aprendizaje.
@@ -112,9 +110,9 @@ public class FileUpload implements Serializable{
                 /*Cargara el objeto SÓLO si es válido*/
                 OA_TranslateHtml OA_translate = new OA_TranslateHtml();
             
+                error_Message = "Su objeto de aprendizaje ha sido creado correctamente";
                 name_oa = OA_List.get(0).getName_file();
-                code_html = OA_translate.writeHtml(OA_List.get(0));
-                error_Message = null;
+                code_html = OA_translate.writeHtml(OA_List.get(0));                
             }
             else{
                 /*Archivo con errores o inválido.*/
