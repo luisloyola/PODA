@@ -19,6 +19,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 
 /**
@@ -143,6 +144,9 @@ public class OA_Reader {
                 newOA.setAuthor(currentNode.getAttribute("autor"));  
                 newOA.setTemplate(currentNode.getAttribute("tema"));
                 newOA.setCreationDate(new Date());
+                String OA_nameFile = UUID.randomUUID().toString();
+                OA_nameFile += ("" + System.currentTimeMillis() + "_OA");
+                newOA.setName_file(OA_nameFile);
                 
                 //System.out.println("Título Objeto: "+newOA.getTitle()+" Realizado por: "+newOA.getAuthor()+" Template: "+newOA.getTemplate() + " Fecha creación: "+newOA.getCreationDate());
                 

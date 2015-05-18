@@ -53,13 +53,14 @@ public class CreateDirectory {
     		String files[] = src.list();
  
     		for (String file : files) {
+                     if (file.compareTo("audios")!=0) {
     		   //construct the src and dest file structure
     		   File srcFile = new File(src, file);
     		   File destFile = new File(dest, file);
     		   //recursive copy
     		   copyFolder(srcFile,destFile);
-    		}
- 
+                    }
+                }
     	}else{
     		//if file, then copy it
     		//Use bytes stream to support all file types
@@ -79,11 +80,12 @@ public class CreateDirectory {
     	        System.out.println("File copied from " + src + " to " + dest);
     	}
     }
-    public void createDirectory(String code) throws IOException{
-         theDir = new File("DIR/resources");
-        String origen = "DIR";
-        File file2 = new File(origen);
-        file= new File(file2,"objeto.html");
+    public void createDirectory(String code, String OAName, String OATitle) throws IOException{
+        theDir = new File(("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName+"/resources/audios/"+OAName));
+        String destino = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName;
+        File file2 = new File(destino);
+        file= new File(file2,OATitle+".html");
+        
 
         FileOutputStream fop = null;
 
@@ -108,18 +110,17 @@ public class CreateDirectory {
         }
  
 	
-			fop = new FileOutputStream(file);
- 
-			// if file doesnt exists, then create it
+	fop = new FileOutputStream(file);
+ 			// if file doesnt exists, then create it
  
 			// get the content in bytes
-			byte[] contentInBytes = content.getBytes();
+	byte[] contentInBytes = content.getBytes();
  
-			fop.write(contentInBytes);
-			fop.flush();
-			fop.close();
+	fop.write(contentInBytes);
+	fop.flush();
+	fop.close();
  
-			System.out.println("Done");
+	System.out.println("Done");
  
 
     }
