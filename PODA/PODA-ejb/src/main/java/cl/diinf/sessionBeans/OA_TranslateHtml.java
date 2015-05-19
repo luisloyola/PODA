@@ -7,9 +7,7 @@ package cl.diinf.sessionBeans;
 
 import javax.ejb.Stateless;
 import cl.diinf.objetoAprendizaje.*;
-import cl.diinf.util.CreateDirectory;
 import cl.diinf.util.TTSDownloader;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,10 +22,22 @@ import java.util.Collections;
 @Stateless
 public class OA_TranslateHtml implements OA_TranslateHtmlLocal {    
     
-    public OA_TranslateHtml(){
+    private String translateError;
     
+    public OA_TranslateHtml(){
+        translateError = "NO_ERROR";
     }
 
+    public String getTranslateError() {
+        return translateError;
+    }
+
+    public void setTranslateError(String translateError) {
+        this.translateError = translateError;
+    }
+
+    
+    
     /**
      * Devuelve una página web completa para ser instroducida en el contenedor
      * en la capa de vista.
@@ -38,10 +48,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     public String writeHtml(ObjetoAprendizaje object) throws IOException{
                     
         String codeHtml;
-        
-        //CreateDirectory create = new CreateDirectory();
-        
-        /* Crear un nombre unico para el OA*/
+
         String OATitle= object.getTitle();
         String OAName = object.getName_file();
         
@@ -51,20 +58,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         codeHtml += write_scriptHtml(object);
 
         codeHtml += write_voiceHtml(object);
-        //create.createDirectory(codeHtml,OAName, OATitle);   //crea un directorio con el archivo html generado
-        //String destino = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName+"/resources"; 
-        //String origen = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources";
-        
-        //File file = new File(destino);
-        //File file2 = new File(origen);
-        //CreateDirectory.copyFolder(file2,file);
-        //String destinoAudio = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+OAName+"/resources/audios/"+OAName; 
-        //String origenAudio = "../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources/audios/"+OAName;
-        
-        //File fileAudio = new File(destinoAudio);
-        //File fileAudio2 = new File(origenAudio);
-        //CreateDirectory.copyFolder(fileAudio2,fileAudio);      
-        //System.out.println(codeHtml);
+
         return codeHtml;        
     }
     
@@ -317,7 +311,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                     codeHtml += ("type=\"audio/ogg\"></audio>");
 
                 } catch (IOException ex) {
-                    Logger.getLogger(OA_TranslateHtml.class.getName()).log(Level.SEVERE, null, ex);
+                    this.translateError = "NO_AUDIO";
+                    
                 }
             }
         }

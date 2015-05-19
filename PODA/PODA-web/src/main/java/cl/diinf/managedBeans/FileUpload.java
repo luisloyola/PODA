@@ -25,7 +25,6 @@ import java.io.OutputStream;
 import java.util.NoSuchElementException;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
 import javax.servlet.http.Part; 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -49,8 +48,7 @@ public class FileUpload implements Serializable{
 
     public void setZipFile(StreamedContent file) {
         this.zipFile = file;
-    }    
-    
+    }        
     public String getGeneratedZipPath() {
         return generatedZipPath;
     }
@@ -138,8 +136,11 @@ public class FileUpload implements Serializable{
 
                 error_Message = "Su objeto de aprendizaje ha sido creado correctamente";
                 code_html = OA_translate.writeHtml(OA_List.get(0));                  
-
-                code_html = OA_translate.writeHtml(OA_List.get(0));
+               
+                if(OA_translate.getTranslateError().equals("NO_AUDIO")){
+                    code_html = null;
+                    error_Message = "No se ha podido conectar con el servidor de audio.";
+                }
                 
                 this.OA_Name = OA_List.get(0).getTitle();
                 //prepareDownload();

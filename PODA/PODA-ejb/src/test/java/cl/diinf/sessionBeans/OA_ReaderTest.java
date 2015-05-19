@@ -77,144 +77,204 @@ public class OA_ReaderTest {
     public void testReadOA() {
         OA_Reader instance = new OA_Reader();
         instance.setFileContent("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-"<!DOCTYPE comenzar SYSTEM \"validator.dtd\"> \n" +
+"<!DOCTYPE comenzar [\n" +
+"<!ELEMENT comenzar (objeto)>\n" +
+"<!ELEMENT objeto (escena+)>\n" +
+"<!ELEMENT escena (bloque+)>\n" +
+"<!ELEMENT bloque (idea*)>\n" +
+"<!ELEMENT idea (texto*, voz?)>\n" +
+"<!ELEMENT texto (#PCDATA)>\n" +
+"<!ELEMENT voz (#PCDATA)>\n" +
+"\n" +
+"<!ATTLIST objeto titulo CDATA #REQUIRED>\n" +
+"<!ATTLIST objeto autor CDATA #REQUIRED>\n" +
+"<!ATTLIST objeto tema CDATA #REQUIRED>\n" +
+"<!ATTLIST escena titulo CDATA #REQUIRED>\n" +
+"<!ATTLIST escena tipo CDATA #REQUIRED>\n" +
+"\n" +
+"<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n" +
+"<!ATTLIST texto tipo CDATA #REQUIRED>	\n" +
+"]>\n" +
 "\n" +
 "<comenzar>\n" +
-"	<objeto titulo=\"Prueba v3\" autor=\"Probador\" tema=\"default\">\n" +
-"		<escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
+"	<objeto titulo=\"Presentación de PODA en la Sprint Review 2\" tema=\"usach\" autor=\"Grupo 1 PINGESO\">\n" +
+"		<escena titulo=\"Diseño 1 columna\" tipo=\"1Col\">\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">texto 1Col: 1</texto>\n" +
-"					<texto tipo=\"codigo\">texto 1Col: 2 </texto>\n" +
-"					<voz>Voz 1Col</voz>\n" +
+"					<texto tipo=\"normal\">Texto de un primer parrafo de la primera escena</texto>\n" +
+"					<texto tipo=\"codigo\">\n" +
+"						//Soy texto de un codigo\n" +
+"						if(cont==0):\n" +
+"							var = cont + 1\n" +
+"						else:\n" +
+"							var = cont + 2\n" +
+"					</texto>\n" +
+"					<texto tipo=\"manuscrito\">Soy texto manuscrito</texto>\n" +
+"					<voz>Idea 1</voz>\n" +
+"				</idea>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo=\"normal\">Soy un texto de una segunda idea con dos pilas de ejemplos</texto>					\n" +
+"					<texto tipo=\"normal\">Primer conjunto de ejemplos</texto>					\n" +
+"					<texto tipo=\"ejemplo\">Soy el ejemplo 1.1</texto>\n" +
+"					<texto tipo=\"ejemplo\">Soy el ejemplo 1.2</texto>\n" +
+"					<texto tipo=\"ejemplo\">Soy el ejemplo 1.3</texto>\n" +
+"					<texto tipo=\"ejemplo\">Soy el ejemplo 1.4</texto>\n" +
+"					<texto tipo=\"normal\">Segundo conjunto de ejemplos</texto>\n" +
+"					<texto tipo=\"ejemplo\">Soy el ejemplo 2.1</texto>\n" +
+"					<texto tipo=\"ejemplo\">Soy el ejemplo 2.2</texto>\n" +
+"					<texto tipo=\"ejemplo\">Soy el ejemplo 2.3</texto>\n" +
+"					<texto tipo=\"ejemplo\">Soy el ejemplo 2.4</texto>\n" +
+"					<voz>Idea 2 con ejemplos</voz>\n" +
 "				</idea>\n" +
 "			</bloque>\n" +
 "		</escena>\n" +
-"		<escena titulo=\"Escena 1 Fila 2 Columnas\" tipo=\"1Fil2Col\">\n" +
+"\n" +
+"		<escena titulo=\"Diseño 1 fila superior 2 columnas\" tipo=\"1Fil2Col\">\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"ejemplo\">texto 1Row2Col: 1</texto>\n" +
-"					<texto tipo=\"manuscrito\">texto 1Row2Col: 2</texto>\n" +
-"					<voz>Voz 1Row2Col</voz>\n" +
+"					<texto tipo = \"normal\">Soy un texto de la fila superior de la escena 2 que sale primero</texto>\n" +
+"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
+"					<voz>Idea 1</voz>\n" +
 "				</idea>\n" +
-"			</bloque>	\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo=\"normal\">texto 1Row2Col: 3</texto>\n" +
-"					<texto tipo=\"manuscrito\">texto 1Row2Col: 4</texto>\n" +
-"					<voz>Voz 1Row2Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
 "				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo=\"ejemplo\">texto 1Row2Col: 5</texto>\n" +
-"					<texto tipo=\"ejemplo\">texto 1Row2Col: 6</texto>\n" +
-"					<voz>Voz 1Row2Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>		\n" +
-"		</escena>\n" +
-"		<escena titulo=\"Escena 2 Columnas\" tipo=\"2Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">texto 1Row2Col: 1</texto>\n" +
-"					<texto tipo=\"codigo\">texto 1Row2Col: 2</texto>\n" +
-"					<voz>Voz 1Row2Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>	\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo=\"manuscrito\">texto 1Row2Col: 3</texto>\n" +
-"					<texto tipo=\"manuscrito\">texto 1Row2Col: 4</texto>\n" +
-"					<voz>Voz 1Row2Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"		<escena titulo=\"Escena 3 Columnas\" tipo=\"3Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"codigo\">texto 3Col: 1</texto>\n" +
-"					<texto tipo=\"codigo\">texto 3Col: 2</texto>\n" +
-"					<voz>Voz 3Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo=\"manuscrito\">texto 3Col: 3</texto>\n" +
-"					<texto tipo=\"codigo\">texto 3Col: 4</texto>\n" +
-"					<voz>Voz 3Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo=\"normal\">texto 3Col: 5</texto>\n" +
-"					<texto tipo=\"normal\">texto 3Col: 6</texto>\n" +
-"					<voz>Voz 3Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"		<escena titulo=\"Escena 1 Fila 3 Columnas\" tipo=\"1Fil3Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">texto 1Row3Col: 1</texto>\n" +
-"					<texto tipo=\"codigo\">texto 1Row3Col: 2</texto>\n" +
-"					<voz>Voz 1Row3Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo=\"normal\">texto 1Row3Col: 3</texto>\n" +
-"					<texto tipo=\"normal\">texto 1Row3Col: 4</texto>\n" +
-"					<voz>Voz 1Row3Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo=\"normal\">texto 1Row3Col: 5</texto>\n" +
-"					<texto tipo=\"codigo\">texto 1Row3Col: 6</texto>\n" +
-"					<voz>Voz 1Row3Col</voz>\n" +
+"					<texto tipo = \"manuscrito\">Soy un texto /dmanuscritod/ de la fila /esuperiore/ que aparece tercero</texto>\n" +
+"					<voz>Idea 3</voz>\n" +
 "				</idea>\n" +
 "			</bloque>\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"4\">\n" +
-"					<texto tipo=\"normal\">texto 1Row3Col: 7</texto>\n" +
-"					<texto tipo=\"normal\">texto 1Row3Col: 8</texto>\n" +
-"					<voz>Voz 1Row3Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"		<escena titulo=\"Escena 2 Filas 2 Columnas\" tipo=\"2Fil2Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">texto 2Row2Col: 1</texto>\n" +
-"					<texto tipo=\"normal\">texto 2Row2Col: 2</texto>\n" +
-"					<voz>Voz 2Row2Col</voz>\n" +
-"				</idea>\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna inferior izquierda que aparece cuarto</texto>\n" +
+"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
+"					<voz>Idea 4</voz>\n" +
+"				</idea>				\n" +
 "			</bloque>\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo=\"normal\">texto 2Row2Col: 3</texto>\n" +
-"					<texto tipo=\"normal\">texto 2Row2Col: 4</texto>\n" +
-"					<voz>Voz 2Row2Col</voz>\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna inferior derecha que aparece segundo</texto>\n" +
+"					<voz>Idea 2</voz>\n" +
+"				</idea>\n" +
+"				<idea ordenAparicion=\"5\">\n" +
+"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la columna inferior izquierda que aparece quinto</texto>\n" +
+"					<voz>Idea 5</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"\n" +
+"		<escena titulo=\"Diseño 2 columnas\" tipo=\"2Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la fila superior de la escena 2 que sale primero</texto>\n" +
+"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
+"					<voz>Idea 1</voz>\n" +
+"				</idea>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la fila superior que aparece tercero</texto>\n" +
+"					<voz>Idea 2</voz>\n" +
 "				</idea>\n" +
 "			</bloque>\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo=\"normal\">texto 2Row2Col: 5</texto>\n" +
-"					<texto tipo=\"manuscrito\">texto 2Row2Col: 6</texto>\n" +
-"					<voz>Voz 2Row2Col</voz>\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna inferior izquierda que aparece cuarto</texto>\n" +
+"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
+"					<voz>Idea 3</voz>\n" +
+"				</idea>				\n" +
+"			</bloque>			\n" +
+"		</escena>\n" +
+"\n" +
+"		<escena titulo=\"Diseño 3 columnas\" tipo=\"3Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna izquierda</texto>\n" +
+"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
+"					<voz>Idea 1</voz>\n" +
+"				</idea>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la columna izquierda</texto>\n" +
+"					<voz>Idea 2</voz>\n" +
 "				</idea>\n" +
 "			</bloque>\n" +
 "			<bloque>\n" +
+"				<idea ordenAparicion=\"3\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna de al medio</texto>\n" +
+"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
+"					<voz>Idea 3</voz>\n" +
+"				</idea>				\n" +
+"			</bloque>			\n" +
+"			<bloque>\n" +
 "				<idea ordenAparicion=\"4\">\n" +
-"					<texto tipo=\"normal\">texto 2Row2Col: 7</texto>\n" +
-"					<texto tipo=\"normal\">texto 2Row2Col: 8</texto>\n" +
-"					<voz>Voz 2Row2Col</voz>\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna derecha</texto>\n" +
+"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
+"					<voz>Idea 4</voz>\n" +
+"				</idea>				\n" +
+"			</bloque>			\n" +
+"		</escena>\n" +
+"\n" +
+"		<escena titulo=\"Diseño 2 filas 2 columnas\" tipo=\"2Fil2Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la fila superior</texto>\n" +
+"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
+"					<voz>Idea 1</voz>\n" +
+"				</idea>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la fila superior</texto>\n" +
+"					<voz>Idea 2</voz>\n" +
 "				</idea>\n" +
 "			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"3\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna izquierda</texto>\n" +
+"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
+"					<voz>Idea 3</voz>\n" +
+"				</idea>				\n" +
+"			</bloque>			\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"5\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna derecha</texto>\n" +
+"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
+"					<voz>Idea 5</voz>\n" +
+"				</idea>				\n" +
+"			</bloque>			\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"4\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la fila inferior</texto>\n" +
+"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
+"					<voz>Idea 4</voz>\n" +
+"				</idea>				\n" +
+"			</bloque>			\n" +
+"		</escena>\n" +
+"\n" +
+"		<escena titulo=\"Diseño 2 columnas 1 fila\" tipo=\"2Col1Fil\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna superior izquierda</texto>\n" +
+"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
+"					<voz>Idea 1</voz>\n" +
+"				</idea>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la columna superior izquierda</texto>\n" +
+"					<voz>Idea 2</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"3\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la columna superior derecha</texto>\n" +
+"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
+"					<voz>Idea 3</voz>\n" +
+"				</idea>				\n" +
+"			</bloque>			\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"4\">\n" +
+"					<texto tipo = \"normal\">Soy un texto de la fila inferior</texto>\n" +
+"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
+"					<voz>Idea 4</voz>\n" +
+"				</idea>				\n" +
+"			</bloque>						\n" +
 "		</escena>\n" +
 "	</objeto>\n" +
 "</comenzar>");
         int result = instance.readOA().size();
+        
         assertEquals(1, result);
     }
 
