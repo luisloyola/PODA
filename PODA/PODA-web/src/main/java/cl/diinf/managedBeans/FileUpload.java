@@ -6,8 +6,6 @@
 package cl.diinf.managedBeans;
  
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable; 
 import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
@@ -19,6 +17,7 @@ import cl.diinf.sessionBeans.OA_TranslateHtml;
 import cl.diinf.util.Compressor;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
@@ -48,6 +47,10 @@ public class FileUpload implements Serializable{
     private String generatedZipPath;
     private String OA_Name;
 
+    public void setZipFile(StreamedContent file) {
+        this.zipFile = file;
+    }    
+    
     public String getGeneratedZipPath() {
         return generatedZipPath;
     }
@@ -134,8 +137,7 @@ public class FileUpload implements Serializable{
             
 
                 error_Message = "Su objeto de aprendizaje ha sido creado correctamente";
-                code_html = OA_translate.writeHtml(OA_List.get(0));                                
-                prepareDownload();                
+                code_html = OA_translate.writeHtml(OA_List.get(0));                  
 
                 code_html = OA_translate.writeHtml(OA_List.get(0));
                 
@@ -164,7 +166,7 @@ public class FileUpload implements Serializable{
     public void reset_message(){
         this.error_Message = null;
     }    
-    public String prepareDownload(){
+    public File prepareDownload(){
         
         String folderName = String.valueOf(Math.random()*100000+1);
         String folderPath = "";
@@ -173,7 +175,7 @@ public class FileUpload implements Serializable{
             try{
                 newDirectory.mkdir();
                 folderPath = newDirectory.getAbsolutePath();
-                    System.out.println(folderPath);
+                    //System.out.println(folderPath);
                 File createdOA = new File(folderPath+"/index.html");
                 try{
                     FileWriter fw = new FileWriter(createdOA);
@@ -185,7 +187,7 @@ public class FileUpload implements Serializable{
                     this.copyDirectory(source,target);
                     Compressor compress = new Compressor();
                     compress.setInputPath(folderPath);
-                    compress.setOutputPath("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
+                    compress.setOutputPath("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/"+folderName+".zip");
                     compress.zipIt();
                     FileUtils.deleteDirectory(new File(folderPath));
                     
@@ -197,15 +199,16 @@ public class FileUpload implements Serializable{
             catch(SecurityException ex){
                 this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
             }
-        }
-        return folderName+".zip";
+        }   
+        return new File("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/"+folderName+".zip");
         //return new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
     }
     
-    public StreamedContent getZipFile() {
-        InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("../"+this.prepareDownload());
-        zipFile = new DefaultStreamedContent(stream, "application/zip", "PODA-"+this.OA_Name+".zip");    
-        return zipFile;
+    public StreamedContent getZipFile() throws FileNotFoundException {
+        File temp = this.prepareDownload();
+        InputStream stream = new FileInputStream(temp);
+        this.zipFile = new DefaultStreamedContent(stream, "application/zip", "PODA-"+this.OA_Name+".zip");    
+        return this.zipFile;
     }
     
     public void copyDirectory(File sourceLocation , File targetLocation)
@@ -237,19 +240,8 @@ public class FileUpload implements Serializable{
         }
     }
     
-    /*public StreamedContent getFile2(){
-         
-        Compressor comp=new Compressor();
-        comp.setInputPath("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/"+name_oa);
-        comp.setOutputPath("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/OADownloads/");
-        String salida = comp.zipIt();
-        System.out.println(salida);
-        InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream(salida);
-        file2 = new DefaultStreamedContent(stream, "application/zip","ObjetoAprendizaje.zip");
-        
-      
-        return file2;
-    }*/
+    
+    
     
     
         /**

@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 /home/alex/Escritorio/pingeso/proyecto-pingeso/PODA/PODA-ejb/src/test/java/cl/diinf/sessionBeans/OA_TranslateHtmlTest.java
 /home/alex/Escritorio/pingeso/proyecto-pingeso/PODA/PODA-ejb/src/test/java/cl/diinf/sessionBeans/OA_ReaderTest.java
+=======
+/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/test/java/cl/diinf/sessionBeans/OA_ReaderTest.java
+/home/teban/NetBeansProjects/proyecto-pingeso/PODA/PODA-ejb/src/test/java/cl/diinf/sessionBeans/OA_TranslateHtmlTest.java
+>>>>>>> 7f7fa23457820cca10abd5f17e6f24c2698fc803
