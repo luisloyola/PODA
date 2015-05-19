@@ -50,7 +50,10 @@ public class Compressor {
     }
     
     
-    
+    /**
+     * 
+     * @return Ruta al archivo comprimido.
+     */
     public String zipIt(){
         FileOutputStream fos = null;
         try {
@@ -70,6 +73,13 @@ public class Compressor {
         
     }
     
+    /**
+     * 
+     * @param zos Archivo de salida
+     * @param folderName Ruta donde guardar
+     * @param baseFolderName Ruta que comprimir
+     * @throws Exception 
+     */
     private static void addFolder(ZipOutputStream zos,String folderName,String baseFolderName)throws Exception{
         File f = new File(folderName);
         if(f.exists()){

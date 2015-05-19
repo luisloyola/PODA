@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cl.diinf.sessionBeans;
 
 import cl.diinf.handlers.SimpleErrorHandler;
@@ -149,8 +145,6 @@ public class OA_Reader {
                 OA_nameFile += ("" + System.currentTimeMillis() + "_OA");
                 newOA.setName_file(OA_nameFile);
                 
-                //System.out.println("Título Objeto: "+newOA.getTitle()+" Realizado por: "+newOA.getAuthor()+" Template: "+newOA.getTemplate() + " Fecha creación: "+newOA.getCreationDate());
-                
                 Element slideNode = (Element) currentNode;
                 NodeList slides = slideNode.getElementsByTagName("escena");  
                 
@@ -165,7 +159,6 @@ public class OA_Reader {
                             newSlide.setDesign("1Col");
                             return new ArrayList<ObjetoAprendizaje>();
                         }
-                        //System.out.println("\nEscena: "+(j+1)+"\n\tTítulo: "+newSlide.getTitle()+"\n\tTipo: "+newSlide.getDesign());
                         
                         NodeList readedBlocks  = currentSlide.getElementsByTagName("bloque");
                             
@@ -280,10 +273,6 @@ public class OA_Reader {
                                     }
                                     
                                     newIdea.addText(newText);
-                                    /*System.out.println("\t\tTexto: "+newText.getContent());
-                                    if(newText.getType()!=""){
-                                        System.out.println("\t\tTipo texto: "+newText.getType());
-                                    }*/
                                     
                                 }
                                 
@@ -291,7 +280,6 @@ public class OA_Reader {
                                 
                                 if(voiceNode.getLength() > 0){
                                     newIdea.setVoice(voiceNode.item(0).getTextContent());
-                                    //System.out.println("\t\tVoz: "+newIdea.getVoice()+"\n   ");
                                 }
                                 else if(voiceNode.getLength() >= 1){
                                     

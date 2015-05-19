@@ -11,8 +11,6 @@ import cl.diinf.util.TTSDownloader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Collections;
 
 /**
@@ -183,10 +181,10 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             String order = Integer.toString(idea.getAparitionOrder());
             String start_label = "", end_label = "";
             
-            //if(idea.getAparitionOrder() != 1){
+  
             start_label = "<span class = \"order-" + order + "\">";
             end_label = "</span>";
-            //}
+            
             
             for(int j = 0; j < idea.getText().size(); j++){
                 
@@ -570,7 +568,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                     if(!scene.getBlocks().get(j).getIdeas().get(k).getVoice().equals("")){
                         
-                        //if(scene.getBlocks().get(j).getIdeas().get(k).getAparitionOrder() != 1){
+
                         htmlScriptVoice = "<script>\n" +
                                                 "  $(\"#animacion-"+(i+1) +"-"+ j +"-"+ k +"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
                                                 "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
@@ -580,21 +578,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                                                 "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
                                                 "  });\n" +
                                                 "</script>\n";                            
-                        //}
-                        /*else if(scene.getBlocks().get(j).getIdeas().get(k).getAparitionOrder() == 1){
-                            htmlScriptVoice = "<script>\n" +
-                                                "  $(\"#slide-"+(i+1)+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
-                                                "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
-                                                "    play(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
-                                                "  });\n" +
-                                                "  $(\"#slide-"+(i+1)+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
-                                                "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
-                                                "  });\n" +
-                                                "</script>\n";                                                    
-                        }
-                        else{
-                            
-                        }*/
+
                         codeHtml += "\n" + htmlScriptVoice;
                     }
                 }
@@ -602,7 +586,6 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         }    
         //Fin del HTML
         String htmlEnd = "</body>\n" + "</html>";
-        //pWriter.append(htmlEnd);
         codeHtml = codeHtml + "\n" + htmlEnd;
 
         return codeHtml;

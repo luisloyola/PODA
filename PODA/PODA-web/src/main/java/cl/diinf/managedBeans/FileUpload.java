@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cl.diinf.managedBeans;
  
 import javax.faces.application.FacesMessage;
@@ -167,6 +163,11 @@ public class FileUpload implements Serializable{
     public void reset_message(){
         this.error_Message = null;
     }    
+    
+    /**
+     * 
+     * @return Devuelve el archivo .Zip generado.
+     */
     public File prepareDownload(){
         
         String folderName = String.valueOf(Math.random()*100000+1);
@@ -205,6 +206,11 @@ public class FileUpload implements Serializable{
         //return new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
     }
     
+    /**
+     * 
+     * @return Stream para permitir la descarga
+     * @throws FileNotFoundException 
+     */
     public StreamedContent getZipFile() throws FileNotFoundException {
         File temp = this.prepareDownload();
         InputStream stream = new FileInputStream(temp);
