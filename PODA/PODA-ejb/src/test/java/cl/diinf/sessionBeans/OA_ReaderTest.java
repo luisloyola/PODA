@@ -278,5 +278,45 @@ public class OA_ReaderTest {
         assertEquals(1, result);
     }
 
+    @Test
     
+    public void testPreProcessText(){
+        OA_Reader instance = new OA_Reader();
+        instance.setFileContent("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+"<!DOCTYPE comenzar SYSTEM \"validator.dtd\"> \n" +
+"\n" +
+"<comenzar>\n" +
+"	<objeto titulo=\"Prueba v3\" autor=\"Probador\" tema=\"default\">\n" +
+"		<escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"normal\">texto <destacado>destacado</destacado></texto>\n" +
+"					<texto tipo=\"codigo\">texto <enfatizado>enfatizado</enfatizado></texto>\n" +
+"					<voz>Voz 1Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"	</objeto>\n" +
+"</comenzar>");
+        
+        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+"<!DOCTYPE comenzar SYSTEM \"validator.dtd\"> \n" +
+"\n" +
+"<comenzar>\n" +
+"	<objeto titulo=\"Prueba v3\" autor=\"Probador\" tema=\"default\">\n" +
+"		<escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"normal\">texto /ddestacado/d</texto>\n" +
+"					<texto tipo=\"codigo\">texto /eenfatizado/e</texto>\n" +
+"					<voz>Voz 1Col</voz>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"	</objeto>\n" +
+"</comenzar>";
+        
+        instance.preProcessText();
+        assertEquals(instance.getFileContent(), expected);
+    }
 }

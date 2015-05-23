@@ -326,6 +326,49 @@ public class OA_Reader {
         }
         return newFile;
     }
+    
+    public void preProcessText(){
+        /*
+        Inicio: Reemplazar <destacado> y </destacado> por /d
+        */
+        String destacado[] = this.fileContent.split("<destacado>");
+        String temp = destacado[0];
+        for(int i = 1; i == destacado.length-1; i++){
+            temp+="/d"+destacado[i];
+        }
+        this.fileContent = temp;
+        temp = "";
+        String destacado2[] = this.fileContent.split("</destacado>");
+        temp += destacado2[0];
+        for(int i = 1; i == destacado2.length-1; i++){
+            temp+="/d"+destacado2[i];
+        }
+        this.fileContent = temp;
+        temp = "";
+        
+        /*
+        FIN: reemplazo de destacado
+        Inicio: Reemplazar <enfatizado> y </enfatizado> por /d
+        */
+        
+        
+        String enfatizado[] = this.fileContent.split("<enfatizado>");
+        temp += enfatizado[0];
+        for(int i = 1; i == enfatizado.length-1; i++){
+            temp+="/e"+enfatizado[i];
+        }
+        this.fileContent = temp;
+        temp = "";
+       
+        
+        String enfatizado2[] = this.fileContent.split("</enfatizado>");
+        temp += enfatizado2[0];
+        for(int i = 1; i == enfatizado2.length-1; i++){
+            temp+="/e"+enfatizado2[i];
+        }
+        this.fileContent = temp;        
+        temp = "";        
+    }
 }
 
 
