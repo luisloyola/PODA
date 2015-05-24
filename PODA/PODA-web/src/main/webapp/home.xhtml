@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <title>Proyecto de Objetos de Aprendizaje</title>
+        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/style.css"/>
+        <h:outputStylesheet name="css/alertify.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputScript library="js" name="alertify.min.js"/>
+        
+        <body onload="#{fileUpload.show_message()}"></body>
+            
+        <script>
+            function ValidateFileFE(){
+                 var campo1 = document.getElementById('form:file');
+                    if(campo1.value ==''){
+                        alertify.alert('<b>Atención!</b>','No ha seleccionado ningún archivo'); 
+                        return false; 
+                    }
+                    alertify.minimalDialog || alertify.dialog('minimalDialog',function(){
+                    return {
+                        main:function(content){
+                            this.setContent(content); 
+                        }
+                        };
+                    });
+                    alertify.minimalDialog("Su archivo está siendo procesado. Por favor, espere...");
+                    return true;
+                    
+            }
+            function hideShow(id){
+                mostrado=0;
+                elem = document.getElementById(id);
+                if(elem.style.display=='block')mostrado=1;
+                elem.style.display='none';
+                if(mostrado!=1)elem.style.display='block';
+                
+            }
+            function changeShow(){
+                
+                elem = document.getElementById('mostrar');
+                elem2 = document.getElementById('ocultar');
+                
+                if(elem.style.display=='block'){
+                    elem2.style.display='block';
+                    elem.style.display='none';
+                }
+                else{
+                    elem2.style.display='none';
+                    elem.style.display='block';
+                }
+            }
+        </script>
+    </h:head>
+                  
+    <h:body >
+         <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+             <div class="navbar-header">
+             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+               <a href="/PODA-web/"><img src="resources/logo.png" WIDTH="150" HEIGHT="45"></img></a>
+             </div>
+             <div class="collapse navbar-collapse" id="navbar-main">
+               <ul class="nav navbar-nav">
+                    <li><a href="/PODA-web/" >Home</a></li>
+                    <li><a href="acerca_poda.xhtml">Acerca</a></li>
+              <div class="col-md-9 col-md-push-8">
+             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+             </div>
+               </ul> 
+             </div><!--/.nav-collapse --> 
+           </div>
+             
+         </div>         
+        <div id="home" style="background-image: url(resources/aprender2.jpg)">            
+            <div class="overlay">                               
+                            <!-- overylay class usage !-->                
+                    <h1>BIENVENIDO A PODA </h1>
+                    <h2>Generador de Objetos de Aprendizaje</h2>                   
+
+                <h:form id="form" enctype="multipart/form-data" >
+                    
+                    
+                        <div class="col-md-4 col-lg-offset-6">
+              
+                            <h:inputFile id="file" value="#{fileUpload.file}" /> <!--validator="{fileUpload.ValidateFileFE}"/>-->
+                        </div>  
+                        <div class="col-md-4 col-lg-offset-6 " ><br></br>                         
+                        
+                            <h:commandButton action="#{fileUpload.upload}" value="Generar" styleClass="btn btn-info" onclick=" return ValidateFileFE()"/>&nbsp;
+                    <h:button outcome="objeto_aprendizaje.xhtml"  value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-success" />
+
+                        </div>
+                </h:form>                                                                                    
+                </div>                                   
+            </div>
+    
+        <section id="services">
+            <div class="container">
+                <div class="col-md-4 text-center">
+                  <img class="img-circle" src="resources/TXT.png" width='140' height='140'></img>
+                  <h2>Crea</h2>
+                  <p>Abre el archivo de texto XML con nuestras etiquetas y empieza a escribir tu OA!</p>
+                  
+                </div>
+                <div class="col-md-4 text-center">
+                  <img class="img-circle" src="resources/carga.png" width='140' height='140'></img>
+                  <h2>Carga</h2>
+                  <p>Carga en la barra de arriba el archivo desde tu ordenador de manera fácil y presiona "Generar".</p>
+                 
+                </div>
+                <div class="col-md-4 text-center">
+                  <img class="img-circle" src="resources/check.png" width='140' height='140'></img>
+                  <h2>Listo</h2>
+                  <p>Solo debes hacer click en "Ver Objeto de Aprendizaje".</p>
+                 
+                </div>
+            </div>
+          <br></br>
+            <div class="col-md-4 col-md-offset-4">
+                <p><a class="btn btn-lg btn-success btn-block" href="instrucciones.xhtml">Ver Detalles »</a></p>
+            </div>
+               
+        </section>    
+
+        <footer>            
+            <br></br>
+            <div class="text-center" style="color: whitesmoke">
+            PODA por PODA TEAM está licenciado bajo la licencia:
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
+            </div>
+            			
+        </footer>
+    </h:body>
+</html>

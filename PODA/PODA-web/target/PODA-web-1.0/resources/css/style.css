@@ -1,0 +1,65 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+section {
+    padding-top: 80px;
+    padding-bottom: 120px;
+}
+
+.head-set {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.pad-bottom {
+    padding-bottom: 60px;
+}
+/*================================
+    NAVBAR STYLES
+==================================*/
+.navbar-default {
+    background-color: #205081;
+    border-color: transparent;
+    color: #fff;
+}
+
+    .navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav > li > a:hover {
+        color: #fff;
+    }
+
+.navbar-brand {
+    padding: 0px;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color:#fff;
+}
+/*================================
+    HOME SECTION STYLES
+==================================*/
+
+/*STYLE OF BACKGROUND IMAGE*/
+#home {
+    background: url(../archivo1.jpg) no-repeat center center; /*Full Witdth background image*/
+    padding: 0;
+    -webkit-background-size: cover;
+    background-size: cover;
+    -moz-background-size: cover;
+    min-height: 600px;
+}
+    /*STYLE FOR OVERLAY CLASS - WHICH IS ABOVE IMAGE WITH OPACITY/TRANSPARENCY 0.75*/
+    #home .overlay {
+        padding-top: 90px;
+        background-color: rgba(0,96,144,0.75); /*.75 opacity of the color so that background image is visible*/
+        min-height: 600px;
+        color: #fff;
+    }
+
+    #home h1 {
+        padding-top: 80px;
+        font-weight: 900;
+        font-size: 100px;
+        font-family: 'Browallia New';
+    }
+

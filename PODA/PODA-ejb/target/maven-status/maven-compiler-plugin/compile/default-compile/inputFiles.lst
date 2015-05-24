@@ -1,0 +1,13 @@
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/ObjetoAprendizaje.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/util/Compressor.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_TranslateHtmlLocal.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/Block.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/Texto.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/Media.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_Reader.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/Idea.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/handlers/SimpleErrorHandler.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/objetoAprendizaje/Slide.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_ReaderLocal.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/util/TTSDownloader.java
+/home/teban/NetBeansProjects/PODA/PODA-ejb/src/main/java/cl/diinf/sessionBeans/OA_TranslateHtml.java

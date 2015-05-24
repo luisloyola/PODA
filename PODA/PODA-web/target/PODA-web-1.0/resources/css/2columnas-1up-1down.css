@@ -1,0 +1,17 @@
+.left-2columnas-1up-1down {
+width: 45%;
+float: left;
+padding: 5px 15px;
+}
+
+.right-2columnas-1up-1down   {
+width: 45%;
+float: right;
+padding: 5px 15px;
+margin: 0px 5px 5px 5px;
+}
+
+.down-2columnas-1up-1down  {
+clear: both;
+padding: 0 15px;
+}
