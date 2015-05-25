@@ -48,7 +48,7 @@ public class ResourcesDownloaderTest {
         System.out.println("DownloadFromURLAsMozilla");
         String inURL = "http://i.imgur.com/ypE48A4.png";
         String targetFilePath = generatePathForOA()+"/test/";
-        String extension = ".jpg";
+        String extension = ".png";
         String result = "";
         try{
             result = ResourcesDownloader.DownloadFromURLAsMozilla(inURL, targetFilePath, extension);
