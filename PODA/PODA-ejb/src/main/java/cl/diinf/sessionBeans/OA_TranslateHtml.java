@@ -7,7 +7,7 @@ package cl.diinf.sessionBeans;
 
 import javax.ejb.Stateless;
 import cl.diinf.objetoAprendizaje.*;
-import cl.diinf.util.TTSDownloader;
+import cl.diinf.util.ResourcesDownloader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -301,7 +301,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             if(!orderedIdea.get(i).getVoice().equals("")){
                 String audioFileName;            
                 try {
-                    audioFileName = TTSDownloader.downloadFromGoogleTTS(orderedIdea.get(i).getVoice(), OAPath);
+                    audioFileName = ResourcesDownloader.downloadFromGoogleTTS(orderedIdea.get(i).getVoice(), OAPath);
 
                     //<audio id="audio-numberSlide-numberBlock-numberIdea" source src="resources/audios/audioFileName.mp3" type="audio/ogg"></audio> 
                     codeHtml += ("<audio id=\"audio-" + number_slide + "-" + number_block + "-" + number_idea + "\" ");
@@ -467,7 +467,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     public String write_contentHtml(ObjetoAprendizaje object, String OAName){
 
         /* Obtener la ruta donde guardar el OA*/
-        String OAPath = TTSDownloader.generatePathForOA(); // Wildfly/standalone/deplayments/...ear/...web.war
+        String OAPath = ResourcesDownloader.generatePathForOA(); // Wildfly/standalone/deplayments/...ear/...web.war
         
         OAPath = OAPath.concat("/resources/audios/" + OAName +"/");
 
