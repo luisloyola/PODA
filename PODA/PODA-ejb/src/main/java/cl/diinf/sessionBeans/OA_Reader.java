@@ -289,6 +289,31 @@ public class OA_Reader {
                                     
                                 }
                                 
+                                NodeList mediaNode = currentIdea.getElementsByTagName("media");
+                                
+                                for(int mediaCount = 0; mediaCount < mediaNode.getLength(); mediaCount++){
+                                    
+                                    Element currentMedia = (Element) mediaNode.item(mediaCount);
+                                    
+                                    Media newMedia = new Media();
+                                    
+                                    switch(currentMedia.getAttribute("tipo")){
+                                        case "imagen":
+                                            newMedia.setType("imagen");
+                                            break;
+                                        case "audio":
+                                            newMedia.setType("audio");
+                                            break;
+                                        //CASE VIDEO
+                                        default:
+                                            this.parsingError = "\nTipo multimedia no soportado.";
+                                            return new ArrayList<ObjetoAprendizaje>();                                 
+                                    }
+                                    
+                                    newMedia.setContent(currentMedia.getTextContent());
+                                    newIdea.addMedia(newMedia);
+                                }
+                                
                                 NodeList voiceNode = currentIdea.getElementsByTagName("voz");
                                 
                                 if(voiceNode.getLength() > 0){
