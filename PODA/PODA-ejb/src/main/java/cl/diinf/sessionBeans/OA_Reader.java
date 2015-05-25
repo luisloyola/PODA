@@ -258,12 +258,25 @@ public class OA_Reader {
                                     
                                     switch(newText.getType()){
                                         case "normal":
+                                            newText.setHand(false);
                                             break;
                                         case "manuscrito":
+                                            switch(currentText.getAttribute("mano")){
+                                                case "mostrar":
+                                                    newText.setHand(true);
+                                                    break;
+                                                case "ocultar":
+                                                    newText.setHand(false);
+                                                default:
+                                                    this.parsingError = "\nEn textos manuscritos se ha de especificar si deben o no ser escritos a mano.";
+                                                    return new ArrayList<ObjetoAprendizaje>();
+                                            }
                                             break;
                                         case "codigo":
+                                            newText.setHand(false);
                                             break;
                                         case "ejemplo":
+                                            newText.setHand(false);
                                             break;
                                         default:
 
