@@ -5,6 +5,7 @@
  */
 package cl.diinf.util;
 
+import static cl.diinf.util.ResourcesDownloader.generatePathForOA;
 import java.io.File;
 import java.net.MalformedURLException;
 import org.junit.After;
@@ -46,15 +47,18 @@ public class ResourcesDownloaderTest {
     public void testDownloadFromURLAsMozilla(){
         System.out.println("DownloadFromURLAsMozilla");
         String inURL = "http://i.imgur.com/ypE48A4.png";
-        String targetFilePath = "/../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war";
+        String targetFilePath = generatePathForOA()+"/test/";
         String extension = ".jpg";
         String result = "";
         try{
             result = ResourcesDownloader.DownloadFromURLAsMozilla(inURL, targetFilePath, extension);
         }
-        catch(Exception e){/*nothing*/}
-        
-        File f = new File(targetFilePath + result + extension);
+        catch(Exception e){
+            System.out.println("DownloadFromURLAsMozilla.targetFilePath = " + targetFilePath);
+            System.out.println("DownloadFromURLAsMozilla.result = " + result);
+            System.out.println("DownloadFromURLAsMozilla.extension = " + extension); 
+        }
+        File f = new File(targetFilePath + result);
         assertTrue((f.exists() && !f.isDirectory()));
     }
     
@@ -71,13 +75,14 @@ public class ResourcesDownloaderTest {
         String result = "";
         try{
             result = ResourcesDownloader.DownloadFromURLAsMozilla(inURL, targetFilePath, extension);
+        
+            File f = new File(targetFilePath + result + extension);
+            System.out.println("");
+            assertTrue((f.exists() && !f.isDirectory()));
         }
         catch(Exception e){
             assertTrue(true); 
         }
-        
-        File f = new File(targetFilePath + result + extension);
-        assertTrue((f.exists() && !f.isDirectory()));
     }
 
     
@@ -88,13 +93,14 @@ public class ResourcesDownloaderTest {
     public void testDownloadFromGoogleTTS() throws Exception {
         System.out.println("downloadFromGoogleTTS");
         String msg = "Esto es una prueba de sonido para Google Translate TTS";
-        String targetFilePath = "/../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war";
+        String targetFilePath = generatePathForOA();
         String result = "";
         try{
             result = ResourcesDownloader.downloadFromGoogleTTS(msg, targetFilePath);
         }
-        catch(Exception e){/*nothing*/}
+        catch(Exception e){System.out.println("GoogleTTS = Exception e ");}
         
+        System.out.println("GoogleTTS = " + result);
         File f = new File(targetFilePath + result);
         assertTrue((f.exists() && !f.isDirectory()));
     }
@@ -106,9 +112,7 @@ public class ResourcesDownloaderTest {
     public void testGeneratePathForOA() {
         System.out.println("generatePathForOA");
         String result = ResourcesDownloader.generatePathForOA();
-        
-        File f = new File(result);
-        assertTrue(f.exists());
+        assertTrue((result.compareTo("")!=0)); //result != ""
     }
     
 }
