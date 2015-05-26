@@ -323,7 +323,57 @@ public class OA_Reader {
                                     
                                     this.parsingError = "\n Sólo se permite una voz por idea.";
                                     new ArrayList<ObjetoAprendizaje>();
-                                }   
+                                }
+                                
+                                NodeList quizNode = currentIdea.getElementsByTagName("evaluacion");
+                                
+                                for(int n = 0; n < quizNode.getLength(); n++){
+                                
+                                    Element currentQuiz = (Element)quizNode.item(n);
+                                    
+                                    Evaluacion newQuiz = new Evaluacion();
+                                    
+                                    NodeList currentHeader = currentQuiz.getElementsByTagName("enunciado");
+                                    
+                                    String header = "";
+                                    
+                                    for(int n1 = 0; n1 < currentHeader.getLength(); n1++){
+                                        header+=currentHeader.item(n1).getTextContent();
+                                    }
+                                    
+                                    newQuiz.setHeader(header);
+                                    
+                                    NodeList currentChoiceHead = currentQuiz.getElementsByTagName("opciones");
+                                    
+                                    if(currentChoiceHead.getLength() > 1){
+                                        this.parsingError = "Sólo se admite un bloque \"opciones\" por evaluación";
+                                        return new ArrayList<ObjetoAprendizaje>();
+                                    }
+                                    
+                                    NodeList currentChoices = ((Element)currentChoiceHead.item(0)).getElementsByTagName("alternativa");
+                                    
+                                    for(int n2 = 0; n2 < currentChoices.getLength(); n2++){
+                                        Alternativa newChoice = new Alternativa();
+                                        newChoice.setContent(currentChoices.item(n2).getTextContent());
+                                        newChoice.setTopic(((Element)currentChoices.item(n2)).getAttribute("tema"));
+                                        String choiceType = ((Element)currentChoices.item(n2)).getAttribute("tipo");
+                                        switch(choiceType){
+                                            case "solucion":
+                                                break;
+                                            case "distractor":
+                                                break;
+                                            default:
+                                                this.parsingError = "Tipo de evaluación no soportado";
+                                                return new ArrayList<ObjetoAprendizaje>();                                               
+                                        }
+                                                                            
+                                        newChoice.setType(choiceType);
+                                        newQuiz.addChoices(newChoice);
+                                    }
+                                    
+                                    newIdea.addQuiz(newQuiz);
+                                }
+                                
                                 newBlock.addIdeas(newIdea);
                             }
                             newSlide.addBlocks(newBlock);
@@ -406,6 +456,39 @@ public class OA_Reader {
         }
         this.fileContent = temp;        
         temp = "";        
+    }
+    
+    public void AppendDTD(){
+        this.fileContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+"<!DOCTYPE comenzar [\n" +
+"<!ELEMENT comenzar (objeto)>\n" +
+"<!ELEMENT objeto (escena+)>\n" +
+"<!ELEMENT escena (bloque+)>\n" +
+"<!ELEMENT bloque (idea*)>\n" +
+"<!ELEMENT idea (texto*, voz?, media*, evaluacion)>\n" +
+"<!ELEMENT texto (#PCDATA)>\n" +
+"<!ELEMENT voz (#PCDATA)>\n" +
+"<!ELEMENT media (#PCDATA)>\n" +
+"<!ELEMENT evaluacion (enunciado,opciones)>\n" +
+"<!ELEMENT enunciado (#PCDATA)>\n" +
+"<!ELEMENT opciones (alternativa*)>\n" +
+"<!ELEMENT alternativa (#PCDATA)>\n" +
+"\n" +
+"\n" +
+"<!ATTLIST objeto titulo CDATA #REQUIRED>\n" +
+"<!ATTLIST objeto autor CDATA #REQUIRED>\n" +
+"<!ATTLIST objeto tema CDATA #REQUIRED>\n" +
+"<!ATTLIST escena titulo CDATA #REQUIRED>\n" +
+"<!ATTLIST escena tipo CDATA #REQUIRED>\n" +
+"\n" +
+"<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n" +
+"<!ATTLIST texto tipo CDATA #REQUIRED>\n" +
+"<!ATTLIST texto mano CDATA #IMPLIED>\n" +
+"<!ATTLIST media tipo CDATA #REQUIRED>	\n" +
+"\n" +
+"<!ATTLIST alternativa tipo CDATA #REQUIRED>\n" +
+"<!ATTLIST alternativa tema CDATA #REQUIRED>\n" +
+"]>" + this.fileContent;
     }
 }
 

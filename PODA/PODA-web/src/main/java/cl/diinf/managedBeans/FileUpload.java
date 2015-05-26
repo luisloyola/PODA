@@ -123,6 +123,8 @@ public class FileUpload implements Serializable{
             
             nuevoOAR.setFileContent(fileContent);
             
+            nuevoOAR.AppendDTD();
+            
             List<ObjetoAprendizaje> OA_List = nuevoOAR.readOA();                        
             
             if(OA_List.size() > 0){
