@@ -18,10 +18,12 @@ public class Idea implements Comparable<Idea>{
     String voice;
     List<Texto> text;
     List<Media> media;
+    List<Evaluacion> quiz;
     
     public Idea(){
         text = new ArrayList<Texto>();
         media = new ArrayList<Media>();
+        quiz = new ArrayList<Evaluacion>();
         voice = "";
     }
 
@@ -63,6 +65,18 @@ public class Idea implements Comparable<Idea>{
     
     public void addMedia(Media media) {
         this.media.add(media);
+    }
+
+    public List<Evaluacion> getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(List<Evaluacion> quiz) {
+        this.quiz = quiz;
+    }
+    
+    public void addQuiz(Evaluacion quiz){
+        this.quiz.add(quiz);
     }
     
     @Override     
