@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -38,6 +39,7 @@ public class OA_TranslateHtmlTest {
     /**
      * Test of writeHtml method, of class OA_TranslateHtml.
      */
+    @Ignore
     @Test
     public void testWriteHtml() throws Exception {
         /*
