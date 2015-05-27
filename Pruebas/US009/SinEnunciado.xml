@@ -4,14 +4,14 @@
 		<escena titulo="Ejemplo de evaluacion" tipo="1Col">
 			<bloque>
 				<idea ordenAparicion="1">
-					<prueba>
+					<evaluaciones>
 						<evaluacion>
 							<opciones>
 								<alternativa tipo="solucion" tema="prueba">Si</alternativa>
 								<alternativa tipo="solucion" tema="prueba">No</alternativa>
 							</opciones>				
 						</evaluacion>
-					</prueba>
+					</evaluaciones>
 				</idea>
 			</bloque>
 		</escena>
