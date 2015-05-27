@@ -323,7 +323,7 @@ public class OA_Reader {
                                     new ArrayList<ObjetoAprendizaje>();
                                 }
                                 
-                                NodeList quizSetNode = currentIdea.getElementsByTagName("prueba");
+                                NodeList quizSetNode = currentIdea.getElementsByTagName("evaluaciones");
                                 
                                 for(int qSN = 0; qSN < quizSetNode.getLength(); qSN++){
                                     Element currentQuizSet = (Element) quizSetNode.item(qSN);
@@ -473,11 +473,11 @@ public class OA_Reader {
 "<!ELEMENT objeto (escena+)>\n" +
 "<!ELEMENT escena (bloque+)>\n" +
 "<!ELEMENT bloque (idea*)>\n" +
-"<!ELEMENT idea (texto*, voz?, media*, prueba*)>\n" +
+"<!ELEMENT idea (texto*, voz?, media*, evaluaciones*)>\n" +
 "<!ELEMENT texto (#PCDATA)>\n" +
 "<!ELEMENT voz (#PCDATA)>\n" +
 "<!ELEMENT media (#PCDATA)>\n" +
-"<!ELEMENT prueba (evaluacion*)>\n" +
+"<!ELEMENT evaluaciones (evaluacion*)>\n" +
 "<!ELEMENT evaluacion (enunciado,opciones)>\n" +
 "<!ELEMENT enunciado (#PCDATA)>\n" +
 "<!ELEMENT opciones (alternativa*)>\n" +

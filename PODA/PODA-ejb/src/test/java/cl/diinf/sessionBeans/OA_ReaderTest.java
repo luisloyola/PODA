@@ -115,11 +115,11 @@ public class OA_ReaderTest {
 "<!ELEMENT objeto (escena+)>\n" +
 "<!ELEMENT escena (bloque+)>\n" +
 "<!ELEMENT bloque (idea*)>\n" +
-"<!ELEMENT idea (texto*, voz?, media*, prueba*)>\n" +
+"<!ELEMENT idea (texto*, voz?, media*, evaluaciones*)>\n" +
 "<!ELEMENT texto (#PCDATA)>\n" +
 "<!ELEMENT voz (#PCDATA)>\n" +
 "<!ELEMENT media (#PCDATA)>\n" +
-"<!ELEMENT prueba (evaluacion*)>\n" +
+"<!ELEMENT evaluaciones (evaluacion*)>\n" +
 "<!ELEMENT evaluacion (enunciado,opciones)>\n" +
 "<!ELEMENT enunciado (#PCDATA)>\n" +
 "<!ELEMENT opciones (alternativa*)>\n" +
@@ -286,7 +286,7 @@ public class OA_ReaderTest {
 "		<escena titulo=\"Ejemplo de evaluacion\" tipo=\"1Col\">\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"1\">\n" +
-"					<prueba>\n" +
+"					<evaluaciones>\n" +
 "						<evaluacion>\n" +
 "							<enunciado>Enunciado Evaluacion </enunciado>\n" +
 "							<opciones>\n" +
@@ -294,7 +294,7 @@ public class OA_ReaderTest {
 "								<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
 "							</opciones>				\n" +
 "						</evaluacion>\n" +
-"					</prueba>\n" +
+"					</evaluaciones>\n" +
 "				</idea>\n" +
 "			</bloque>\n" +
 "		</escena>\n" +
@@ -314,7 +314,7 @@ public class OA_ReaderTest {
 "		<escena titulo=\"Ejemplo de evaluacion\" tipo=\"1Col\">\n" +
 "			<bloque>\n" +
 "				<idea ordenAparicion=\"1\">\n" +
-"					<prueba>\n" +
+"					<evaluaciones>\n" +
 "						<evaluacion>\n" +
 "							<enunciado>Enunciado Evaluacion </enunciado>\n" +
 "							<opciones>\n" +
@@ -322,7 +322,7 @@ public class OA_ReaderTest {
 "								<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
 "							</opciones>				\n" +
 "						</evaluacion>\n" +
-"					</prueba>\n" +
+"					</evaluaciones>\n" +
 "				</idea>\n" +
 "			</bloque>\n" +
 "		</escena>\n" +
