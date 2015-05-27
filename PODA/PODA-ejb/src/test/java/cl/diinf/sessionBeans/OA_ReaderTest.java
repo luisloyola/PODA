@@ -6,7 +6,6 @@
 package cl.diinf.sessionBeans;
 
 import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
-import java.io.File;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -14,18 +13,22 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
  * @author teban
  */
 public class OA_ReaderTest {
+
+    List<ObjetoAprendizaje> objects;
     
     public OA_ReaderTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+
     }
     
     @AfterClass
@@ -34,341 +37,243 @@ public class OA_ReaderTest {
     
     @Before
     public void setUp() {
+                                
+        OA_Reader good_instance = new OA_Reader();
+        
+        String good_xml =   "<comenzar>\n" +
+                            "   <objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
+                            "       <escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
+                            "           <bloque>\n" +
+                            "               <idea ordenAparicion=\"1\">\n" +
+                            "                   <texto tipo=\"normal\">Este texto tiene audio</texto>\n" +
+                            "                   <voz>Buenos Dias, tardes, noches</voz>\n" +
+                            "               </idea>\n" +
+                            "               <idea ordenAparicion=\"3\">\n" +
+                            "                   <texto tipo=\"manuscrito\" mano=\"mostrar\">Este es un texto manuscrito</texto>\n" +
+                            "               </idea>\n" +
+                            "               <idea ordenAparicion=\"4\">\n" +
+                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 1</texto>\n" +
+                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 2</texto>\n" +
+                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 3</texto>\n" +
+                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 4</texto>\n" +
+                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 5</texto>\n" +
+                            "               </idea>\n" +
+                            "           </bloque>\n" +
+                            "       </escena>\n" +
+                            "       <escena titulo=\"Ejemplo de multimedia\" tipo=\"1Col\">\n" +
+                            "           <bloque>\n" +
+                            "               <idea ordenAparicion=\"1\">\n" +
+                            "                   <texto tipo=\"normal\">El siguiente es un ejemplo de una imagen</texto>\n" +
+                            "                   <media tipo=\"imagen\">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>\n" +
+                            "               </idea>\n" +
+                            "               <idea ordenAparicion=\"3\">\n" +
+                            "                   <texto tipo=\"normal\">El siguiente es un ejemplo de audio</texto>\n" +
+                            "                   <media tipo=\"audio\">https://www.youtube.com/watch?v=_4IRMYuE1hI</media>\n" +
+                            "               </idea>\n" +
+                            "           </bloque>\n" +
+                            "       </escena>\n" +
+                            "       <escena titulo=\"Ejemplo de evaluación\" tipo=\"1Col\">\n" +
+                            "           <bloque>\n" +
+                            "               <idea ordenAparicion=\"1\">\n" +
+                            "                   <evaluaciones>\n" +
+                            "                       <evaluacion>\n" +
+                            "                           <enunciado>Enunciado Evaluacion </enunciado>\n" +
+                            "                           <opciones>\n" +
+                            "                               <alternativa tipo=\"solucion\" tema=\"prueba\">Si</alternativa>\n" +
+                            "                               <alternativa tipo=\"solucion\" tema=\"prueba\">No</alternativa>\n" +
+                            "                           </opciones>                 \n" +
+                            "                       </evaluacion>\n" +
+                            "                   </evaluaciones>\n" +
+                            "               </idea>\n" +
+                            "           </bloque>\n" +
+                            "       </escena>\n" +
+                            "   </objeto>\n" +
+                            "</comenzar>";
+        
+        good_instance.setFileContent(good_xml);
+        good_instance.AppendDTD();
+        
+        objects = good_instance.readOA();
     }
     
     @After
     public void tearDown() {
     }
-
+    
     /**
-     * Test of getContenidoFile method, of class OA_Reader.
+     * Probar creacion de objeto
+     */ 
+    @Test
+    public void testGoodObject(){
+        int size_object = objects.size();
+        
+        assertEquals("Error en la lectura de objetos desde el xml", 1, size_object);
+    }
+    /**
+     * Probar creacion de objeto a partir de un xml con errores
+     */ 
+    @Test
+    public void testErrorObject(){
+        
+        String error_xml =  "<comenzar>\n" +
+                            "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
+                            "       <escena titulo=\"escena1\" tipo=\"1Col\">\n" +
+                            "           <bloque>\n" +
+                            "               <idea ordenAparicion=\"1\">\n" +
+                            "                   <texto tipo=\"normal\">texto1</texto>\n" +
+                            "                   <texto tipo=\"codigo\"> Soy texto de un codigo</texto>\n" +
+                            "                   <texto tipo=\"manuscrito\" mano=\"mostrar\">Este es un texto manuscrito</texto>" +
+                            "                   <voz>Voz1</voz>\n" +
+                            "               </idea>"+
+                            "           </bloque>\n" +
+                            "        \n" +
+                            "   </objeto>\n" +
+                            "</comenzar>";
+        OA_Reader instance = new OA_Reader();
+        instance.setFileContent(error_xml);  
+        instance.AppendDTD();
+        
+        assertEquals("Error en la lectura de objetos desde un xml con errores", 0 ,instance.readOA().size());
+    }
+    /**
+     * Probar creacion de slides
      */
     @Test
-    public void testGetContenidoFile() {
-        //System.out.println("getContenidoFile");
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent("Contenido");
-        boolean prueba = false;
-        if(instance.getFileContent().length() > 0){
-            prueba = true;
+    public void testSlide(){
+        int count_slide = 3;
+        if(!objects.isEmpty()){
+            assertEquals("Error en la lectura de slides desde el xml", count_slide, objects.get(0).getContent().size());
         }
-        assertEquals(true,prueba);
+        else
+            fail("Error en la lectura del xml");            
+        
     }
-
     /**
-     * Test of setContenidoFile method, of class OA_Reader.
+     * Probar creacion de bloques
      */
     @Test
-    public void testSetContenidoFile() {
-        String contenidoFile = "Contenido";
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent(contenidoFile);
-        boolean prueba = false;
-        if(instance.getFileContent()!=null){
-            prueba = true;
+    public void testBlock(){
+        int blocks = 3;
+        int count_blocks = 0;
+        
+        if(!objects.isEmpty()){
+            for(int i = 0; i < objects.get(0).getContent().size(); i++)
+            {
+                count_blocks += objects.get(0).getContent().get(i).getBlocks().size();
+            }        
+            assertEquals("Error en la lectura de bloques dsde el xml", blocks, count_blocks);
         }
-        assertEquals(true,prueba);
+        else
+            fail("Error en la lectura del xml");            
     }
-
     /**
-     * Test of readOA method, of class OA_Reader.
+     * Probar creacion de ideas
      */
     @Test
-    public void testReadOA() {
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent("<comenzar>\n" +
-"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-"		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">Este es un texto</texto>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"			\n" +
-"	</objeto>\n" +
-"</comenzar>");
-        instance.AppendDTD();
-        int result = instance.readOA().size();
+    public void testIdea(){
+        int ideas = 6;
+        int count_ideas = 0;
         
-        assertEquals(1, result);
-    }
-    
+        if(!objects.isEmpty()){
+            for(int i = 0; i < objects.get(0).getContent().size(); i++)
+            {
+                for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
+                    count_ideas += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size();
+                }
+            }        
+            assertEquals("Error en la lectura de ideas dsde el xml", ideas, count_ideas);
+        }
+        else
+            fail("Error en la lectura del xml");            
+    }    
+    /**
+     * Probar creacion de textos
+     */
     @Test
-    public void testReadOADTDAppend() {
-        OA_Reader instance = new OA_Reader();
-        String content = "<comenzar>\n" +
-"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-"		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"manuscrito\" mano=\"randomText\">Este es un texto</texto>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"			\n" +
-"	</objeto>\n" +
-"</comenzar>";
-        String dtd = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-"<!DOCTYPE comenzar [\n" +
-"<!ELEMENT comenzar (objeto)>\n" +
-"<!ELEMENT objeto (escena+)>\n" +
-"<!ELEMENT escena (bloque+)>\n" +
-"<!ELEMENT bloque (idea*)>\n" +
-"<!ELEMENT idea (texto*, voz?, media*, evaluaciones*)>\n" +
-"<!ELEMENT texto (#PCDATA)>\n" +
-"<!ELEMENT voz (#PCDATA)>\n" +
-"<!ELEMENT media (#PCDATA)>\n" +
-"<!ELEMENT evaluaciones (evaluacion*)>\n" +
-"<!ELEMENT evaluacion (enunciado,opciones)>\n" +
-"<!ELEMENT enunciado (#PCDATA)>\n" +
-"<!ELEMENT opciones (alternativa*)>\n" +
-"<!ELEMENT alternativa (#PCDATA)>\n" +
-"\n" +
-"\n" +
-"<!ATTLIST objeto titulo CDATA #REQUIRED>\n" +
-"<!ATTLIST objeto autor CDATA #REQUIRED>\n" +
-"<!ATTLIST objeto tema CDATA #REQUIRED>\n" +
-"<!ATTLIST escena titulo CDATA #REQUIRED>\n" +
-"<!ATTLIST escena tipo CDATA #REQUIRED>\n" +
-"\n" +
-"<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n" +
-"<!ATTLIST texto tipo CDATA #REQUIRED>\n" +
-"<!ATTLIST texto mano CDATA #IMPLIED>\n" +
-"<!ATTLIST media tipo CDATA #REQUIRED>	\n" +
-"\n" +
-"<!ATTLIST alternativa tipo CDATA #REQUIRED>\n" +
-"<!ATTLIST alternativa tema CDATA #REQUIRED>\n" +
-"]>";
-                
-        instance.setFileContent(content);
-        instance.AppendDTD();
+    public void testText(){
+        int texts = 9;
+        int count_texts = 0;
         
+        if(!objects.isEmpty()){
+            for(int i = 0; i < objects.get(0).getContent().size(); i++)
+            {
+                for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
+
+                    for(int k = 0; k < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size(); k++){
+                        count_texts += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getText().size();
+                    }
+                }
+            }
+            assertEquals("Error en la lectura de textos dsde el xml", texts, count_texts);
+        }
+        else
+            fail("Error en la lectura del xml");            
+    }
+    /**
+     * Probar creacion de recursos media
+     */
+    @Test
+    public void testMedia(){
+        int media = 2;
+        int count_media = 0;
         
-        assertEquals(dtd+content,instance.getFileContent());
+        if(!objects.isEmpty()){
+            for(int i = 0; i < objects.get(0).getContent().size(); i++)
+            {
+                for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
+
+                    for(int k = 0; k < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size(); k++){
+                        count_media += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getMedia().size();
+                    }
+                }
+            }
+            assertEquals("Error en la lectura de recursos media dsde el xml", media, count_media);        
+        }
+        else
+            fail("Error en la lectura del xml");            
     }
     
     
-    @Test
-    public void testReadOAForHandTrue() {
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent("<comenzar>\n" +
-"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-"		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"manuscrito\" mano=\"mostrar\">Este es un texto</texto>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"			\n" +
-"	</objeto>\n" +
-"</comenzar>");
-        instance.AppendDTD();
-        int result = instance.readOA().size();
+    @Ignore
+    public void testEvaluaciones(){
         
-        assertEquals(1, result);
     }
     
-    @Test
-    public void testReadOAForHandFalse() {
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent("<comenzar>\n" +
-"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-"		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"manuscrito\" mano=\"randomText\">Este es un texto</texto>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"			\n" +
-"	</objeto>\n" +
-"</comenzar>");
-        instance.AppendDTD();
-        int result = instance.readOA().size();
-        
-        assertEquals(0, result);
-    }
-    
-    @Test
-    public void testReadOAForMedia() {
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent("<comenzar>\n" +
-"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-"		<escena titulo=\"Ejemplo de multimedia\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">El siguiente es un ejemplo de una imagen</texto>\n" +
-"					<media tipo=\"imagen\">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>\n" +
-"				</idea>\n" +
-"				<!--<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo=\"normal\">El siguiente es un ejemplo de un video</texto>\n" +
-"					<media tipo=\"video\">https://www.youtube.com/watch?v=sTSA_sWGM44</media>\n" +
-"				</idea>-->\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo=\"normal\">El siguiente es un ejemplo de audio</texto>\n" +
-"					<media tipo=\"audio\">https://www.youtube.com/watch?v=_4IRMYuE1hI</media>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"	</objeto>\n" +
-"</comenzar>");
-        instance.AppendDTD();
-        int result = instance.readOA().size();
-        
-        assertEquals(1, result);
-    }
-    
-    @Test
-    public void testReadOAForMediaForNoMediaType() {
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent("<comenzar>\n" +
-"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-"		<escena titulo=\"Ejemplo de multimedia\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">El siguiente es un ejemplo de una imagen</texto>\n" +
-"					<media >http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>\n" +
-"				</idea>\n" +
-"				<!--<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo=\"normal\">El siguiente es un ejemplo de un video</texto>\n" +
-"					<media tipo=\"video\">https://www.youtube.com/watch?v=sTSA_sWGM44</media>\n" +
-"				</idea>-->\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo=\"normal\">El siguiente es un ejemplo de audio</texto>\n" +
-"					<media tipo=\"audio\">https://www.youtube.com/watch?v=_4IRMYuE1hI</media>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"	</objeto>\n" +
-"</comenzar>");
-        instance.AppendDTD();
-        int result = instance.readOA().size();
-        
-        assertEquals(0, result);
-    }
-    
-    @Test
-    public void testReadOAForMediaForRandomMediaType() {
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent("<comenzar>\n" +
-"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-"		<escena titulo=\"Ejemplo de multimedia\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">El siguiente es un ejemplo de una imagen</texto>\n" +
-"					<media tipo=\"randomMediaType\">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>\n" +
-"				</idea>\n" +
-"				<!--<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo=\"normal\">El siguiente es un ejemplo de un video</texto>\n" +
-"					<media tipo=\"video\">https://www.youtube.com/watch?v=sTSA_sWGM44</media>\n" +
-"				</idea>-->\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo=\"normal\">El siguiente es un ejemplo de audio</texto>\n" +
-"					<media tipo=\"audio\">https://www.youtube.com/watch?v=_4IRMYuE1hI</media>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"	</objeto>\n" +
-"</comenzar>");
-        instance.AppendDTD();
-        int result = instance.readOA().size();
-        
-        assertEquals(0, result);
-    }
-    
-    @Test
-    public void testReadOAForQuiz() {
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent("<comenzar>\n" +
-"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-"		<escena titulo=\"Ejemplo de evaluacion\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<evaluaciones>\n" +
-"						<evaluacion>\n" +
-"							<enunciado>Enunciado Evaluacion </enunciado>\n" +
-"							<opciones>\n" +
-"								<alternativa tipo=\"solucion\" tema=\"prueba\">Si</alternativa>\n" +
-"								<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-"							</opciones>				\n" +
-"						</evaluacion>\n" +
-"					</evaluaciones>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"	</objeto>\n" +
-"</comenzar>");
-        instance.AppendDTD();
-        int result = instance.readOA().size();
-        
-        assertEquals(1, result);
-    }
-    
-    @Test
-    public void testReadOAForQuizForRandomType() {
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent("<comenzar>\n" +
-"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-"		<escena titulo=\"Ejemplo de evaluacion\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<evaluaciones>\n" +
-"						<evaluacion>\n" +
-"							<enunciado>Enunciado Evaluacion </enunciado>\n" +
-"							<opciones>\n" +
-"								<alternativa tipo=\"randomType\" tema=\"prueba\">Si</alternativa>\n" +
-"								<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-"							</opciones>				\n" +
-"						</evaluacion>\n" +
-"					</evaluaciones>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"	</objeto>\n" +
-"</comenzar>");
-        instance.AppendDTD();
-        int result = instance.readOA().size();
-        
-        assertEquals(0, result);
-    }
-    
-    @Test
+    @Ignore    
     public void testPreProcessText(){
         OA_Reader instance = new OA_Reader();
         instance.setFileContent("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 "<!DOCTYPE comenzar SYSTEM \"validator.dtd\"> \n" +
 "\n" +
 "<comenzar>\n" +
-"	<objeto titulo=\"Prueba v3\" autor=\"Probador\" tema=\"default\">\n" +
-"		<escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">texto <destacado>destacado</destacado></texto>\n" +
-"					<texto tipo=\"codigo\">texto <enfatizado>enfatizado</enfatizado></texto>\n" +
-"					<voz>Voz 1Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"	</objeto>\n" +
+"   <objeto titulo=\"Prueba v3\" autor=\"Probador\" tema=\"default\">\n" +
+"       <escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
+"           <bloque>\n" +
+"               <idea ordenAparicion=\"1\">\n" +
+"                   <texto tipo=\"normal\">texto <destacado>destacado</destacado></texto>\n" +
+"                   <texto tipo=\"codigo\">texto <enfatizado>enfatizado</enfatizado></texto>\n" +
+"                   <voz>Voz 1Col</voz>\n" +
+"               </idea>\n" +
+"           </bloque>\n" +
+"       </escena>\n" +
+"   </objeto>\n" +
 "</comenzar>");
         
         String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 "<!DOCTYPE comenzar SYSTEM \"validator.dtd\"> \n" +
 "\n" +
 "<comenzar>\n" +
-"	<objeto titulo=\"Prueba v3\" autor=\"Probador\" tema=\"default\">\n" +
-"		<escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">texto /ddestacado/d</texto>\n" +
-"					<texto tipo=\"codigo\">texto /eenfatizado/e</texto>\n" +
-"					<voz>Voz 1Col</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"	</objeto>\n" +
+"   <objeto titulo=\"Prueba v3\" autor=\"Probador\" tema=\"default\">\n" +
+"       <escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
+"           <bloque>\n" +
+"               <idea ordenAparicion=\"1\">\n" +
+"                   <texto tipo=\"normal\">texto /ddestacado/d</texto>\n" +
+"                   <texto tipo=\"codigo\">texto /eenfatizado/e</texto>\n" +
+"                   <voz>Voz 1Col</voz>\n" +
+"               </idea>\n" +
+"           </bloque>\n" +
+"       </escena>\n" +
+"   </objeto>\n" +
 "</comenzar>";
         
         instance.preProcessText();
