@@ -40,7 +40,7 @@
 		<escena titulo="Ejemplo de evaluación" tipo="1Col">
 			<bloque>
 				<idea ordenAparicion="1">
-					<prueba>
+					<evaluaciones>
 						<evaluacion>
 							<enunciado>Enunciado Evaluacion </enunciado>
 							<opciones>
@@ -48,7 +48,7 @@
 								<alternativa tipo="solucion" tema="prueba">No</alternativa>
 							</opciones>					
 						</evaluacion>
-					</prueba>
+					</evaluaciones>
 				</idea>
 			</bloque>
 		</escena>
