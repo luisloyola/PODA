@@ -279,8 +279,6 @@ public class OA_Reader {
                                             newText.setHand(false);
                                             break;
                                         default:
-
-                                            newText.setType("normal");
                                             this.parsingError = "\nTipo de texto no soportado.";
                                             return new ArrayList<ObjetoAprendizaje>();
                                     }
@@ -475,10 +473,11 @@ public class OA_Reader {
 "<!ELEMENT objeto (escena+)>\n" +
 "<!ELEMENT escena (bloque+)>\n" +
 "<!ELEMENT bloque (idea*)>\n" +
-"<!ELEMENT idea (texto*, voz?, media*, evaluacion*)>\n" +
+"<!ELEMENT idea (texto*, voz?, media*, prueba*)>\n" +
 "<!ELEMENT texto (#PCDATA)>\n" +
 "<!ELEMENT voz (#PCDATA)>\n" +
-"<!ELEMENT media (#PCDATA)>\n" + 
+"<!ELEMENT media (#PCDATA)>\n" +
+"<!ELEMENT prueba (evaluacion*)>\n" +
 "<!ELEMENT evaluacion (enunciado,opciones)>\n" +
 "<!ELEMENT enunciado (#PCDATA)>\n" +
 "<!ELEMENT opciones (alternativa*)>\n" +
