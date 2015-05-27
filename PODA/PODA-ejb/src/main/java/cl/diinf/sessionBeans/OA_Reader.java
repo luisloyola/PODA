@@ -325,53 +325,63 @@ public class OA_Reader {
                                     new ArrayList<ObjetoAprendizaje>();
                                 }
                                 
-                                NodeList quizNode = currentIdea.getElementsByTagName("evaluacion");
+                                NodeList quizSetNode = currentIdea.getElementsByTagName("prueba");
                                 
-                                for(int n = 0; n < quizNode.getLength(); n++){
+                                for(int qSN = 0; qSN < quizSetNode.getLength(); qSN++){
+                                    Element currentQuizSet = (Element) quizSetNode.item(qSN);
+                                    
+                                    Prueba newQuizSet = new Prueba();
+                                    
+                                    NodeList quizNode = currentQuizSet.getElementsByTagName("evaluacion");
                                 
-                                    Element currentQuiz = (Element)quizNode.item(n);
-                                    
-                                    Evaluacion newQuiz = new Evaluacion();
-                                    
-                                    NodeList currentHeader = currentQuiz.getElementsByTagName("enunciado");
-                                    
-                                    String header = "";
-                                    
-                                    for(int n1 = 0; n1 < currentHeader.getLength(); n1++){
-                                        header+=currentHeader.item(n1).getTextContent();
-                                    }
-                                    
-                                    newQuiz.setHeader(header);
-                                    
-                                    NodeList currentChoiceHead = currentQuiz.getElementsByTagName("opciones");
-                                    
-                                    if(currentChoiceHead.getLength() > 1){
-                                        this.parsingError = "Sólo se admite un bloque \"opciones\" por evaluación";
-                                        return new ArrayList<ObjetoAprendizaje>();
-                                    }
-                                    
-                                    NodeList currentChoices = ((Element)currentChoiceHead.item(0)).getElementsByTagName("alternativa");
-                                    
-                                    for(int n2 = 0; n2 < currentChoices.getLength(); n2++){
-                                        Alternativa newChoice = new Alternativa();
-                                        newChoice.setContent(currentChoices.item(n2).getTextContent());
-                                        newChoice.setTopic(((Element)currentChoices.item(n2)).getAttribute("tema"));
-                                        String choiceType = ((Element)currentChoices.item(n2)).getAttribute("tipo");
-                                        switch(choiceType){
-                                            case "solucion":
-                                                break;
-                                            case "distractor":
-                                                break;
-                                            default:
-                                                this.parsingError = "Tipo de evaluación no soportado";
-                                                return new ArrayList<ObjetoAprendizaje>();                                               
+                                    for(int n = 0; n < quizNode.getLength(); n++){
+
+                                        Element currentQuiz = (Element)quizNode.item(n);
+
+                                        Evaluacion newQuiz = new Evaluacion();
+
+                                        NodeList currentHeader = currentQuiz.getElementsByTagName("enunciado");
+
+                                        String header = "";
+
+                                        for(int n1 = 0; n1 < currentHeader.getLength(); n1++){
+                                            header+=currentHeader.item(n1).getTextContent();
                                         }
-                                                                            
-                                        newChoice.setType(choiceType);
-                                        newQuiz.addChoices(newChoice);
+
+                                        newQuiz.setHeader(header);
+
+                                        NodeList currentChoiceHead = currentQuiz.getElementsByTagName("opciones");
+
+                                        if(currentChoiceHead.getLength() > 1){
+                                            this.parsingError = "Sólo se admite un bloque \"opciones\" por evaluación";
+                                            return new ArrayList<ObjetoAprendizaje>();
+                                        }
+
+                                        NodeList currentChoices = ((Element)currentChoiceHead.item(0)).getElementsByTagName("alternativa");
+
+                                        for(int n2 = 0; n2 < currentChoices.getLength(); n2++){
+                                            Alternativa newChoice = new Alternativa();
+                                            newChoice.setContent(currentChoices.item(n2).getTextContent());
+                                            newChoice.setTopic(((Element)currentChoices.item(n2)).getAttribute("tema"));
+                                            String choiceType = ((Element)currentChoices.item(n2)).getAttribute("tipo");
+                                            switch(choiceType){
+                                                case "solucion":
+                                                    break;
+                                                case "distractor":
+                                                    break;
+                                                default:
+                                                    this.parsingError = "Tipo de evaluación no soportado";
+                                                    return new ArrayList<ObjetoAprendizaje>();                                               
+                                            }
+
+                                            newChoice.setType(choiceType);
+                                            newQuiz.addChoices(newChoice);
+                                        }
+
+                                        newQuizSet.addQuiz(newQuiz);
                                     }
                                     
-                                    newIdea.addQuiz(newQuiz);
+                                    newIdea.addQuiz(newQuizSet);
                                 }
                                 
                                 newBlock.addIdeas(newIdea);
@@ -465,10 +475,10 @@ public class OA_Reader {
 "<!ELEMENT objeto (escena+)>\n" +
 "<!ELEMENT escena (bloque+)>\n" +
 "<!ELEMENT bloque (idea*)>\n" +
-"<!ELEMENT idea (texto*, voz?, media*, evaluacion)>\n" +
+"<!ELEMENT idea (texto*, voz?, media*, evaluacion*)>\n" +
 "<!ELEMENT texto (#PCDATA)>\n" +
 "<!ELEMENT voz (#PCDATA)>\n" +
-"<!ELEMENT media (#PCDATA)>\n" +
+"<!ELEMENT media (#PCDATA)>\n" + 
 "<!ELEMENT evaluacion (enunciado,opciones)>\n" +
 "<!ELEMENT enunciado (#PCDATA)>\n" +
 "<!ELEMENT opciones (alternativa*)>\n" +
