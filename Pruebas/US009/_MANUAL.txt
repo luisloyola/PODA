@@ -1,0 +1,46 @@
+
+EVALUACIONES
+
+	Es posible agregar evaluaciones al objeto de aprendizaje. Para ello se hará uso de la etiqueta: "<prueba>···</prueba>"
+para definir un nuevo conjunto de evaluaciones. Seguido a esta se debe utilizar la etiqueta:"<evaluacion>···</evaluacion>"
+esto hará saber a la aplicación que el nuevo elemento sera de aquel tipo. Para construir la evaluación deben incluirse dos nuevos
+ítemes, estos son: enunciado ("<enunciado>···</enunciado>"), donde se escribirá el enunciado de la evaluación, por ejemplo:
+
+<prueba>
+	<evaluacion>
+		<enunciado> 1 + 1 = ? </enunciado>
+
+		·
+		·
+		·
+	<evaluacion>
+	·
+	·
+	·
+</prueba>
+
+	
+	Este enunciado será el encabezado del ejercicio a evaluar, seguido de este deben ingresarse las distintas alternativas 
+de respuestas correctas. Para agregar estas alternativas, primero, se han de agrupar dentro de un grupo, para ello se hace uso de la
+etiqueta "<opciones> ··· </opciones>". Su fin es sólo para agrupar las alternativas de una evaluación.
+	
+	Seguido de la etiqueta "opciones" se definen las alternativas propiamente tales; Para definir una se hace uso de la etiqueta
+"<alternativa> ··· </alternativa>". El uso de esta etiqueta se aprecia en el cuadro siguiente:
+
+<prueba>
+	<evaluacion>
+		<enunciado> 1 + 1 = ? </enunciado>
+		<opciones>
+			<alternativa tipo="distractor" tema="sumas">1</alternativa>
+			<alternativa tipo="solucion" tema="sumas">2</alternativa>
+			<alternativa tipo="distractor" tema="sumas">3</alternativa>
+		<opciones>
+	<evaluacion>
+</prueba>
+
+	El atributo "tipo", que puede tomar dos valores: solucion y distractor (cualquier otro valor no permitira generar el objeto), indica
+si la alternativa es la respuesta (solucion) o no (distractor) de la evaluacion. Este atriburto es de caracter obligatorio.
+
+	El atributo "tema", si bien es obligatorio, puede tomar valores variables dependiendo de las necesidades del usuario.
+
+	Entre las etiquetas de alternativa se entreva el valor que será mostrado en el objeto, su valor variará según las necesidades del usuario.

@@ -1,0 +1,37 @@
+
+
+<comenzar>
+	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
+		<escena titulo="Ejemplo de multimedia" tipo="1Col">
+			<bloque>
+				<idea ordenAparicion="1">
+					<texto tipo="normal">El siguiente es un ejemplo de una imagen</texto>
+					<media tipo="imagfen">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>
+				</idea>
+				<!--<idea ordenAparicion="2">
+					<texto tipo="normal">El siguiente es un ejemplo de un video</texto>
+					<media tipo="video">https://www.youtube.com/watch?v=sTSA_sWGM44</media>
+				</idea>-->
+				<idea ordenAparicion="3">
+					<texto tipo="normal">El siguiente es un ejemplo de audio</texto>
+					<media>https://www.youtube.com/watch?v=_4IRMYuE1hI</media>
+				</idea>
+			</bloque>
+		</escena>
+		<!--<escena titulo="Ejemplo de evaluación" tipo="1Col">
+			<bloque>
+				<idea ordenAparicion="1">
+					<_TIPO>
+						<texto tipo="normal.">Este es el enunciado de</texto>
+						<alternativa evaluacion="falsa" justificacion =""></alternativa>
+						<alternativa evaluacion="verdadera" justificacion =""></alternativa>
+						<alternativa evaluacion="falsa" justificacion =""></alternativa>
+
+					</_TIPO>
+				</idea>
+
+			</bloque>
+		</escena>-->
+
+	</objeto>
+</comenzar>
