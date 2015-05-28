@@ -142,6 +142,13 @@ public class FileUpload implements Serializable{
                 
                 this.OA_Name = OA_List.get(0).getTitle();
                 //prepareDownload();
+                try{
+                    FacesContext contex = FacesContext.getCurrentInstance();
+                    contex.getExternalContext().redirect("/PODA-web/objeto_aprendizaje.xhtml");
+                }catch(Exception e){
+                    System.err.println(e);
+                }
+                
             }
             else{
                 /*Archivo con errores o inválido.*/
