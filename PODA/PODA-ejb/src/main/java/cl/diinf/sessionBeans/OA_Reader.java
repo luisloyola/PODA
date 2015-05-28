@@ -96,6 +96,7 @@ public class OA_Reader {
             }
             catch(org.xml.sax.SAXException e){
                 /*Error en el parser*/
+                OA_XML_File.delete();
                 if(e.getLocalizedMessage().equals("Content is not allowed in prolog.")){
                     this.parsingError = "Error: Archivo no soportado.";
                 }
