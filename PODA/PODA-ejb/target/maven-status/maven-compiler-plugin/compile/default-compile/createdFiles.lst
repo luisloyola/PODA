@@ -2,7 +2,6 @@ cl/diinf/sessionBeans/OA_ReaderLocal.class
 cl/diinf/objetoAprendizaje/Slide.class
 cl/diinf/sessionBeans/OA_TranslateHtmlLocal.class
 cl/diinf/objetoAprendizaje/ObjetoAprendizaje.class
-cl/diinf/util/TTSDownloader.class
 cl/diinf/objetoAprendizaje/Block.class
 cl/diinf/objetoAprendizaje/Media.class
 cl/diinf/sessionBeans/OA_TranslateHtml.class
