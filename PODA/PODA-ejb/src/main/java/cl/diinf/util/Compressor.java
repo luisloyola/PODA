@@ -7,7 +7,9 @@ package cl.diinf.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -60,6 +62,7 @@ public class Compressor {
             fos = new FileOutputStream(this.outputPath);
             ZipOutputStream zos = new ZipOutputStream(fos);
             zos.setLevel(9);
+
             addFolder(zos,this.inputPath,this.inputPath);
             zos.close();
             //System.out.println("¡Compresión Exitosa!");
@@ -97,7 +100,7 @@ public class Compressor {
                 }
             }else{
                 String entryName = folderName.substring(baseFolderName.length()+1,folderName.length());
-                //System.out.print("Agregando: " + entryName + "...");
+                //System.out.println("Agregando: " + entryName + "...");
                 ZipEntry ze= new ZipEntry(entryName);
                 zos.putNextEntry(ze);
                 FileInputStream in = new FileInputStream(folderName);
@@ -114,8 +117,7 @@ public class Compressor {
         }else{
             System.out.println("Archivo o Directorio: " + folderName +" No encontrado.");
         }
- 
-    }
+    }       
 }    
     
 

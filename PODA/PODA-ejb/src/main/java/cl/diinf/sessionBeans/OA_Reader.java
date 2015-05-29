@@ -231,7 +231,7 @@ public class OA_Reader {
                                 int aparitionOrder = 0  ;
                                 
                                 try{
-                                    aparitionOrder = Integer.parseInt(currentIdea.getAttribute("ordenAparicion"));
+                                    aparitionOrder = Math.abs(Integer.parseInt(currentIdea.getAttribute("ordenAparicion")));
                                     if(aparitionOrder < 0){
                                         this.parsingError = "\nOrden de apareción inválido en: "+newSlide.getTitle()+".";
                                         return new ArrayList<ObjetoAprendizaje>();
@@ -300,9 +300,9 @@ public class OA_Reader {
                                         case "imagen":
                                             newMedia.setType("imagen");
                                             break;
-                                        case "audio":
+                                        /*case "audio":
                                             newMedia.setType("audio");
-                                            break;
+                                            break;*/
                                         //CASE VIDEO
                                         default:
                                             this.parsingError = "\nTipo multimedia no soportado.";
