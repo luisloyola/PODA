@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cl.diinf.testCase;
 
 import com.thoughtworks.selenium.DefaultSelenium;
@@ -13,10 +9,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- * @author nacho
- */
 public class testSelenium {
     
     private Selenium selenium;
@@ -44,7 +36,7 @@ public class testSelenium {
     }
 
     @Test
-    public void testPoda() throws Exception {
+    public void testCreationCorrect() throws Exception {
         selenium.open("PODA-web/");        
         selenium.type("id=form:file", "/home/nacho/proyecto-pingeso/Pruebas/Template.xml");
         selenium.click("name=form:j_idt16");
@@ -76,4 +68,14 @@ public class testSelenium {
         selenium.click("link=→");
         selenium.click("link=→");
     }    
+    
+    @Test
+    public void testError() throws Exception {
+        selenium.open("/PODA-web/");
+        selenium.type("id=form:file", "/home/nacho/proyecto-pingeso/Pruebas/US006/NoExisteTipo.xml");
+        selenium.click("name=form:j_idt16");
+        selenium.waitForPageToLoad("30000");
+        selenium.click("css=span.ui-icon.ui-icon-close");
+        selenium.click("css=span.ui-icon.ui-icon-close");
+    }
 }
