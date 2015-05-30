@@ -1,4 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE comenzar [
+<!ELEMENT comenzar (objeto)>
+<!ELEMENT objeto (escena+)>
+<!ELEMENT escena (bloque+)>
+<!ELEMENT bloque (idea*)>
+<!ELEMENT idea (texto*, voz?, media*,evaluacion)>
+<!ELEMENT texto (#PCDATA)>
+<!ELEMENT voz (#PCDATA)>
+<!ELEMENT media (#PCDATA)>
+<!ELEMENT evaluacion (enunciado,opciones)>
+<!ELEMENT enunciado (#PCDATA)>
+<!ELEMENT opciones (alternativas)>
+<!ELEMENT alternativas (#PCDATA)>
 
+<!ATTLIST objeto titulo CDATA #REQUIRED>
+<!ATTLIST objeto autor CDATA #REQUIRED>
+<!ATTLIST objeto tema CDATA #REQUIRED>
+<!ATTLIST escena titulo CDATA #REQUIRED>
+<!ATTLIST escena tipo CDATA #REQUIRED>
+
+<!ATTLIST idea ordenAparicion CDATA #REQUIRED>
+<!ATTLIST texto tipo CDATA #REQUIRED>
+<!ATTLIST texto mano CDATA #IMPLIED>
+<!ATTLIST media tipo CDATA #REQUIRED>
+
+<!ATTLIST alternativas tipo CDATA #REQUIERED>
+<!ATTLIST alternativa tema CDATA #REQUIERED>	
+]>
 
 <comenzar>
 	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
@@ -12,10 +40,10 @@
 					<texto tipo="normal">El siguiente es un ejemplo de un video</texto>
 					<media tipo="video">https://www.youtube.com/watch?v=sTSA_sWGM44</media>
 				</idea>-->
-				<!--<idea ordenAparicion="3">
+				<idea ordenAparicion="3">
 					<texto tipo="normal">El siguiente es un ejemplo de audio</texto>
 					<media tipo="audio">https://www.youtube.com/watch?v=_4IRMYuE1hI</media>
-				</idea>-->
+				</idea>
 			</bloque>
 		</escena>
 		<!--<escena titulo="Ejemplo de evaluación" tipo="1Col">
@@ -32,6 +60,14 @@
 
 			</bloque>
 		</escena>-->
+				<escena titulo="Ejemplo de mano" tipo="1Col">
+			<bloque>
+				<idea ordenAparicion="1">
+						<texto tipo="manuscrito." mano="mostrar">Este es el enunciado de</texto>
 
+				</idea>
+
+			</bloque>
+		</escena>
 	</objeto>
 </comenzar>

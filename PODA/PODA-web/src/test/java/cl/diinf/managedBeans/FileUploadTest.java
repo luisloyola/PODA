@@ -6,6 +6,7 @@
 package cl.diinf.managedBeans;
 
 import java.io.File;
+import java.io.IOException;
 import javax.servlet.http.Part;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,7 +47,7 @@ public class FileUploadTest {
      * Test of prepareDownload method, of class FileUpload.
      */
     @Test
-    public void testPrepareDownload() {
+    public void testPrepareDownload() throws IOException {
         
         FileUpload instance = new FileUpload();
         instance.setCode_html("<html></html>");
