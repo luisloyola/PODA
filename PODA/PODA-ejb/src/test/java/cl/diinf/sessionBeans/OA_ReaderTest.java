@@ -49,7 +49,7 @@ public class OA_ReaderTest {
                             "                   <voz>Buenos Dias, tardes, noches</voz>\n" +
                             "               </idea>\n" +
                             "               <idea ordenAparicion=\"3\">\n" +
-                            "                   <texto tipo=\"manuscrito\" mano=\"mostrar\">Este es un texto manuscrito</texto>\n" +
+                            "                   <texto tipo=\"manuscrito\" >Este es un texto manuscrito</texto>\n" +
                             "               </idea>\n" +
                             "               <idea ordenAparicion=\"4\">\n" +
                             "                   <texto tipo=\"ejemplo\">Este es el ejemplo 1</texto>\n" +
@@ -68,8 +68,8 @@ public class OA_ReaderTest {
                             "               </idea>\n" +
                             "               <idea ordenAparicion=\"3\">\n" +
                             "                   <texto tipo=\"normal\">El siguiente es un ejemplo de audio</texto>\n" +
-                            "                   <media tipo=\"audio\">https://www.youtube.com/watch?v=_4IRMYuE1hI</media>\n" +
-                            "               </idea>\n" +
+                            "                   <!--<media tipo=\"audio\">https://www.youtube.com/watch?v=_4IRMYuE1hI</media>\n" +
+                            "               --></idea>\n" +
                             "           </bloque>\n" +
                             "       </escena>\n" +
                             "       <escena titulo=\"Ejemplo de evaluación\" tipo=\"1Col\">\n" +
@@ -122,7 +122,7 @@ public class OA_ReaderTest {
                             "               <idea ordenAparicion=\"1\">\n" +
                             "                   <texto tipo=\"normal\">texto1</texto>\n" +
                             "                   <texto tipo=\"codigo\"> Soy texto de un codigo</texto>\n" +
-                            "                   <texto tipo=\"manuscrito\" mano=\"mostrar\">Este es un texto manuscrito</texto>" +
+                            "                   <texto tipo=\"manuscrito\" >Este es un texto manuscrito</texto>" +
                             "                   <voz>Voz1</voz>\n" +
                             "               </idea>"+
                             "           </bloque>\n" +
@@ -214,7 +214,7 @@ public class OA_ReaderTest {
      */
     @Test
     public void testMedia(){
-        int media = 2;
+        int media = 1;
         int count_media = 0;
         
         if(!objects.isEmpty()){

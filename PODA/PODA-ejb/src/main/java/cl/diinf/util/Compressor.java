@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cl.diinf.util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-/**
- *
- * @author teban
- */
+
 public class Compressor {
     
     private String inputPath;
@@ -68,9 +59,8 @@ public class Compressor {
             //System.out.println("¡Compresión Exitosa!");
         } 
         catch (Exception ex) {
-            
+            System.out.println(ex.getLocalizedMessage()); 
         }
-        
         this.error = true;
         return this.outputPath;
         
@@ -90,7 +80,6 @@ public class Compressor {
             if(f.isDirectory()){
                 if(!folderName.equalsIgnoreCase(baseFolderName)){
                     String entryName = folderName.substring(baseFolderName.length()+1,folderName.length()) + File.separatorChar;
-                    //System.out.println("Agregando: " + entryName);
                     ZipEntry ze= new ZipEntry(entryName);
                     zos.putNextEntry(ze);    
                 }
@@ -100,7 +89,6 @@ public class Compressor {
                 }
             }else{
                 String entryName = folderName.substring(baseFolderName.length()+1,folderName.length());
-                //System.out.println("Agregando: " + entryName + "...");
                 ZipEntry ze= new ZipEntry(entryName);
                 zos.putNextEntry(ze);
                 FileInputStream in = new FileInputStream(folderName);
@@ -110,9 +98,7 @@ public class Compressor {
                     zos.write(buffer, 0, len);
                 }
                 in.close();
-                zos.closeEntry();
-                //System.out.println("OK!");
- 
+                zos.closeEntry(); 
             }
         }else{
             System.out.println("Archivo o Directorio: " + folderName +" No encontrado.");

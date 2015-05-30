@@ -18,10 +18,6 @@ import java.util.Date;
 import java.util.UUID;
 
 
-/**
- *
- * @author teamPODA
- */
 public class OA_Reader {
     private String parsingError;
     private String fileContent;
@@ -61,16 +57,11 @@ public class OA_Reader {
             File OA_XML_File = this.stringToFile(fileContent);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             dbFactory.setValidating(true);
-            
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            
             SimpleErrorHandler errorHandler = new SimpleErrorHandler();
-            
             dBuilder.setErrorHandler(errorHandler);
             Document doc = dBuilder.newDocument();
-            
             try{
-                
                 doc = dBuilder.parse(OA_XML_File);
                 if(!errorHandler.getErrorMessage().equals("NO_ERROR")){
                     System.out.println(errorHandler.getErrorMessage());
@@ -102,7 +93,12 @@ public class OA_Reader {
                 }
                 else{
                     String[] translate = e.getLocalizedMessage().split(" ");
-                    this.parsingError = "Error: El elemento "+translate[3]+" debe terminar con "+translate[11];
+                    if(translate.length < 12){
+                        this.parsingError = e.getLocalizedMessage();
+                    }
+                    else{
+                        this.parsingError = "Error: El elemento "+translate[3]+" debe terminar con "+translate[11];
+                    }
                 }
                 
                 return Objects;
@@ -262,7 +258,7 @@ public class OA_Reader {
                                             newText.setHand(false);
                                             break;
                                         case "manuscrito":
-                                            switch(currentText.getAttribute("mano")){
+                                            /*switch(currentText.getAttribute("mano")){
                                                 case "mostrar":
                                                     newText.setHand(true);
                                                     break;
@@ -271,7 +267,8 @@ public class OA_Reader {
                                                 default:
                                                     this.parsingError = "\nEn textos manuscritos se ha de especificar si deben o no ser escritos a mano.";
                                                     return new ArrayList<ObjetoAprendizaje>();
-                                            }
+                                            }*/
+                                            newText.setHand(true);
                                             break;
                                         case "codigo":
                                             newText.setHand(false);
@@ -467,38 +464,38 @@ public class OA_Reader {
         temp = "";        
     }
     
-    public void AppendDTD(){
+    public void AppendDTD(){   
         this.fileContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-"<!DOCTYPE comenzar [\n" +
-"<!ELEMENT comenzar (objeto)>\n" +
-"<!ELEMENT objeto (escena+)>\n" +
-"<!ELEMENT escena (bloque+)>\n" +
-"<!ELEMENT bloque (idea*)>\n" +
-"<!ELEMENT idea (texto*, voz?, media*, evaluaciones*)>\n" +
-"<!ELEMENT texto (#PCDATA)>\n" +
-"<!ELEMENT voz (#PCDATA)>\n" +
-"<!ELEMENT media (#PCDATA)>\n" +
-"<!ELEMENT evaluaciones (evaluacion*)>\n" +
-"<!ELEMENT evaluacion (enunciado,opciones)>\n" +
-"<!ELEMENT enunciado (#PCDATA)>\n" +
-"<!ELEMENT opciones (alternativa*)>\n" +
-"<!ELEMENT alternativa (#PCDATA)>\n" +
-"\n" +
-"\n" +
-"<!ATTLIST objeto titulo CDATA #REQUIRED>\n" +
-"<!ATTLIST objeto autor CDATA #REQUIRED>\n" +
-"<!ATTLIST objeto tema CDATA #REQUIRED>\n" +
-"<!ATTLIST escena titulo CDATA #REQUIRED>\n" +
-"<!ATTLIST escena tipo CDATA #REQUIRED>\n" +
-"\n" +
-"<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n" +
-"<!ATTLIST texto tipo CDATA #REQUIRED>\n" +
-"<!ATTLIST texto mano CDATA #IMPLIED>\n" +
-"<!ATTLIST media tipo CDATA #REQUIRED>	\n" +
-"\n" +
-"<!ATTLIST alternativa tipo CDATA #REQUIRED>\n" +
-"<!ATTLIST alternativa tema CDATA #REQUIRED>\n" +
-"]>" + this.fileContent;
+                            "<!DOCTYPE comenzar [\n" +
+                            "<!ELEMENT comenzar (objeto)>\n" +
+                            "<!ELEMENT objeto (escena+)>\n" +
+                            "<!ELEMENT escena (bloque+)>\n" +
+                            "<!ELEMENT bloque (idea*)>\n" +
+                            "<!ELEMENT idea (texto*, voz?, media*, evaluaciones*)>\n" +
+                            "<!ELEMENT texto (#PCDATA)>\n" +
+                            "<!ELEMENT voz (#PCDATA)>\n" +
+                            "<!ELEMENT media (#PCDATA)>\n" +
+                            "<!ELEMENT evaluaciones (evaluacion*)>\n" +
+                            "<!ELEMENT evaluacion (enunciado,opciones)>\n" +
+                            "<!ELEMENT enunciado (#PCDATA)>\n" +
+                            "<!ELEMENT opciones (alternativa*)>\n" +
+                            "<!ELEMENT alternativa (#PCDATA)>\n" +
+                            "\n" +
+                            "\n" +
+                            "<!ATTLIST objeto titulo CDATA #REQUIRED>\n" +
+                            "<!ATTLIST objeto autor CDATA #REQUIRED>\n" +
+                            "<!ATTLIST objeto tema CDATA #REQUIRED>\n" +
+                            "<!ATTLIST escena titulo CDATA #REQUIRED>\n" +
+                            "<!ATTLIST escena tipo CDATA #REQUIRED>\n" +
+                            "\n" +
+                            "<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n" +
+                            "<!ATTLIST texto tipo CDATA #REQUIRED>\n" +
+                            "<!ATTLIST media tipo CDATA #REQUIRED>	\n" +
+                            "\n" +
+                            "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n" +
+                            "<!ATTLIST alternativa tema CDATA #REQUIRED>\n" +
+                            "]>" + 
+                this.fileContent;
     }
 }
 

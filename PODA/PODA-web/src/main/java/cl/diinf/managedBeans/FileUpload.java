@@ -223,21 +223,9 @@ public class FileUpload implements Serializable{
         File returnFile = new File(folderName+".zip");
         return returnFile;
         
-        //return new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
     }
     
-    public File prepareScormDownload(){
-        /*
-        TO_DO:
-            · Copiar el directorio de los archivos SCORM (junto a la carpeta resources)
-            en una carpeta especial para ellos. 
-            · Insertar en esa carpeta el index.html y la carpeta resources. 
-            · Comprimir todos los archivos de la carpeta en un .zip (OJO, deben
-            estar en la raiz del zip.
-            · Entregarselo a ScormFile
-            · Descargar el paquete desde el Web.
-        */
-        
+    public File prepareScormDownload() throws IOException{
         String folderName = String.valueOf(Math.random()*100000+1);
         String folderPath = "";
         File newDirectory = new File(folderName);
@@ -245,13 +233,11 @@ public class FileUpload implements Serializable{
             try{
                 newDirectory.mkdir();
                 folderPath = newDirectory.getAbsolutePath();
-                    //System.out.println(folderPath);
                 File createdOA = new File(folderPath+"/index.html");
                 try{
                     FileWriter fw = new FileWriter(createdOA);
                     fw.write(code_html);
                     fw.close();
-                    // /standalone/deployments/PODA-web-1.0.war/resources
                     File source = new File("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources");
                     File target = new File(folderPath+"/resources");
                     this.copyDirectory(source,target);
@@ -259,26 +245,23 @@ public class FileUpload implements Serializable{
                     File scormSource = new File("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/Scorm");
                     File scormTarget = new File(folderPath);
                     this.copyDirectory(scormSource, scormTarget);
-                          
                     Compressor compress = new Compressor();
                     compress.setInputPath(folderPath);
                     compress.setOutputPath("SCORM-"+folderName+".zip");
-                    compress.zipIt();
-                    
-                    
+                    compress.zipIt();                         
                     FileUtils.deleteDirectory(new File(folderPath));
-                    
                 }
                 catch(IOException e){
                     this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
+                    FileUtils.deleteDirectory(new File(folderPath));
                 }
             }
             catch(SecurityException ex){
                 this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
+                newDirectory.delete();
             }
         }   
         return new File("SCORM-"+folderName+".zip");
-        //return new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
     }
     
     
@@ -295,12 +278,12 @@ public class FileUpload implements Serializable{
         return this.zipFile;
     }
     
-    public StreamedContent getScormFile() throws FileNotFoundException {
+    public StreamedContent getScormFile() throws FileNotFoundException, IOException {
         File temp = this.prepareScormDownload();
         InputStream stream = new FileInputStream(temp);
         this.scormFile = new DefaultStreamedContent(stream, "application/zip", "PODA-SCORM-"+this.OA_Name+".zip");    
         temp.delete();
-        return this.scormFile;
+        return this.scormFile; 
     }
     
     
@@ -356,5 +339,7 @@ public class FileUpload implements Serializable{
           throw new ValidatorException(msgs);
         }
     }     */       
+   
     
+        
 }

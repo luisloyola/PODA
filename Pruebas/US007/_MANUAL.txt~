@@ -1,0 +1,8 @@
+
+	Sólo para textos del tipo "manuscrito" es posible utilizar la funcionalidad de la mano que escribe el texto. Para ello 
+ha de agregarse el atributo "mano" en la etiqueta correspondiente al texto del tipo antes mencionado.
+	Si se desea que la mano se muestre, debe escribirse: "mostrar" como valor para el atributo "mano"; de no querer hacerlo,
+el valor debe ser "ocultar".
+	La no especificación del atributo "mano" en textos del tipo "manuscrito" gatillará un error en el procesamiento. Asimismo el
+ingreso de un tipo inválido.
+
