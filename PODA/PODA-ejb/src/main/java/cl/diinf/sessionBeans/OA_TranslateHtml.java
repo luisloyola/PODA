@@ -144,10 +144,10 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 color = "green";
                 break;                    
         }        
-        text = text.replaceAll("/d", "<mark>");
-        text = text.replaceAll("d/", "</mark>");
-        text = text.replaceAll("/e", "<font color="+color+">");
-        text = text.replaceAll("e/", "</font>");         
+        text = text.replaceAll("<destacar>", "<mark>");
+        text = text.replaceAll("</destacar>", "</mark>");
+        text = text.replaceAll("<enfatizar>", "<font color="+color+">");
+        text = text.replaceAll("</enfatizar>", "</font>");         
         
         return text;
     }
