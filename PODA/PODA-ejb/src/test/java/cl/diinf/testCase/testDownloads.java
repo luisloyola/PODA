@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -54,24 +55,42 @@ public class testDownloads {
         selenium.click("link=Ver Detalles »");
         selenium.click("link=Ver Detalles »");
         selenium.waitForPageToLoad("30000");
-        selenium.click("name=j_idt11:j_idt12");
-        selenium.click("name=j_idt11:j_idt12");
+        selenium.click("name=j_idt21:j_idt23");
+        selenium.click("name=j_idt21:j_idt23");
         selenium.waitForPageToLoad("30000");
     }
     /**
      * Test que evalua la descarga del objeto como zip (html + recursos)
      * @throws Exception 
      */
-    @Test
+    @Ignore
     public void testDescargaZipObjeto() throws Exception {
-        
+        selenium.open("/PODA-web/");
+        selenium.type("id=form:file", "/home/nacho/proyecto-pingeso/Pruebas/Template.xml");
+        selenium.click("name=form:j_idt16");
+        selenium.waitForPageToLoad("30000");
+        selenium.click("css=button.ajs-button.ajs-ok");
+        selenium.click("css=button.ajs-button.ajs-ok");
+        selenium.click("name=j_idt15:j_idt16");
+        selenium.click("name=j_idt15:j_idt16");
+        selenium.waitForPageToLoad("30000");
     }
     /**
      * Test que evalua la descarga del objeto como paquete scorm
      * @throws Exception 
      */
-    @Test
+    @Ignore
     public void testDescargaScormObjeto() throws Exception {
-        
+        selenium.open("/PODA-web/");
+        selenium.type("id=form:file", "/home/nacho/proyecto-pingeso/Pruebas/Template.xml");
+        selenium.type("id=form:file", "/home/nacho/proyecto-pingeso/Pruebas/Template.xml");
+        selenium.click("name=form:j_idt16");
+        selenium.click("name=form:j_idt16");
+        selenium.waitForPageToLoad("30000");
+        selenium.click("css=button.ajs-button.ajs-ok");
+        selenium.click("css=button.ajs-button.ajs-ok");
+        selenium.click("name=j_idt13:j_idt14");
+        selenium.click("name=j_idt13:j_idt14");
+        selenium.waitForPageToLoad("30000");
     }
 }

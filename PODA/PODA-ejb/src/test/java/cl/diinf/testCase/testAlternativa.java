@@ -145,7 +145,7 @@ public class testAlternativa {
         ArrayList <String> nameFiles = new ArrayList();
         nameFiles.add("AlternativaSinTema");
         nameFiles.add("AlternativaSinTipo");        
-        for(int i = 0; i < 3 ; i++){
+        for(int i = 0; i < 2 ; i++){
             selenium.open("/PODA-web/");
             selenium.type("id=form:file", "/home/nacho/proyecto-pingeso/Pruebas/alternativa/"+nameFiles.get(i)+".xml");
             selenium.click("name=form:j_idt16");

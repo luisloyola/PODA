@@ -171,7 +171,7 @@ public class testDestacarEnfatizar {
      * @throws Exception 
      */
     @Test
-    public void testErrorDestacarCruzadoDestacar() throws Exception {
+    public void testErrorDestacarCruzadoEnfatizar() throws Exception {
         selenium.open("/PODA-web/");
         selenium.type("id=form:file", "/home/nacho/proyecto-pingeso/Pruebas/destacar/DestacarCruzadoEnfatizar.xml");
         selenium.click("name=form:j_idt16");
