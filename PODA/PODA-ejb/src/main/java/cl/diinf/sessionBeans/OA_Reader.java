@@ -41,9 +41,7 @@ public class OA_Reader {
 
     public void setParsingError(String parsingError) {
         this.parsingError = parsingError;
-    }
-    
-    
+    }        
       
     /**
      * Devuelve una vista generada a partir del string entregado.

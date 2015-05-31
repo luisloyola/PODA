@@ -49,8 +49,8 @@ public class OA_ReaderTest {
                             "                   <voz>Buenos Dias, tardes, noches</voz>\n" +
                             "               </idea>\n" +
                             "               <idea ordenAparicion=\"3\">\n" +
-                            "                   <texto tipo=\"manuscrito\" mano=\"mostrar\">Este es un texto manuscrito</texto>\n" +
-                            "                   <media tipo=\"imagen\">http://vignette4.wikia.nocookie.net/monsterlegends/images/7/7f/Fenix.jpeg/revision/latest/scale-to-width/640?cb=20141030194147&path-prefix=es</media>\n" +
+                            "                   <texto tipo=\"manuscrito\">Este es un texto manuscrito</texto>\n" +
+                            "                   <media tipo=\"imagen\">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>\n" +
                             "               </idea>\n" +
                             "               <idea ordenAparicion=\"4\">\n" +
                             "                   <texto tipo=\"ejemplo\">Este es el ejemplo 1</texto>\n" +
@@ -129,32 +129,6 @@ public class OA_ReaderTest {
         
         assertEquals("Error en la lectura de objetos desde el xml", 1, size_object);
     }
-    /**
-     * Probar creacion de objeto a partir de un xml con errores
-     */ 
-    @Test
-    public void testErrorObject(){
-        
-        String error_xml =  "<comenzar>\n" +
-                            "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
-                            "       <escena titulo=\"escena1\" tipo=\"1Col\">\n" +
-                            "           <bloque>\n" +
-                            "               <idea ordenAparicion=\"1\">\n" +
-                            "                   <texto tipo=\"normal\">texto1</texto>\n" +
-                            "                   <texto tipo=\"codigo\"> Soy texto de un codigo</texto>\n" +
-                            "                   <texto tipo=\"manuscrito\" mano=\"mostrar\">Este es un texto manuscrito</texto>" +
-                            "                   <voz>Voz1</voz>\n" +
-                            "               </idea>"+
-                            "           </bloque>\n" +
-                            "        \n" +
-                            "   </objeto>\n" +
-                            "</comenzar>";
-        OA_Reader instance = new OA_Reader();
-        instance.setFileContent(error_xml);  
-        instance.AppendDTD();
-        
-        assertEquals("Error en la lectura de objetos desde un xml con errores", 0 ,instance.readOA().size());
-    }
            
     /**
      * Probar creacion de slides
@@ -166,8 +140,7 @@ public class OA_ReaderTest {
             assertEquals("Error en la lectura de slides desde el xml", count_slide, objects.get(0).getContent().size());
         }
         else
-            fail("Error en la lectura del xml");            
-        
+            fail("Error en la lectura del xml");                    
     }
     /**
      * Probar creacion de bloques
@@ -192,7 +165,7 @@ public class OA_ReaderTest {
      */
     @Test
     public void testIdea(){
-        int ideas = 6;
+        int ideas = 5;
         int count_ideas = 0;
         
         if(!objects.isEmpty()){
@@ -212,7 +185,7 @@ public class OA_ReaderTest {
      */
     @Test
     public void testText(){
-        int texts = 9;
+        int texts = 8;
         int count_texts = 0;
         
         if(!objects.isEmpty()){
@@ -254,7 +227,9 @@ public class OA_ReaderTest {
             fail("Error en la lectura del xml");
     }
     
-    
+    /**
+     * Probar creacion de conjunto de evaluaciones
+     */
     @Test
     public void testPruebas(){
         int pruebas = 2;
@@ -276,7 +251,9 @@ public class OA_ReaderTest {
         else
             fail("Error en la lectura del xml");
     }
-
+    /**
+     * Probar creacion de evaluaciones
+     */
     @Test
     public void testEvaluaciones(){
         int evaluaciones = 4;
@@ -291,7 +268,7 @@ public class OA_ReaderTest {
                         
                         for(int l = 0; l < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size(); l++){
                             
-                            count_evaluaciones = objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().size();
+                            count_evaluaciones += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().size();
                         }                                                
                     }
                 }
@@ -301,11 +278,13 @@ public class OA_ReaderTest {
         else
             fail("Error en la lectura del xml");
     }
-    
+    /**
+     * Probar creacion de alternativas de las evaluaciones
+     */
     @Test
     public void testAlternativas(){
-        int alternativas = 4;
-        int enunciado = 2;
+        int alternativas = 8;
+        int enunciado = 4;
         int count_alternativas = 0;
         int count_enunciado = 0;
         
@@ -320,7 +299,7 @@ public class OA_ReaderTest {
                             
                             for(int m = 0; m < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().size(); m++){
                                 
-                                count_alternativas = objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().get(l).getChoices().size();
+                                count_alternativas += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().get(l).getChoices().size();
                                 if(objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().get(l).getHeader().isEmpty() || objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().get(l).getHeader() != null){
                                     count_enunciado += 1;
                                 }
@@ -336,6 +315,156 @@ public class OA_ReaderTest {
             fail("Error en la lectura del xml");
     }
     
+    /**
+     * Probar creacion de objeto a partir de un error en el tipo de escena
+     */ 
+    @Test
+    public void testErrorTipoEscena(){
+        
+        String error_xml =  "<comenzar>\n" +
+                            "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
+                            "       <escena titulo=\"escena1\" tipo=\"random\">\n" +
+                            "           <bloque>\n" +
+                            "               <idea ordenAparicion=\"1\">\n" +
+                            "                   <texto tipo=\"normal\">texto1</texto>\n" +
+                            "               </idea>"+
+                            "           </bloque>\n" +
+                            "       </escena> \n" +
+                            "   </objeto>\n" +
+                            "</comenzar>";
+        OA_Reader instance = new OA_Reader();
+        instance.setFileContent(error_xml);  
+        instance.AppendDTD();
+        
+        assertEquals("No se esta validando los tipos de escenas existentes", 0 ,instance.readOA().size());
+    }
+    /**
+     * Probar creacion de objeto a partir de un xml con cantidad de bloques inferior al correspondiente 
+     */ 
+    @Test
+    public void testErrorCantidadBloques(){
+        
+        String error_xml =  "<comenzar>\n" +
+                            "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
+                            "       <escena titulo=\"escena1\" tipo=\"2Col\">\n" +
+                            "           <bloque>\n" +
+                            "               <idea ordenAparicion=\"1\">\n" +
+                            "                   <texto tipo=\"normal\">texto1</texto>\n" +
+                            "               </idea>"+
+                            "           </bloque>\n" +
+                            "       </escena> \n" +
+                            "   </objeto>\n" +
+                            "</comenzar>";
+        OA_Reader instance = new OA_Reader();
+        instance.setFileContent(error_xml);  
+        instance.AppendDTD();
+        
+        assertEquals("No se esta validando la cantidad de bloques permitidos segun el tipo de escena", 0 ,instance.readOA().size());
+    }
+    /**
+     * Probar creacion de objeto a partir de un xml con un ordenAparicion no numerico
+     */
+    @Test
+    public void testErrorOrdenNumerico(){
+        
+        String error_xml =  "<comenzar>\n" +
+                            "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
+                            "       <escena titulo=\"escena1\" tipo=\"1Col\">\n" +
+                            "           <bloque>\n" +
+                            "               <idea ordenAparicion=\"random\">\n" +
+                            "                   <texto tipo=\"normal\">texto1</texto>\n" +
+                            "               </idea>"+
+                            "           </bloque>\n" +
+                            "       </escena> \n" +
+                            "   </objeto>\n" +
+                            "</comenzar>";
+        OA_Reader instance = new OA_Reader();
+        instance.setFileContent(error_xml);  
+        instance.AppendDTD();
+        
+        assertEquals("No se esta validando que la entrada de ordenAparicion sea numerico", 0 ,instance.readOA().size());
+    }
+    /**
+     * Probar creacion de objeto a partir de un xml con un tipo de texto existente
+     */
+    @Test
+    public void testErrorTipoTexto(){
+        
+        String error_xml =  "<comenzar>\n" +
+                            "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
+                            "       <escena titulo=\"escena1\" tipo=\"1Col\">\n" +
+                            "           <bloque>\n" +
+                            "               <idea ordenAparicion=\"1\">\n" +
+                            "                   <texto tipo=\"randomtipo\">texto1</texto>\n" +
+                            "               </idea>"+
+                            "           </bloque>\n" +
+                            "       </escena> \n" +
+                            "   </objeto>\n" +
+                            "</comenzar>";
+        OA_Reader instance = new OA_Reader();
+        instance.setFileContent(error_xml);  
+        instance.AppendDTD();
+        
+        assertEquals("No se esta validando que la entrada en tipo texto exista", 0 ,instance.readOA().size());
+    }
+    /**
+     * Probar creacion de objeto a partir de un xml con un tipo de media no existente
+     */
+    @Test
+    public void testErrorTipoMedia(){
+        
+        String error_xml =  "<comenzar>\n" +
+                            "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
+                            "		<escena titulo=\"Ejemplo de multimedia\" tipo=\"1Col\">\n" +
+                            "			<bloque>\n" +
+                            "				<idea ordenAparicion=\"1\">\n" +
+                            "					<texto tipo=\"normal\">El siguiente es un ejemplo de una imagen</texto>\n" +
+                            "					<media tipo=\"randomMediaType\">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>\n" +
+                            "				</idea>\n" +				
+                            "			</bloque>\n" +
+                            "		</escena>\n" +
+                            "	</objeto>\n" +
+                            "</comenzar>";
+        OA_Reader instance = new OA_Reader();
+        instance.setFileContent(error_xml);  
+        instance.AppendDTD();
+        
+        assertEquals("No se esta validando que la entrada en tipo media exista", 0 ,instance.readOA().size());
+    }
+    /**
+     * Probar creacion de objeto a partir de un xml con un tipo de evaluacion no existente
+     */
+    @Test
+    public void testErrorTipoAlternativa(){
+        
+        String error_xml =  "<comenzar>\n" +
+                            "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
+                            "		<escena titulo=\"Ejemplo de evaluacion\" tipo=\"1Col\">\n" +
+                            "			<bloque>\n" +
+                            "				<idea ordenAparicion=\"1\">\n" +
+                            "					<evaluaciones>\n" +
+                            "						<evaluacion>\n" +
+                            "							<enunciado>Enunciado Evaluacion </enunciado>\n" +
+                            "							<opciones>\n" +
+                            "								<alternativa tipo=\"randomType\" tema=\"prueba\">Si</alternativa>\n" +
+                            "								<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
+                            "							</opciones>\n" +
+                            "						</evaluacion>\n" +
+                            "					</evaluaciones>\n" +
+                            "				</idea>\n" +
+                            "			</bloque>\n" +
+                            "		</escena>\n" +
+                            "	</objeto>\n" +
+                            "</comenzar>";
+        OA_Reader instance = new OA_Reader();
+        instance.setFileContent(error_xml);  
+        instance.AppendDTD();
+        
+        assertEquals("No se esta validando que la entrada en tipo media exista", 0 ,instance.readOA().size());
+    }
+    /**
+     * Probar creacion de codigo DTD
+     */
     @Test
     public void testReadOADTDAppend() {
         OA_Reader instance = new OA_Reader();
@@ -344,7 +473,7 @@ public class OA_ReaderTest {
                         "		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
                         "			<bloque>\n" +
                         "				<idea ordenAparicion=\"1\">\n" +
-                        "					<texto tipo=\"manuscrito\" mano=\"randomText\">Este es un texto</texto>\n" +
+                        "					<texto tipo=\"manuscrito\">Este es un texto</texto>\n" +
                         "				</idea>\n" +
                         "			</bloque>\n" +
                         "		</escena>\n" +
@@ -387,9 +516,7 @@ public class OA_ReaderTest {
         instance.AppendDTD();
                 
         assertEquals(dtd+content,instance.getFileContent());
-    }
-    
-    
+    }        
     
     @Ignore    
     public void testPreProcessText(){
