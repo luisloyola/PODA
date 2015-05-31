@@ -143,7 +143,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             default:
                 color = "green";
                 break;                    
-        }        
+        }
+        
         text = text.replaceAll("<destacar>", "<mark>");
         text = text.replaceAll("</destacar>", "</mark>");
         text = text.replaceAll("<enfatizar>", "<font color="+color+">");

@@ -80,7 +80,7 @@ public class OA_ReaderTest {
                             "                           <enunciado>Enunciado Evaluacion </enunciado>\n" +
                             "                           <opciones>\n" +
                             "                               <alternativa tipo=\"solucion\" tema=\"prueba\">Si</alternativa>\n" +
-                            "                               <alternativa tipo=\"solucion\" tema=\"prueba\">No</alternativa>\n" +
+                            "                               <alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
                             "                           </opciones>                 \n" +
                             "                       </evaluacion>\n" +
                             "                   </evaluaciones>\n" +

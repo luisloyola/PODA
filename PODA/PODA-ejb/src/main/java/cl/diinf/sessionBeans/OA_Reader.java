@@ -55,7 +55,6 @@ public class OA_Reader {
         this.preProcessText();
         try {
             File OA_XML_File = this.stringToFile(fileContent);
-            System.out.println(fileContent);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             dbFactory.setValidating(true);
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -241,10 +240,10 @@ public class OA_Reader {
                                 
                                 String tempText = currentText.getTextContent();
                                 
-                                tempText = tempText.replace("[->destacar]", "<destacar>");
-                                tempText = tempText.replace("[destacar-]", "</destacar>");
-                                tempText = tempText.replace("[->enfatizar]", "<enfatizar>");
-                                tempText = tempText.replace("[enfatizar-]", "</enfatizar>");
+                                tempText = tempText.replace("ltdestacargt", "<destacar>");
+                                tempText = tempText.replace("ltestacargt", "</destacar>");
+                                tempText = tempText.replace("ltenfatizargt", "<enfatizar>");
+                                tempText = tempText.replace("ltenfatizargt", "</enfatizar>");
                                 
                                 newText.setContent(tempText);
 
@@ -277,7 +276,7 @@ public class OA_Reader {
                                         this.parsingError = "\nTipo de texto no soportado.";
                                         return new ArrayList<ObjetoAprendizaje>();
                                 }
-                                System.out.println("TEXTO: "+newText.getContent());
+                                
                                 newIdea.addText(newText);
 
                             }
@@ -351,15 +350,21 @@ public class OA_Reader {
 
                                     NodeList currentChoices = ((Element) currentChoiceHead.item(0)).getElementsByTagName("alternativa");
 
+                                    int solutionCounter = 0;
+                                    int distractorCounter = 0;
+                                    
                                     for (int n2 = 0; n2 < currentChoices.getLength(); n2++) {
+                                        
                                         Alternativa newChoice = new Alternativa();
                                         newChoice.setContent(currentChoices.item(n2).getTextContent());
                                         newChoice.setTopic(((Element) currentChoices.item(n2)).getAttribute("tema"));
                                         String choiceType = ((Element) currentChoices.item(n2)).getAttribute("tipo");
                                         switch (choiceType) {
                                             case "solucion":
+                                                solutionCounter+=1;
                                                 break;
                                             case "distractor":
+                                                distractorCounter+=1;
                                                 break;
                                             default:
                                                 this.parsingError = "Tipo de evaluación no soportado";
@@ -369,7 +374,16 @@ public class OA_Reader {
                                         newChoice.setType(choiceType);
                                         newQuiz.addChoices(newChoice);
                                     }
-
+                                    
+                                    if(distractorCounter < 1){
+                                        this.parsingError = "Debe existir, al menos, un distractor en cada evaluación.";
+                                        return new ArrayList<ObjetoAprendizaje>();
+                                    }
+                                    if(solutionCounter < 1){
+                                        this.parsingError = "Debe existir, al menos, una solución en cada evaluación.";
+                                        return new ArrayList<ObjetoAprendizaje>();
+                                    }
+                                                    
                                     newQuizSet.addQuiz(newQuiz);
                                 }
 
@@ -424,14 +438,14 @@ public class OA_Reader {
         String destacado[] = this.fileContent.split("<destacar>");
         String temp = destacado[0];
         for (int i = 1; i == destacado.length - 1; i++) {
-            temp += "[->destacar]" + destacado[i];
+            temp += "ltdestacargt" + destacado[i];
         }
         this.fileContent = temp;
         temp = "";
         String destacado2[] = this.fileContent.split("</destacar>");
         temp += destacado2[0];
         for (int i = 1; i == destacado2.length - 1; i++) {
-            temp += "[destacar-]" + destacado2[i];
+            temp += "ltdestacargt" + destacado2[i];
         }
         this.fileContent = temp;
         temp = ""; 
@@ -443,7 +457,7 @@ public class OA_Reader {
         String enfatizado[] = this.fileContent.split("<enfatizar>");
         temp += enfatizado[0];
         for (int i = 1; i == enfatizado.length - 1; i++) {
-            temp += "[->enfatizar]" + enfatizado[i];
+            temp += "ltenfatizargt" + enfatizado[i];
         }
         this.fileContent = temp;
         temp = "";
@@ -451,7 +465,7 @@ public class OA_Reader {
         String enfatizado2[] = this.fileContent.split("</enfatizar>");
         temp += enfatizado2[0];
         for (int i = 1; i == enfatizado2.length - 1; i++) {
-            temp += "[enfatizar-]" + enfatizado2[i];
+            temp += "ltenfatizargt" + enfatizado2[i];
         }
         this.fileContent = temp;
         temp = "";
