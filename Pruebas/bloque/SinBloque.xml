@@ -1,0 +1,26 @@
+<comenzar>
+	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
+		<escena titulo="Ejemplo de textos" tipo="1Col">
+
+				<idea ordenAparicion="1">
+					<texto tipo="normal">Este es un texto</texto>
+				</idea>
+				<idea ordenAparicion="2">
+					<texto tipo="normal">Este texto tiene audio</texto>
+					<voz>Buenos Dias, tardes, noches</voz>
+				</idea>
+				<idea ordenAparicion="3">
+					<texto tipo="manuscrito">Este es un texto manuscrito</texto>
+				</idea>
+				<idea ordenAparicion="4">
+					<texto tipo="ejemplo">Este es el ejemplo 1</texto>
+					<texto tipo="ejemplo">Este es el ejemplo 2</texto>
+					<texto tipo="ejemplo">Este es el ejemplo 3</texto>
+					<texto tipo="ejemplo">Este es el ejemplo 4</texto>
+					<texto tipo="ejemplo">Este es el ejemplo 5</texto>
+				</idea>
+
+		</escena>
+			
+	</objeto>
+</comenzar>

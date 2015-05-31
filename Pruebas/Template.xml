@@ -26,15 +26,11 @@
 				<idea ordenAparicion="1">
 					<texto tipo="normal">El siguiente es un ejemplo de una imagen</texto>
 					<media tipo="imagen">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>
+
+				</idea>				
+				<idea ordenAparicion="3">
+					<texto tipo="normal">soy un texto</texto>
 				</idea>
-				<!--<idea ordenAparicion="2">
-					<texto tipo="normal">El siguiente es un ejemplo de un video</texto>
-					<media tipo="video">https://www.youtube.com/watch?v=sTSA_sWGM44</media>
-				</idea>-->
-				<!--<idea ordenAparicion="3">
-					<texto tipo="normal">El siguiente es un ejemplo de audio</texto>
-					<media tipo="audio">https://www.youtube.com/watch?v=_4IRMYuE1hI</media>
-				</idea>-->
 			</bloque>
 		</escena>
 		<escena titulo="Ejemplo de evaluación" tipo="1Col">
@@ -52,13 +48,11 @@
 				</idea>
 			</bloque>
 		</escena>
-				<escena titulo="Ejemplo de mano" tipo="1Col">
+		<escena titulo="Ejemplo de mano" tipo="1Col">
 			<bloque>
 				<idea ordenAparicion="1">
-						<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
-
+					<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
 				</idea>
-
 			</bloque>
 		</escena>
 	</objeto>

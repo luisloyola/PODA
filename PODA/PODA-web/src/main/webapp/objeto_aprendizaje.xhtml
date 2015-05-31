@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-    <h:head> 
+    <h:head rendered="#{fileUpload.code_html ne null}"> 
         <title>Proyecto de Objetos de Aprendizaje</title>
         <h:outputStylesheet name="css/bootstrap.css"/>
         <h:outputStylesheet name="css/style.css"/>
@@ -15,9 +15,9 @@
         window.addEventListener("keydown", HideFooter);
         setTimeout('alertify.alert(\'<b>Opción de pantalla Completa</b>\',\'Presione la tecla Esc para activar/desactivar la pantalla completa\')', 1000);
         function HideFooter(evento){
-            if(evento.keyCode==27){
+            if(evento.keyCode===27){
                 var display = document.getElementById("footer").style.display;
-                if(display=="none"){
+                if(display==="none"){
                     document.getElementById("footer").style.display="block";
                     document.getElementById("header").style.display="block";
                 }
@@ -31,7 +31,7 @@
         <body onload="#{fileUpload.reset_message()}"></body>
     </h:head>
                   
-    <h:body >
+    <h:body rendered="#{fileUpload.code_html ne null}">
         <footer id="header" style="display: block">
         <div class="navbar navbar-default navbar-fixed-top" >
             <div class="container-fluid">
