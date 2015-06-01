@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -37,7 +38,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     
     
     /**
-     * Devuelve una página web completa para ser instroducida en el contenedor
+     * Devuelve una página web completa para ser introducida en el contenedor
      * en la capa de vista.
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @return String codeHtml, resultado que estará como presentación del OA
@@ -55,7 +56,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         codeHtml += write_librsHtml(object);
         codeHtml += write_scriptHtml(object);
 
-        codeHtml += write_voiceHtml(object);
+        codeHtml += write_scriptsHtml(object);
 
         return codeHtml;        
     }
@@ -86,9 +87,11 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "<head>\n" +
                             "  <meta charset=\"utf-8\">\n" +
                             "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n" +
-                            "  <meta name=\"viewport\" content=\"width=1024, user-scalable=no\">\n" +
-                            "\n" + "  <title>" + object.getTitle() + "</title>"+                                
-                            "<link rel=\"stylesheet\" media=\"screen\" href=\"resources/core/deck.core.css\">\n" + "\n" +
+                            "  <meta name=\"viewport\" content=\"width=1024, user-scalable=no\">\n\n" +
+                            
+                            "  <title>" + object.getTitle() + "</title>"+                                
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/core/deck.core.css\">\n\n" +
+                            
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/goto/deck.goto.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/menu/deck.menu.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/navigation/deck.navigation.css\">\n" +
@@ -99,16 +102,41 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1down.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1up-1down.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas.css\">\n" +
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas-1up.css\">\n" + "\n" + "\n" +                            
-                            "  <script src=\"resources/voice/AJAX_GOOGLE.js\"></script>\n" +
-                            "  <script src=\"resources/voice/voice.js\"></script>\n" + "\n"+        
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/swiss.css\">\n" + "\n" +
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/" + templateHtml +"\">\n" + "\n" +                            
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/transition/horizontal-slide.css\">\n" + "\n" +
-                            "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" + "\n" +                            
-                            "  <script src=\"resources/modernizr.custom.js\"></script>\n" + " \n" +                                                        
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/font-manuscrita.css\">"+
-                            "<script src=\"resources/extensions/deck.syntaxhighlighter.js\"></script>"+                
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas-1up.css\">\n" + "\n" + "\n" +                              
+                            "  <link href=\"resources/extensions/syntaxhighlighter/shCore.css\" rel=\"stylesheet\" type=\"text/css\" />\n" +
+                            "  <link href=\"resources/extensions/syntaxhighlighter/shThemeDefault.css\" rel=\"stylesheet\" type=\"text/css\" /> \n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/" + templateHtml +"\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/transition/horizontal-slide.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/font-manuscrita.css\"> \n" +
+                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shCore.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushPython.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushJScript.js\"></script> \n" +
+                            "  <script src=\"resources/modernizr.custom.js\"></script>\n" +
+                            "  <script src=\"resources/jquery.min.js\"></script>\n" +
+                            "  <script src=\"resources/core/deck.core.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/menu/deck.menu.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/goto/deck.goto.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/status/deck.status.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/navigation/deck.navigation.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/scale/deck.scale.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/deck.events/deck.events.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/anim/deck.anim.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/step/deck.step.js\"></script> \n" +
+                            "  <script src=\"resources/audioController.js\"></script>\n" +
+                            "  <script src=\"resources/visibilityController.js\"></script>\n" +
+                            "  <script src=\"resources/textController.js\"></script> \n\n" +
+                            
+                            " <script>\n" +
+                            "    $(function() {\n" +
+                            "      $.deck('.slide');\n" +
+                            "    });\n" +
+                            "  </script> \n\n" +         
+                            
+                            " <script type=\"text/javascript\">\n" +
+                            "    SyntaxHighlighter.all()\n" +
+                            "  </script> \n\n" +
+                
                             "<script>\n"+
                             "   function ej_aleatorio(){\n" +
                             "       index = Math.random() * ejemplos.length\n" +
@@ -116,19 +144,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "       document.write(ejemplos[index])\n" +
                             "   }\n" +
                             "</script> " +
-                            "<script>\n" +
-                            "  function play(idaudio){\n" +
-                            "  var audio = document.getElementById(idaudio);\n" +
-                            "  audio.play();\n" +
-                            "}\n" +
-                            "\n" +
-                            "function pause(idaudio){\n" +
-                            "  var audio = document.getElementById(idaudio);\n" +
-                            "  audio.pause();\n" +
-                            "  audio.currentTime = 0;\n" +
-                            "}\n" +
-                            "</script>\n"+
-                            "</head>\n" +"\n" + "<body>" +
+                
+                            //write_scriptHtml(object) +
+                            "</head>\n\n" + "<body>\n" +
                             "<div class=\"deck-container\" >\n";
                 
         return htmlHeader;
@@ -170,21 +188,26 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return examples;
     }    
     
-    public String write_block(Block block, int numberSlide, int numberBlock, String design){
+    public ArrayList<String> write_block(Block block, int numberSlide, int numberBlock, String design){
+        
+        ArrayList<String> slides_scripts = new ArrayList<>();
         
         String codeHtml = "";
+        String scripts = "";
         
         ArrayList<String> list_examples = new ArrayList<>();
         
+        //write idea
         for(int i = 0; i < block.getIdeas().size(); i++){
                                         
             Idea idea = block.getIdeas().get(i);
             String order = Integer.toString(idea.getAparitionOrder());
             String start_label = "", end_label = "";
             
-  
-            start_label = "<span class = \"order-" + order + "\">";
-            end_label = "</span>";
+            //código para una idea
+            
+            start_label = "<section class=\"slide-" + numberSlide +"-" + order+"\" style=\"visibility:hidden\">";
+            end_label = "</section>";
             
             
             for(int j = 0; j < idea.getText().size(); j++){
@@ -205,7 +228,10 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                         codeHtml += end_label+"</p>";
                         break;
                     case "manuscrito":
-                        codeHtml += "<p id=\"manuscrita\">"+ start_label;
+                        "<div id=\"mano-1-1\" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
+                        "        <span class=\"manuscrita\" >texto escrito a mano uno</span>\n" +
+                        "      </div>"
+                        codeHtml += "<p class=\"manuscrita\">"+ start_label;
                         codeHtml += write_text(idea.getText().get(j).getContent(), design);
                         codeHtml += end_label+"</p>";
                         break;
@@ -229,7 +255,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             }            
             
         }        
-        return codeHtml;
+        slides_scripts.add(codeHtml);
+        slides_scripts.add(scripts);
+        return slides_scripts;
     }
     
     public String write_date(Date date){
@@ -318,36 +346,52 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return codeHtml;
     }
     
-    public String write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName, String design){
+    public ArrayList<String> write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName, String design){
+        ArrayList<String> slides_scripts = new ArrayList<>();
         
         String codeHtml = "";
+        String scriptsHtml = "";
         
         String string_num = Integer.toString(nro_slide);
         codeHtml += "<section class=\"slide\" id=\"slide-"+string_num+"\">\n" +
                             "<h2>"+scene.getTitle()+"</h2>\n";          
         
+        ArrayList<String> block_return0;
+        ArrayList<String> block_return1;
+        ArrayList<String> block_return2;
+        ArrayList<String> block_return3;
+        ArrayList<String> block_return4;
         switch (scene.getDesign()){
             case "1Col":
                 //escribir contenido del primer bloque
                 
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);                
+                
+                ArrayList<String> block_return = write_block(scene.getBlocks().get(0), nro_slide, 0, design);                
+                codeHtml += block_return.get(0);
+                scriptsHtml += block_return.get(1);
                 break;
                 
             case "1Fil2Col":
                 
                 codeHtml += "<div class=\"up-2columnas-1up\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design );
+                block_return0 = write_block(scene.getBlocks().get(0), nro_slide, 0, design );
+                codeHtml += block_return0.get(0);
+                scriptsHtml += block_return0.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-2columnas-1up\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
+                block_return1 = write_block(scene.getBlocks().get(1), nro_slide, 1, design);
+                codeHtml += block_return1.get(0);
+                scriptsHtml += block_return1.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1up\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design);
+                block_return2 = write_block(scene.getBlocks().get(2),nro_slide, 2, design);
+                codeHtml += block_return2.get(0);
+                scriptsHtml += block_return2.get(1);
                 codeHtml += "</div>";
                         
                 break;
@@ -356,12 +400,16 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                                 
                 codeHtml += "<div class=\"left-2columnas\">";
                 //escribir contenido del primer bloque
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
+                block_return0 = write_block(scene.getBlocks().get(0), nro_slide, 0, design );
+                codeHtml += block_return0.get(0);
+                scriptsHtml += block_return0.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas\">";
                 //escribir contenido del segundo bloque
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
+                block_return1 = write_block(scene.getBlocks().get(1), nro_slide, 1, design );
+                codeHtml += block_return1.get(0);
+                scriptsHtml += block_return1.get(1);
                 codeHtml += "</div>";
                 
                 break;
@@ -369,17 +417,23 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"left-3columnas\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
+                block_return0 = write_block(scene.getBlocks().get(0), nro_slide, 0, design );
+                codeHtml += block_return0.get(0);
+                scriptsHtml += block_return0.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"center-3columnas\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
+                block_return1 = write_block(scene.getBlocks().get(1), nro_slide, 1, design );
+                codeHtml += block_return1.get(0);
+                scriptsHtml += block_return1.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-3columnas\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), nro_slide, 2, design);
+                block_return2 = write_block(scene.getBlocks().get(2),nro_slide, 2, design);
+                codeHtml += block_return2.get(0);
+                scriptsHtml += block_return2.get(1);
                 codeHtml += "</div>";
                 
                 break;
@@ -387,22 +441,30 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-3columnas-1up\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
+                block_return0 = write_block(scene.getBlocks().get(0), nro_slide, 0, design );
+                codeHtml += block_return0.get(0);
+                scriptsHtml += block_return0.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-3columnas-1up\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
+                block_return1 = write_block(scene.getBlocks().get(1), nro_slide, 1, design );
+                codeHtml += block_return1.get(0);
+                scriptsHtml += block_return1.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"center-3columnas-1up\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), nro_slide, 2, design);
+                block_return2 = write_block(scene.getBlocks().get(2),nro_slide, 2, design);
+                codeHtml += block_return2.get(0);
+                scriptsHtml += block_return2.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-3columnas-1up\">";
                 //bloque 4
-                codeHtml += write_block(scene.getBlocks().get(3), nro_slide, 3, design);
+                block_return3 = write_block(scene.getBlocks().get(3),nro_slide, 3, design);
+                codeHtml += block_return3.get(0);
+                scriptsHtml += block_return3.get(1);
                 codeHtml += "</div>";
                 
                 break;
@@ -410,22 +472,30 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                 codeHtml += "<div class=\"up-2columnas-1up-1down\">";
                 //bloque 1
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
+                block_return0 = write_block(scene.getBlocks().get(0), nro_slide, 0, design );
+                codeHtml += block_return0.get(0);
+                scriptsHtml += block_return0.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"left-2columnas-1up-1down\">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
+                block_return1 = write_block(scene.getBlocks().get(1), nro_slide, 1, design );
+                codeHtml += block_return1.get(0);
+                scriptsHtml += block_return1.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1up-1down\">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), nro_slide, 2, design);
+                block_return2 = write_block(scene.getBlocks().get(2),nro_slide, 2, design);
+                codeHtml += block_return2.get(0);
+                scriptsHtml += block_return2.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"down-2columnas-1up-1down\">";
                 //bloque 4
-                codeHtml += write_block(scene.getBlocks().get(3), nro_slide, 3, design);
+                block_return3 = write_block(scene.getBlocks().get(3),nro_slide, 3, design);
+                codeHtml += block_return3.get(0);
+                scriptsHtml += block_return3.get(1);
                 codeHtml += "</div>";
                 
                 break;
@@ -433,17 +503,23 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 
                  codeHtml += "<div class=\"left-2columnas-1down\">";
                 //bloque 1
-                 codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design);
+                block_return0 = write_block(scene.getBlocks().get(0), nro_slide, 0, design );
+                codeHtml += block_return0.get(0);
+                scriptsHtml += block_return0.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"right-2columnas-1down \">";
                 //bloque 2
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design);
+                block_return1 = write_block(scene.getBlocks().get(1), nro_slide, 1, design );
+                codeHtml += block_return1.get(0);
+                scriptsHtml += block_return1.get(1);
                 codeHtml += "</div>";
                 
                 codeHtml += "<div class=\"down-2columnas-1down \">";
                 //bloque 3
-                codeHtml += write_block(scene.getBlocks().get(2), nro_slide, 2, design);
+                block_return2 = write_block(scene.getBlocks().get(2),nro_slide, 2, design);
+                codeHtml += block_return2.get(0);
+                scriptsHtml += block_return2.get(1);
                 codeHtml += "</div>";
                 
                 break;
@@ -455,7 +531,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         codeHtml += write_animationHtml(scene, nro_slide, OAPath, OAName);
         codeHtml += "</section>";        
         
-        return codeHtml;
+        slides_scripts.add(codeHtml);
+        slides_scripts.add(scriptsHtml);
+        return slides_scripts;
     }
     
     /**
@@ -474,12 +552,16 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
 
         //Codigo de las escenas
         String codeHtml = "";
+        String slidesHtml = "";
+        String scriptsHtml = "";
         codeHtml += write_titleHtml(object);
         
         for (int i = 0; i < object.getContent().size(); i++){
-
-            codeHtml += write_slideHtml(object.getContent().get(i), i+1, OAPath, OAName, object.getTemplate());
-                                    
+            ArrayList<String> slides_scripts;
+            slides_scripts = write_slideHtml(object.getContent().get(i), i+1, OAPath, OAName, object.getTemplate());
+            slidesHtml += slides_scripts.get(0);
+            scriptsHtml += slides_scripts.get(1);
+            
         }
         return codeHtml;
     }
@@ -524,29 +606,6 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return codeHtml;
     }
 
-    /**
-     * Escribe la función que hace referencia al framework.
-     * @param object objeto de aprendizaje construido por la clase de reader.
-     * @param codeHtml 
-     * @return strig con el los script incorporados.
-     */
-    public String write_scriptHtml(ObjetoAprendizaje object){
-
-        String codeHtml = "";
-        String htmlScriptBase = "<script>\n" +
-                            "  $(function() {\n" +
-                            "    $.deck('.slide');\n" +
-                            "  });\n" +
-                            "</script>\n";
-
-        codeHtml = codeHtml + "\n" + htmlScriptBase;
-        
-         //Fin del HTML
-                
-        codeHtml += "\n" + "</body>\n" + "</html>";
-        
-        return codeHtml;
-    }
 
     /**
      * Escribe en la página el código para reproducir voz.
@@ -555,7 +614,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
      * @return 
      */
     
-    public String write_voiceHtml(ObjetoAprendizaje object){
+    public String write_scriptsHtml(ObjetoAprendizaje object){
         //Procesamiento de la voz por cada escena
         String codeHtml = "";
         String htmlScriptVoice = "";            
@@ -571,14 +630,14 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                         
 
                         htmlScriptVoice = "<script>\n" +
-                                                "  $(\"#animacion-"+(i+1) +"-"+ j +"-"+ k +"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
-                                                "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
-                                                "    play(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
-                                                "  });\n" +
-                                                "  $(\"#animacion-"+(i+1) +"-"+ j +"-"+ k +"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
-                                                "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
-                                                "  });\n" +
-                                                "</script>\n";                            
+                                           "  $(\"#animacion-"+(i+1) +"-"+ j +"-"+ k +"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
+                                           "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                           "    play(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                           "  });\n" +
+                                           "  $(\"#animacion-"+(i+1) +"-"+ j +"-"+ k +"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                           "    pause(\"audio-" + (i+1) +"-"+ j +"-"+ k +"\");\n" +
+                                           "  });\n" +
+                                           "</script>\n";                            
 
                         codeHtml += "\n" + htmlScriptVoice;
                     }
@@ -591,4 +650,405 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
 
         return codeHtml;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    public String write_html2(ObjetoAprendizaje object){
+        String head_start = write_headStartHtml2(object);
+        String head_end = write_headEndHtml2();
+        
+        ArrayList<String> slide_script = new ArrayList<>();
+        slide_script = write_contentHTML2(object);
+        String slides = slide_script.get(0);
+        String scripts = slide_script.get(1);
+        
+        
+        String html_end = write_htmlendHtml2();
+        
+        return head_start +
+                scripts +
+                head_end +
+                slides +
+                html_end;
+    }
+
+    public String write_headStartHtml2(ObjetoAprendizaje object){
+        //Head del HTML
+        
+        String templateHtml;
+        switch (object.getTemplate()){
+            case "dafault":
+                templateHtml = "default.css";
+                break;
+            case "usach":
+                templateHtml = "usach-colores.css";
+                break;
+            default:
+                templateHtml = "default.css";
+                break;
+        }
+        
+        String htmlHeader = "<!DOCTYPE html>\n" +
+                            "<html>\n" +
+                            "<head>\n" +
+                            "  <meta charset=\"utf-8\">\n" +
+                            "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n" +
+                            "  <meta name=\"viewport\" content=\"width=1024, user-scalable=no\">\n\n" +
+                            
+                            "  <title>" + object.getTitle() + "</title>"+                                
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/core/deck.core.css\">\n\n" +
+                            
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/goto/deck.goto.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/menu/deck.menu.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/navigation/deck.navigation.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/status/deck.status.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/scale/deck.scale.css\">\n" + "\n" +                            
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1up.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1down.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1up-1down.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas-1up.css\">\n" + "\n" + "\n" +                              
+                            "  <link href=\"resources/extensions/syntaxhighlighter/shCore.css\" rel=\"stylesheet\" type=\"text/css\" />\n" +
+                            "  <link href=\"resources/extensions/syntaxhighlighter/shThemeDefault.css\" rel=\"stylesheet\" type=\"text/css\" /> \n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/" + templateHtml +"\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/transition/horizontal-slide.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/font-manuscrita.css\"> \n" +
+                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shCore.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushPython.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushJScript.js\"></script> \n" +
+                            "  <script src=\"resources/modernizr.custom.js\"></script>\n" +
+                            "  <script src=\"resources/jquery.min.js\"></script>\n" +
+                            "  <script src=\"resources/core/deck.core.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/menu/deck.menu.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/goto/deck.goto.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/status/deck.status.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/navigation/deck.navigation.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/scale/deck.scale.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/deck.events/deck.events.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/anim/deck.anim.js\"></script>\n" +
+                            "  <script src=\"resources/extensions/step/deck.step.js\"></script> \n" +
+                            "  <script src=\"resources/audioController.js\"></script>\n" +
+                            "  <script src=\"resources/visibilityController.js\"></script>\n" +
+                            "  <script src=\"resources/textController.js\"></script> \n\n" +
+                            
+                            " <script>\n" +
+                            "    $(function() {\n" +
+                            "      $.deck('.slide');\n" +
+                            "    });\n" +
+                            "  </script> \n\n" +         
+                            
+                            " <script type=\"text/javascript\">\n" +
+                            "    SyntaxHighlighter.all()\n" +
+                            "  </script> \n\n" +
+                
+                            "<script>\n"+
+                            "   function ej_aleatorio(){\n" +
+                            "       index = Math.random() * ejemplos.length\n" +
+                            "       index = Math.floor(index)\n" +
+                            "       document.write(ejemplos[index])\n" +
+                            "   }\n" +
+                            "</script> ";
+        return htmlHeader;
+    }
+    
+    public String write_headEndHtml2(){
+        return  "</head>\n\n" + "<body>\n" +
+                "<div class=\"deck-container\" >\n";
+    }
+                               
+    public String write_htmlendHtml2(){
+        String out =    "<div aria-role=\"navigation\">\n" +
+                        "    <a href=\"#\" class=\"deck-prev-link\" title=\"Previous\">&#8592;</a>\n" +
+                        "    <a href=\"#\" class=\"deck-next-link\" title=\"Next\">&#8594;</a>\n" +
+                        "  </div>\n" +
+                        "  <p class=\"deck-status\" aria-role=\"status\">\n" +
+                        "    <span class=\"deck-status-current\"></span>\n" +
+                        "    /\n" +
+                        "    <span class=\"deck-status-total\"></span>\n" +
+                        "  </p>\n" +
+                        "  <form action=\".\" method=\"get\" class=\"goto-form\">\n" +
+                        "    <label for=\"goto-slide\">Go to slide:</label>\n" +
+                        "    <input type=\"text\" name=\"slidenum\" id=\"goto-slide\" list=\"goto-datalist\">\n" +
+                        "    <datalist id=\"goto-datalist\"></datalist>\n" +
+                        "    <input type=\"submit\" value=\"Go\">\n" +
+                        "  </form>\n\n" +
+                        "</body>\n" +
+                        "</html>";
+        return out;
+    }
+
+    public ArrayList<String> write_contentHTML2(ObjetoAprendizaje object){
+        ArrayList<String> out = new ArrayList<>();
+        
+        String slide_code = "";
+        String script_code = "";
+        
+        List<Slide> slide_list = object.getContent();
+        
+        //para cada slide
+        for(int i=0, n=slide_list.size(); i<n; i++){
+            int slide_number = (i+1);
+            ArrayList<String> temp = new ArrayList<>();
+            temp = write_slideHTML2(slide_list.get(i), slide_number);
+            slide_code += temp.get(0);
+            script_code += temp.get(1);
+        }
+        
+        
+        out.add(slide_code);
+        out.add(script_code);
+        return out;
+    }
+
+    public ArrayList<String> write_slideHTML2(Slide slide, int slide_number){
+        ArrayList<String> out = new ArrayList<>();
+        
+        String slide_code = "";
+        String script_code = "";
+        
+        String code_start = "<section class=\"slide\" id=\"slide-" + slide_number + "\">";
+        String code_end = "</section>";
+        
+        slide_code += code_start;
+        slide_code += "<h2>" + slide.getTitle() + "</h2>";
+        
+        
+        List<Block> block_list = slide.getBlocks();
+        
+
+        //diseño de la slide
+        ArrayList<String> block_return0;
+        ArrayList<String> block_return1;
+        ArrayList<String> block_return2;
+        ArrayList<String> block_return3;
+        switch (slide.getDesign()){
+            case "1Col":
+                //escribir contenido del primer bloque
+                block_return0 = write_block(block_list.get(0), slide_number, 0, design);                
+                break;
+                
+            case "1Fil2Col":
+                
+                slide_code += "<div class=\"up-2columnas-1up\">";
+                //bloque 1
+                block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
+                slide_code += block_return0.get(0);
+                script_code += block_return0.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"left-2columnas-1up\">";
+                //bloque 2
+                block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
+                slide_code += block_return1.get(0);
+                script_code += block_return1.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"right-2columnas-1up\">";
+                //bloque 1
+                block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
+                slide_code += block_return2.get(0);
+                script_code += block_return2.get(1);
+                slide_code += "</div>";
+                        
+                break;
+                
+            case "2Col":
+                                
+                slide_code += "<div class=\"left-2columnas\">";
+                //escribir contenido del primer bloque
+                block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
+                slide_code += block_return0.get(0);
+                script_code += block_return0.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"right-2columnas\">";
+                //escribir contenido del segundo bloque
+                block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
+                slide_code += block_return1.get(0);
+                script_code += block_return1.get(1);
+                slide_code += "</div>";
+                
+                break;
+            case "3Col":
+                
+                slide_code += "<div class=\"left-3columnas\">";
+                //bloque 1
+                block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
+                slide_code += block_return0.get(0);
+                script_code += block_return0.get(1);
+                slide_code += "</div>";
+                
+                
+                slide_code += "<div class=\"center-3columnas\">";
+                //bloque 2
+                block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
+                slide_code += block_return1.get(0);
+                script_code += block_return1.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"right-3columnas\">";
+                //bloque 3
+                block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
+                slide_code += block_return2.get(0);
+                script_code += block_return2.get(1);
+                slide_code += "</div>";
+                
+                break;
+            case "1Fil3Col":
+                
+                slide_code += "<div class=\"up-3columnas-1up\">";
+                //bloque 1
+                block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
+                slide_code += block_return0.get(0);
+                script_code += block_return0.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"left-3columnas-1up\">";
+                //bloque 2
+                block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
+                slide_code += block_return1.get(0);
+                script_code += block_return1.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"center-3columnas-1up\">";
+                //bloque 3
+                block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
+                slide_code += block_return2.get(0);
+                script_code += block_return2.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"right-3columnas-1up\">";
+                //bloque 4
+                block_return3 = write_blockHtml2(block_list.get(3), slide_number, 3, design );
+                slide_code += block_return3.get(0);
+                script_code += block_return3.get(1);
+                slide_code += "</div>";
+                
+                break;
+            case "2Fil2Col":
+                
+                slide_code += "<div class=\"up-2columnas-1up-1down\">";
+                //bloque 1
+                block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
+                slide_code += block_return0.get(0);
+                script_code += block_return0.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"left-2columnas-1up-1down\">";
+                //bloque 2
+                block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
+                slide_code += block_return1.get(0);
+                script_code += block_return1.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"right-2columnas-1up-1down\">";
+                //bloque 3
+                block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
+                slide_code += block_return2.get(0);
+                script_code += block_return2.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"down-2columnas-1up-1down\">";
+                //bloque 4
+                block_return3 = write_blockHtml2(block_list.get(3), slide_number, 3, design );
+                slide_code += block_return3.get(0);
+                script_code += block_return3.get(1);
+                slide_code += "</div>";
+                
+                break;
+            case "2Col1Fil":
+                
+                 slide_code += "<div class=\"left-2columnas-1down\">";
+                //bloque 1
+                block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
+                slide_code += block_return0.get(0);
+                script_code += block_return0.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"right-2columnas-1down \">";
+                //bloque 2
+                block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
+                slide_code += block_return1.get(0);
+                script_code += block_return1.get(1);
+                slide_code += "</div>";
+                
+                slide_code += "<div class=\"down-2columnas-1down \">";
+                //bloque 3
+                block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
+                slide_code += block_return2.get(0);
+                script_code += block_return2.get(1);
+                slide_code += "</div>";
+                
+                break;
+                
+            default:
+                break;            
+        }
+        codeHtml += write_animationHtml(scene, nro_slide, OAPath, OAName);
+        codeHtml += "</section>";        
+        
+        slides_scripts.add(codeHtml);
+        slides_scripts.add(scriptsHtml);
+        return slides_scripts;
+        
+        
+        List<Block> block_list = slide.getBlocks();    
+        //para cada bloque
+        for(int i=0, n=block_list.size(); i<n; i++){
+            ArrayList<String> temp = new ArrayList<>();
+            temp = write_blockHtml2(block_list.get(i), slide_number);
+            slide_code += temp.get(0);
+            script_code += temp.get(1);
+        }
+            
+        slide_code += code_end;
+        
+        out.add(slide_code);
+        out.add(script_code);
+        return out;
+    }
+    
+    public ArrayList<String> write_blockHtml2(Block bloque, int slide_number){
+        List<Idea> idea_list = bloque.getIdeas();
+        
+        String slide_code = "";
+        String script_code = "";
+        
+        String code_start = "";
+        String code_end = "";
+        
+        
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
