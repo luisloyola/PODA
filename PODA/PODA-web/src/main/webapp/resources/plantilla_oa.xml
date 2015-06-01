@@ -1,5 +1,5 @@
 <comenzar>
-	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
+	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="TeamPODA">
 		<escena titulo="Ejemplo de textos" tipo="1Col">
 			<bloque>
 				<idea ordenAparicion="1">
@@ -25,41 +25,29 @@
 			<bloque>
 				<idea ordenAparicion="1">
 					<texto tipo="normal">El siguiente es un ejemplo de una imagen</texto>
-					<media tipo="imagen">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>
+					<media tipo="imagen">http://www.etcetera.com.mx/userfiles/images/Prueba/ne118/119/120/121/122/123/124/125/126/127/128/129/130/131/132/133/134/135/136/137/138/139/fotogrande.jpg</media>
+
+				</idea>				
+				<idea ordenAparicion="3">
+					<texto tipo="normal">soy un texto</texto>
 				</idea>
-				<!--<idea ordenAparicion="2">
-					<texto tipo="normal">El siguiente es un ejemplo de un video</texto>
-					<media tipo="video">https://www.youtube.com/watch?v=sTSA_sWGM44</media>
-				</idea>-->
-				<!--<idea ordenAparicion="3">
-					<texto tipo="normal">El siguiente es un ejemplo de audio</texto>
-					<media tipo="audio">https://www.youtube.com/watch?v=_4IRMYuE1hI</media>
-				</idea>-->
 			</bloque>
 		</escena>
-		<escena titulo="Ejemplo de evaluación" tipo="1Col">
+		<escena titulo="Ejemplo de mano" tipo="1Col">
 			<bloque>
 				<idea ordenAparicion="1">
-					<evaluaciones>
-						<evaluacion>
-							<enunciado>Enunciado Evaluacion </enunciado>
-							<opciones>
-								<alternativa tipo="solucion" tema="prueba">Si</alternativa>
-								<alternativa tipo="distractor" tema="prueba">No</alternativa>
-							</opciones>					
-						</evaluacion>
-					</evaluaciones>
+					<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
 				</idea>
 			</bloque>
 		</escena>
-				<escena titulo="Ejemplo de mano" tipo="1Col">
-			<bloque>
-				<idea ordenAparicion="1">
-						<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
-
-				</idea>
-
-			</bloque>
-		</escena>
+		<evaluaciones>
+			<evaluacion>
+				<enunciado>Enunciado Evaluacion </enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="prueba">Si</alternativa>
+					<alternativa tipo="distractor" tema="prueba">No</alternativa>
+				</opciones>					
+			</evaluacion>
+		</evaluaciones>
 	</objeto>
 </comenzar>
