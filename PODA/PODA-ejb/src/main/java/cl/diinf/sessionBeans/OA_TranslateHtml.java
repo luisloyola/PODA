@@ -100,11 +100,14 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas-1up.css\">\n" +
                             "  <link href=\"resources/extensions/syntaxhighlighter/shCore.css\" rel=\"stylesheet\" type=\"text/css\" />\n" +
                             "  <link href=\"resources/extensions/syntaxhighlighter/shThemeDefault.css\" rel=\"stylesheet\" type=\"text/css\" />" +
+                            "<link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/swiss.css\">"+
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/" + templateHtml +"\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/transition/horizontal-slide.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/font-manuscrita.css\">\n" +
+                            "<script src=\"resources/modernizr.custom.js\"></script>"+
                             "  \n" +
+                            "<script src=\"resources/extensions/deck.syntaxhighlighter.js\"></script>"+
                             "  <style type=\"text/css\">\n" +
                             "    .poco { width: 0px; height: 2em; white-space: nowrap; overflow: hidden;  }\n" +
                             "  </style>\n" +
@@ -282,8 +285,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                     String script_hand_lost = "";
                     
                     if(!idea.getVoice().isEmpty()){
-                        script_voice_became = "AudioBecameCurrent(\"audio-"+i+"-"+j+"-"+k+"\")";
-                        script_voice_lost = "AudioLostCurrent(\"audio-"+i+"-"+j+"-"+k+"\")";
+                        script_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\")";
+                        script_voice_lost = "AudioLostCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\")";
                     }
                     
                     for(int l = 0; l < idea.getText().size(); l++){
@@ -302,26 +305,26 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                         
                         String text_ids = "";
                         for(int m = 0; m < lenght_manus; m++){
-                            text_ids += "\"#mano-"+i+"-"+j+"-"+k+"-"+ m + "\"";
+                            text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
                             
                             if(m+1 < lenght_manus){
                                 text_ids +=",";
                             }                                                            
                         }
                         
-                        script_hand_became = "textBecameCurrent([\"#mano-"+i+"-"+j+"-"+k +"\"], direction);";
+                        script_hand_became = "textBecameCurrent([\"#mano-"+(i+1)+"-"+j+"-"+k +"\"], direction);";
                         script_hand_lost = "textLostCurrent(["+ text_ids +"], direction);";                        
                     }
                     
                     script_header +=    "<script>\n" +
                                         "    $(function(){\n" +
-                                        "      $(\"#show-slide-"+i+"-"+j+"-"+k+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
-                                        "        SectionBecameCurrent(\"slide-"+i+"-"+j+"-"+k+"\", direction);\n" +
+                                        "      $(\"#show-slide-"+(i+1)+"-"+j+"-"+k+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
+                                        "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
                                                     script_voice_became +
                                                     script_hand_became +
                                         "      });\n" +
-                                        "      $(\"#show-slide-"+i+"-"+j+"-"+k+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
-                                        "        SectionLostCurrent(\"slide-"+i+"-"+j+"-"+k+"\", direction);\n" +
+                                        "      $(\"#show-slide-"+(i+1)+"-"+j+"-"+k+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                        "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
                                                     script_voice_lost +
                                                     script_hand_lost +
                                         "      });\n" +
@@ -400,7 +403,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return text;
     }
     
-    public String write_examples(ArrayList<String> list_examples, String start, String end){
+    public String write_examples(ArrayList<String> list_examples/*, String start, String end*/){
         
         String examples = "<script>\nvar ejemplos = new Array(";
         
@@ -412,7 +415,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 examples += ", \""+ list_examples.get(i) +"\"";
         }
         examples += ")</script>";
-        examples += "<p>"+start+"<script language=javascript>ej_aleatorio()</script>"+ end +"</p>";
+        examples += "<p>"+"<script language=javascript>ej_aleatorio()</script>"+"</p>";
         
         return examples;
     }    
@@ -422,7 +425,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         String code_media = "";
         try{
             String mediaName = ResourcesDownloader.DownloadFromURLAsMozilla(media.getContent(), OAPath, ".img");
-            code_media = "<img src=\""+ OAName+ "/"+mediaName+"\">";
+            code_media = "<img src=\"resources/medias/"+ OAName+ "/"+mediaName+"\">";            
         }catch (IOException ex) {
             this.translateError = "NO_MEDIA";
         }        
@@ -439,14 +442,14 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             Idea idea = block.getIdeas().get(i);            
                                                 
             String start_label = "<section class=\"slide-" + numberSlide +"-" + numberBlock+"-"+ i +"\" style=\"visibility:hidden\">";
-            String end_label = "</section>";            
+            codeHtml += start_label;            
             
             for(int j = 0; j < idea.getText().size(); j++){
                 
                 if(!idea.getText().get(j).getType().equals("ejemplo")){
                     
                     if(!list_examples.isEmpty()){
-                        codeHtml += write_examples(list_examples, start_label, end_label);                        
+                        codeHtml += write_examples(list_examples);                        
                         list_examples.clear();
                     }
                 }
@@ -481,29 +484,30 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             
             if(!list_examples.isEmpty()){
                         
-                codeHtml += write_examples(list_examples, start_label, end_label);
+                codeHtml += write_examples(list_examples);
                 list_examples.clear();
             }
             
-            for(int j = 0; j < idea.getMedia().size(); i++){
+            for(int j = 0; j < idea.getMedia().size(); j++){
                 codeHtml += write_media(idea.getMedia().get(j), OAName, OAPath);
             }
             
-            String audioFileName;            
-            try {
-                audioFileName = ResourcesDownloader.downloadFromGoogleTTS(idea.getVoice(), OAPath);
+            if(!idea.getVoice().isEmpty()){
+                String audioFileName;            
+                try {
+                    audioFileName = ResourcesDownloader.downloadFromGoogleTTS(idea.getVoice(), OAPath);
 
-                //<audio id="audio-numberSlide-numberBlock-numberIdea" source src="resources/medias/audioFileName.mp3" type="audio/ogg"></audio> 
-                codeHtml += ("<audio id=\"audio-" + numberSlide + "-" + numberBlock + "-" + i + "\" ");
-                codeHtml += ("source src=\"resources/medias/" + OAName+ "/"+audioFileName +"\" ");
-                codeHtml += ("type=\"audio/ogg\"></audio>");
+                    codeHtml += ("<audio id=\"audio-" + numberSlide + "-" + numberBlock + "-" + i + "\" ");
+                    codeHtml += ("source src=\"resources/medias/" + OAName+ "/"+audioFileName +"\" ");
+                    codeHtml += ("type=\"audio/ogg\"></audio>");
 
-            } catch (IOException ex) {
-                this.translateError = "NO_AUDIO";                
+                } catch (IOException ex) {
+                    this.translateError = "NO_AUDIO";                
+                }            
             }
-        }                            
+            codeHtml += "</section>";
+        }                                    
         
-        codeHtml += "</section>";        
         return codeHtml;
     }
     
