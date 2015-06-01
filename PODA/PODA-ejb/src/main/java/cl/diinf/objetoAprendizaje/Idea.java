@@ -18,12 +18,11 @@ public class Idea implements Comparable<Idea>{
     String voice;
     List<Texto> text;
     List<Media> media;
-    List<Prueba> quizSet;
+    
     
     public Idea(){
         text = new ArrayList<Texto>();
         media = new ArrayList<Media>();
-        quizSet = new ArrayList<Prueba>();
         voice = "";
     }
 
@@ -66,20 +65,7 @@ public class Idea implements Comparable<Idea>{
     public void addMedia(Media media) {
         this.media.add(media);
     }
-
-    public List<Prueba> getQuizSet() {
-        return quizSet;
-    }
-
-    public void setQuizSet(List<Prueba> quizSet) {
-        this.quizSet = quizSet;
-    }
-
-       
-    public void addQuiz(Prueba quizSet){
-        this.quizSet.add(quizSet);
-    }
-    
+   
     @Override     
     public int compareTo( Idea idea ) {
         if(aparitionOrder < idea.aparitionOrder){

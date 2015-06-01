@@ -20,9 +20,11 @@ public class ObjetoAprendizaje {
     private String name_file;
     private Date creationDate;
     private List<Slide> content;
+    private List<Prueba> quizSet;
     
     public ObjetoAprendizaje(){
         content = new ArrayList<Slide>();
+        quizSet = new ArrayList<Prueba>();
     };
 
     /**
@@ -96,6 +98,17 @@ public class ObjetoAprendizaje {
         this.creationDate = creationDate;
     }
     
-    
+    public List<Prueba> getQuizSet() {
+        return quizSet;
+    }
+
+    public void setQuizSet(List<Prueba> quizSet) {
+        this.quizSet = quizSet;
+    }
+
+       
+    public void addQuiz(Prueba quizSet){
+        this.quizSet.add(quizSet);
+    }
     
 }
