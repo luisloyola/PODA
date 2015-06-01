@@ -244,9 +244,9 @@ public class OA_Reader {
                                 String tempText = currentText.getTextContent();
                                 
                                 tempText = tempText.replace("ltdestacargt", "<destacar>");
-                                tempText = tempText.replace("ltestacargt", "</destacar>");
+                                tempText = tempText.replace("lt/destacargt", "</destacar>");
                                 tempText = tempText.replace("ltenfatizargt", "<enfatizar>");
-                                tempText = tempText.replace("ltenfatizargt", "</enfatizar>");
+                                tempText = tempText.replace("lt/enfatizargt", "</enfatizar>");
                                 
                                 newText.setContent(tempText);
 
@@ -454,7 +454,7 @@ public class OA_Reader {
         String destacado2[] = this.fileContent.split("</destacar>");
         temp += destacado2[0];
         for (int i = 1; i == destacado2.length - 1; i++) {
-            temp += "ltdestacargt" + destacado2[i];
+            temp += "lt/destacargt" + destacado2[i];
         }
         this.fileContent = temp;
         temp = ""; 
@@ -474,7 +474,7 @@ public class OA_Reader {
         String enfatizado2[] = this.fileContent.split("</enfatizar>");
         temp += enfatizado2[0];
         for (int i = 1; i == enfatizado2.length - 1; i++) {
-            temp += "ltenfatizargt" + enfatizado2[i];
+            temp += "lt/enfatizargt" + enfatizado2[i];
         }
         this.fileContent = temp;
         temp = "";
