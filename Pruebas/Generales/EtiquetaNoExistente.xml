@@ -33,10 +33,15 @@
 					</idea>
 				</bloque>
 			</escena>
-			<escena titulo="Ejemplo de evaluación" tipo="1Col">
+
+			<escena titulo="Ejemplo de mano" tipo="1Col">
 				<bloque>
 					<idea ordenAparicion="1">
-						<evaluaciones>
+						<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
+					</idea>
+				</bloque>
+			</escena>
+<evaluaciones>
 							<evaluacion>
 								<enunciado>Enunciado Evaluacion </enunciado>
 								<opciones>
@@ -45,16 +50,6 @@
 								</opciones>					
 							</evaluacion>
 						</evaluaciones>
-					</idea>
-				</bloque>
-			</escena>
-			<escena titulo="Ejemplo de mano" tipo="1Col">
-				<bloque>
-					<idea ordenAparicion="1">
-						<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
-					</idea>
-				</bloque>
-			</escena>
 		</objeto>
 	</comenzar>
 <noexisto>

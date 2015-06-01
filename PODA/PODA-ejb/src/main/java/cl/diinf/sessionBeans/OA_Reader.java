@@ -232,7 +232,9 @@ public class OA_Reader {
                             newIdea.setAparitionOrder(aparitionOrder);
 
                             NodeList textNode = currentIdea.getElementsByTagName("texto");
-
+                            
+                            int handwriteIdeaCounter = 0;
+                            
                             for (int m = 0; m < textNode.getLength(); m++) {
 
                                 Element currentText = (Element) textNode.item(m);
@@ -255,6 +257,7 @@ public class OA_Reader {
                                         newText.setHand(false);
                                         break;
                                     case "manuscrito":
+                                        handwriteIdeaCounter+=1;
                                         /*switch(currentText.getAttribute("mano")){
                                          case "mostrar":
                                          newText.setHand(true);
@@ -276,6 +279,11 @@ public class OA_Reader {
                                     default:
                                         this.parsingError = "\nTipo de texto no soportado.";
                                         return new ArrayList<ObjetoAprendizaje>();
+                                }
+                                
+                                if(handwriteIdeaCounter>1){
+                                    this.parsingError = "Sólo puede haber un texto manuscrito por Idea.";
+                                    return new ArrayList<ObjetoAprendizaje>();
                                 }
                                 
                                 newIdea.addText(newText);
@@ -317,8 +325,16 @@ public class OA_Reader {
                                 new ArrayList<ObjetoAprendizaje>();
                             }
 
-                            NodeList quizSetNode = currentIdea.getElementsByTagName("evaluaciones");
+                            newBlock.addIdeas(newIdea);
+                        }
+                        newSlide.addBlocks(newBlock);
+                    }
 
+                    newOA.addContent(newSlide);
+                }
+                
+                 NodeList quizSetNode = slideNode.getElementsByTagName("evaluaciones");
+                    System.out.println(quizSetNode.getLength());
                             for (int qSN = 0; qSN < quizSetNode.getLength(); qSN++) {
                                 Element currentQuizSet = (Element) quizSetNode.item(qSN);
 
@@ -388,16 +404,9 @@ public class OA_Reader {
                                     newQuizSet.addQuiz(newQuiz);
                                 }
 
-                                newIdea.addQuiz(newQuizSet);
+                                newOA.addQuiz(newQuizSet);
                             }
-
-                            newBlock.addIdeas(newIdea);
-                        }
-                        newSlide.addBlocks(newBlock);
-                    }
-
-                    newOA.addContent(newSlide);
-                }
+                
                 Objects.add(newOA);
             }
         } catch (Exception e) {
@@ -476,10 +485,10 @@ public class OA_Reader {
         this.fileContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<!DOCTYPE comenzar [\n"
                 + "<!ELEMENT comenzar (objeto)>\n"
-                + "<!ELEMENT objeto (escena+)>\n"
+                + "<!ELEMENT objeto (escena*,evaluaciones*)>\n"
                 + "<!ELEMENT escena (bloque+)>\n"
                 + "<!ELEMENT bloque (idea*)>\n"
-                + "<!ELEMENT idea (texto*, voz?, media*, evaluaciones*)>\n"
+                + "<!ELEMENT idea (texto*, voz?, media*)>\n"
                 + "<!ELEMENT texto (#PCDATA)>\n"
                 + "<!ELEMENT voz (#PCDATA)>\n"
                 + "<!ELEMENT media (#PCDATA)>\n"

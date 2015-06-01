@@ -1,10 +1,7 @@
 
 <comenzar>
 	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
-		<escena titulo="Ejemplo de evaluacion" tipo="1Col">
-			<bloque>
-				<idea ordenAparicion="1">
-					<evaluaciones>
+				<evaluaciones>
 						<evaluacion>
 							<enunciado>Enunciado 1
 							<opciones>
@@ -13,8 +10,5 @@
 							</opciones>				
 						</evaluacion>
 					</evaluaciones>
-				</idea>
-			</bloque>
-		</escena>
 	</objeto>
 </comenzar>

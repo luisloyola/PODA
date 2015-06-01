@@ -37,6 +37,7 @@
 			<bloque>
 				<idea ordenAparicion="1">
 					<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
+					<texto tipo="manuscrito">Este tambien</texto>
 				</idea>
 			</bloque>
 		</escena>
