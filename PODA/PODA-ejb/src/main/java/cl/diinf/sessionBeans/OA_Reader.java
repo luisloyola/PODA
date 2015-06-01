@@ -487,7 +487,7 @@ public class OA_Reader {
                 + "<!ELEMENT objeto (escena*,evaluaciones*)>\n"
                 + "<!ELEMENT escena (bloque+)>\n"
                 + "<!ELEMENT bloque (idea*)>\n"
-                + "<!ELEMENT idea (texto*, voz?, media*)>\n"
+                + "<!ELEMENT idea (texto*, media*, voz?)>\n"
                 + "<!ELEMENT texto (#PCDATA)>\n"
                 + "<!ELEMENT voz (#PCDATA)>\n"
                 + "<!ELEMENT media (#PCDATA)>\n"
