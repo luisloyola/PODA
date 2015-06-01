@@ -334,7 +334,6 @@ public class OA_Reader {
                 }
                 
                  NodeList quizSetNode = slideNode.getElementsByTagName("evaluaciones");
-                    System.out.println(quizSetNode.getLength());
                             for (int qSN = 0; qSN < quizSetNode.getLength(); qSN++) {
                                 Element currentQuizSet = (Element) quizSetNode.item(qSN);
 

@@ -250,23 +250,24 @@ public class OA_ReaderTest {
     /**
      * Probar creacion de conjunto de evaluaciones
      */
-    @Ignore
+    
     @Test
     public void testPruebas(){
         int pruebas = 2;
         int count_pruebas = 0;
         
         if(!objects.isEmpty()){
-            for(int i = 0; i < objects.get(0).getContent().size(); i++)
+            /*for(int i = 0; i < objects.get(0).getContent().size(); i++)
             {
                 for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
 
                     for(int k = 0; k < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size(); k++){
                         
-                        //count_pruebas += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size();
+                        count_pruebas += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size();
                     }
                 }
-            }
+            }*/
+            count_pruebas = objects.get(0).getQuizSet().size();
             assertEquals("Error en la lectura de conjunto de evaluaciones en el xml", pruebas, count_pruebas);
         }
         else
@@ -282,18 +283,20 @@ public class OA_ReaderTest {
         int count_evaluaciones = 0;
         
         if(!objects.isEmpty()){
-            for(int i = 0; i < objects.get(0).getContent().size(); i++)
+            /*for(int i = 0; i < objects.get(0).getContent().size(); i++)
             {
                 for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
 
                     for(int k = 0; k < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size(); k++){
                         
-                        /*for(int l = 0; l < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size(); l++){
+                        for(int l = 0; l < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size(); l++){
                             
                             count_evaluaciones += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().size();
-                        }*/                                                
                     }
                 }
+            }*/
+            for(int i = 0; i < objects.get(0).getQuizSet().size(); i++){
+                count_evaluaciones+=objects.get(0).getQuizSet().get(i).getQuiz().size();
             }
             assertEquals("Error en la lectura de evaluaciones en el xml", evaluaciones, count_evaluaciones);
         }
@@ -312,13 +315,13 @@ public class OA_ReaderTest {
         int count_enunciado = 0;
         
         if(!objects.isEmpty()){
-            for(int i = 0; i < objects.get(0).getContent().size(); i++)
+            /*for(int i = 0; i < objects.get(0).getContent().size(); i++)
             {
                 for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
 
                     for(int k = 0; k < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size(); k++){
                         
-                        /*for(int l = 0; l < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size(); l++){
+                        for(int l = 0; l < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size(); l++){
                             
                             for(int m = 0; m < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().size(); m++){
                                 
@@ -327,10 +330,10 @@ public class OA_ReaderTest {
                                     count_enunciado += 1;
                                 }
                             }
-                        }*/                                                
+                        }                                                
                     }
                 }
-            }
+            }*/
             assertEquals("Error en la lectura de evaluaciones en el xml", alternativas, count_alternativas);
             assertEquals("Error en la lectura de enunciados de evaluaciones en el xml", enunciado, count_enunciado);
         }
@@ -488,7 +491,7 @@ public class OA_ReaderTest {
     /**
      * Probar creacion de codigo DTD
      */
-    @Ignore
+    
     public void testReadOADTDAppend() {
         OA_Reader instance = new OA_Reader();
         String content = "<comenzar>\n" +
@@ -504,37 +507,36 @@ public class OA_ReaderTest {
                         "	</objeto>\n" +
                         "</comenzar>";
         
-        String dtd =    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                        "<!DOCTYPE comenzar [\n" +
-                        "<!ELEMENT comenzar (objeto)>\n" +
-                        "<!ELEMENT objeto (escena+)>\n" +
-                        "<!ELEMENT escena (bloque+)>\n" +
-                        "<!ELEMENT bloque (idea*)>\n" +
-                        "<!ELEMENT idea (texto*, voz?, media*, evaluaciones*)>\n" +
-                        "<!ELEMENT texto (#PCDATA)>\n" +
-                        "<!ELEMENT voz (#PCDATA)>\n" +
-                        "<!ELEMENT media (#PCDATA)>\n" +
-                        "<!ELEMENT evaluaciones (evaluacion*)>\n" +
-                        "<!ELEMENT evaluacion (enunciado,opciones)>\n" +
-                        "<!ELEMENT enunciado (#PCDATA)>\n" +
-                        "<!ELEMENT opciones (alternativa*)>\n" +
-                        "<!ELEMENT alternativa (#PCDATA)>\n" +
-                        "\n" +
-                        "\n" +
-                        "<!ATTLIST objeto titulo CDATA #REQUIRED>\n" +
-                        "<!ATTLIST objeto autor CDATA #REQUIRED>\n" +
-                        "<!ATTLIST objeto tema CDATA #REQUIRED>\n" +
-                        "<!ATTLIST escena titulo CDATA #REQUIRED>\n" +
-                        "<!ATTLIST escena tipo CDATA #REQUIRED>\n" +
-                        "\n" +
-                        "<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n" +
-                        "<!ATTLIST texto tipo CDATA #REQUIRED>\n" +
-                        "<!ATTLIST texto mano CDATA #IMPLIED>\n" +
-                        "<!ATTLIST media tipo CDATA #REQUIRED>	\n" +
-                        "\n" +
-                        "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n" +
-                        "<!ATTLIST alternativa tema CDATA #REQUIRED>\n" +
-                        "]>";
+        String dtd =    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<!DOCTYPE comenzar [\n"
+                + "<!ELEMENT comenzar (objeto)>\n"
+                + "<!ELEMENT objeto (escena*,evaluaciones*)>\n"
+                + "<!ELEMENT escena (bloque+)>\n"
+                + "<!ELEMENT bloque (idea*)>\n"
+                + "<!ELEMENT idea (texto*, voz?, media*)>\n"
+                + "<!ELEMENT texto (#PCDATA)>\n"
+                + "<!ELEMENT voz (#PCDATA)>\n"
+                + "<!ELEMENT media (#PCDATA)>\n"
+                + "<!ELEMENT evaluaciones (evaluacion*)>\n"
+                + "<!ELEMENT evaluacion (enunciado,opciones)>\n"
+                + "<!ELEMENT enunciado (#PCDATA)>\n"
+                + "<!ELEMENT opciones (alternativa*)>\n"
+                + "<!ELEMENT alternativa (#PCDATA)>\n"
+                + "\n"
+                + "\n"
+                + "<!ATTLIST objeto titulo CDATA #REQUIRED>\n"
+                + "<!ATTLIST objeto autor CDATA #REQUIRED>\n"
+                + "<!ATTLIST objeto tema CDATA #REQUIRED>\n"
+                + "<!ATTLIST escena titulo CDATA #REQUIRED>\n"
+                + "<!ATTLIST escena tipo CDATA #REQUIRED>\n"
+                + "\n"
+                + "<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n"
+                + "<!ATTLIST texto tipo CDATA #REQUIRED>\n"
+                + "<!ATTLIST media tipo CDATA #REQUIRED>	\n"
+                + "\n"
+                + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
+                + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
+                + "]>";
                 
         instance.setFileContent(content);
         instance.AppendDTD();
@@ -542,7 +544,7 @@ public class OA_ReaderTest {
         assertEquals(dtd+content,instance.getFileContent());
     }        
     
-    @Ignore    
+      
     public void testPreProcessText(){
         OA_Reader instance = new OA_Reader();
         instance.setFileContent("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -553,8 +555,8 @@ public class OA_ReaderTest {
                                 "       <escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
                                 "           <bloque>\n" +
                                 "               <idea ordenAparicion=\"1\">\n" +
-                                "                   <texto tipo=\"normal\">texto <destacado>destacado</destacado></texto>\n" +
-                                "                   <texto tipo=\"codigo\">texto <enfatizado>enfatizado</enfatizado></texto>\n" +
+                                "                   <texto tipo=\"normal\">texto <destacar>destacado</destacar></texto>\n" +
+                                "                   <texto tipo=\"codigo\">texto <enfatizar>enfatizado</enfatizar></texto>\n" +
                                 "                   <voz>Voz 1Col</voz>\n" +
                                 "               </idea>\n" +
                                 "           </bloque>\n" +
@@ -570,8 +572,8 @@ public class OA_ReaderTest {
                             "       <escena titulo=\"Escena 1 Columna\" tipo=\"1Col\">\n" +
                             "           <bloque>\n" +
                             "               <idea ordenAparicion=\"1\">\n" +
-                            "                   <texto tipo=\"normal\">texto /ddestacado/d</texto>\n" +
-                            "                   <texto tipo=\"codigo\">texto /eenfatizado/e</texto>\n" +
+                            "                   <texto tipo=\"normal\">texto <destacar>destacado<destacar></texto>\n" +
+                            "                   <texto tipo=\"codigo\">texto <enfatizar>enfatizado<enfatizar></texto>\n" +
                             "                   <voz>Voz 1Col</voz>\n" +
                             "               </idea>\n" +
                             "           </bloque>\n" +
