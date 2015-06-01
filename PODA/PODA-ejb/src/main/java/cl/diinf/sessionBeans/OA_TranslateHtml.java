@@ -660,7 +660,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     
     
     
-    
+    //Versión 2
 
 
     public String write_html2(ObjetoAprendizaje object){
@@ -817,12 +817,13 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         
         String slide_code = "";
         String script_code = "";
+        String animation_code= "";
         
-        String code_start = "<section class=\"slide\" id=\"slide-" + slide_number + "\">";
+        String code_start = "<section class=\"slide\" id=\"slide-" + slide_number + "\">\n";
         String code_end = "</section>";
         
         slide_code += code_start;
-        slide_code += "<h2>" + slide.getTitle() + "</h2>";
+        slide_code += "<h2>" + slide.getTitle() + "</h2>\n";
         
         
         List<Block> block_list = slide.getBlocks();
@@ -836,166 +837,188 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         switch (slide.getDesign()){
             case "1Col":
                 //escribir contenido del primer bloque
+                /* TODO */
                 block_return0 = write_block(block_list.get(0), slide_number, 0, design);                
                 break;
                 
             case "1Fil2Col":
                 
-                slide_code += "<div class=\"up-2columnas-1up\">";
+                slide_code += "<div class=\"up-2columnas-1up\">\n";
                 //bloque 1
                 block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
                 slide_code += block_return0.get(0);
                 script_code += block_return0.get(1);
-                slide_code += "</div>";
+                animation_code += block_return0.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"left-2columnas-1up\">";
+                slide_code += "<div class=\"left-2columnas-1up\">\n";
                 //bloque 2
                 block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
                 slide_code += block_return1.get(0);
                 script_code += block_return1.get(1);
-                slide_code += "</div>";
+                animation_code += block_return1.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"right-2columnas-1up\">";
+                slide_code += "<div class=\"right-2columnas-1up\">\n";
                 //bloque 1
                 block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
                 slide_code += block_return2.get(0);
                 script_code += block_return2.get(1);
-                slide_code += "</div>";
+                animation_code += block_return2.get(2);
+                slide_code += "</div>\n";
                         
                 break;
                 
             case "2Col":
                                 
-                slide_code += "<div class=\"left-2columnas\">";
+                slide_code += "<div class=\"left-2columnas\">\n";
                 //escribir contenido del primer bloque
                 block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
                 slide_code += block_return0.get(0);
                 script_code += block_return0.get(1);
-                slide_code += "</div>";
+                animation_code +=block_return0.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"right-2columnas\">";
+                slide_code += "<div class=\"right-2columnas\">\n";
                 //escribir contenido del segundo bloque
                 block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
                 slide_code += block_return1.get(0);
                 script_code += block_return1.get(1);
-                slide_code += "</div>";
+                animation_code += block_return1.get(2);
+                slide_code += "</div>\n";
                 
                 break;
             case "3Col":
                 
-                slide_code += "<div class=\"left-3columnas\">";
+                slide_code += "<div class=\"left-3columnas\">\n";
                 //bloque 1
                 block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
                 slide_code += block_return0.get(0);
                 script_code += block_return0.get(1);
-                slide_code += "</div>";
+                animation_code += block_return0.get(2);
+                slide_code += "</div>\n";
                 
                 
-                slide_code += "<div class=\"center-3columnas\">";
+                slide_code += "<div class=\"center-3columnas\">\n";
                 //bloque 2
                 block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
                 slide_code += block_return1.get(0);
                 script_code += block_return1.get(1);
-                slide_code += "</div>";
+                animation_code += block_return1.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"right-3columnas\">";
+                slide_code += "<div class=\"right-3columnas\">\n";
                 //bloque 3
                 block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
                 slide_code += block_return2.get(0);
                 script_code += block_return2.get(1);
-                slide_code += "</div>";
+                animation_code += block_return2.get(2);
+                slide_code += "</div>\n";
                 
                 break;
             case "1Fil3Col":
                 
-                slide_code += "<div class=\"up-3columnas-1up\">";
+                slide_code += "<div class=\"up-3columnas-1up\">\n";
                 //bloque 1
                 block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
                 slide_code += block_return0.get(0);
                 script_code += block_return0.get(1);
-                slide_code += "</div>";
+                animation_code +=block_return0.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"left-3columnas-1up\">";
+                slide_code += "<div class=\"left-3columnas-1up\">\n";
                 //bloque 2
                 block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
                 slide_code += block_return1.get(0);
                 script_code += block_return1.get(1);
-                slide_code += "</div>";
+                animation_code += block_return1.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"center-3columnas-1up\">";
+                slide_code += "<div class=\"center-3columnas-1up\">\n";
                 //bloque 3
                 block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
                 slide_code += block_return2.get(0);
                 script_code += block_return2.get(1);
-                slide_code += "</div>";
+                animation_code += block_return2.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"right-3columnas-1up\">";
+                slide_code += "<div class=\"right-3columnas-1up\">\n";
                 //bloque 4
                 block_return3 = write_blockHtml2(block_list.get(3), slide_number, 3, design );
                 slide_code += block_return3.get(0);
                 script_code += block_return3.get(1);
-                slide_code += "</div>";
+                animation_code += block_return3.get(2);
+                slide_code += "</div>\n";
                 
                 break;
             case "2Fil2Col":
                 
-                slide_code += "<div class=\"up-2columnas-1up-1down\">";
+                slide_code += "<div class=\"up-2columnas-1up-1down\">\n";
                 //bloque 1
                 block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
                 slide_code += block_return0.get(0);
                 script_code += block_return0.get(1);
-                slide_code += "</div>";
+                animation_code +=block_return0.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"left-2columnas-1up-1down\">";
+                slide_code += "<div class=\"left-2columnas-1up-1down\">\n";
                 //bloque 2
                 block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
                 slide_code += block_return1.get(0);
                 script_code += block_return1.get(1);
-                slide_code += "</div>";
+                animation_code += block_return1.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"right-2columnas-1up-1down\">";
+                slide_code += "<div class=\"right-2columnas-1up-1down\">\n";
                 //bloque 3
                 block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
                 slide_code += block_return2.get(0);
                 script_code += block_return2.get(1);
-                slide_code += "</div>";
+                animation_code += block_return2.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"down-2columnas-1up-1down\">";
+                slide_code += "<div class=\"down-2columnas-1up-1down\">\n";
                 //bloque 4
                 block_return3 = write_blockHtml2(block_list.get(3), slide_number, 3, design );
                 slide_code += block_return3.get(0);
                 script_code += block_return3.get(1);
-                slide_code += "</div>";
+                animation_code += block_return3.get(2);
+                slide_code += "</div>\n";
                 
                 break;
             case "2Col1Fil":
                 
-                 slide_code += "<div class=\"left-2columnas-1down\">";
+                 slide_code += "<div class=\"left-2columnas-1down\">\n";
                 //bloque 1
                 block_return0 = write_blockHtml2(block_list.get(0), slide_number, 0, design );
                 slide_code += block_return0.get(0);
                 script_code += block_return0.get(1);
-                slide_code += "</div>";
+                animation_code +=block_return0.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"right-2columnas-1down \">";
+                slide_code += "<div class=\"right-2columnas-1down \">\n";
                 //bloque 2
                 block_return1 = write_blockHtml2(block_list.get(1), slide_number, 1, design );
                 slide_code += block_return1.get(0);
                 script_code += block_return1.get(1);
-                slide_code += "</div>";
+                animation_code += block_return1.get(2);
+                slide_code += "</div>\n";
                 
-                slide_code += "<div class=\"down-2columnas-1down \">";
+                slide_code += "<div class=\"down-2columnas-1down \">\n";
                 //bloque 3
                 block_return2 = write_blockHtml2(block_list.get(2), slide_number, 2, design );
                 slide_code += block_return2.get(0);
                 script_code += block_return2.get(1);
-                slide_code += "</div>";
+                animation_code += block_return2.get(2);
+                slide_code += "</div>\n";
                 
                 break;
                 
             default:
                 break;            
         }
+        /* TODO */
+        /*
         codeHtml += write_animationHtml(scene, nro_slide, OAPath, OAName);
         codeHtml += "</section>";        
         
@@ -1012,7 +1035,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             slide_code += temp.get(0);
             script_code += temp.get(1);
         }
-            
+          */
+        slide_code += animation_code;
         slide_code += code_end;
         
         out.add(slide_code);
@@ -1021,18 +1045,119 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     }
     
     public ArrayList<String> write_blockHtml2(Block bloque, int slide_number){
-        List<Idea> idea_list = bloque.getIdeas();
+        ArrayList<String> out = new ArrayList<>();
         
         String slide_code = "";
         String script_code = "";
+        String animation_code = "";
         
-        String code_start = "";
-        String code_end = "";
+        //String code_start = "";
+        //String code_end = "";
         
+        List<Idea> idea_list = bloque.getIdeas();
+        for(int i=0, n=idea_list.size(); i<n; i++){
+            ArrayList<String> temp = write_idea(idea_list.get(i), slide_number);
+            slide_code += temp.get(0);
+            script_code += temp.get(1);
+            animation_code +=temp.get(2);
+        }
         
-        
+        out.add(slide_code);
+        out.add(script_code);
+        out.add(animation_code);
+        return out;
     }
 
+    public ArrayList<String> write_idea(Idea idea, int slide_number){
+        ArrayList<String> out = new ArrayList<>();
+        
+        String slide_code = "";
+        String script_code = "";
+        String animation_code = "";
+        
+        String code_start = "<section class=\"slide-"+ slide_number + "-"+  idea.getAparitionOrder() +"\" style=visibility:hidden>\n";
+        String code_end = "</section>\n";
+        
+        slide_code += code_start;
+        
+        //write idea
+        String order = Integer.toString(idea.getAparitionOrder());
+        
+        List<Texto> text_list = idea.getText();
+        ArrayList<String> list_examples = new ArrayList<>();
+        for(int i = 0, n=text_list.size(); i<n; i++){
+            if(!idea.getText().get(i).getType().equals("ejemplo")){
+                if(!list_examples.isEmpty()){
+                    slide_code += write_examples(list_examples, code_start, code_end);                        
+                    list_examples.clear();
+                }
+            }
+
+            switch(text_list.get(i).getType()){
+
+                case "normal":
+                    slide_code += code_start + "<p>";
+                    slide_code += write_text(text_list.get(i).getContent(), design);
+                    slide_code += "</p>" + code_end;
+                    
+                    break;
+                case "manuscrito":
+                    
+                    /*"<div id=\"mano-1-1\" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
+                    "        <span class=\"manuscrita\" >texto escrito a mano uno</span>\n" +
+                    "      </div>";*/
+                    /* TODO */
+                    slide_code += code_start;
+                    slide_code += write_text(text_list.get(i).getContent(), design);
+                    slide_code += code_end;
+                    break;
+                
+                case "codigo":
+                    slide_code += code_start + "<pre class=\"brush: js\">";
+                    slide_code += text_list.get(i).getContent();
+                    slide_code += "</pre>"+ code_end;
+                    break;
+                
+                case "ejemplo":
+                    list_examples.add(text_list.get(i).getContent());
+                    break;    
+                
+                default:
+                    break;
+            };
+        }
+            
+        if(!list_examples.isEmpty()){
+            slide_code += write_examples(list_examples, code_start, code_end);
+            list_examples.clear();
+        }            
+        
+            
+        //Incluir medias
+        List<Media> media_list = idea.getMedia();
+        for(int i=0, n=media_list.size(); i<n; i++){
+            ArrayList<String> temp = write_mediaHtml2();
+            slide_code += temp.get(0);
+            script_code += temp.get(1);
+            animation_code += temp.get(2);
+        }
+        
+        slide_code += code_end;
+        
+        out.add(slide_code);
+        out.add(script_code);
+        out.add(animation_code);
+        return out;
+    }
+    
+    public ArrayList<String> write_textHtml2 (){
+    
+    }
+    
+    public ArrayList<String> write_mediaHtml2 (){
+    
+    }
+}
 
 
 
