@@ -266,7 +266,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         String codeHtml = "";
         ArrayList<Idea> orderedIdea = new ArrayList<>();
         
-        ArrayList<ArrayList<Idea>> blockIdea = new ArrayList<ArrayList<Idea>>();
+        ArrayList<ArrayList<Idea>> blockIdea = new ArrayList<>();
         
         for(int i=0 ; i < scene.getBlocks().size(); i++){
                 
@@ -527,8 +527,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     /**
      * Escribe la función que hace referencia al framework.
      * @param object objeto de aprendizaje construido por la clase de reader.
-     * @param codeHtml 
-     * @return strig con el los script incorporados.
+     * @return string con el los script incorporados.
      */
     public String write_scriptHtml(ObjetoAprendizaje object){
 

@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.DOMException;
 
 public class OA_Reader {
 
@@ -48,7 +50,7 @@ public class OA_Reader {
      */
     public List<ObjetoAprendizaje> readOA() {
 
-        List<ObjetoAprendizaje> Objects = new ArrayList<ObjetoAprendizaje>();
+        List<ObjetoAprendizaje> Objects = new ArrayList<>();
 
         if (this.fileContent == null) {
             return Objects;
@@ -109,7 +111,7 @@ public class OA_Reader {
             /*
              En esta lista se guardar los objetos de aprendizaje que lean del archivo
              */
-            List<ObjetoAprendizaje> newOAList = new ArrayList<ObjetoAprendizaje>();
+            List<ObjetoAprendizaje> newOAList = new ArrayList<>();
 
             if (OA.getLength() == 0) {
                 /*
@@ -147,7 +149,7 @@ public class OA_Reader {
                         this.setParsingError("No se especificó diseño de escena: " + newSlide.getTitle() + ".");
 
                         newSlide.setDesign("1Col");
-                        return new ArrayList<ObjetoAprendizaje>();
+                        return new ArrayList<>();
                     }
 
                     NodeList readedBlocks = currentSlide.getElementsByTagName("bloque");
@@ -164,42 +166,42 @@ public class OA_Reader {
                             case "1Fil2Col":
                                 if (readedBlocks.getLength() != 3) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
-                                    return new ArrayList<ObjetoAprendizaje>();
+                                    return new ArrayList<>();
                                 }
                                 break;
                             case "2Col":
                                 if (readedBlocks.getLength() != 2) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
-                                    return new ArrayList<ObjetoAprendizaje>();
+                                    return new ArrayList<>();
                                 }
                                 break;
                             case "3Col":
                                 if (readedBlocks.getLength() != 3) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
-                                    return new ArrayList<ObjetoAprendizaje>();
+                                    return new ArrayList<>();
                                 }
                                 break;
                             case "1Fil3Col":
                                 if (readedBlocks.getLength() != 4) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
-                                    return new ArrayList<ObjetoAprendizaje>();
+                                    return new ArrayList<>();
                                 }
                                 break;
                             case "2Fil2Col":
                                 if (readedBlocks.getLength() != 4) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
-                                    return new ArrayList<ObjetoAprendizaje>();
+                                    return new ArrayList<>();
                                 }
                                 break;
                             case "2Col1Fil":
                                 if (readedBlocks.getLength() != 3) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
-                                    return new ArrayList<ObjetoAprendizaje>();
+                                    return new ArrayList<>();
                                 }
                                 break;
                             default:
                                 this.parsingError = "\nTipo de diseño inválido.";
-                                return new ArrayList<ObjetoAprendizaje>();
+                                return new ArrayList<>();
 
                         }
 
@@ -221,12 +223,12 @@ public class OA_Reader {
                                 aparitionOrder = Math.abs(Integer.parseInt(currentIdea.getAttribute("ordenAparicion")));
                                 if (aparitionOrder < 0) {
                                     this.parsingError = "\nOrden de apareción inválido en: " + newSlide.getTitle() + ".";
-                                    return new ArrayList<ObjetoAprendizaje>();
+                                    return new ArrayList<>();
                                 }
                             } catch (Exception e) {
 
                                 this.parsingError = "\nOrden de apareción inválido en: " + newSlide.getTitle() + ".";
-                                return new ArrayList<ObjetoAprendizaje>();
+                                return new ArrayList<>();
                             }
 
                             newIdea.setAparitionOrder(aparitionOrder);
@@ -278,12 +280,12 @@ public class OA_Reader {
                                         break;
                                     default:
                                         this.parsingError = "\nTipo de texto no soportado.";
-                                        return new ArrayList<ObjetoAprendizaje>();
+                                        return new ArrayList<>();
                                 }
                                 
                                 if(handwriteIdeaCounter>1){
                                     this.parsingError = "Sólo puede haber un texto manuscrito por Idea.";
-                                    return new ArrayList<ObjetoAprendizaje>();
+                                    return new ArrayList<>();
                                 }
                                 
                                 newIdea.addText(newText);
@@ -308,7 +310,7 @@ public class OA_Reader {
                                     //CASE VIDEO
                                     default:
                                         this.parsingError = "\nTipo multimedia no soportado.";
-                                        return new ArrayList<ObjetoAprendizaje>();
+                                        return new ArrayList<>();
                                 }
 
                                 newMedia.setContent(currentMedia.getTextContent());
@@ -322,7 +324,7 @@ public class OA_Reader {
                             } else if (voiceNode.getLength() >= 1) {
 
                                 this.parsingError = "\n Sólo se permite una voz por idea.";
-                                new ArrayList<ObjetoAprendizaje>();
+                                return new ArrayList<ObjetoAprendizaje>();
                             }
 
                             newBlock.addIdeas(newIdea);
@@ -361,7 +363,7 @@ public class OA_Reader {
 
                                     if (currentChoiceHead.getLength() > 1) {
                                         this.parsingError = "Sólo se admite un bloque \"opciones\" por evaluación";
-                                        return new ArrayList<ObjetoAprendizaje>();
+                                        return new ArrayList<>();
                                     }
 
                                     NodeList currentChoices = ((Element) currentChoiceHead.item(0)).getElementsByTagName("alternativa");
@@ -384,7 +386,7 @@ public class OA_Reader {
                                                 break;
                                             default:
                                                 this.parsingError = "Tipo de evaluación no soportado";
-                                                return new ArrayList<ObjetoAprendizaje>();
+                                                return new ArrayList<>();
                                         }
 
                                         newChoice.setType(choiceType);
@@ -393,11 +395,11 @@ public class OA_Reader {
                                     
                                     if(distractorCounter < 1){
                                         this.parsingError = "Debe existir, al menos, un distractor en cada evaluación.";
-                                        return new ArrayList<ObjetoAprendizaje>();
+                                        return new ArrayList<>();
                                     }
                                     if(solutionCounter < 1){
                                         this.parsingError = "Debe existir, al menos, una solución en cada evaluación.";
-                                        return new ArrayList<ObjetoAprendizaje>();
+                                        return new ArrayList<>();
                                     }
                                                     
                                     newQuizSet.addQuiz(newQuiz);
@@ -408,8 +410,8 @@ public class OA_Reader {
                 
                 Objects.add(newOA);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | ParserConfigurationException | DOMException e) {
+            System.out.println(e.getLocalizedMessage());
         }
 
         return Objects;
