@@ -243,10 +243,10 @@ public class OA_Reader {
                                 
                                 String tempText = currentText.getTextContent();
                                 
-                                tempText = tempText.replace("ltdestacargt", "<destacar>");
-                                tempText = tempText.replace("lt/destacargt", "</destacar>");
-                                tempText = tempText.replace("ltenfatizargt", "<enfatizar>");
-                                tempText = tempText.replace("lt/enfatizargt", "</enfatizar>");
+                                tempText = tempText.replaceAll("ltdestacargt", "<destacar>");
+                                tempText = tempText.replaceAll("lt/destacargt", "</destacar>");
+                                tempText = tempText.replaceAll("ltenfatizargt", "<enfatizar>");
+                                tempText = tempText.replaceAll("lt/enfatizargt", "</enfatizar>");
                                 
                                 newText.setContent(tempText);
 
