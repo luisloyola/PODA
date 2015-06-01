@@ -401,6 +401,10 @@ public class OA_Reader {
                                         this.parsingError = "Debe existir, al menos, una solución en cada evaluación.";
                                         return new ArrayList<>();
                                     }
+                                    if(newQuiz.getChoices().size()!=4){
+                                        this.parsingError = "La cantidad de alternativas debe ser cuatro (4).";
+                                        return new ArrayList<>();
+                                    }   
                                                     
                                     newQuizSet.addQuiz(newQuiz);
                                 }
