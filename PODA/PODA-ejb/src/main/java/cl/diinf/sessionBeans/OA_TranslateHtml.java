@@ -54,7 +54,9 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         //codeHtml += write_scriptevaluaciones(object);
         codeHtml += "</script>\n</head>";        
         codeHtml += write_contentHtml(object, OAName);        
-        codeHtml += write_librsHtml(object);        
+        codeHtml += write_librsHtml(object);
+        codeHtml += write_scriptHand(object);
+        codeHtml+="</body></html>";
         return codeHtml;        
     }
     
@@ -395,7 +397,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     }
     
     public String write_hand(ArrayList<String> trozos, String design, int numberSlide, int numberBlock, int numberIdea, String designBlock){
-                
+         String id_handImage="";       
        /* ArrayList<String> text_manus_split = new ArrayList();
         int lim_fil = 100;
         int lim_col = 40;
@@ -430,10 +432,13 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             text_manus_split.add(text_manus.substring(index, text_manus.length()));
         }*/
         String text = "";
-        
+        String image_hand="";
+        id_handImage= "\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"\"";
+        image_hand+="\n<IMG id="+ id_handImage+" SRC=\"resources/manoconmanga.png\" WIDTH=700 HEIGHT=700 style=\"position:absolute;\">\n";
+        text+=image_hand;
         for(int i = 0; i < trozos.size(); i++){
         
-            text +=     "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
+            text +=  "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
                         "   <span class=\"manuscrita\">"+ trozos.get(i) +"</span>\n" +
                         "</div>\n";        
         }
@@ -477,6 +482,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         ArrayList<String>list_examples = new ArrayList();
         ArrayList<String> trozos = new ArrayList<>();
         int lim = 0;
+        int idHand=0;
         if(designBlock.equals("fila")){
             lim = 100;
         }
@@ -790,8 +796,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         //write_slideEvaluaciones();
         
         return codeHtml;
-    }
-            
+    }     
     /**
      * Escribe liberías necesarias para utilizar el framework en el que está
      * construido el objeto.
@@ -816,11 +821,244 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "    <input type=\"text\" name=\"slidenum\" id=\"goto-slide\" list=\"goto-datalist\">\n" +
                             "    <datalist id=\"goto-datalist\"></datalist>\n" +
                             "    <input type=\"submit\" value=\"Go\">\n" +
-                            "  </form>"+
-                            "</body>\n" + "</html>";
+                            "  </form>";
 
         codeHtml = "\n" + htmlLibrs;
 
         return codeHtml;
-    }        
+    }   
+    public String write_scriptHand(ObjetoAprendizaje object){
+        String codeHtml = "";
+        String scriptHand= "" ;
+        ArrayList<String> trozos= new ArrayList();
+
+            for(int i = 0; i < object.getContent().size(); i++){
+            Slide slide = object.getContent().get(i);
+            
+            for(int j = 0; j < slide.getBlocks().size(); j++){
+                Block bloque = slide.getBlocks().get(j);
+                
+                for(int k = 0; k < bloque.getIdeas().size(); k++){
+                    
+                    Idea idea = bloque.getIdeas().get(k);
+                    int id_hand = -1;
+                    String array_textManuscrito = "";
+                    String id_handImage="";
+                    String left="";
+
+                    for(int l = 0; l < idea.getText().size(); l++){
+                        if(idea.getText().get(l).getType().equals("manuscrito")){
+                            id_hand = l;
+                            break;
+                        }
+                    }                    
+                    if(id_hand > -1){
+                                                
+                        int caracter_max = getCharMax(object, i, j );
+
+                        trozos= trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
+                        
+                        String text_ids = "";
+                        for(int m = 0; m < trozos.size(); m++){
+                            text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
+                            
+                            if(m+1 < trozos.size()){
+                                text_ids +=",";
+                            }                                                            
+                        }
+
+                        switch (slide.getDesign()){
+                            case "1Col":
+                                //escribir contenido del primer bloque 
+                                left="-50";
+                                break;
+
+                            case "1Fil2Col":
+                                //bloque 1
+                                if(j==0){
+                                  left="-50";
+                                }
+                                //bloque 2
+                                else if(j==1){
+                                    left="-50";
+                                }
+                                //bloque 3
+                                else{
+                                    left="+647";
+                                }
+
+                                break;
+
+                            case "2Col":
+                                //bloque 1
+                               
+                                if(j==0){
+                                  left="-50";
+                                }
+                                else{
+                                   left="+647";
+                                }
+
+                                break;
+
+                            case "3Col":
+                                //bloque 1
+                                if(j==0){
+                                  left="-50";
+                                }
+                                //bloque 2
+                                else if(j==1){
+                                    left="+400";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                                }
+                                //bloque 3
+                                else{
+                                    left="+647";
+                                }
+
+                                break;
+
+                            case "1Fil3Col":
+                                //bloque 1
+                                if(j==0){
+                                  left="-50";
+                                }
+                                //bloque 2
+                                else if(j==1){
+                                    left="+300";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                                }
+                                //bloque 3
+                                else if(j==2){
+                                    left="+600";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                                }
+                                else{
+                                    left="+800"; 
+                                }
+                                break;
+
+                            case "2Fil2Col":
+
+                                //bloque 1
+                                if(j==0){
+                                  left="-50";
+                                }
+                                //bloque 2
+                                else if(j==1){
+                                    left="-50";   
+                                }
+                                //bloque 3
+                                else if(j==2){
+                                    left="+647"; 
+                                }
+                                else{
+                                    left="-50"; 
+                                }
+
+
+                                break;
+                            case "2Col1Fil":
+                               //bloque 1
+                                if(j==0){
+                                  left="-50";
+                                }
+                                //bloque 2
+                                else if(j==1){
+                                    left="+647";  
+                                }
+                                //bloque 3
+                                else if(j==2){
+                                    left="-50"; 
+                                }
+                                else{
+                                    left="-50"; 
+                                }
+
+                                break;
+
+                            default:
+                                break;            
+                        }
+                        array_textManuscrito= "move_down(["+ text_ids+"],"+left+",dist,up,down);\n";                        
+                    
+                    
+                    scriptHand +=    "<script>\n" +
+                                        "      $(\"#show-slide-"+(i+1)+"-"+j+"-"+k+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
+                                        "           var dist;\n"+
+                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").show();\n" +
+                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").addClass(\"moviendo\");\n" +
+                                        "           var up=-70;\n" +
+                                        "           var down=-30;" +
+                                                    array_textManuscrito + 
+                                        "            function move_down(array,num,dist,up,down) {\n" +
+                                        "        var n = array.length;\n" +
+                                        "        \n" +
+                                        "        if(n!=0){\n" +
+                                        "          var linea = array[0];\n" +
+                                        "          var spanWidth = $(linea+' span').width();\n" +
+                                        "          dist=num;\n" +
+                                        "          if(dist<=spanWidth"+left+" && $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hasClass(\"moviendo\")){\n" +
+                                        "            $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
+                                        "              \"margin-top\": down+\"px\"\n" +
+                                        "              ,left: dist}, 200, \"linear\", function () {\n" +
+                                        "                num+=11.8;\n" +
+                                        "                move_up(array,num,dist,up,down);\n" +
+                                        "            });\n" +
+                                        "          }else{\n" +
+                                        "              var new_array = [];\n" +
+                                        "              for(i=1; i<n; i++){\n" +
+                                        "                new_array.push(array[i]);   \n" +
+                                        "              }\n" +
+                                        "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
+                                        "          }\n" +
+                                        "        }else{\n" +
+                                        "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hide();\n" +
+                                        "        }\n" +
+                                        "      }\n" +
+                                        "\n" +
+                                        "      function move_up(array,num,dist,up,down) {\n" +
+                                        "        var n = array.length;\n" +
+                                        "        \n" +
+                                        "        if(n!=0){\n" +
+                                        "        var linea = array[0];\n" +
+                                        "         var spanWidth = $(linea+' span').width();\n" +
+                                        "         dist=num;\n" +
+                                        "         if(dist<=spanWidth"+left+" && $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hasClass(\"moviendo\")){\n" +
+                                        "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
+                                        "            \"margin-top\": up+\"px\"\n" +
+                                        "            ,left: dist}, 200, \"linear\", function () {\n" +
+                                        "              num+=11.8;\n" +
+                                        "              move_down(array,num,dist,up,down);\n" +
+                                        "            });\n" +
+                                        "          }else{\n" +
+                                        "              var new_array = [];\n" +
+                                        "              for(i=1; i<n; i++){\n" +
+                                        "                new_array.push(array[i]);   \n" +
+                                        "              }\n" +
+                                        "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
+                                        "          }\n" +
+                                        "        }else{\n" +
+                                        "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hide();\n" +
+                                        "        }\n" +
+                                        "      }\n" +
+                                        "    });\n" +
+                                        "\n" +
+                                        "    $(\"#show-slide-"+(i+1)+"-"+j+"-"+k+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                        "      if(direction==\"reverse\"){\n" +
+                                        "        $( \"#mano-"+(i+1)+"-"+j+"-"+k+"\" ).stop();\n" +
+                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"});\n" +
+                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").removeClass(\"moviendo\");\n" +
+                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").fadeIn();\n" +
+                                        "      } else {\n" +
+                                        "        $( \"#mano-"+(i+1)+"-"+j+"-"+k+"\" ).finish();\n" +
+                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hide();\n" +
+                                        "      }\n" +
+                                        "    });\n" +
+                                        "</script>" ;
+                    }
+                }
+            }
+        }        
+        codeHtml = "\n" + scriptHand;
+
+        return codeHtml;
+    }
 }
