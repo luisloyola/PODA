@@ -321,34 +321,23 @@ public class OA_ReaderTest {
     /**
      * Probar creacion de alternativas de las evaluaciones
      */
-    @Ignore
+    
     @Test
     public void testAlternativas(){
-        int alternativas = 8;
+        int alternativas = 16;
         int enunciado = 4;
         int count_alternativas = 0;
         int count_enunciado = 0;
         
         if(!objects.isEmpty()){
-            /*for(int i = 0; i < objects.get(0).getContent().size(); i++)
+            for(int i = 0; i < objects.get(0).getQuizSet().size(); i++)
             {
-                for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
-
-                    for(int k = 0; k < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size(); k++){
-                        
-                        for(int l = 0; l < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size(); l++){
-                            
-                            for(int m = 0; m < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().size(); m++){
-                                
-                                count_alternativas += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().get(l).getChoices().size();
-                                if(objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().get(l).getHeader().isEmpty() || objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().get(l).getHeader() != null){
-                                    count_enunciado += 1;
-                                }
-                            }
-                        }                                                
-                    }
+                
+                for(int j = 0; j < objects.get(0).getQuizSet().get(i).getQuiz().size(); j++){
+                    count_enunciado += 1;
+                    count_alternativas+=objects.get(0).getQuizSet().get(i).getQuiz().get(j).getChoices().size();
                 }
-            }*/
+            }
             assertEquals("Error en la lectura de evaluaciones en el xml", alternativas, count_alternativas);
             assertEquals("Error en la lectura de enunciados de evaluaciones en el xml", enunciado, count_enunciado);
         }
