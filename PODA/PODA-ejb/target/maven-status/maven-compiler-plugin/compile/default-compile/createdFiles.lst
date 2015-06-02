@@ -1,13 +1,16 @@
+cl/diinf/objetoAprendizaje/Prueba.class
 cl/diinf/sessionBeans/OA_ReaderLocal.class
+cl/diinf/objetoAprendizaje/Alternativa.class
 cl/diinf/objetoAprendizaje/Slide.class
 cl/diinf/sessionBeans/OA_TranslateHtmlLocal.class
 cl/diinf/objetoAprendizaje/ObjetoAprendizaje.class
-cl/diinf/util/TTSDownloader.class
 cl/diinf/objetoAprendizaje/Block.class
 cl/diinf/objetoAprendizaje/Media.class
+cl/diinf/objetoAprendizaje/Evaluacion.class
 cl/diinf/sessionBeans/OA_TranslateHtml.class
 cl/diinf/sessionBeans/OA_Reader.class
 cl/diinf/handlers/SimpleErrorHandler.class
 cl/diinf/objetoAprendizaje/Idea.class
 cl/diinf/util/Compressor.class
 cl/diinf/objetoAprendizaje/Texto.class
+cl/diinf/util/ResourcesDownloader.class

@@ -50,6 +50,11 @@
                </ul><br></br>
                  <a href="/PODA-web/" style="position: absolute; left:1200px"><button class="btn btn-sm btn-success">Crear otro Objeto</button></a> 
                             <h:form>
+                                <h:commandButton value="Descargar Scorm" styleClass="btn btn-sm btn-default" style="position: absolute;  left: 970px">
+                                    <p:fileDownload value="#{fileUpload.scormFile}" />
+                                </h:commandButton>
+                            </h:form>
+                            <h:form>
                                 <h:commandButton value="Descargar" styleClass="btn btn-sm btn-default" style="position: absolute;  left: 1100px">
                                     <p:fileDownload value="#{fileUpload.zipFile}" />
                                 </h:commandButton>

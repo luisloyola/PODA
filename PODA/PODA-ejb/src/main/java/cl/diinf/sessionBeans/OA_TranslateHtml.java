@@ -107,11 +107,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/font-manuscrita.css\">\n" +
                             "<script src=\"resources/modernizr.custom.js\"></script>"+
                             "  \n" +
-                            "<script src=\"resources/extensions/deck.syntaxhighlighter.js\"></script>"+
-                            "  <style type=\"text/css\">\n" +
-                            "    .poco { width: 0px; height: 2em; white-space: nowrap; overflow: hidden;  }\n" +
-                            "  </style>\n" +
-                            "  \n" +
+                            "<script src=\"resources/extensions/deck.syntaxhighlighter.js\"></script>\n"+
                             "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shCore.js\"></script>\n" +
                             "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushPython.js\"></script>\n" +
                             "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushJScript.js\"></script>\n" +
@@ -159,19 +155,19 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         switch (object.getContent().get(numberSlide).getDesign()){
             
             case "1Col":
-                lim_line = 30;
+                lim_line = 100;
                 break;
                 
             case "1Fil2Col":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 30;
+                        lim_line = 100;
                         break;
                     case 1:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     case 2:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     default:
                         break;
@@ -181,10 +177,10 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             case "2Col":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     case 1:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;                   
                     default:
                         break;
@@ -194,13 +190,13 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             case "3Col":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     case 1:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     case 2:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     default:
                         break;
@@ -210,16 +206,16 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             case "1Fil3Col":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 30;
+                        lim_line = 100;
                         break;
                     case 1:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     case 2:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     case 3:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     default:
                         break;
@@ -229,16 +225,16 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             case "2Fil2Col":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 30;
+                        lim_line = 100;
                         break;
                     case 1:
-                        lim_line = 30;
+                        lim_line = 100;
                         break;
                     case 2:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     case 3:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     default:
                         break;
@@ -247,13 +243,13 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
             case "2Col1Fil":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     case 1:
-                        lim_line = 15;
+                        lim_line = 40;
                         break;
                     case 2:
-                        lim_line = 30;
+                        lim_line = 100;
                         break;                    
                     default:
                         break;
@@ -269,7 +265,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
     public String write_scriptHeaderHtml(ObjetoAprendizaje object){
         
         String script_header = "";
-        
+        ArrayList<String> trozos= new ArrayList();
         for(int i = 0; i < object.getContent().size(); i++){
             Slide slide = object.getContent().get(i);
             
@@ -286,8 +282,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                     String script_hand_lost = "";
                     
                     if(!idea.getVoice().isEmpty()){
-                        script_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\")";
-                        script_voice_lost = "AudioLostCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\")";
+                        script_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
+                        script_voice_lost = "AudioLostCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
                     }
                     
                     for(int l = 0; l < idea.getText().size(); l++){
@@ -299,16 +295,18 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                     if(id_hand > -1){
                                                 
                         int caracter_max = getCharMax(object, i, j );
-                        int lenght_manus = idea.getText().get(id_hand).getContent().length() / caracter_max;
+                        /*int lenght_manus = idea.getText().get(id_hand).getContent().length() / caracter_max;
                         
                         if(lenght_manus % caracter_max != 0)
                             lenght_manus += 1;
+                        */
+                        trozos= trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
-                        for(int m = 0; m < lenght_manus; m++){
+                        for(int m = 0; m < trozos.size(); m++){
                             text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
                             
-                            if(m+1 < lenght_manus){
+                            if(m+1 < trozos.size()){
                                 text_ids +=",";
                             }                                                            
                         }
@@ -358,21 +356,49 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         return text;
     }
     
-    public ArrayList<String> trozarCadena(String cadena, int lim_max){
+    public ArrayList<String> trozarCadena(String content_text,int filOrCol){
+               
+        ArrayList<String> text_manus_split = new ArrayList();
+        int lim_fil = 100;
+        int lim_col = 40;
         
-        ArrayList<String> trozos = new ArrayList();
+        if(filOrCol==lim_col){
+            int cont = lim_col;
+                    int aux_ind = 0;
+        int index = 0;
+            while(cont < content_text.length()){
+                                
+                aux_ind = content_text.indexOf(" ", cont)+1;
+                text_manus_split.add(content_text.substring(index, aux_ind));
+                cont = lim_col+aux_ind;
+                index = aux_ind;
+            }            
+            text_manus_split.add(content_text.substring(index, content_text.length()));
+        }        
         
-        
-        
-        return trozos;
+        else if(filOrCol==lim_fil){
+                    int aux_ind = 0;
+        int index = 0;
+            int cont = lim_fil;
+            
+            while(cont < content_text.length()){
+                                
+                aux_ind = content_text.indexOf(" ", cont)+1;
+                text_manus_split.add(content_text.substring(index, aux_ind));
+                cont = lim_fil+aux_ind;
+                index = aux_ind;
+            }            
+            text_manus_split.add(content_text.substring(index, content_text.length()));
+        }
+        return text_manus_split;
         
     }
     
-    public String write_hand(String text_manus, String design, int numberSlide, int numberBlock, int numberIdea, String designBlock){
+    public String write_hand(ArrayList<String> trozos, String design, int numberSlide, int numberBlock, int numberIdea, String designBlock){
                 
-        ArrayList<String> text_manus_split = new ArrayList();
-        int lim_fil = 30;
-        int lim_col = 15;
+       /* ArrayList<String> text_manus_split = new ArrayList();
+        int lim_fil = 100;
+        int lim_col = 40;
         
         if(designBlock.equals("col")){
             int cont = lim_col;
@@ -402,13 +428,13 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 index = aux_ind;
             }            
             text_manus_split.add(text_manus.substring(index, text_manus.length()));
-        }
+        }*/
         String text = "";
         
-        for(int i = 0; i < text_manus_split.size(); i++){
+        for(int i = 0; i < trozos.size(); i++){
         
-            text +=     "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
-                        "   <span class=\"manuscrita\">"+ text_manus_split.get(i) +"</span>\n" +
+            text +=     "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
+                        "   <span class=\"manuscrita\">"+ trozos.get(i) +"</span>\n" +
                         "</div>\n";        
         }
         return text;
@@ -449,7 +475,14 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                         
         String codeHtml = "";        
         ArrayList<String>list_examples = new ArrayList();
-        
+        ArrayList<String> trozos = new ArrayList<>();
+        int lim = 0;
+        if(designBlock.equals("fila")){
+            lim = 100;
+        }
+        else{
+            lim = 40;
+        }
         for(int i = 0; i < block.getIdeas().size(); i++){
                                         
             Idea idea = block.getIdeas().get(i);            
@@ -476,8 +509,8 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                         break;
                         
                     case "manuscrito":
-                        
-                        codeHtml += write_hand(idea.getText().get(j).getContent(), design, numberSlide, numberBlock, i, designBlock);                        
+                        trozos=trozarCadena(idea.getText().get(j).getContent(), lim);
+                        codeHtml += write_hand(trozos, design, numberSlide, numberBlock, i, designBlock);                        
                         break;
                         
                     case "codigo":
