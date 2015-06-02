@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Collections;
-import java.util.List;
 
 /**
  *
@@ -49,13 +48,15 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         String OATitle= object.getTitle();
         String OAName = object.getName_file();
         
-        codeHtml = write_headerHtml(object);
-        codeHtml += write_scriptHeaderHtml(object);
-        //codeHtml += write_scriptevaluaciones(object);
-        codeHtml += "</script>\n</head>";        
+        codeHtml = "<!DOCTYPE html>\n" +"<html>\n" + "<head>\n";
+        codeHtml += write_headerHtml(object);
+        codeHtml += write_scriptHeaderHtml(object);        
+        codeHtml += "</head>\n"+"<body>\n";
+        codeHtml += "  <div class=\"deck-container\">\n";
         codeHtml += write_contentHtml(object, OAName);        
         codeHtml += write_librsHtml(object);
         codeHtml += write_scriptHand(object);
+        codeHtml += "</div>\n";
         codeHtml+="</body></html>";
         return codeHtml;        
     }
@@ -81,10 +82,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
                 break;
         }
         
-        String htmlHeader = "<!DOCTYPE html>\n" +
-                            "<html>\n" +
-                            "<head>\n" +
-                            "  <meta charset=\"utf-8\">\n" +
+        String htmlHeader = "  <meta charset=\"utf-8\">\n" +
                             "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n" +
                             "  <meta name=\"viewport\" content=\"width=1024, user-scalable=no\">\n" +
                             "  <title>" + object.getTitle() + "</title>"+                                
@@ -579,9 +577,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         
     public String write_titleHtml(ObjetoAprendizaje object){
                 
-        String codeHtml =   "<body>\n" +
-                            "  <div class=\"deck-container\">"+
-                            "<section class=\"slide\" id=\"title-slide\">\n" +
+        String codeHtml =   "<section class=\"slide\" id=\"title-slide\">\n" +
                             "<h1>" + object.getTitle() + "</h1>"+
                             "   <div class=\"autor\"> \n" +
                             "<h3>" + object.getAuthor() + "</h3> \n" +
