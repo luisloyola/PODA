@@ -202,12 +202,42 @@ h1, .vcenter {
   transform: none;
 }
 
+p {
+  list-style:square outside none ;
+  display:list-item;
+}
+
+/*p > li
+{
+    color: green;
+}*/
+
 h2 {
   font-size: 2.25em;
   font-weight: bold;
   padding-top: .5em;
   margin: 0 0 .66666em 0;
-  border-bottom: 3px solid #888;
+  /*border-bottom: 3px solid #888;*/
+  /*height: 150px;*/
+  position: relative;
+  min-height: 150px;
+  /*max-width:100%;
+  height:auto;*/
+  /*background-color:#214c7F; */
+  /*background-image: url("header.png");
+  height:auto;
+  width:100%;*/
+/*  background: url(logo-usach.png) no-repeat right center;
+  position: absolute;
+  right:45px;
+  margin-top:-212px*/
+
+  background: url(logo-usach.png) no-repeat right center;
+  background-color:#214c7F;
+}
+
+.logo{
+  float:left
 }
 
 h3 {
@@ -277,6 +307,34 @@ li > ol, li > ul {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
+/*  background-size: cover;
+  background-image: url("index.jpg");
+  background-repeat: no-repeat;*/
+}
+
+/*.slide-fondo {
+  background-size: cover;
+  background-image: url("index.jpg");
+}*/
+
+#title-slide {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  /*background-color: #f5f5dc; */
+  /*background-size: 100% 100%; */
+  background-size: cover;
+  background-image: url("portada.jpg");
+}
+
+#index-slide {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  /*background-color: #f5f5dc; */
+  /*background-size: 100% 100%; */
+/*  background-size: cover;
+  background-image: url("index.jpg");*/
 }
 
 h1 {
@@ -284,8 +342,10 @@ h1 {
 }
 
 h2 {
-  color: #F18B29;
-  border-bottom-color: #F18B29;
+  text-align: center;
+  color: #FFFFFF;
+  /*border-bottom-color: #F18B29;*/
+  text-transform: uppercase
 }
 
 h3 {
