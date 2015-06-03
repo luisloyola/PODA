@@ -6,5 +6,5 @@
 .settings/
 .project
 .classpath
-*/target/**
-*/standalone/deployments/**
+*/target/*
+*/standalone/deployments/*
