@@ -1,7 +1,4 @@
-PODA/PODA-ear/target/classes/.netbeans_automatic_build
-PODA/PODA-ear/target/test-classes/.netbeans_automatic_build
-PODA/PODA-ejb/target/classes/.netbeans_automatic_build
-PODA/PODA-ejb/target/test-classes/.netbeans_automatic_build
-PODA/PODA-web/target/classes/.netbeans_automatic_build
-PODA/PODA-web/target/test-classes/.netbeans_automatic_build
-
+*.netbeans_automatic_build
+*.class
+*~
+*.mp3

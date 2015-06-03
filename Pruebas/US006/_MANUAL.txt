@@ -1,0 +1,5 @@
+
+	Es posible agregar archivos multimedia. Para ello se ha de introducir al mismo nivel que las etiquetas de "texto" y "voz", dentro
+de la etiqueta "idea", la etiqueta "<media> ... </media", esta tendrá como atributo el tipo multimedia que puede ser, estos son:
+	"imagen" y "audio" y ha de entregarse la correspondiente URL del recurso. La no especificación del atributo tipo gatillará un error
+dentro del procesamiento del objeto.

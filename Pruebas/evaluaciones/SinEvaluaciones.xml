@@ -1,0 +1,21 @@
+
+<comenzar>
+	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
+					
+						<evaluacion>
+							<enunciado>Enunciado Evaluacion </enunciado>
+							<opciones>
+								<alternativa tipo="solucion" tema="prueba">Si</alternativa>
+								<alternativa tipo="distractor" tema="prueba">No</alternativa>
+							</opciones>				
+						</evaluacion>
+						<evaluacion>
+							<enunciado>Enunciado Evaluacion </enunciado>
+							<opciones>
+								<alternativa tipo="solucion" tema="prueba">Si</alternativa>
+								<alternativa tipo="distractor" tema="prueba">No</alternativa>
+							</opciones>				
+						</evaluacion>
+					
+	</objeto>
+</comenzar>

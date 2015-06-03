@@ -35,6 +35,7 @@ public class FileUpload implements Serializable{
    
     private Part file;
     private StreamedContent zipFile;
+    private StreamedContent scormFile;
     private String fileContent;    
     private String code_html;
     private String error_Message;
@@ -44,7 +45,12 @@ public class FileUpload implements Serializable{
 
     public void setZipFile(StreamedContent file) {
         this.zipFile = file;
+    } 
+    
+    public void setScormFile(StreamedContent file) {
+        this.scormFile = file;
     }        
+    
     public String getGeneratedZipPath() {
         return generatedZipPath;
     }
@@ -123,6 +129,8 @@ public class FileUpload implements Serializable{
             
             nuevoOAR.setFileContent(fileContent);
             
+            nuevoOAR.AppendDTD();
+            
             List<ObjetoAprendizaje> OA_List = nuevoOAR.readOA();                        
             
             if(OA_List.size() > 0){
@@ -138,8 +146,20 @@ public class FileUpload implements Serializable{
                     error_Message = "No se ha podido conectar con el servidor de audio.";
                 }
                 
+                if(OA_translate.getTranslateError().equals("NO_MEDIA")){
+                    code_html = null;
+                    error_Message = "No se ha podido conectar con el servidor de medios (imagen no encontrada).";
+                }
+                
                 this.OA_Name = OA_List.get(0).getTitle();
                 //prepareDownload();
+                try{
+                    FacesContext contex = FacesContext.getCurrentInstance();
+                    contex.getExternalContext().redirect("/PODA-web/objeto_aprendizaje.xhtml");
+                }catch(Exception e){
+                    System.err.println(e);
+                }
+                
             }
             else{
                 /*Archivo con errores o inválido.*/
@@ -168,11 +188,11 @@ public class FileUpload implements Serializable{
      * 
      * @return Devuelve el archivo .Zip generado.
      */
-    public File prepareDownload(){
+    public File prepareDownload() throws IOException{
         
         String folderName = String.valueOf(Math.random()*100000+1);
         String folderPath = "";
-        File newDirectory = new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName);
+        File newDirectory = new File(folderName);
         if(!newDirectory.exists()){
             try{
                 newDirectory.mkdir();
@@ -189,34 +209,88 @@ public class FileUpload implements Serializable{
                     this.copyDirectory(source,target);
                     Compressor compress = new Compressor();
                     compress.setInputPath(folderPath);
-                    compress.setOutputPath("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/"+folderName+".zip");
+                    compress.setOutputPath(folderName+".zip");
                     compress.zipIt();
                     FileUtils.deleteDirectory(new File(folderPath));
                     
                 }
                 catch(IOException e){
                     this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
+                    FileUtils.deleteDirectory(new File(folderPath));
                 }
             }
             catch(SecurityException ex){
                 this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
+                newDirectory.delete();
             }
         }   
-        return new File("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/"+folderName+".zip");
-        //return new File("../standalone/deployments/PODA-ear-1.0.ear/"+folderName+".zip");
+        
+        File returnFile = new File(folderName+".zip");
+        return returnFile;
+        
     }
+    
+    public File prepareScormDownload() throws IOException{
+        String folderName = String.valueOf(Math.random()*100000+1);
+        String folderPath = "";
+        File newDirectory = new File(folderName);
+        if(!newDirectory.exists()){
+            try{
+                newDirectory.mkdir();
+                folderPath = newDirectory.getAbsolutePath();
+                File createdOA = new File(folderPath+"/index.html");
+                try{
+                    FileWriter fw = new FileWriter(createdOA);
+                    fw.write(code_html);
+                    fw.close();
+                    File source = new File("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/resources");
+                    File target = new File(folderPath+"/resources");
+                    this.copyDirectory(source,target);
+                    
+                    File scormSource = new File("../standalone/deployments/PODA-ear-1.0.ear/PODA-web-1.0.war/Scorm");
+                    File scormTarget = new File(folderPath);
+                    this.copyDirectory(scormSource, scormTarget);
+                    Compressor compress = new Compressor();
+                    compress.setInputPath(folderPath);
+                    compress.setOutputPath("SCORM-"+folderName+".zip");
+                    compress.zipIt();                         
+                    FileUtils.deleteDirectory(new File(folderPath));
+                }
+                catch(IOException e){
+                    this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
+                    FileUtils.deleteDirectory(new File(folderPath));
+                }
+            }
+            catch(SecurityException ex){
+                this.error_Message_Donwload = "Falló la descarga. Reintente, por favor.";
+                newDirectory.delete();
+            }
+        }   
+        return new File("SCORM-"+folderName+".zip");
+    }
+    
     
     /**
      * 
      * @return Stream para permitir la descarga
      * @throws FileNotFoundException 
      */
-    public StreamedContent getZipFile() throws FileNotFoundException {
+    public StreamedContent getZipFile() throws FileNotFoundException, IOException {
         File temp = this.prepareDownload();
         InputStream stream = new FileInputStream(temp);
         this.zipFile = new DefaultStreamedContent(stream, "application/zip", "PODA-"+this.OA_Name+".zip");    
+        temp.delete();
         return this.zipFile;
     }
+    
+    public StreamedContent getScormFile() throws FileNotFoundException, IOException {
+        File temp = this.prepareScormDownload();
+        InputStream stream = new FileInputStream(temp);
+        this.scormFile = new DefaultStreamedContent(stream, "application/zip", "PODA-SCORM-"+this.OA_Name+".zip");    
+        temp.delete();
+        return this.scormFile; 
+    }
+    
     
     public void copyDirectory(File sourceLocation , File targetLocation)
     throws IOException {
@@ -237,7 +311,7 @@ public class FileUpload implements Serializable{
             OutputStream out = new FileOutputStream(targetLocation);
             
             // Copy the bits from instream to outstream
-            byte[] buf = new byte[1024*100];
+            byte[] buf = new byte[1024];
             int len;
             while ((len = in.read(buf)) > 0) {
                 out.write(buf, 0, len);
@@ -270,5 +344,7 @@ public class FileUpload implements Serializable{
           throw new ValidatorException(msgs);
         }
     }     */       
+   
     
+        
 }

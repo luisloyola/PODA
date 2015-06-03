@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
+    <h:head> 
         <title>Proyecto de Objetos de Aprendizaje</title>
         <h:outputStylesheet name="css/bootstrap.css"/>
         <h:outputStylesheet name="css/style.css"/>
@@ -97,8 +97,6 @@
                         <div class="col-md-4 col-lg-offset-6 " ><br></br>                         
                         
                             <h:commandButton action="#{fileUpload.upload}" value="Generar" styleClass="btn btn-info" onclick=" return ValidateFileFE()"/>&nbsp;
-                    <h:button outcome="objeto_aprendizaje.xhtml"  value="Ver Objeto de Aprendizaje" rendered="#{fileUpload.code_html != null}" styleClass="btn btn-success" />
-
                         </div>
                 </h:form>                                                                                    
                 </div>                                   

@@ -12,6 +12,7 @@ package cl.diinf.objetoAprendizaje;
 public class Texto {
     private String type;
     private String content;
+    private boolean hand;
     
     public Texto(){
     
@@ -32,5 +33,14 @@ public class Texto {
     public void setContent(String content) {
         this.content = content;
     }  
+
+    public boolean isHand() {
+        return hand;
+    }
+
+    public void setHand(boolean hand) {
+        this.hand = hand;
+    }
+    
     
 }

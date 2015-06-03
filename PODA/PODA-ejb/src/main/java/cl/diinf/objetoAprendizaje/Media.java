@@ -11,7 +11,6 @@ package cl.diinf.objetoAprendizaje;
  */
 public class Media {
     private String type;
-    private String position;
     private String content;
     
     public Media(){};
@@ -22,14 +21,6 @@ public class Media {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
     }
 
     public String getContent() {

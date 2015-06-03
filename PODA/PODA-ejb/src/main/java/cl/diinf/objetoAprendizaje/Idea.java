@@ -19,6 +19,7 @@ public class Idea implements Comparable<Idea>{
     List<Texto> text;
     List<Media> media;
     
+    
     public Idea(){
         text = new ArrayList<Texto>();
         media = new ArrayList<Media>();
@@ -64,7 +65,7 @@ public class Idea implements Comparable<Idea>{
     public void addMedia(Media media) {
         this.media.add(media);
     }
-    
+   
     @Override     
     public int compareTo( Idea idea ) {
         if(aparitionOrder < idea.aparitionOrder){

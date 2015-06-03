@@ -1,79 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE comenzar [
-<!ELEMENT comenzar (objeto)>
-<!ELEMENT objeto (escena+)>
-<!ELEMENT escena (bloque+)>
-<!ELEMENT bloque (idea*)>
-<!ELEMENT idea (texto*, voz?)>
-<!ELEMENT texto (#PCDATA)>
-<!ELEMENT voz (#PCDATA)>
-
-<!ATTLIST objeto titulo CDATA #REQUIRED>
-<!ATTLIST objeto autor CDATA #REQUIRED>
-<!ATTLIST objeto tema CDATA #REQUIRED>
-<!ATTLIST escena titulo CDATA #REQUIRED>
-<!ATTLIST escena tipo CDATA #REQUIRED>
-
-<!ATTLIST idea ordenAparicion CDATA #REQUIRED>
-<!ATTLIST texto tipo CDATA #REQUIRED>	
-]>
-
 <comenzar>
-	<objeto titulo="Título del Objeto de Aprendizaje" autor="nombre del autor" tema="usach">
-		<escena titulo="Escena 1 Columna" tipo="1Col">
+	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="TeamPODA">
+		<escena titulo="Ejemplo de textos" tipo="1Col">
 			<bloque>
 				<idea ordenAparicion="1">
-					<texto tipo="normal">Texto de un primer parrafo de la primera escena</texto>
-					<texto tipo="codigo">
-						//Soy texto de un codigo
-						if(cont==0):
-							var = cont + 1
-						else:
-							var = cont + 2
-					</texto>
-					<texto tipo="manuscrito">Soy texto manuscrito</texto>
-					<voz>Primer texto a ser reproducido por voz en la primera escena</voz>
+					<texto tipo="normal">Este es un texto</texto>
 				</idea>
 				<idea ordenAparicion="2">
-					<texto tipo="normal">Soy un texto de una segunda idea con dos pilas de ejemplos</texto>					
-					<texto tipo="normal">Primer conjunto de ejemplos</texto>					
-					<texto tipo="ejemplo">Soy el ejemplo 1.1</texto>
-					<texto tipo="ejemplo">Soy el ejemplo 1.2</texto>
-					<texto tipo="ejemplo">Soy el ejemplo 1.3</texto>
-					<texto tipo="ejemplo">Soy el ejemplo 1.4</texto>
-					<texto tipo="normal">Segundo conjunto de ejemplos</texto>
-					<texto tipo="ejemplo">Soy el ejemplo 2.1</texto>
-					<texto tipo="ejemplo">Soy el ejemplo 2.2</texto>
-					<texto tipo="ejemplo">Soy el ejemplo 2.3</texto>
-					<texto tipo="ejemplo">Soy el ejemplo 2.4</texto>
-					<voz>Segundo texto a ser reproducido por voz en la primera escena</voz>
-				</idea>
-			</bloque>
-		</escena>
-		<escena titulo="Escena con 1 fila superior y 2 columnas inferiores" tipo="1Fil2Col">
-			<bloque>
-				<idea ordenAparicion="1">
-					<texto tipo = "normal">Soy un texto de la fila superior de la escena 2 que sale primero</texto>
-					<texto tipo = "normal">/dSoy un texto destacadod/</texto>					
+					<texto tipo="normal">Este texto tiene audio</texto>
+					<voz>Buenos Dias, tardes, noches</voz>
 				</idea>
 				<idea ordenAparicion="3">
-					<texto tipo = "manuscrito">Soy un texto manuscrito de la fila superior que aparece tercero</texto>					
+					<texto tipo="manuscrito">Este es un texto manuscrito</texto>
 				</idea>
-			</bloque>
-			<bloque>
 				<idea ordenAparicion="4">
-					<texto tipo = "normal">Soy un texto de la columna inferior izquierda que aparece cuarto</texto>
-					<texto tipo = "manuscrito">/eSoy un texto manuscrito enfatizadoe/</texto>
-				</idea>				
-			</bloque>
-			<bloque>
-				<idea ordenAparicion="2">
-					<texto tipo = "normal">Soy un texto de la columna inferior derecha que aparece segundo</texto>
-				</idea>
-				<idea ordenAparicion="5">
-					<texto tipo = "manuscrito">Soy un texto manuscrito de la columna inferior izquierda que aparece quinto</texto>
+					<texto tipo="ejemplo">Este es el ejemplo 1</texto>
+					<texto tipo="ejemplo">Este es el ejemplo 2</texto>
+					<texto tipo="ejemplo">Este es el ejemplo 3</texto>
+					<texto tipo="ejemplo">Este es el ejemplo 4</texto>
+					<texto tipo="ejemplo">Este es el ejemplo 5</texto>
 				</idea>
 			</bloque>
 		</escena>
+		<escena titulo="Ejemplo de multimedia" tipo="1Col">
+			<bloque>
+				<idea ordenAparicion="1">
+					<texto tipo="normal">El siguiente es un ejemplo de una imagen</texto>
+					<media tipo="imagen">http://www.etcetera.com.mx/userfiles/images/Prueba/ne118/119/120/121/122/123/124/125/126/127/128/129/130/131/132/133/134/135/136/137/138/139/fotogrande.jpg</media>
+
+				</idea>				
+				<idea ordenAparicion="3">
+					<texto tipo="normal">soy un texto</texto>
+				</idea>
+			</bloque>
+		</escena>
+		<escena titulo="Ejemplo de mano" tipo="1Col">
+			<bloque>
+				<idea ordenAparicion="1">
+					<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
+				</idea>
+			</bloque>
+		</escena>
+		<evaluaciones>
+			<evaluacion>
+				<enunciado>Enunciado Evaluacion </enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="prueba">Si</alternativa>
+					<alternativa tipo="distractor" tema="prueba">No</alternativa>
+				</opciones>					
+			</evaluacion>
+		</evaluaciones>
 	</objeto>
 </comenzar>

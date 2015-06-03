@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE comenzar [
+<!ELEMENT comenzar (random)>
+<!ELEMENT objeto (escena+)>
+<!ELEMENT escena (randoma+)>
+<!ELEMENT bloque (idea*)>
+<!ELEMENT idea (texto*, voz?)>
+<!ELEMENT texto (#PCDATA)>
+<!ELEMENT voz (#PCDA)>
+
+<!ATTLIST objeto titulo CDATA #REQUIED>
+<!ATTLIST objeto autor CDATA #REQUIRED>
+<!ATTLIST objeto tema CDATA #REQUIRED>
+<!ATTLIST escena titulo CDATA #REQUIRED>
+<!ATTLIST escena tipo CDATA #REQUIRED>
+
+<!ATTLIST idea ordenAparicion CDATA #REQUIRED>
+<!ATTLIST texto tipo CDATA #REQUIRED>	
+]>
+	<comenzar>
+		<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
+			<escena titulo="Ejemplo de textos" tipo="1Col">
+				<bloque>
+					<idea ordenAparicion="1">
+						<texto tipo="normal">Este es un texto</texto>
+					</idea>
+					<idea ordenAparicion="2">
+						<texto tipo="normal">Este texto tiene audio</texto>
+						<voz>Buenos Dias, tardes, noches</voz>
+					</idea>
+					<idea ordenAparicion="3">
+						<texto tipo="manuscrito">Este es un texto manuscrito</texto>
+					</idea>
+					<idea ordenAparicion="4">
+						<texto tipo="ejemplo">Este es el ejemplo 1</texto>
+						<texto tipo="ejemplo">Este es el ejemplo 2</texto>
+						<texto tipo="ejemplo">Este es el ejemplo 3</texto>
+						<texto tipo="ejemplo">Este es el ejemplo 4</texto>
+						<texto tipo="ejemplo">Este es el ejemplo 5</texto>
+					</idea>
+				</bloque>
+			</escena>
+			<escena titulo="Ejemplo de multimedia" tipo="1Col">
+				<bloque>
+					<idea ordenAparicion="1">
+						<texto tipo="normal">El siguiente es un ejemplo de una imagen</texto>
+						<media tipo="imagen">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>
+					</idea>				
+					<idea ordenAparicion="3">
+						<texto tipo="normal">soy un texto</texto>
+					</idea>
+				</bloque>
+			</escena>
+
+			<escena titulo="Ejemplo de mano" tipo="1Col">
+				<bloque>
+					<idea ordenAparicion="1">
+						<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
+					</idea>
+				</bloque>
+			</escena>
+<evaluaciones>
+							<evaluacion>
+								<enunciado>Enunciado Evaluacion </enunciado>
+								<opciones>
+									<alternativa tipo="solucion" tema="prueba">Si</alternativa>
+									<alternativa tipo="distractor" tema="prueba">No</alternativa>
+								</opciones>					
+							</evaluacion>
+						</evaluaciones>
+		</objeto>
+	</comenzar>

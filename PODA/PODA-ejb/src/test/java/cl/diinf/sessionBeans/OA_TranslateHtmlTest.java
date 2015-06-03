@@ -6,17 +6,78 @@
 package cl.diinf.sessionBeans;
 
 
+import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
+import java.io.IOException;
+import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
 public class OA_TranslateHtmlTest {
-    
+        private String correctResult;
+        private String entrada;
+        private ObjetoAprendizaje object;
+        
     public OA_TranslateHtmlTest() {
+        correctResult = "";
+        entrada = "<comenzar>\n" +
+"	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
+"		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"normal\">Este es un texto</texto>\n" +
+"				</idea>\n" +
+"				<idea ordenAparicion=\"2\">\n" +
+"					<texto tipo=\"normal\">Este texto tiene audio</texto>\n" +
+"				</idea>\n" +
+"				<idea ordenAparicion=\"3\">\n" +
+"					<texto tipo=\"manuscrito\">Este es un texto manuscrito</texto>\n" +
+"				</idea>\n" +
+"				<idea ordenAparicion=\"4\">\n" +
+"					<texto tipo=\"ejemplo\">Este es el ejemplo 1</texto>\n" +
+"					<texto tipo=\"ejemplo\">Este es el ejemplo 2</texto>\n" +
+"					<texto tipo=\"ejemplo\">Este es el ejemplo 3</texto>\n" +
+"					<texto tipo=\"ejemplo\">Este es el ejemplo 4</texto>\n" +
+"					<texto tipo=\"ejemplo\">Este es el ejemplo 5</texto>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"		<escena titulo=\"Ejemplo de multimedia\" tipo=\"1Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"normal\">El siguiente es un ejemplo de una imagen</texto>\n" +
+"				</idea>				\n" +
+"				<idea ordenAparicion=\"3\">\n" +
+"					<texto tipo=\"normal\">soy un texto</texto>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"		<escena titulo=\"Ejemplo de mano\" tipo=\"1Col\">\n" +
+"			<bloque>\n" +
+"				<idea ordenAparicion=\"1\">\n" +
+"					<texto tipo=\"manuscrito\">Este texto será escrito a MANO.</texto>\n" +
+"				</idea>\n" +
+"			</bloque>\n" +
+"		</escena>\n" +
+"		<evaluaciones>\n" +
+"			<evaluacion>\n" +
+"				<enunciado>Enunciado Evaluacion </enunciado>\n" +
+"				<opciones>\n" +
+"					<alternativa tipo=\"solucion\" tema=\"prueba\">Si</alternativa>\n" +
+"					<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
+"					<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
+"					<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>						\n" +
+"				</opciones>					\n" +
+"			</evaluacion>\n" +
+"		</evaluaciones>\n" +
+"	</objeto>\n" +
+"</comenzar>";
     }
     
     @BeforeClass
@@ -28,7 +89,14 @@ public class OA_TranslateHtmlTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
+        OA_Reader test = new OA_Reader();
+        test.setFileContent(entrada);
+        test.AppendDTD();
+        OA_TranslateHtml trans = new OA_TranslateHtml();
+        object = test.readOA().get(0);
+        String result = trans.writeHtml(object);
+        correctResult = result;
     }
     
     @After
@@ -37,221 +105,78 @@ public class OA_TranslateHtmlTest {
 
     /**
      * Test of writeHtml method, of class OA_TranslateHtml.
+     * @throws java.lang.Exception
      */
+    
     @Test
     public void testWriteHtml() throws Exception {
-        /*
-          Debido a el cómo trabajan todas estas funciones en conjunto,
-          el resultado correcto sólo será obtenido si todas funcionan
-          como deben.
-        */
+        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        assertEquals(testTranslate.writeHtml(object),this.correctResult);
         
-        OA_Reader test = new OA_Reader();
-        test.setFileContent("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-"<!DOCTYPE comenzar [\n" +
-"<!ELEMENT comenzar (objeto)>\n" +
-"<!ELEMENT objeto (escena+)>\n" +
-"<!ELEMENT escena (bloque+)>\n" +
-"<!ELEMENT bloque (idea*)>\n" +
-"<!ELEMENT idea (texto*, voz?)>\n" +
-"<!ELEMENT texto (#PCDATA)>\n" +
-"<!ELEMENT voz (#PCDATA)>\n" +
-"\n" +
-"<!ATTLIST objeto titulo CDATA #REQUIRED>\n" +
-"<!ATTLIST objeto autor CDATA #REQUIRED>\n" +
-"<!ATTLIST objeto tema CDATA #REQUIRED>\n" +
-"<!ATTLIST escena titulo CDATA #REQUIRED>\n" +
-"<!ATTLIST escena tipo CDATA #REQUIRED>\n" +
-"\n" +
-"<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n" +
-"<!ATTLIST texto tipo CDATA #REQUIRED>	\n" +
-"]>\n" +
-"\n" +
-"<comenzar>\n" +
-"	<objeto titulo=\"Presentación de PODA en la Sprint Review 2\" tema=\"usach\" autor=\"Grupo 1 PINGESO\">\n" +
-"		<escena titulo=\"Diseño 1 columna\" tipo=\"1Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo=\"normal\">Texto de un primer parrafo de la primera escena</texto>\n" +
-"					<texto tipo=\"codigo\">\n" +
-"						//Soy texto de un codigo\n" +
-"						if(cont==0):\n" +
-"							var = cont + 1\n" +
-"						else:\n" +
-"							var = cont + 2\n" +
-"					</texto>\n" +
-"					<texto tipo=\"manuscrito\">Soy texto manuscrito</texto>\n" +
-"					<voz>Idea 1</voz>\n" +
-"				</idea>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo=\"normal\">Soy un texto de una segunda idea con dos pilas de ejemplos</texto>					\n" +
-"					<texto tipo=\"normal\">Primer conjunto de ejemplos</texto>					\n" +
-"					<texto tipo=\"ejemplo\">Soy el ejemplo 1.1</texto>\n" +
-"					<texto tipo=\"ejemplo\">Soy el ejemplo 1.2</texto>\n" +
-"					<texto tipo=\"ejemplo\">Soy el ejemplo 1.3</texto>\n" +
-"					<texto tipo=\"ejemplo\">Soy el ejemplo 1.4</texto>\n" +
-"					<texto tipo=\"normal\">Segundo conjunto de ejemplos</texto>\n" +
-"					<texto tipo=\"ejemplo\">Soy el ejemplo 2.1</texto>\n" +
-"					<texto tipo=\"ejemplo\">Soy el ejemplo 2.2</texto>\n" +
-"					<texto tipo=\"ejemplo\">Soy el ejemplo 2.3</texto>\n" +
-"					<texto tipo=\"ejemplo\">Soy el ejemplo 2.4</texto>\n" +
-"					<voz>Idea 2 con ejemplos</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"\n" +
-"		<escena titulo=\"Diseño 1 fila superior 2 columnas\" tipo=\"1Fil2Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la fila superior de la escena 2 que sale primero</texto>\n" +
-"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
-"					<voz>Idea 1</voz>\n" +
-"				</idea>\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo = \"manuscrito\">Soy un texto /dmanuscritod/ de la fila /esuperiore/ que aparece tercero</texto>\n" +
-"					<voz>Idea 3</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"4\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna inferior izquierda que aparece cuarto</texto>\n" +
-"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
-"					<voz>Idea 4</voz>\n" +
-"				</idea>				\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna inferior derecha que aparece segundo</texto>\n" +
-"					<voz>Idea 2</voz>\n" +
-"				</idea>\n" +
-"				<idea ordenAparicion=\"5\">\n" +
-"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la columna inferior izquierda que aparece quinto</texto>\n" +
-"					<voz>Idea 5</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"		</escena>\n" +
-"\n" +
-"		<escena titulo=\"Diseño 2 columnas\" tipo=\"2Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la fila superior de la escena 2 que sale primero</texto>\n" +
-"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
-"					<voz>Idea 1</voz>\n" +
-"				</idea>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la fila superior que aparece tercero</texto>\n" +
-"					<voz>Idea 2</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna inferior izquierda que aparece cuarto</texto>\n" +
-"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
-"					<voz>Idea 3</voz>\n" +
-"				</idea>				\n" +
-"			</bloque>			\n" +
-"		</escena>\n" +
-"\n" +
-"		<escena titulo=\"Diseño 3 columnas\" tipo=\"3Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna izquierda</texto>\n" +
-"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
-"					<voz>Idea 1</voz>\n" +
-"				</idea>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la columna izquierda</texto>\n" +
-"					<voz>Idea 2</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna de al medio</texto>\n" +
-"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
-"					<voz>Idea 3</voz>\n" +
-"				</idea>				\n" +
-"			</bloque>			\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"4\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna derecha</texto>\n" +
-"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
-"					<voz>Idea 4</voz>\n" +
-"				</idea>				\n" +
-"			</bloque>			\n" +
-"		</escena>\n" +
-"\n" +
-"		<escena titulo=\"Diseño 2 filas 2 columnas\" tipo=\"2Fil2Col\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la fila superior</texto>\n" +
-"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
-"					<voz>Idea 1</voz>\n" +
-"				</idea>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la fila superior</texto>\n" +
-"					<voz>Idea 2</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna izquierda</texto>\n" +
-"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
-"					<voz>Idea 3</voz>\n" +
-"				</idea>				\n" +
-"			</bloque>			\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"5\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna derecha</texto>\n" +
-"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
-"					<voz>Idea 5</voz>\n" +
-"				</idea>				\n" +
-"			</bloque>			\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"4\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la fila inferior</texto>\n" +
-"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
-"					<voz>Idea 4</voz>\n" +
-"				</idea>				\n" +
-"			</bloque>			\n" +
-"		</escena>\n" +
-"\n" +
-"		<escena titulo=\"Diseño 2 columnas 1 fila\" tipo=\"2Col1Fil\">\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"1\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna superior izquierda</texto>\n" +
-"					<texto tipo = \"normal\">/dSoy un texto destacadod/</texto>					\n" +
-"					<voz>Idea 1</voz>\n" +
-"				</idea>\n" +
-"				<idea ordenAparicion=\"2\">\n" +
-"					<texto tipo = \"manuscrito\">Soy un texto manuscrito de la columna superior izquierda</texto>\n" +
-"					<voz>Idea 2</voz>\n" +
-"				</idea>\n" +
-"			</bloque>\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"3\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la columna superior derecha</texto>\n" +
-"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
-"					<voz>Idea 3</voz>\n" +
-"				</idea>				\n" +
-"			</bloque>			\n" +
-"			<bloque>\n" +
-"				<idea ordenAparicion=\"4\">\n" +
-"					<texto tipo = \"normal\">Soy un texto de la fila inferior</texto>\n" +
-"					<texto tipo = \"manuscrito\">/eSoy un texto manuscrito enfatizadoe/</texto>\n" +
-"					<voz>Idea 4</voz>\n" +
-"				</idea>				\n" +
-"			</bloque>						\n" +
-"		</escena>\n" +
-"	</objeto>\n" +
-"</comenzar>");
-        OA_TranslateHtml trans = new OA_TranslateHtml();
-        String result = trans.writeHtml(test.readOA().get(0));
+    }
+    
+    @Test
+    public void testWriteContent(){
+        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
         boolean var = false;
-        String[] lines = result.split("\r\n|\r|\n");
-        if(lines.length == 355){
+        if(this.correctResult.contains(testTranslate.write_contentHtml(object, object.getTitle()))){
             var = true;
         }
-        assertEquals(true, var);
-        //assertEquals(1,1);
+        assertTrue(var);        
     }
+    @Test
+    public void testWriteEvaluacion() throws IOException{
+        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        boolean var = false;
+        if(this.correctResult.contains(testTranslate.write_evaluacionHtml(object))){
+            var = true;
+        }
+        assertTrue(var);  
+    }
+    @Test
+    public void testWriteDate() throws IOException{
+        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        boolean var = false;
+        if(this.correctResult.contains(testTranslate.write_date(new Date()))){
+            var = true;
+        }
+        assertTrue(var);
+    }
+    
+    @Test
+    public void testWriteHeader() throws IOException{
+        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        boolean var = false;
+        if(this.correctResult.contains(testTranslate.write_headerHtml(object))){
+            var = true;
+        }
+        assertTrue(var);
+        
+    }
+    
+    @Test
+    public void testWriteLibrsHtml() throws IOException{
+        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        boolean var = false;
+        if(this.correctResult.contains(testTranslate.write_librsHtml(object))){
+            var = true;
+        }
+        assertTrue(var);
+        
+    }
+    
+    @Test
+    public void testWriteTitleHtml() throws IOException{
+        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        boolean var = false;
+        if(this.correctResult.contains(testTranslate.write_titleHtml(object))){
+            var = true;
+        }
+        assertTrue(var);
+        
+    }
+        
+        
+    
+    
 }
