@@ -146,6 +146,11 @@ public class FileUpload implements Serializable{
                     error_Message = "No se ha podido conectar con el servidor de audio.";
                 }
                 
+                if(OA_translate.getTranslateError().equals("NO_MEDIA")){
+                    code_html = null;
+                    error_Message = "No se ha podido conectar con el servidor de medios (imagen no encontrada).";
+                }
+                
                 this.OA_Name = OA_List.get(0).getTitle();
                 //prepareDownload();
                 try{
