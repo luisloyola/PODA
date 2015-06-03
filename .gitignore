@@ -2,3 +2,9 @@
 *.class
 *~
 *.mp3
+.gwt/
+.settings/
+.project
+.classpath
+*/target/**
+*/standalone/deployments/**
