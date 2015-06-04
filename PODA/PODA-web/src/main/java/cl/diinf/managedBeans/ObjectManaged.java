@@ -154,7 +154,13 @@ public class ObjectManaged implements Serializable{
                 //prepareDownload();
                 try{
                     FacesContext contex = FacesContext.getCurrentInstance();
-                    contex.getExternalContext().redirect("/PODA-web/objeto_aprendizaje.xhtml");
+                    if(error_Message.equals("Su objeto de aprendizaje ha sido creado correctamente")){
+                        
+                        contex.getExternalContext().redirect("/PODA-web/objeto_aprendizaje.xhtml");
+                    }
+                    else{
+                        contex.getExternalContext().redirect("/PODA-web/");
+                    }
                 }catch(Exception e){
                     System.err.println(e);
                 }
