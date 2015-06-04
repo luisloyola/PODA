@@ -164,10 +164,10 @@ public class TranslateHtml {
                         lim_line = 100;
                         break;
                     case 1:
-                        lim_line = 40;
+                        lim_line = 45;
                         break;
                     case 2:
-                        lim_line = 40;
+                        lim_line = 45;
                         break;
                     default:
                         break;
@@ -177,10 +177,10 @@ public class TranslateHtml {
             case "2Col":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 40;
+                        lim_line = 45;
                         break;
                     case 1:
-                        lim_line = 40;
+                        lim_line = 45;
                         break;                   
                     default:
                         break;
@@ -190,13 +190,13 @@ public class TranslateHtml {
             case "3Col":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 40;
+                        lim_line = 27;
                         break;
                     case 1:
-                        lim_line = 40;
+                        lim_line = 27;
                         break;
                     case 2:
-                        lim_line = 40;
+                        lim_line = 27;
                         break;
                     default:
                         break;
@@ -209,13 +209,13 @@ public class TranslateHtml {
                         lim_line = 100;
                         break;
                     case 1:
-                        lim_line = 40;
+                        lim_line = 27;
                         break;
                     case 2:
-                        lim_line = 40;
+                        lim_line = 27;
                         break;
                     case 3:
-                        lim_line = 40;
+                        lim_line = 27;
                         break;
                     default:
                         break;
@@ -294,15 +294,11 @@ public class TranslateHtml {
                     }                    
                     if(id_hand > -1){
                                                 
-                        int caracter_max = getCharMax(object, i, j );
-                        /*int lenght_manus = idea.getText().get(id_hand).getContent().length() / caracter_max;
-                        
-                        if(lenght_manus % caracter_max != 0)
-                            lenght_manus += 1;
-                        */
-                        trozos= trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
+                        int caracter_max = getCharMax(object, i, j );                        
+                        trozos = trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
+                        
                         for(int m = 0; m < trozos.size(); m++){
                             text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
                             
@@ -358,40 +354,43 @@ public class TranslateHtml {
     
     public ArrayList<String> trozarCadena(String content_text,int filOrCol){
                
-        ArrayList<String> text_manus_split = new ArrayList();
-        int lim_fil = 100;
-        int lim_col = 40;
+        ArrayList<String> piece_string = new ArrayList();
         
-        if(filOrCol==lim_col){
-            int cont = lim_col;
-                    int aux_ind = 0;
-        int index = 0;
-            while(cont < content_text.length()){
-                                
-                aux_ind = content_text.indexOf(" ", cont)+1;
-                text_manus_split.add(content_text.substring(index, aux_ind));
-                cont = lim_col+aux_ind;
-                index = aux_ind;
-            }            
-            text_manus_split.add(content_text.substring(index, content_text.length()));
-        }        
+        int limite = filOrCol;
+        int count_char = 0;
+        String words_line = "";
+        String[] words_content = content_text.split(" ");
         
-        else if(filOrCol==lim_fil){
-                    int aux_ind = 0;
-        int index = 0;
-            int cont = lim_fil;
+        for( int i = 0; i < words_content.length; i++){
             
-            while(cont < content_text.length()){
-                                
-                aux_ind = content_text.indexOf(" ", cont)+1;
-                text_manus_split.add(content_text.substring(index, aux_ind));
-                cont = lim_fil+aux_ind;
-                index = aux_ind;
-            }            
-            text_manus_split.add(content_text.substring(index, content_text.length()));
-        }
-        return text_manus_split;
-        
+            count_char += words_content[i].length();
+            
+            if( count_char > limite ){
+                
+                String word_aux = words_content[i];
+                
+                if(!words_line.equals("")){
+                    piece_string.add(words_line);  
+                    words_line = "";
+                }                
+                while(word_aux.length() > limite){
+                    piece_string.add(word_aux.substring(0, limite));
+                    word_aux=word_aux.substring(limite);
+                }   
+                if(word_aux.length() != 0)
+                    words_line = word_aux + " ";
+                
+                count_char = words_line.length();
+            }
+            else{                    
+                words_line += words_content[i] + " ";
+                
+                if( i+1 == words_content.length ){
+                    piece_string.add(words_line);
+                }
+            }
+        }                 
+        return piece_string;        
     }
     
     public String write_hand(ArrayList<String> trozos, String design, int numberSlide, int numberBlock, int numberIdea, String designBlock){
@@ -445,10 +444,10 @@ public class TranslateHtml {
     
     public String write_evaluacionHtml(ObjetoAprendizaje object) throws IOException{
                     
-        String templateCss = null;
-        String templateEvaluacion1 = null;
-        String templateRescatarTemas = null;
-        String templateFuncionesFijas = null;
+        String templateCss = "";
+        String templateEvaluacion1 = "";
+        String templateRescatarTemas = "";
+        String templateFuncionesFijas = "";
         String total = null;
         templateCss = "<style>div#evaluacion{ border:#000 1px solid; padding:10px 40px 40px 40px; }" +
                       "table, th, td {border: 1px solid black; border-collapse: collapse;}"+
@@ -1096,7 +1095,6 @@ public class TranslateHtml {
     public String write_scriptHand(ObjetoAprendizaje object){
         String codeHtml = "";
         String scriptHand= "" ;
-        ArrayList<String> trozos= new ArrayList();
 
             for(int i = 0; i < object.getContent().size(); i++){
             Slide slide = object.getContent().get(i);
@@ -1121,8 +1119,8 @@ public class TranslateHtml {
                     if(id_hand > -1){
                                                 
                         int caracter_max = getCharMax(object, i, j );
-
-                        trozos= trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
+                        
+                        ArrayList <String >trozos= trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
                         for(int m = 0; m < trozos.size(); m++){
