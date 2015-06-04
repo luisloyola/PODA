@@ -19,11 +19,11 @@ import java.util.List;
  * @author teamPODA
  */
 @Stateless
-public class OA_TranslateHtml implements OA_TranslateHtmlLocal {    
+public class TranslateHtml {    
     
     private String translateError;
     
-    public OA_TranslateHtml(){
+    public TranslateHtml(){
         translateError = "NO_ERROR";
     }
 
@@ -44,9 +44,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
      */
     public String writeHtml(ObjetoAprendizaje object) throws IOException{
                     
-        String codeHtml;
-
-        String OATitle= object.getTitle();
+        String codeHtml;       
         String OAName = object.getName_file();
         
         codeHtml = "<!DOCTYPE html>\n" +"<html>\n" + "<head>\n";
@@ -54,7 +52,7 @@ public class OA_TranslateHtml implements OA_TranslateHtmlLocal {
         codeHtml += write_scriptHeaderHtml(object);        
         codeHtml += "</head>\n"+"<body>\n";
         codeHtml += "  <div class=\"deck-container\">\n";
-        codeHtml += write_contentHtml(object, OAName);        
+        codeHtml += write_contentHtml(object, OAName);
         codeHtml += write_librsHtml(object);
         codeHtml += write_scriptHand(object);
         codeHtml += "</div>\n";

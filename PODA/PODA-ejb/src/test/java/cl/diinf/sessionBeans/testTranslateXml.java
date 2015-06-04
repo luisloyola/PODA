@@ -19,12 +19,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 
-public class OA_TranslateHtmlTest {
+public class testTranslateXml {
         private String correctResult;
         private String entrada;
         private ObjetoAprendizaje object;
         
-    public OA_TranslateHtmlTest() {
+    public testTranslateXml() {
         correctResult = "";
         entrada = "<comenzar>\n" +
 "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
@@ -90,10 +90,10 @@ public class OA_TranslateHtmlTest {
     
     @Before
     public void setUp() throws IOException {
-        OA_Reader test = new OA_Reader();
+        readerXml test = new readerXml();
         test.setFileContent(entrada);
         test.AppendDTD();
-        OA_TranslateHtml trans = new OA_TranslateHtml();
+        TranslateHtml trans = new TranslateHtml();
         object = test.readOA().get(0);
         String result = trans.writeHtml(object);
         correctResult = result;
@@ -104,20 +104,20 @@ public class OA_TranslateHtmlTest {
     }
 
     /**
-     * Test of writeHtml method, of class OA_TranslateHtml.
+     * Test of writeHtml method, of class TranslateHtml.
      * @throws java.lang.Exception
      */
     
     @Test
     public void testWriteHtml() throws Exception {
-        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        TranslateHtml testTranslate = new TranslateHtml();
         assertEquals(testTranslate.writeHtml(object),this.correctResult);
         
     }
     
     @Test
     public void testWriteContent(){
-        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        TranslateHtml testTranslate = new TranslateHtml();
         boolean var = false;
         if(this.correctResult.contains(testTranslate.write_contentHtml(object, object.getTitle()))){
             var = true;
@@ -126,7 +126,7 @@ public class OA_TranslateHtmlTest {
     }
     @Test
     public void testWriteEvaluacion() throws IOException{
-        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        TranslateHtml testTranslate = new TranslateHtml();
         boolean var = false;
         if(this.correctResult.contains(testTranslate.write_evaluacionHtml(object))){
             var = true;
@@ -135,7 +135,7 @@ public class OA_TranslateHtmlTest {
     }
     @Test
     public void testWriteDate() throws IOException{
-        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        TranslateHtml testTranslate = new TranslateHtml();
         boolean var = false;
         if(this.correctResult.contains(testTranslate.write_date(new Date()))){
             var = true;
@@ -145,7 +145,7 @@ public class OA_TranslateHtmlTest {
     
     @Test
     public void testWriteHeader() throws IOException{
-        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        TranslateHtml testTranslate = new TranslateHtml();
         boolean var = false;
         if(this.correctResult.contains(testTranslate.write_headerHtml(object))){
             var = true;
@@ -156,7 +156,7 @@ public class OA_TranslateHtmlTest {
     
     @Test
     public void testWriteLibrsHtml() throws IOException{
-        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        TranslateHtml testTranslate = new TranslateHtml();
         boolean var = false;
         if(this.correctResult.contains(testTranslate.write_librsHtml(object))){
             var = true;
@@ -167,7 +167,7 @@ public class OA_TranslateHtmlTest {
     
     @Test
     public void testWriteTitleHtml() throws IOException{
-        OA_TranslateHtml testTranslate = new OA_TranslateHtml();
+        TranslateHtml testTranslate = new TranslateHtml();
         boolean var = false;
         if(this.correctResult.contains(testTranslate.write_titleHtml(object))){
             var = true;

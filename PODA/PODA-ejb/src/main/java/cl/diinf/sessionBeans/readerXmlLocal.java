@@ -16,7 +16,7 @@ import javax.ejb.Local;
  * @author teban
  */
 @Local
-public interface OA_ReaderLocal {
+public interface readerXmlLocal {
     
     
     public String getContenidoFile();

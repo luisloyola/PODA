@@ -20,9 +20,9 @@ import org.primefaces.model.StreamedContent;
  *
  * @author teban
  */
-public class FileUploadTest {
+public class testObjectManaged {
     
-    public FileUploadTest() {
+    public testObjectManaged() {
     }
     
     @BeforeClass
@@ -44,12 +44,12 @@ public class FileUploadTest {
 
 
     /**
-     * Test of prepareDownload method, of class FileUpload.
+     * Test of prepareDownload method, of class ObjectManaged.
      */
     @Test
     public void testPrepareDownload() throws IOException {
         
-        FileUpload instance = new FileUpload();
+        ObjectManaged instance = new ObjectManaged();
         instance.setCode_html("<html></html>");
         boolean var = false;
         File result = instance.prepareDownload();

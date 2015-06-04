@@ -19,11 +19,11 @@ import org.junit.Ignore;
  *
  * @author teban
  */
-public class OA_ReaderTest {
+public class testReaderXml {
 
     List<ObjetoAprendizaje> objects;
     
-    public OA_ReaderTest() {
+    public testReaderXml() {
     }
     
     @BeforeClass
@@ -38,7 +38,7 @@ public class OA_ReaderTest {
     @Before
     public void setUp() {
                                 
-        OA_Reader good_instance = new OA_Reader();
+        readerXml good_instance = new readerXml();
         
         String good_xml =   "<comenzar>\n" +
                             "   <objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
@@ -154,7 +154,7 @@ public class OA_ReaderTest {
                             "        \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        OA_Reader instance = new OA_Reader();
+        readerXml instance = new readerXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -363,7 +363,7 @@ public class OA_ReaderTest {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        OA_Reader instance = new OA_Reader();
+        readerXml instance = new readerXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -387,7 +387,7 @@ public class OA_ReaderTest {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        OA_Reader instance = new OA_Reader();
+        readerXml instance = new readerXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -411,7 +411,7 @@ public class OA_ReaderTest {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        OA_Reader instance = new OA_Reader();
+        readerXml instance = new readerXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -435,7 +435,7 @@ public class OA_ReaderTest {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        OA_Reader instance = new OA_Reader();
+        readerXml instance = new readerXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -460,7 +460,7 @@ public class OA_ReaderTest {
                             "		</escena>\n" +
                             "	</objeto>\n" +
                             "</comenzar>";
-        OA_Reader instance = new OA_Reader();
+        readerXml instance = new readerXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -494,7 +494,7 @@ public class OA_ReaderTest {
                             "		</escena>\n" +
                             "	</objeto>\n" +
                             "</comenzar>";
-        OA_Reader instance = new OA_Reader();
+        readerXml instance = new readerXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -505,7 +505,7 @@ public class OA_ReaderTest {
      */
     
     public void testReadOADTDAppend() {
-        OA_Reader instance = new OA_Reader();
+        readerXml instance = new readerXml();
         String content = "<comenzar>\n" +
                         "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
                         "		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
@@ -558,7 +558,7 @@ public class OA_ReaderTest {
     
     @Ignore  
     public void testPreProcessText(){
-        OA_Reader instance = new OA_Reader();
+        readerXml instance = new readerXml();
         instance.setFileContent("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                                 "<!DOCTYPE comenzar SYSTEM \"validator.dtd\"> \n" +
                                 "\n" +

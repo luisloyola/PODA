@@ -18,12 +18,12 @@ import java.util.UUID;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.DOMException;
 
-public class OA_Reader {
+public class readerXml {
 
     private String parsingError;
     private String fileContent;
 
-    public OA_Reader() {
+    public readerXml() {
     }
 
     public String getFileContent() {

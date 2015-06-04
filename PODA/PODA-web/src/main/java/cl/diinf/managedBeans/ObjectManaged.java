@@ -8,8 +8,8 @@ import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-import cl.diinf.sessionBeans.OA_Reader;
-import cl.diinf.sessionBeans.OA_TranslateHtml;
+import cl.diinf.sessionBeans.readerXml;
+import cl.diinf.sessionBeans.TranslateHtml;
 import cl.diinf.util.Compressor;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,7 +31,7 @@ import org.apache.commons.io.FileUtils;
  */
 @Named(value = "fileUpload")
 @SessionScoped
-public class FileUpload implements Serializable{
+public class ObjectManaged implements Serializable{
    
     private Part file;
     private StreamedContent zipFile;
@@ -125,7 +125,7 @@ public class FileUpload implements Serializable{
         }
         if (fileContent != null && !fileContent.isEmpty()){
            
-            OA_Reader nuevoOAR = new OA_Reader();
+            readerXml nuevoOAR = new readerXml();
             
             nuevoOAR.setFileContent(fileContent);
             
@@ -134,9 +134,8 @@ public class FileUpload implements Serializable{
             List<ObjetoAprendizaje> OA_List = nuevoOAR.readOA();                        
             
             if(OA_List.size() > 0){
-                /*Cargara el objeto SÓLO si es válido*/
-                OA_TranslateHtml OA_translate = new OA_TranslateHtml();
-            
+                
+                TranslateHtml OA_translate = new TranslateHtml();            
 
                 error_Message = "Su objeto de aprendizaje ha sido creado correctamente";
                 code_html = OA_translate.writeHtml(OA_List.get(0));                  
@@ -177,8 +176,7 @@ public class FileUpload implements Serializable{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", this.getError_Message()));
             else
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", this.getError_Message()));
-        }
-        //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", this.getError_Message()));
+        }        
     }    
     public void reset_message(){
         this.error_Message = null;
@@ -187,11 +185,12 @@ public class FileUpload implements Serializable{
     /**
      * 
      * @return Devuelve el archivo .Zip generado.
+     * @throws java.io.IOException
      */
     public File prepareDownload() throws IOException{
         
         String folderName = String.valueOf(Math.random()*100000+1);
-        String folderPath = "";
+        String folderPath;
         File newDirectory = new File(folderName);
         if(!newDirectory.exists()){
             try{
@@ -232,7 +231,7 @@ public class FileUpload implements Serializable{
     
     public File prepareScormDownload() throws IOException{
         String folderName = String.valueOf(Math.random()*100000+1);
-        String folderPath = "";
+        String folderPath;
         File newDirectory = new File(folderName);
         if(!newDirectory.exists()){
             try{
@@ -267,8 +266,7 @@ public class FileUpload implements Serializable{
             }
         }   
         return new File("SCORM-"+folderName+".zip");
-    }
-    
+    }    
     
     /**
      * 
@@ -289,8 +287,7 @@ public class FileUpload implements Serializable{
         this.scormFile = new DefaultStreamedContent(stream, "application/zip", "PODA-SCORM-"+this.OA_Name+".zip");    
         temp.delete();
         return this.scormFile; 
-    }
-    
+    }    
     
     public void copyDirectory(File sourceLocation , File targetLocation)
     throws IOException {
@@ -319,32 +316,5 @@ public class FileUpload implements Serializable{
             in.close();
             out.close();
         }
-    }
-    
-    
-    
-    
-    
-        /**
-         * Validador del archivo para el frontend.
-         * @param ctx
-         * @param comp
-         * @param value 
-         */
-    /*public void validateFile(FacesContext ctx, UIComponent comp, Object value) {
-       
-        List<FacesMessage> msgs = new ArrayList<FacesMessage>();
-       
-        Part file = (Part)value;
-       
-        if (file.equals(null)) {
-          msgs.add(new FacesMessage("No hay archivo"));
-        }
-        if (!msgs.isEmpty()) {
-          throw new ValidatorException(msgs);
-        }
-    }     */       
-   
-    
-        
+    }            
 }
