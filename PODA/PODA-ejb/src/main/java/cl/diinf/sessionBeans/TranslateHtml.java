@@ -21,7 +21,7 @@ import java.util.List;
 @Stateless
 public class TranslateHtml {    
     
-    private String translateError;
+    private String translateError;    
     
     public TranslateHtml(){
         translateError = "NO_ERROR";
@@ -190,13 +190,13 @@ public class TranslateHtml {
             case "3Col":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 27;
+                        lim_line = 30;
                         break;
                     case 1:
-                        lim_line = 27;
+                        lim_line = 30;
                         break;
                     case 2:
-                        lim_line = 27;
+                        lim_line = 30;
                         break;
                     default:
                         break;
@@ -209,13 +209,13 @@ public class TranslateHtml {
                         lim_line = 100;
                         break;
                     case 1:
-                        lim_line = 27;
+                        lim_line = 30;
                         break;
                     case 2:
-                        lim_line = 27;
+                        lim_line = 30;
                         break;
                     case 3:
-                        lim_line = 27;
+                        lim_line = 30;
                         break;
                     default:
                         break;
@@ -228,13 +228,13 @@ public class TranslateHtml {
                         lim_line = 100;
                         break;
                     case 1:
-                        lim_line = 100;
+                        lim_line = 45;
                         break;
                     case 2:
-                        lim_line = 40;
+                        lim_line = 45;
                         break;
                     case 3:
-                        lim_line = 40;
+                        lim_line = 100;
                         break;
                     default:
                         break;
@@ -243,10 +243,10 @@ public class TranslateHtml {
             case "2Col1Fil":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 40;
+                        lim_line = 45;
                         break;
                     case 1:
-                        lim_line = 40;
+                        lim_line = 45;
                         break;
                     case 2:
                         lim_line = 100;
@@ -265,7 +265,7 @@ public class TranslateHtml {
     public String write_scriptHeaderHtml(ObjetoAprendizaje object){
         
         String script_header = "";
-        ArrayList<String> trozos= new ArrayList();
+        ArrayList<String> trozos;
         for(int i = 0; i < object.getContent().size(); i++){
             Slide slide = object.getContent().get(i);
             
@@ -294,7 +294,7 @@ public class TranslateHtml {
                     }                    
                     if(id_hand > -1){
                                                 
-                        int caracter_max = getCharMax(object, i, j );                        
+                        int caracter_max = getCharMax(object, i, j );                                               
                         trozos = trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
@@ -356,7 +356,7 @@ public class TranslateHtml {
                
         ArrayList<String> piece_string = new ArrayList();
         
-        int limite = filOrCol;
+        int limite = filOrCol;        
         int count_char = 0;
         String words_line = "";
         String[] words_content = content_text.split(" ");
@@ -393,46 +393,11 @@ public class TranslateHtml {
         return piece_string;        
     }
     
-    public String write_hand(ArrayList<String> trozos, String design, int numberSlide, int numberBlock, int numberIdea, String designBlock){
-         String id_handImage="";       
-       /* ArrayList<String> text_manus_split = new ArrayList();
-        int lim_fil = 100;
-        int lim_col = 40;
+    public String write_hand(ArrayList<String> trozos, int numberSlide, int numberBlock, int numberIdea){
         
-        if(designBlock.equals("col")){
-            int cont = lim_col;
-            int aux_ind = 0;
-            int index = 0;
-            
-            while(index < text_manus.length()){
-                                
-                aux_ind = text_manus.indexOf(" ", index);
-                text_manus_split.add(text_manus.substring(index, aux_ind));
-                cont = lim_col+aux_ind;
-                index = aux_ind;
-            }            
-            text_manus_split.add(text_manus.substring(index, text_manus.length()));
-        }        
-        
-        else if(designBlock.equals("fila")){
-            int cont = lim_fil;
-            int aux_ind = 0;
-            int index = 0;
-            
-            while(cont < text_manus.length()){
-                                
-                aux_ind = text_manus.indexOf(" ", cont);
-                text_manus_split.add(text_manus.substring(index, aux_ind));
-                cont = lim_fil+aux_ind;
-                index = aux_ind;
-            }            
-            text_manus_split.add(text_manus.substring(index, text_manus.length()));
-        }*/
-        String text = "";
-        String image_hand="";
-        id_handImage= "\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"\"";
-        image_hand+="\n<IMG id="+ id_handImage+" SRC=\"resources/manoconmanga.png\" WIDTH=700 HEIGHT=700 style=\"position:absolute;\">\n";
-        text+=image_hand;
+        String id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"\"";        
+        String text = "\n<IMG id="+ id_handImage+" SRC=\"resources/manoconmanga.png\" WIDTH=700 HEIGHT=700 style=\"position:absolute;\">\n";
+                                        
         for(int i = 0; i < trozos.size(); i++){
         
             text +=  "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
@@ -737,19 +702,12 @@ public class TranslateHtml {
         return code_media;
     }
     
-    public String write_block(Block block, int numberSlide, int numberBlock, String design, String OAName, String OAPath, String designBlock){
+    public String write_block(Block block, int numberSlide, int numberBlock, String design, String OAName, String OAPath, int lim_line){
                         
         String codeHtml = "";        
         ArrayList<String>list_examples = new ArrayList();
-        ArrayList<String> trozos = new ArrayList<>();
-        int lim = 0;
-        int idHand=0;
-        if(designBlock.equals("fila")){
-            lim = 100;
-        }
-        else{
-            lim = 40;
-        }
+        ArrayList<String> trozos = new ArrayList<>();                    
+                        
         for(int i = 0; i < block.getIdeas().size(); i++){
                                         
             Idea idea = block.getIdeas().get(i);            
@@ -775,9 +733,9 @@ public class TranslateHtml {
                         codeHtml += "</p>";
                         break;
                         
-                    case "manuscrito":
-                        trozos=trozarCadena(idea.getText().get(j).getContent(), lim);
-                        codeHtml += write_hand(trozos, design, numberSlide, numberBlock, i, designBlock);                        
+                    case "manuscrito":                        
+                        trozos=trozarCadena(idea.getText().get(j).getContent(), lim_line);
+                        codeHtml += write_hand(trozos, numberSlide, numberBlock, i);                        
                         break;
                         
                     case "codigo":
@@ -894,7 +852,12 @@ public class TranslateHtml {
     
     public String write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName, String design){        
         
-        String codeHtml = "";               
+        int tam_fila = 100;
+        int tam_2Col = 45;
+        int tam_3Col = 30;
+        
+        
+        String codeHtml = "";        
         
         codeHtml += "<section class=\"slide\" id=\"slide-"+nro_slide+"\">\n" +
                             "<h2>"+scene.getTitle()+"</h2>\n";          
@@ -902,23 +865,23 @@ public class TranslateHtml {
         switch (scene.getDesign()){
             case "1Col":
                 //escribir contenido del primer bloque                                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design, OAName, OAPath, "fila");
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design, OAName, OAPath, tam_fila);
                 break;
                 
             case "1Fil2Col":
                 //bloque 1
                 codeHtml += "<div class=\"up-2columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design, OAName, OAPath, "fila"); 
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design, OAName, OAPath, tam_fila); 
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"left-2columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design, OAName, OAPath, "col");
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design, OAName, OAPath, tam_2Col);
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"right-2columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, "col");
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_2Col);
                 codeHtml += "</div>";
                         
                 break;
@@ -926,12 +889,12 @@ public class TranslateHtml {
             case "2Col":
                 //escribir contenido del primer bloque
                 codeHtml += "<div class=\"left-2columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design, OAName, OAPath, "col");                                                
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design, OAName, OAPath, tam_2Col);                                                
                 codeHtml += "</div>";
                 
                 //escribir contenido del segundo bloque
                 codeHtml += "<div class=\"right-2columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, "col");
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_2Col);
                 codeHtml += "</div>";
                 
                 break;
@@ -940,17 +903,17 @@ public class TranslateHtml {
                 
                 //bloque 1
                 codeHtml += "<div class=\"left-3columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, "col");                                            
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, tam_3Col);                                            
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"center-3columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, "col");
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_3Col);
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"right-3columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, "col");
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_3Col);
                 codeHtml += "</div>";
                 
                 break;
@@ -958,22 +921,22 @@ public class TranslateHtml {
             case "1Fil3Col":
                 //bloque 1
                 codeHtml += "<div class=\"up-3columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, "fila");
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, tam_fila);
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"left-3columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, "col");                                           
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_3Col);                                           
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"center-3columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, "col");                                          
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_3Col);                                          
                 codeHtml += "</div>";
                 
                 //bloque 4
                 codeHtml += "<div class=\"right-3columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, design, OAName, OAPath, "col");                                            
+                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, design, OAName, OAPath, tam_3Col);
                 codeHtml += "</div>";
                 
                 break;
@@ -982,22 +945,22 @@ public class TranslateHtml {
                 
                 //bloque 1
                 codeHtml += "<div class=\"up-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, "fila");
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, tam_fila);
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"left-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, "fila");                                           
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_fila);                                           
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"right-2columnas-1up-1down\">";
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, "col");                                         
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_2Col);  
                 codeHtml += "</div>";
                 
                 //bloque 4
                 codeHtml += "<div class=\"down-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, design, OAName, OAPath, "col");                                            
+                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, design, OAName, OAPath, tam_2Col);                                            
                 codeHtml += "</div>";
                 
                 break;
@@ -1005,17 +968,17 @@ public class TranslateHtml {
                 
                 //bloque 1
                 codeHtml += "<div class=\"left-2columnas-1down\">";
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, "col");                                                
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, tam_2Col);                                                
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"right-2columnas-1down \">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, "col");
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_2Col);
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"down-2columnas-1down \">";
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, "fila");                                          
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_fila);                                          
                 codeHtml += "</div>";
                 
                 break;
@@ -1118,8 +1081,7 @@ public class TranslateHtml {
                     }                    
                     if(id_hand > -1){
                                                 
-                        int caracter_max = getCharMax(object, i, j );
-                        
+                        int caracter_max = getCharMax(object, i, j );                        
                         ArrayList <String >trozos= trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
@@ -1172,11 +1134,11 @@ public class TranslateHtml {
                                 }
                                 //bloque 2
                                 else if(j==1){
-                                    left="+400";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                                    left="+370";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
                                 }
                                 //bloque 3
                                 else{
-                                    left="+647";
+                                    left="+790";
                                 }
 
                                 break;
@@ -1188,14 +1150,14 @@ public class TranslateHtml {
                                 }
                                 //bloque 2
                                 else if(j==1){
-                                    left="+300";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                                    left="-50";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
                                 }
                                 //bloque 3
                                 else if(j==2){
-                                    left="+600";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                                    left="+370";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
                                 }
                                 else{
-                                    left="+800"; 
+                                    left="+790"; 
                                 }
                                 break;
 
