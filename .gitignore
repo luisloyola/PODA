@@ -2,3 +2,12 @@
 *.class
 *~
 *.mp3
+.gwt/
+.settings/
+.project
+.classpath
+*/target/*
+*/standalone/deployments/*
+/PODA/PODA-web/target/
+/PODA/PODA-ear/target/
+/PODA/PODA-ejb/target/

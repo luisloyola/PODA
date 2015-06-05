@@ -14,6 +14,7 @@
         <h:outputScript library="js" name="alertify.min.js"/>
         
         <body onload="#{fileUpload.show_message()}"></body>
+        <body onload="#{fileUpload.reset_message()}"></body>
             
         <script>
             function ValidateFileFE(){
@@ -73,13 +74,12 @@
                <ul class="nav navbar-nav">
                     <li><a href="/PODA-web/" >Home</a></li>
                     <li><a href="acerca_poda.xhtml">Acerca</a></li>
-              <div class="col-md-9 col-md-push-8">
-             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+              <div class="col-md-9 col-md-push-8">             
              </div>
                </ul> 
              </div><!--/.nav-collapse --> 
            </div>
-             
+             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
          </div>         
         <div id="home" style="background-image: url(resources/aprender2.jpg)">            
             <div class="overlay">                               

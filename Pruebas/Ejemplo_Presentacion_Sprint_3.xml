@@ -1,0 +1,127 @@
+<comenzar>
+	<objeto titulo="Revisión Sprint 3" tema="usach" autor="Equipo PODA">
+		<escena titulo="Contenidos" tipo="1Fil2Col">
+			<bloque>
+				<idea ordenAparicion="1">
+					<texto tipo="normal">Sprint Anteriores</texto>
+					<texto tipo="normal">	Sprint 1</texto>
+					<texto tipo="normal">	Sprint 2</texto>
+					<texto tipo="normal">Sprint Actual</texto>
+					<texto tipo="normal">	Sprint 3</texto>
+					<voz>Buenas tardes, bienvenidos a PODA</voz>
+				</idea>
+			</bloque>
+			<bloque>
+				<idea ordenAparicion="2">
+					<voz>En primer lugar veremos los resultados de los anteriores Sprints</voz>
+				</idea>
+
+			</bloque>
+			<bloque>
+				<idea ordenAparicion="3">
+					<voz>Finalmente veremos lo que se logró en el presente</voz>
+				</idea>
+
+			</bloque>
+		</escena>
+		<escena titulo="Sprint Anteriores: Sprint 1" tipo="1Col">
+			<bloque>
+				<idea ordenAparicion="1">
+					<texto tipo="normal">Sólo existían el texto...</texto>
+					<voz>En el comienzo, el sprint 1, sólo existían la posibilidad de agregar texto</voz>
+				</idea>		
+				<idea ordenAparicion="2">
+					<texto tipo="normal">...y los ejemplos.</texto>
+					<texto tipo="ejemplo">Buenas tardes, soy el ejemplo 1 y tengo 25% de chances de salir</texto>
+					<texto tipo="ejemplo">Buenas tardes, soy el ejemplo 2 y tengo 25% de chances de salir</texto>
+					<texto tipo="ejemplo">Buenas tardes, soy el ejemplo 3 y tengo 25% de chances de salir</texto>
+					<texto tipo="ejemplo">Buenas tardes, soy el ejemplo 4 y tengo 25% de chances de salir</texto>
+					<voz>y los ejemplos, los cuales son elegidos aleatoreamente.</voz>
+				</idea>				
+			</bloque>
+		</escena>
+		<escena titulo="Sprint Anteriores: Sprint 2" tipo="1Fil2Col">
+
+			<bloque>
+				<idea ordenAparicion="1">
+					<voz>Ya en el segundo sprint fui capaz de mostrar diferentes tipos de textos</voz>
+				</idea>		
+				<idea ordenAparicion="9">
+					<texto tipo="normal">Y ahora...</texto>
+					<voz>y ahora, para el tercer sprint.</voz>
+				</idea>				
+			</bloque>
+			<bloque>
+				<idea ordenAparicion="2">
+					<texto tipo="normal">Este es texto normal.</texto>
+					<voz>Como el texto normal.</voz>
+				</idea>		
+				<idea ordenAparicion="3">
+					<texto tipo="codigo">print("texto código")</texto>
+					<voz>el texto código.</voz>
+				</idea>	
+				<idea ordenAparicion="4">
+					<voz>y el texto manuscrito, pero ese dejémoslo para más adelante.</voz>
+				</idea>		
+				<idea ordenAparicion="5">
+					<texto tipo="normal">Ejemplos de texto <enfatizar>enfatizado</enfatizar> y texto <destacar>destacado</destacar></texto>
+					<voz>logré, tambien, enfatizar y destacar textos.</voz>
+				</idea>	
+
+			</bloque>
+			<bloque>
+				<idea ordenAparicion="6">
+					<texto tipo="normal">Este texto está siendo escrito en la segunda columna</texto>
+					<voz>Además se implementaron diseños como este, que consta de una fila superior y dos columnas</voz>
+				</idea>		
+				<idea ordenAparicion="7">
+					<voz>Finalmente logré que fuese posible definir distintos temas donde presentar.</voz>
+				</idea>	
+				<idea ordenAparicion="8">
+					<voz>Y perdí la dependencia de internet para ser oida.</voz>
+				</idea>					
+			</bloque>
+
+		</escena>
+
+		<escena titulo="Sprint Actual: Sprint 3" tipo="2Col">
+			<bloque>
+				<idea ordenAparicion="1">
+					<voz>En primer lugar se nos solicitó la implementación de un fondo usach.</voz>
+				</idea>
+				<idea ordenAparicion="2">
+					<voz>Puede verse en estos momentos y durante lo que ha transcurrido la presentación.</voz>
+				</idea>
+				<idea ordenAparicion="4">
+					<texto tipo="manuscrito">Este texto ha sido escrito por PODA. Puedo continuar sin importar si se acaba el espacio de mi contenedor</texto>
+					<voz>Puego escribir los textos manuscritos. ¿pueden ver mi mano en estos momentos?</voz>
+				</idea>
+				<idea ordenAparicion="6">
+					<voz>Y, finalmente, a continuación, podemos ver las evaluaciones del objeto.</voz>
+				</idea>
+			</bloque>
+			<bloque>
+				<idea ordenAparicion="5">
+					<media tipo="imagen">http://us.cdn4.123rf.com/168nwm/rebirth3d/rebirth3d1106/rebirth3d110600249/9885058-mano-de-la-mujer-hacia-arriba-con-el-dedo-ndice-o-pulsar-bot-n.jpg</media>
+					<voz>Además se habilitó la descarga del paquete scorm para insertar el objeto en moodle.</voz>
+				</idea>
+				<idea ordenAparicion="3">
+					<media tipo="imagen">http://3.bp.blogspot.com/_9co-ToY8Q5M/TKjUQUM_KzI/AAAAAAAAA1U/1oou3mAzPqE/s1600/hola.png</media>
+					<voz>Ahora puedo mostrar imágenes a través de su URL, descargándolas para no depender de internet.</voz>
+				</idea>
+				
+			</bloque>
+		</escena>
+		<evaluaciones>
+			<evaluacion>
+				<enunciado>Enunciado de Evaluacion</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="tema1">Solucion</alternativa>
+					<alternativa tipo="distractor" tema="tema2">Distractor</alternativa>
+					<alternativa tipo="distractor" tema="tema3">Distractor</alternativa>					
+					<alternativa tipo="distractor" tema="tema4">Distractor</alternativa>
+				</opciones>				
+			</evaluacion>
+		</evaluaciones>
+	</objeto>
+</comenzar>
