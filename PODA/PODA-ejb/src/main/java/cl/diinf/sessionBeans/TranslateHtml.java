@@ -363,11 +363,11 @@ public class TranslateHtml {
         
         for( int i = 0; i < words_content.length; i++){
             
-            count_char += words_content[i].length();
+            String word_aux = words_content[i] + " ";
             
-            if( count_char > limite ){
-                
-                String word_aux = words_content[i];
+            count_char += word_aux.length();            
+            
+            if( count_char > limite ){                                 
                 
                 if(!words_line.equals("")){
                     piece_string.add(words_line);  
@@ -378,16 +378,16 @@ public class TranslateHtml {
                     word_aux=word_aux.substring(limite);
                 }   
                 if(word_aux.length() != 0)
-                    words_line = word_aux + " ";
+                    words_line = word_aux;
                 
                 count_char = words_line.length();
             }
             else{                    
-                words_line += words_content[i] + " ";
-                
-                if( i+1 == words_content.length ){
-                    piece_string.add(words_line);
-                }
+                words_line += word_aux;                
+            }
+            
+            if( i+1 == words_content.length ){
+                piece_string.add(words_line);
             }
         }                 
         return piece_string;        
@@ -1069,8 +1069,7 @@ public class TranslateHtml {
                     
                     Idea idea = bloque.getIdeas().get(k);
                     int id_hand = -1;
-                    String array_textManuscrito = "";
-                    String id_handImage="";
+                    String array_textManuscrito = "";                    
                     String left="";
 
                     for(int l = 0; l < idea.getText().size(); l++){
