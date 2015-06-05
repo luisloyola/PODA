@@ -1,0 +1,12 @@
+<comenzar>
+	<objeto titulo="Revisión Sprint 3" tema="usach" autor="Equipo PODA">		
+
+		<escena titulo="Sprint Actual: Sprint 3" tipo="1Col">
+			<bloque>				
+				<idea ordenAparicion="3">
+					<media tipo="imagen">http://3.bp.blogspot.com/hola.png</media>					
+				</idea>				
+			</bloque>
+		</escena>		
+	</objeto>
+</comenzar>
