@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-    <h:head rendered="#{fileUpload.code_html ne null}"> 
+    <h:head> 
         <title>Proyecto de Objetos de Aprendizaje</title>
         <h:outputStylesheet name="css/bootstrap.css"/>
         <h:outputStylesheet name="css/style.css"/>
@@ -31,7 +31,7 @@
         <body onload="#{fileUpload.reset_message()}"></body>
     </h:head>
                   
-    <h:body rendered="#{fileUpload.code_html ne null}">
+    <h:body>
         <footer id="header" style="display: block">
         <div class="navbar navbar-default navbar-fixed-top" >
             <div class="container-fluid">
@@ -48,23 +48,33 @@
                     <li><a href="/PODA-web/" >Home</a></li>
                     <li><a href="acerca_poda.xhtml">Acerca</a></li>
                </ul><br></br>
-                 <a href="/PODA-web/" style="position: absolute; left:1200px"><button class="btn btn-sm btn-success">Crear otro Objeto</button></a> 
-                            <h:form>
-                                <h:commandButton value="Descargar Scorm" styleClass="btn btn-sm btn-default" style="position: absolute;  left: 970px">
-                                    <p:fileDownload value="#{fileUpload.scormFile}" />
-                                </h:commandButton>
-                            </h:form>
-                            <h:form>
-                                <h:commandButton value="Descargar" styleClass="btn btn-sm btn-default" style="position: absolute;  left: 1100px">
-                                    <p:fileDownload value="#{fileUpload.zipFile}" />
-                                </h:commandButton>
-                            </h:form>             </div><!--/.nav-collapse -->
+                 <a href="/PODA-web/" style="position: absolute; left:1200px"><button class="btn btn-sm btn-success">Crear Objeto</button></a> 
+                    <h:form rendered="#{fileUpload.code_html ne null}">
+                        <h:commandButton value="Descargar Scorm" styleClass="btn btn-sm btn-default" style="position: absolute;  left: 970px">
+                            <p:fileDownload value="#{fileUpload.scormFile}" />
+                        </h:commandButton>
+                    </h:form>
+                    <h:form rendered="#{fileUpload.code_html ne null}">
+                        <h:commandButton value="Descargar" styleClass="btn btn-sm btn-default" style="position: absolute;  left: 1100px">
+                            <p:fileDownload value="#{fileUpload.zipFile}" />
+                        </h:commandButton>
+                    </h:form>             </div><!--/.nav-collapse -->
             </div>
              </div><!--/.nav-collapse -->
            </footer>
      
         
-        <h:outputText value="#{fileUpload.code_html}" escape="false" />  
+        <h:outputText rendered="#{fileUpload.code_html ne null}" value="#{fileUpload.code_html}" escape="false" />
+        
+        <h:column rendered="#{fileUpload.code_html eq null}">
+            <div id="home" >            
+                <div class="overlay">                               
+
+                        <h1>Ops, página no encontrada</h1>
+                        <h2>Click en 'Crear Objeto' para volver</h2>                                   
+                </div>                                   
+            </div>
+        </h:column>        
         <footer id="footer" style="display: block">
 
             <div class="text-center" style="color: whitesmoke">
