@@ -48,14 +48,20 @@ public class readerXml {
      *
      * @return Objects como lista de objetos de aprendizaje.
      */
-    public List<ObjetoAprendizaje> readOA() {
+    public List<LearningObject> readOA() {
 
-        List<ObjetoAprendizaje> Objects = new ArrayList<>();
-
+        List<LearningObject> Objects = new ArrayList<>();
+        
         if (this.fileContent == null) {
             return Objects;
         }
+        
+        /*
+            Agrega el DTD al archivo.
+        */
         this.preProcessText();
+        
+        
         try {
             File OA_XML_File = this.stringToFile(fileContent);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -67,56 +73,30 @@ public class readerXml {
             try {
                 doc = dBuilder.parse(OA_XML_File);
                 if (!errorHandler.getErrorMessage().equals("NO_ERROR")) {
-                    System.out.println(errorHandler.getErrorMessage());
-                    String[] tempErrorHandler = errorHandler.getErrorMessage().split(" ");
-                    if(tempErrorHandler.length < 7){
-                        this.parsingError = errorHandler.getErrorMessage();
-                    }
-                    else{
-                        if (tempErrorHandler[0].equals("Attribute")) {
-                            this.parsingError = "En el elemento: " + tempErrorHandler[8] + " debe añadirse el atributo: " + tempErrorHandler[1];
-                        } else if (tempErrorHandler[0].equals("The") && tempErrorHandler[1].equals("content") && !tempErrorHandler[7].equals("incomplete,")) {
-                            this.parsingError = "El elemento: " + tempErrorHandler[5] + " debe cumplir el patrón: " + tempErrorHandler[8];
-                        } else if (tempErrorHandler[7].equals("incomplete,")) {
-                            this.parsingError = "El elemento: " + tempErrorHandler[5] + " Está incompleto, debe cumplir el patrón: " + tempErrorHandler[11];
-                        } else {
-                            this.parsingError = errorHandler.getErrorMessage();
-                        }
+                        /*Error en el documento*/
+                        System.out.println(errorHandler.getErrorMessage());
                         OA_XML_File.delete();
                         return Objects;
                     }
-                } else {
-                    OA_XML_File.delete();
-                }
             } catch (org.xml.sax.SAXException e) {
                 /*Error en el parser*/
                 OA_XML_File.delete();
-                if (e.getLocalizedMessage().equals("Content is not allowed in prolog.")) {
-                    this.parsingError = "Error: Archivo no soportado.";
-                } else {
-                    String[] translate = e.getLocalizedMessage().split(" ");
-                    if (translate.length < 12) {
-                        this.parsingError = e.getLocalizedMessage();
-                    } else {
-                        this.parsingError = "Error: El elemento " + translate[3] + " debe terminar con " + translate[11];
-                    }
-                }
-
+                System.out.println(e.getLocalizedMessage());
                 return Objects;
             }
-
+            
             doc.getDocumentElement().normalize();
 
             NodeList OA = doc.getElementsByTagName("objeto");
-
+            
             /*
              Recorre todos los objetos encontrados en el archivo de entrada para
-             devolver tantos ObjetoAprendizaje como hayan sido especificados.
+             devolver tantos LearningObject como hayan sido especificados.
              */
             /*
              En esta lista se guardar los objetos de aprendizaje que lean del archivo
              */
-            List<ObjetoAprendizaje> newOAList = new ArrayList<>();
+            List<LearningObject> newOAList = new ArrayList<>();
 
             if (OA.getLength() == 0) {
                 /*
@@ -130,7 +110,7 @@ public class readerXml {
                  Recorre todos los hijos de Object (Slides) y las 
                  agrega al objeto que corresponda (OA.item(i))
                  */
-                ObjetoAprendizaje newOA = new ObjetoAprendizaje();
+                LearningObject newOA = new LearningObject();
                 Node ObjectNode = OA.item(i);
                 Element currentNode = (Element) ObjectNode;
 
@@ -142,11 +122,11 @@ public class readerXml {
                 OA_nameFile += ("" + System.currentTimeMillis() + "_OA");
                 newOA.setName_file(OA_nameFile);
 
-                Element slideNode = (Element) currentNode;
-                NodeList slides = slideNode.getElementsByTagName("escena");
-
+                Element objectNode = (Element) currentNode;
+                NodeList slides = objectNode.getElementsByTagName("escena");
+                
                 for (int j = 0; j < slides.getLength(); j++) {
-                    Slide newSlide = new Slide();
+                    Scene newSlide = new Scene();
                     Element currentSlide = (Element) slides.item(j);
                     newSlide.setTitle(currentSlide.getAttribute("titulo"));
                     newSlide.setDesign(currentSlide.getAttribute("tipo"));
@@ -165,7 +145,7 @@ public class readerXml {
                             case "1Col":
                                 if (readedBlocks.getLength() != 1) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
-                                    return new ArrayList<ObjetoAprendizaje>();
+                                    return new ArrayList<>();
                                 }
                                 break;
                             case "1Fil2Col":
@@ -215,7 +195,7 @@ public class readerXml {
                         NodeList readedIdea = currentBlock.getElementsByTagName("idea");
 
                         Block newBlock = new Block();
-
+                        
                         for (int l = 0; l < readedIdea.getLength(); l++) {
 
                             Idea newIdea = new Idea();
@@ -225,7 +205,7 @@ public class readerXml {
                             int aparitionOrder = 0;
 
                             try {
-                                aparitionOrder = Math.abs(Integer.parseInt(currentIdea.getAttribute("ordenAparicion")));
+                                aparitionOrder = Math.abs(Integer.parseInt(currentIdea.getAttribute("orden")));
                                 if (aparitionOrder < 0) {
                                     this.parsingError = "\nOrden de apareción inválido en: " + newSlide.getTitle() + ".";
                                     return new ArrayList<>();
@@ -241,12 +221,11 @@ public class readerXml {
                             NodeList textNode = currentIdea.getElementsByTagName("texto");
                             
                             int handwriteIdeaCounter = 0;
-                            
                             for (int m = 0; m < textNode.getLength(); m++) {
 
                                 Element currentText = (Element) textNode.item(m);
 
-                                Texto newText = new Texto();
+                                Text newText = new Text();
                                 
                                 String tempText = currentText.getTextContent();
                                 
@@ -294,9 +273,8 @@ public class readerXml {
                                 }
                                 
                                 newIdea.addText(newText);
-
-                            }
-
+                            }                                                    
+                            
                             NodeList mediaNode = currentIdea.getElementsByTagName("media");
 
                             for (int mediaCount = 0; mediaCount < mediaNode.getLength(); mediaCount++) {
@@ -321,7 +299,71 @@ public class readerXml {
                                 newMedia.setContent(currentMedia.getTextContent());
                                 newIdea.addMedia(newMedia);
                             }
+                            
+                            NodeList examplesNode = currentIdea.getElementsByTagName("ejemplos");
+                            
+                            List<Example> newExamples = new ArrayList<>();
+                                                       
+                            for(int examplesNodeCount = 0; examplesNodeCount < examplesNode.getLength(); examplesNodeCount++){
+                                Element currentExamplesNode = (Element) examplesNode.item(examplesNodeCount);
+                                
+                                NodeList exampleNode = currentExamplesNode.getElementsByTagName("ejemplo");
 
+                                for(int exampleNodeCount = 0; exampleNodeCount < exampleNode.getLength(); exampleNodeCount++){
+                                    
+                                    Element currentExampleNode = (Element) exampleNode.item(exampleNodeCount);
+                                    
+                                    //ADD TEXT
+                                    
+                                    Example newExample = new Example();
+                                    
+                                    NodeList exampleTextNode = currentExampleNode.getElementsByTagName("texto_ejemplo");
+                                            
+                                    for(int eTN = 0; eTN < exampleTextNode.getLength(); eTN++){
+                                        Text newText2 = new Text();
+                                        
+                                        Element currentExampleText = (Element) exampleTextNode.item(eTN);
+                                        
+                                        newText2.setContent(currentExampleText.getTextContent());
+                                        
+                                        String currentExampleTextType = currentExampleText.getAttribute("tipo");
+                                        
+                                        switch(currentExampleTextType){
+                                            case "normal":
+                                                break;
+                                            case "codigo":
+                                                break;
+                                            default:
+                                                this.parsingError = "Tipo de texto no soportado para ejemplos.";
+                                                return new ArrayList<>();
+                                        }
+                                        
+                                        newText2.setType(currentExampleTextType);
+                                        newText2.setHand(false);
+                                        
+                                        newExample.addTextContent(newText2.getContent());
+                                    }    
+                                    
+                                    //ADD MEDIA
+                                    NodeList exampleMediaNode = currentExampleNode.getElementsByTagName("media_ejemplo");
+                                    
+                                    for(int eMN = 0; eMN < exampleMediaNode.getLength(); eMN++){
+                                        
+                                        Element currentExampleMedia = (Element) exampleMediaNode.item(eMN);
+                                        
+                                        if(!currentExampleMedia.getAttribute("tipo").equals("imagen")){
+                                            this.parsingError = "Tipo multimedia para ejemplo no soportado";
+                                            return new ArrayList<>();
+                                        }
+                                        
+                                        newExample.addMediaContent(currentExampleMedia.getTextContent());
+                                    }
+                                    newExamples.add(newExample);
+                                }                               
+                            }
+                            
+                            newIdea.setExample(newExamples);
+                                                       
                             NodeList voiceNode = currentIdea.getElementsByTagName("voz");
 
                             if (voiceNode.getLength() > 0) {
@@ -329,7 +371,7 @@ public class readerXml {
                             } else if (voiceNode.getLength() >= 1) {
 
                                 this.parsingError = "\n Sólo se permite una voz por idea.";
-                                return new ArrayList<ObjetoAprendizaje>();
+                                return new ArrayList<>();
                             }
 
                             newBlock.addIdeas(newIdea);
@@ -340,82 +382,178 @@ public class readerXml {
                     newOA.addContent(newSlide);
                 }
                 
-                 NodeList quizSetNode = slideNode.getElementsByTagName("evaluaciones");
-                            for (int qSN = 0; qSN < quizSetNode.getLength(); qSN++) {
-                                Element currentQuizSet = (Element) quizSetNode.item(qSN);
-
-                                Prueba newQuizSet = new Prueba();
-
-                                NodeList quizNode = currentQuizSet.getElementsByTagName("evaluacion");
-
-                                for (int n = 0; n < quizNode.getLength(); n++) {
-
-                                    Element currentQuiz = (Element) quizNode.item(n);
-
-                                    Evaluacion newQuiz = new Evaluacion();
-
-                                    NodeList currentHeader = currentQuiz.getElementsByTagName("enunciado");
-
-                                    String header = "";
-
-                                    for (int n1 = 0; n1 < currentHeader.getLength(); n1++) {
-                                        header += currentHeader.item(n1).getTextContent();
-                                    }
-
-                                    newQuiz.setHeader(header);
-
-                                    NodeList currentChoiceHead = currentQuiz.getElementsByTagName("opciones");
-
-                                    if (currentChoiceHead.getLength() > 1) {
-                                        this.parsingError = "Sólo se admite un bloque \"opciones\" por evaluación";
-                                        return new ArrayList<>();
-                                    }
-
-                                    NodeList currentChoices = ((Element) currentChoiceHead.item(0)).getElementsByTagName("alternativa");
-
-                                    int solutionCounter = 0;
-                                    int distractorCounter = 0;
+                //EVALUACIONES
+                
+                NodeList quizSetNode = objectNode.getElementsByTagName("evaluacion");
+                
+                for(int tests = 0; tests < quizSetNode.getLength(); tests++){
+                    Test newTest = new Test();
+                    
+                    Element currentTestNode = (Element) quizSetNode.item(tests);
+                    
+                    NodeList choiceNode = currentTestNode.getElementsByTagName("pregunta");
+                    
+                    for(int choices = 0; choices < choiceNode.getLength(); choices++){
+                        Form newForm = new Form();
+                        
+                        Element currentChoiceNode = (Element) choiceNode.item(choices);
+                        
+                        NodeList formNode = currentChoiceNode.getElementsByTagName("forma");
+                        
+                        for(int forms = 0; forms < formNode.getLength(); forms++){
+                             
+                            Question newQuestion = new Question();
+                            
+                            Element currentFormNode = (Element) formNode.item(forms);
+                            
+                            //Enunciado
+                            NodeList enunNode = currentFormNode.getElementsByTagName("enunciado");
+                            
+                            for(int enunCount = 0; enunCount < enunNode.getLength(); enunCount++){                             
+                                
+                                Element currentEnun = (Element) enunNode.item(enunCount);
+                                
+                                NodeList enunTextNode = currentEnun.getElementsByTagName("texto");
+                                
+                                for(int enunTextCount = 0; enunTextCount < enunTextNode.getLength(); enunTextCount++){
+                                    Text newEnunText = new Text();
                                     
-                                    for (int n2 = 0; n2 < currentChoices.getLength(); n2++) {
-                                        
-                                        Alternativa newChoice = new Alternativa();
-                                        newChoice.setContent(currentChoices.item(n2).getTextContent());
-                                        newChoice.setTopic(((Element) currentChoices.item(n2)).getAttribute("tema"));
-                                        String choiceType = ((Element) currentChoices.item(n2)).getAttribute("tipo");
-                                        switch (choiceType) {
-                                            case "solucion":
-                                                solutionCounter+=1;
-                                                break;
-                                            case "distractor":
-                                                distractorCounter+=1;
-                                                break;
-                                            default:
-                                                this.parsingError = "Tipo de evaluación no soportado";
-                                                return new ArrayList<>();
-                                        }
-
-                                        newChoice.setType(choiceType);
-                                        newQuiz.addChoices(newChoice);
-                                    }
+                                    Element currentEnunText = (Element) enunTextNode.item(enunTextCount);
                                     
-                                    if(distractorCounter < 1){
-                                        this.parsingError = "Debe existir, al menos, un distractor en cada evaluación.";
-                                        return new ArrayList<>();
-                                    }
-                                    if(solutionCounter < 1){
-                                        this.parsingError = "Debe existir, al menos, una solución en cada evaluación.";
-                                        return new ArrayList<>();
-                                    }
-                                    if(newQuiz.getChoices().size()!=4){
-                                        this.parsingError = "La cantidad de alternativas debe ser cuatro (4).";
-                                        return new ArrayList<>();
-                                    }   
-                                                    
-                                    newQuizSet.addQuiz(newQuiz);
+                                    newEnunText.setContent(currentEnunText.getTextContent());
+                                    newEnunText.setHand(false);
+                                    newEnunText.setType("normal");
+                                    
+                                    newQuestion.addTextContent(newEnunText);
+                                }                 
+                                
+                                NodeList enunMediaNode = currentEnun.getElementsByTagName("media");
+                                
+                                for(int enunMediaCount = 0; enunMediaCount< enunMediaNode.getLength(); enunMediaCount++){
+                                    Media newEnunMedia = new Media();
+                                    
+                                    Element currentEnunMedia = (Element) enunMediaNode.item(enunMediaCount);
+                                    
+                                    newEnunMedia.setType("imagen");
+                                    newEnunMedia.setContent(currentEnunMedia.getTextContent());
+                                    
+                                    newQuestion.addMediaContent(newEnunMedia);
                                 }
-
-                                newOA.addQuiz(newQuizSet);
+                                
                             }
+                 
+                            //Alternativas
+                            NodeList optionNode = currentFormNode.getElementsByTagName("opciones");
+                            
+                            for(int optionCount = 0; optionCount < optionNode.getLength(); optionCount++){
+                                
+                                Element currentOptionNode = (Element) optionNode.item(optionCount);
+                                
+                                NodeList choiceNode2 = currentOptionNode.getElementsByTagName("alternativa");
+                                
+                                for(int choiceNodeCount = 0; choiceNodeCount < choiceNode2.getLength(); choiceNodeCount++){
+                                    Choice newChoice = new Choice();
+                                    
+                                    Element currentChoice = (Element)choiceNode2.item(choiceNodeCount);
+                                    
+                                    NodeList choiceTextNode = currentChoice.getElementsByTagName("texto");
+                                    
+                                    for(int choiceTextCount = 0; choiceTextCount < choiceTextNode.getLength();choiceTextCount++){
+                                        Text newChoiceText = new Text();
+                                        
+                                        Element currentChoiceText = (Element) choiceTextNode.item(choiceTextCount);
+
+                                        newChoiceText.setHand(false);
+                                        newChoiceText.setType("normal");
+                                        newChoiceText.setContent(currentChoiceText.getTextContent());
+                                        
+                                        
+                                        
+                                        newChoice.addTextContent(newChoiceText);
+                                    }
+                                    
+                                    NodeList choiceMediaNode = currentChoice.getElementsByTagName("media");
+                                    
+                                    for(int choiceTextCount = 0; choiceTextCount < choiceTextNode.getLength();choiceTextCount++){
+                                        Media newChoiceMedia = new Media();
+                                        
+                                        Element currentChoiceText = (Element) choiceTextNode.item(choiceTextCount);
+                                        
+                                        newChoiceMedia.setType("imagen");
+                                        newChoiceMedia.setContent(currentChoiceText.getTextContent());
+                                        
+                                        newChoice.addMediaContent(newChoiceMedia);
+                                    }
+                                    newChoice.setTopic(currentChoice.getAttribute("tema"));
+                                    newChoice.setType(currentChoice.getAttribute("tipo"));
+                                    newQuestion.addChoices(newChoice);
+                                }
+                                
+                            }
+                            
+                            //Solucionario
+                            NodeList solutionNode = currentFormNode.getElementsByTagName("solucion");
+                            
+                            for(int solutionCount = 0; solutionCount < solutionNode.getLength(); solutionCount++){
+                                
+                                Element currentSolutionNode = (Element) solutionNode.item(solutionCount);
+                                
+                                NodeList solutionTextNode = currentSolutionNode.getElementsByTagName("texto");
+                                
+                                for(int solutionTextCount = 0; solutionTextCount < solutionTextNode.getLength(); solutionTextCount++){
+                                    
+                                    Text newText = new Text();
+                                    
+                                    Element currentSolutionTextNode = (Element) solutionTextNode.item(solutionTextCount);
+                                    
+                                    newText.setHand(false);
+                                    newText.setType("normal");
+                                    newText.setContent(currentSolutionTextNode.getTextContent());
+                                    
+                                    newQuestion.addSolutionTextContent(newText);
+                                }
+                                
+                                NodeList solutionMediaNode = currentSolutionNode.getElementsByTagName("media");
+                                
+                                for(int solutionMediaCount = 0; solutionMediaCount < solutionMediaNode.getLength(); solutionMediaCount++){
+                                    
+                                    Media newMedia = new Media();
+                                    
+                                    Element currentSolutionMediaNode = (Element) solutionTextNode.item(solutionMediaCount);
+                                    
+                                    newMedia.setType("imagen");
+                                    newMedia.setContent(currentSolutionMediaNode.getTextContent());
+                                    
+                                    newQuestion.addSolutionMediaContent(newMedia);
+                                }
+                                                            
+                                NodeList solutionVoiceNode = currentSolutionNode.getElementsByTagName("voz");
+                                if(solutionVoiceNode.getLength()>0){
+                                    newQuestion.setVoice(solutionVoiceNode.item(0).getTextContent());
+                                }
+                            }
+                            
+                            newForm.addQuestion(newQuestion);
+                        }
+                        newTest.addQuestions(newForm);
+                    }                    
+                    newOA.addQuiz(newTest);
+                }    
+                
+                NodeList feedBackNode = objectNode.getElementsByTagName("feedback");
+                
+                if(feedBackNode.getLength() > 1){
+                    this.fileContent = "Sólo puede haber un elemento de feedback.";
+                    return new ArrayList<>();
+                }
+                        
+                Element currentFeedBack = (Element) feedBackNode.item(0);
+                
+                FeedBack newFeedBack = new FeedBack();
+                               
+                newFeedBack.setLink(currentFeedBack.getTextContent());
+                
+                newOA.setFeedback(newFeedBack);
                 
                 Objects.add(newOA);
             }
@@ -493,20 +631,26 @@ public class readerXml {
 
     public void AppendDTD() {
         this.fileContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                + "<!DOCTYPE comenzar [\n"
-                + "<!ELEMENT comenzar (objeto)>\n"
-                + "<!ELEMENT objeto (escena*,evaluaciones*)>\n"
+                + "<!DOCTYPE objeto [\n"
+                + "<!ELEMENT objeto (escena*,evaluacion*,feedback?)>\n"
                 + "<!ELEMENT escena (bloque+)>\n"
-                + "<!ELEMENT bloque (idea*)>\n"
-                + "<!ELEMENT idea (texto*, media*, voz?)>\n"
+                + "<!ELEMENT bloque (idea+)>\n"
+                + "<!ELEMENT idea (texto*, media*,ejemplos,voz?)>\n"
                 + "<!ELEMENT texto (#PCDATA)>\n"
                 + "<!ELEMENT voz (#PCDATA)>\n"
                 + "<!ELEMENT media (#PCDATA)>\n"
-                + "<!ELEMENT evaluaciones (evaluacion*)>\n"
-                + "<!ELEMENT evaluacion (enunciado,opciones)>\n"
-                + "<!ELEMENT enunciado (#PCDATA)>\n"
+                + "<!ELEMENT evaluacion (pregunta+)>\n"
+                + "<!ELEMENT pregunta (forma+)>\n"
+                + "<!ELEMENT forma (enunciado+,opciones+,solucion)>\n"
+                + "<!ELEMENT enunciado (texto?,media?)>\n"
                 + "<!ELEMENT opciones (alternativa*)>\n"
-                + "<!ELEMENT alternativa (#PCDATA)>\n"
+                + "<!ELEMENT alternativa (texto?,media?)>\n"
+                + "<!ELEMENT solucion (texto?,media?    ,voz?)>\n"
+                + "<!ELEMENT feedback (texto*,voz?)>\n"
+                + "<!ELEMENT ejemplos (ejemplo*)>\n"
+                + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo*)>\n"
+                + "<!ELEMENT texto_ejemplo (#PCDATA)>\n"
+                + "<!ELEMENT media_ejemplo (#PCDATA)>\n"             
                 + "\n"
                 + "\n"
                 + "<!ATTLIST objeto titulo CDATA #REQUIRED>\n"
@@ -515,10 +659,13 @@ public class readerXml {
                 + "<!ATTLIST escena titulo CDATA #REQUIRED>\n"
                 + "<!ATTLIST escena tipo CDATA #REQUIRED>\n"
                 + "\n"
-                + "<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n"
+                + "<!ATTLIST idea orden CDATA #REQUIRED>\n"
                 + "<!ATTLIST texto tipo CDATA #REQUIRED>\n"
-                + "<!ATTLIST media tipo CDATA #REQUIRED>	\n"
+                + "<!ATTLIST media tipo CDATA #REQUIRED>\n"
+                + "<!ATTLIST texto_ejemplo tipo CDATA #REQUIRED>\n"
+                + "<!ATTLIST media_ejemplo tipo CDATA #REQUIRED>\n"
                 + "\n"
+                + "<!ATTLIST evaluacion exigencia CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
                 + "]>"

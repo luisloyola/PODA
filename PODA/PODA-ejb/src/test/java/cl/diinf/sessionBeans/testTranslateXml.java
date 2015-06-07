@@ -6,7 +6,7 @@
 package cl.diinf.sessionBeans;
 
 
-import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
+import cl.diinf.objetoAprendizaje.LearningObject;
 import java.io.IOException;
 import java.util.Date;
 import org.junit.After;
@@ -22,7 +22,7 @@ import org.junit.Test;
 public class testTranslateXml {
         private String correctResult;
         private String entrada;
-        private ObjetoAprendizaje object;
+        private LearningObject object;
         
     public testTranslateXml() {
         correctResult = "";
@@ -124,7 +124,7 @@ public class testTranslateXml {
         }
         assertTrue(var);        
     }
-    @Test
+    /*@Test
     public void testWriteEvaluacion() throws IOException{
         TranslateHtml testTranslate = new TranslateHtml();
         boolean var = false;
@@ -132,7 +132,7 @@ public class testTranslateXml {
             var = true;
         }
         assertTrue(var);  
-    }
+    }*/
     @Test
     public void testWriteDate() throws IOException{
         TranslateHtml testTranslate = new TranslateHtml();

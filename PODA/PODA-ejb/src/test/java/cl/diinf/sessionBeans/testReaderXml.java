@@ -5,7 +5,7 @@
  */
 package cl.diinf.sessionBeans;
 
-import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
+import cl.diinf.objetoAprendizaje.LearningObject;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,7 +21,7 @@ import org.junit.Ignore;
  */
 public class testReaderXml {
 
-    List<ObjetoAprendizaje> objects;
+    List<LearningObject> objects;
     
     public testReaderXml() {
     }
@@ -292,7 +292,7 @@ public class testReaderXml {
      * Probar creacion de evaluaciones
      */
     
-    @Test
+    /*@Test
     public void testEvaluaciones(){
         int evaluaciones = 4;
         int count_evaluaciones = 0;
@@ -309,7 +309,7 @@ public class testReaderXml {
                             count_evaluaciones += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().size();
                     }
                 }
-            }*/
+            }*//*
             for(int i = 0; i < objects.get(0).getQuizSet().size(); i++){
                 count_evaluaciones+=objects.get(0).getQuizSet().get(i).getQuiz().size();
             }
@@ -317,11 +317,11 @@ public class testReaderXml {
         }
         else
             fail("Error en la lectura del xml");
-    }
+    }*/
     /**
      * Probar creacion de alternativas de las evaluaciones
      */
-    
+    /*
     @Test
     public void testAlternativas(){
         int alternativas = 16;
@@ -344,7 +344,7 @@ public class testReaderXml {
         else
             fail("Error en la lectura del xml");
     }
-    
+    */
     /**
      * Probar creacion de objeto a partir de un error en el tipo de escena
      */ 

@@ -42,7 +42,7 @@ public class TranslateHtml {
      * @return String codeHtml, resultado que estará como presentación del OA
      * @throws IOException 
      */
-    public String writeHtml(ObjetoAprendizaje object) throws IOException{
+    public String writeHtml(LearningObject object) throws IOException{
                     
         String codeHtml;       
         String OAName = object.getName_file();
@@ -65,11 +65,11 @@ public class TranslateHtml {
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @return string con el header incorporado.
      */
-    public String write_headerHtml(ObjetoAprendizaje object) throws IOException{
+    public String write_headerHtml(LearningObject object) throws IOException{
         //Head del HTML
         
         String templateHtml;
-        String scriptEvaluacion = write_evaluacionHtml(object);
+        //String scriptEvaluacion = write_evaluacionHtml(object);
         switch (object.getTemplate()){
             case "dafault":
                 templateHtml = "default.css";
@@ -144,11 +144,11 @@ public class TranslateHtml {
                             "       document.write(ejemplos[index])\n" +
                             "   }\n" +
                             "</script> ";                                            
-        htmlHeader = htmlHeader + scriptEvaluacion;        
+        //htmlHeader = htmlHeader + scriptEvaluacion;        
         return htmlHeader;
     }
     
-    public int getCharMax(ObjetoAprendizaje object, int numberSlide, int numberBlock){
+    public int getCharMax(LearningObject object, int numberSlide, int numberBlock){
         
         int lim_line = 0;
         
@@ -262,12 +262,12 @@ public class TranslateHtml {
         return lim_line;
     }
     
-    public String write_scriptHeaderHtml(ObjetoAprendizaje object){
+    public String write_scriptHeaderHtml(LearningObject object){
         
         String script_header = "";
         ArrayList<String> trozos;
         for(int i = 0; i < object.getContent().size(); i++){
-            Slide slide = object.getContent().get(i);
+            Scene slide = object.getContent().get(i);
             
             for(int j = 0; j < slide.getBlocks().size(); j++){
                 Block bloque = slide.getBlocks().get(j);
@@ -407,7 +407,7 @@ public class TranslateHtml {
         return text;
     }
     
-    public String write_evaluacionHtml(ObjetoAprendizaje object) throws IOException{
+    /*public String write_evaluacionHtml(LearningObject object) throws IOException{
                     
         String templateCss = "";
         String templateEvaluacion1 = "";
@@ -669,7 +669,7 @@ public class TranslateHtml {
 				"</script>";
         total = templateCss +templateEvaluacion1+tempEval+randomPila+templateRescatarTemas+templateFuncionesFijas;
         return total;        
-    }
+    }*/
     
     public String write_examples(ArrayList<String> list_examples/*, String start, String end*/){
         
@@ -796,7 +796,7 @@ public class TranslateHtml {
         return fecha;
     }
         
-    public String write_titleHtml(ObjetoAprendizaje object){
+    public String write_titleHtml(LearningObject object){
                 
         String codeHtml =   "<section class=\"slide\" id=\"title-slide\">\n" +
                             "<h1>" + object.getTitle() + "</h1>"+
@@ -810,7 +810,7 @@ public class TranslateHtml {
         return codeHtml;
     }
 
-    public String write_animationHtml(Slide scene, int number_slide, String OAPath, String OAName ){
+    public String write_animationHtml(Scene scene, int number_slide, String OAPath, String OAName ){
         
         String codeHtml = "";
         ArrayList<Idea> orderedIdea = new ArrayList<>();
@@ -850,7 +850,7 @@ public class TranslateHtml {
         return codeHtml;
     }      
     
-    public String write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName, String design){        
+    public String write_slideHtml(Scene scene, int nro_slide, String OAPath, String OAName, String design){        
         
         int tam_fila = 100;
         int tam_2Col = 45;
@@ -999,7 +999,7 @@ public class TranslateHtml {
      * @param OAName 
      * @return string con todas las slides incorporadas.
      */
-    public String write_contentHtml(ObjetoAprendizaje object, String OAName){
+    public String write_contentHtml(LearningObject object, String OAName){
 
         /* Obtener la ruta donde guardar el OA*/
         String OAPath = ResourcesDownloader.generatePathForOA(); // Wildfly/standalone/deplayments/...ear/...web.war
@@ -1032,7 +1032,7 @@ public class TranslateHtml {
      * @param codeHtml 
      * @return string con las librerías incorporadas.
      */
-    public String write_librsHtml(ObjetoAprendizaje object){
+    public String write_librsHtml(LearningObject object){
 
         String codeHtml = "";
         String htmlLibrs=   "<div aria-role=\"navigation\">\n" +
@@ -1055,12 +1055,12 @@ public class TranslateHtml {
 
         return codeHtml;
     }   
-    public String write_scriptHand(ObjetoAprendizaje object){
+    public String write_scriptHand(LearningObject object){
         String codeHtml = "";
         String scriptHand= "" ;
 
             for(int i = 0; i < object.getContent().size(); i++){
-            Slide slide = object.getContent().get(i);
+            Scene slide = object.getContent().get(i);
             
             for(int j = 0; j < slide.getBlocks().size(); j++){
                 Block bloque = slide.getBlocks().get(j);

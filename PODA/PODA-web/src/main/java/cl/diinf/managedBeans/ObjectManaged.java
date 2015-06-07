@@ -4,7 +4,7 @@ package cl.diinf.managedBeans;
 import javax.faces.application.FacesMessage;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable; 
-import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
+import cl.diinf.objetoAprendizaje.LearningObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -131,7 +131,7 @@ public class ObjectManaged implements Serializable{
             
             nuevoOAR.AppendDTD();
             
-            List<ObjetoAprendizaje> OA_List = nuevoOAR.readOA();                        
+            List<LearningObject> OA_List = nuevoOAR.readOA();                        
             
             if(OA_List.size() > 0){
                 

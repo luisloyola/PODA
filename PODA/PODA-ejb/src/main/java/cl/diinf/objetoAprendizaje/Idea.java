@@ -16,13 +16,15 @@ import java.util.Comparator;
 public class Idea implements Comparable<Idea>{
     int aparitionOrder;
     String voice;
-    List<Texto> text;
+    List<Text> text;
     List<Media> media;
+    List<Example> example;
     
     
     public Idea(){
-        text = new ArrayList<Texto>();
-        media = new ArrayList<Media>();
+        text = new ArrayList<>();
+        media = new ArrayList<>();
+        example = new ArrayList<>();
         voice = "";
     }
 
@@ -42,15 +44,15 @@ public class Idea implements Comparable<Idea>{
         this.voice = voice;
     }
 
-    public List<Texto> getText() {
+    public List<Text> getText() {
         return text;
     }
 
-    public void setText(List<Texto> text) {
+    public void setText(List<Text> text) {
         this.text = text;
     }
     
-    public void addText(Texto text) {
+    public void addText(Text text) {
         this.text.add(text);
     }
 
@@ -64,6 +66,18 @@ public class Idea implements Comparable<Idea>{
     
     public void addMedia(Media media) {
         this.media.add(media);
+    }
+
+    public List<Example> getExample() {
+        return example;
+    }
+
+    public void setExample(List<Example> example) {
+        this.example = example;
+    }
+    
+    public void addExample(Example example) {
+        this.example.add(example);
     }
    
     @Override     
