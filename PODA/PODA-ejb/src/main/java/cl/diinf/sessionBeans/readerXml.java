@@ -341,7 +341,7 @@ public class readerXml {
                                         newText2.setType(currentExampleTextType);
                                         newText2.setHand(false);
                                         
-                                        newExample.addTextContent(newText2.getContent());
+                                        newExample.addTextContent(newText2);
                                     }    
                                     
                                     //ADD MEDIA
@@ -351,12 +351,16 @@ public class readerXml {
                                         
                                         Element currentExampleMedia = (Element) exampleMediaNode.item(eMN);
                                         
+                                        Media newMedia2 = new Media();
+                                        
                                         if(!currentExampleMedia.getAttribute("tipo").equals("imagen")){
                                             this.parsingError = "Tipo multimedia para ejemplo no soportado";
                                             return new ArrayList<>();
                                         }
                                         
-                                        newExample.addMediaContent(currentExampleMedia.getTextContent());
+                                        newMedia2.setType("imagen");
+                                        newMedia2.setContent(currentExampleMedia.getTextContent());
+                                        newExample.addMediaContent(newMedia2);
                                     }
                                     newExamples.add(newExample);
                                 }                               
