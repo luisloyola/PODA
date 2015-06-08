@@ -537,7 +537,7 @@ public class readerXml {
                             
                             newForm.addQuestion(newQuestion);
                         }
-                        newTest.addQuestions(newForm);
+                        newTest.addForms(newForm);
                     }                    
                     newOA.addQuiz(newTest);
                 }    

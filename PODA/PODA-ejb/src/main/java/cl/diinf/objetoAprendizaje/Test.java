@@ -15,10 +15,10 @@ import java.util.List;
 public class Test {
     
     private int exigency;
-    private List<Form> question;
+    private List<Form> forms;
     
     public Test(){
-        question = new ArrayList<>();
+        forms = new ArrayList<>();
     }    
     
     public int getExigency() {
@@ -29,16 +29,16 @@ public class Test {
         this.exigency = exigency;
     }
 
-    public List<Form> getQuestions() {
-        return question;
+    public List<Form> getForms() {
+        return forms;
     }
 
-    public void setQuestions(List<Form> question) {
-        this.question = question;
+    public void setForms(List<Form> forms) {
+        this.forms = forms;
     }
     
-    public void addQuestions(Form question) {
-        this.question.add(question);
+    public void addForms(Form forms) {
+        this.forms.add(forms);
     }
     
 }
