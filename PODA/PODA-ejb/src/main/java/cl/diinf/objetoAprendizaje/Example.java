@@ -10,35 +10,35 @@ import java.util.List;
 
 
 public class Example {
-    List<String> textContent;
-    List<String> mediaContent;
+    List<Text> textContent;
+    List<Media> mediaContent;
     
     public Example(){
         textContent = new ArrayList<>();
         mediaContent = new ArrayList<>();
     };
 
-    public List<String> getTextContent() {
+    public List<Text> getTextContent() {
         return textContent;
     }
 
-    public void setTextContent(List<String> textContent) {
+    public void setTextContent(List<Text> textContent) {
         this.textContent = textContent;
     }
     
-    public void addTextContent(String textContent) {
+    public void addTextContent(Text textContent) {
         this.textContent.add(textContent);
     }
 
-    public List<String> getMediaContent() {
+    public List<Media> getMediaContent() {
         return mediaContent;
     }
 
-    public void setMediaContent(List<String> mediaContent) {
+    public void setMediaContent(List<Media> mediaContent) {
         this.mediaContent = mediaContent;
     }
     
-    public void addMediaContent(String mediaContent) {
+    public void addMediaContent(Media mediaContent) {
         this.mediaContent.add(mediaContent);
     }
     
