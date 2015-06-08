@@ -362,9 +362,17 @@ public class readerXml {
                                         newMedia2.setContent(currentExampleMedia.getTextContent());
                                         newExample.addMediaContent(newMedia2);
                                     }
+                                    
+                                    if(newExample.getMediaContent().isEmpty() && newExample.getTextContent().isEmpty()){
+                                        this.parsingError = "Debe, al menos, existir un texto o un media en la etiqueta ejemplos.";
+                                        return new ArrayList<>();
+                                    }
+                                    
                                     newExamples.add(newExample);
                                 }                               
                             }
+                            
+                            
                             
                             newIdea.setExample(newExamples);
                                                        
@@ -659,7 +667,7 @@ public class readerXml {
                 + "<!ELEMENT solucion (texto?,media?    ,voz?)>\n"
                 + "<!ELEMENT feedback (texto*,voz?)>\n"
                 + "<!ELEMENT ejemplos (ejemplo*)>\n"
-                + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo*)>\n"
+                + "<!ELEMENT ejemplo (texto_ejemplo?,media_ejemplo?)>\n"
                 + "<!ELEMENT texto_ejemplo (#PCDATA)>\n"
                 + "<!ELEMENT media_ejemplo (#PCDATA)>\n"             
                 + "\n"
