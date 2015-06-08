@@ -391,6 +391,8 @@ public class readerXml {
                     
                     Element currentTestNode = (Element) quizSetNode.item(tests);
                     
+                    newTest.setExigency(Math.abs(Integer.parseInt(currentTestNode.getAttribute("exigencia"))));
+                    
                     NodeList choiceNode = currentTestNode.getElementsByTagName("pregunta");
                     
                     for(int choices = 0; choices < choiceNode.getLength(); choices++){
