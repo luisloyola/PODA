@@ -643,7 +643,7 @@ public class readerXml {
                 + "<!ELEMENT media (#PCDATA)>\n"
                 + "<!ELEMENT evaluacion (pregunta+)>\n"
                 + "<!ELEMENT pregunta (forma+)>\n"
-                + "<!ELEMENT forma (enunciado+,opciones+,solucion)>\n"
+                + "<!ELEMENT forma (enunciado,opciones,solucion?)>\n"
                 + "<!ELEMENT enunciado (texto?,media?)>\n"
                 + "<!ELEMENT opciones (alternativa*)>\n"
                 + "<!ELEMENT alternativa (texto?,media?)>\n"
