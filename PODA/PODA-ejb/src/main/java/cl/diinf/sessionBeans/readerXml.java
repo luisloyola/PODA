@@ -397,6 +397,11 @@ public class readerXml {
                     
                     newTest.setExigency(Math.abs(Integer.parseInt(currentTestNode.getAttribute("exigencia"))));
                     
+                    if(newTest.getExigency() > 100){
+                        this.parsingError = "La exigencia de una evaluación no debe ser superior a 100%";
+                        return new ArrayList<>();
+                    }
+                    
                     NodeList choiceNode = currentTestNode.getElementsByTagName("pregunta");
                     
                     for(int choices = 0; choices < choiceNode.getLength(); choices++){
@@ -641,7 +646,7 @@ public class readerXml {
                 + "<!ELEMENT objeto (escena*,evaluacion*,feedback?)>\n"
                 + "<!ELEMENT escena (bloque+)>\n"
                 + "<!ELEMENT bloque (idea+)>\n"
-                + "<!ELEMENT idea (texto*, media*,ejemplos,voz?)>\n"
+                + "<!ELEMENT idea (texto*, media*,ejemplos?,voz?)>\n"
                 + "<!ELEMENT texto (#PCDATA)>\n"
                 + "<!ELEMENT voz (#PCDATA)>\n"
                 + "<!ELEMENT media (#PCDATA)>\n"
