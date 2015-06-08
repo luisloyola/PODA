@@ -155,7 +155,7 @@ public class TranslateHtml {
         switch (object.getContent().get(numberSlide).getDesign()){
             
             case "1Col":
-                lim_line = 100;
+                lim_line = 110;
                 break;
                 
             case "1Fil2Col":
@@ -206,7 +206,7 @@ public class TranslateHtml {
             case "1Fil3Col":
                 switch (numberBlock){
                     case 0:
-                        lim_line = 100;
+                        lim_line = 110;
                         break;
                     case 1:
                         lim_line = 30;
@@ -396,7 +396,7 @@ public class TranslateHtml {
     public String write_hand(ArrayList<String> trozos, int numberSlide, int numberBlock, int numberIdea){
         
         String id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"\"";        
-        String text = "\n<IMG id="+ id_handImage+" SRC=\"resources/manoconmanga.png\" WIDTH=700 HEIGHT=700 style=\"position:absolute;\">\n";
+        String text = "\n<IMG id="+ id_handImage+" SRC=\"resources/manoconmanga.png\" WIDTH=800 HEIGHT=800 style=\"position:absolute;\">\n";
                                         
         for(int i = 0; i < trozos.size(); i++){
         
@@ -852,7 +852,7 @@ public class TranslateHtml {
     
     public String write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName, String design){        
         
-        int tam_fila = 100;
+        int tam_fila = 110;
         int tam_2Col = 45;
         int tam_3Col = 30;
         
@@ -1095,21 +1095,21 @@ public class TranslateHtml {
                         switch (slide.getDesign()){
                             case "1Col":
                                 //escribir contenido del primer bloque 
-                                left="-50";
+                                left="-80";
                                 break;
 
                             case "1Fil2Col":
                                 //bloque 1
                                 if(j==0){
-                                  left="-50";
+                                  left="-80";
                                 }
                                 //bloque 2
                                 else if(j==1){
-                                    left="-50";
+                                    left="-80";
                                 }
                                 //bloque 3
                                 else{
-                                    left="+647";
+                                    left="+617";
                                 }
 
                                 break;
@@ -1118,10 +1118,10 @@ public class TranslateHtml {
                                 //bloque 1
                                
                                 if(j==0){
-                                  left="-50";
+                                  left="-80";
                                 }
                                 else{
-                                   left="+647";
+                                   left="+617";
                                 }
 
                                 break;
@@ -1129,15 +1129,15 @@ public class TranslateHtml {
                             case "3Col":
                                 //bloque 1
                                 if(j==0){
-                                  left="-50";
+                                  left="-80";
                                 }
                                 //bloque 2
                                 else if(j==1){
-                                    left="+370";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                                    left="+340";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
                                 }
                                 //bloque 3
                                 else{
-                                    left="+790";
+                                    left="+760";
                                 }
 
                                 break;
@@ -1145,18 +1145,18 @@ public class TranslateHtml {
                             case "1Fil3Col":
                                 //bloque 1
                                 if(j==0){
-                                  left="-50";
+                                  left="-80";
                                 }
                                 //bloque 2
                                 else if(j==1){
-                                    left="-50";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                                    left="-80";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
                                 }
                                 //bloque 3
                                 else if(j==2){
-                                    left="+370";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                                    left="+340";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
                                 }
                                 else{
-                                    left="+790"; 
+                                    left="+760"; 
                                 }
                                 break;
 
@@ -1164,18 +1164,18 @@ public class TranslateHtml {
 
                                 //bloque 1
                                 if(j==0){
-                                  left="-50";
+                                  left="-80";
                                 }
                                 //bloque 2
                                 else if(j==1){
-                                    left="-50";   
+                                    left="-80";   
                                 }
                                 //bloque 3
                                 else if(j==2){
-                                    left="+647"; 
+                                    left="+617"; 
                                 }
                                 else{
-                                    left="-50"; 
+                                    left="-80"; 
                                 }
 
 
@@ -1183,18 +1183,18 @@ public class TranslateHtml {
                             case "2Col1Fil":
                                //bloque 1
                                 if(j==0){
-                                  left="-50";
+                                  left="-80";
                                 }
                                 //bloque 2
                                 else if(j==1){
-                                    left="+647";  
+                                    left="+617";  
                                 }
                                 //bloque 3
                                 else if(j==2){
-                                    left="-50"; 
+                                    left="-80"; 
                                 }
                                 else{
-                                    left="-50"; 
+                                    left="-80"; 
                                 }
 
                                 break;
@@ -1209,9 +1209,8 @@ public class TranslateHtml {
                                         "      $(\"#show-slide-"+(i+1)+"-"+ idea.getAparitionOrder() +"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
                                         "           var dist;\n"+
                                         "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").show();\n" +
-                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").addClass(\"moviendo\");\n" +
-                                        "           var up=-70;\n" +
-                                        "           var down=-30;" +
+                                        "           var up=-80;\n" +
+                                        "           var down=-40;" +
                                                     array_textManuscrito + 
                                         "            function move_down(array,num,dist,up,down) {\n" +
                                         "        var n = array.length;\n" +
@@ -1220,7 +1219,24 @@ public class TranslateHtml {
                                         "          var linea = array[0];\n" +
                                         "          var spanWidth = $(linea+' span').width();\n" +
                                         "          dist=num;\n" +
-                                        "          if(dist<=spanWidth"+left+" && $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hasClass(\"moviendo\")){\n" +
+                                        "           if(n==1){\n" +
+                                        "          if(dist<=spanWidth"+left+"+20 ){\n" +
+                                        "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
+                                        "            \"margin-top\": down+\"px\"\n" +
+                                        "            ,left: dist}, 200, \"linear\", function () {\n" +
+                                        "              num+=11.8;\n" +
+                                        "              move_up(array,num,dist,up,down);\n" +
+                                        "            });\n" +
+                                        "          }else{\n" +
+                                        "              var new_array = [];\n" +
+                                        "              for(i=1; i<n; i++){\n" +
+                                        "                new_array.push(array[i]);   \n" +
+                                        "              }\n" +
+                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n" +
+                                        "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
+                                        "          }\n" +
+                                        "         }else{\n"+
+                                        "          if(dist<=spanWidth"+left+"){\n" +
                                         "            $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
                                         "              \"margin-top\": down+\"px\"\n" +
                                         "              ,left: dist}, 200, \"linear\", function () {\n" +
@@ -1232,8 +1248,10 @@ public class TranslateHtml {
                                         "              for(i=1; i<n; i++){\n" +
                                         "                new_array.push(array[i]);   \n" +
                                         "              }\n" +
+                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n"+
                                         "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
                                         "          }\n" +
+                                        "         }\n"+
                                         "        }else{\n" +
                                         "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hide();\n" +
                                         "        }\n" +
@@ -1246,7 +1264,8 @@ public class TranslateHtml {
                                         "        var linea = array[0];\n" +
                                         "         var spanWidth = $(linea+' span').width();\n" +
                                         "         dist=num;\n" +
-                                        "         if(dist<=spanWidth"+left+" && $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hasClass(\"moviendo\")){\n" +
+                                        "           if(n==1){\n" +
+                                        "          if(dist<=spanWidth"+left+"+20 ){\n" +
                                         "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
                                         "            \"margin-top\": up+\"px\"\n" +
                                         "            ,left: dist}, 200, \"linear\", function () {\n" +
@@ -1258,8 +1277,26 @@ public class TranslateHtml {
                                         "              for(i=1; i<n; i++){\n" +
                                         "                new_array.push(array[i]);   \n" +
                                         "              }\n" +
+                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n" +
                                         "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
                                         "          }\n" +
+                                        "         }else{\n"+
+                                        "          if(dist<=spanWidth"+left+"){\n" +
+                                        "            $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
+                                        "              \"margin-top\": up+\"px\"\n" +
+                                        "              ,left: dist}, 200, \"linear\", function () {\n" +
+                                        "                num+=11.8;\n" +
+                                        "                move_down(array,num,dist,up,down);\n" +
+                                        "            });\n" +
+                                        "          }else{\n" +
+                                        "              var new_array = [];\n" +
+                                        "              for(i=1; i<n; i++){\n" +
+                                        "                new_array.push(array[i]);   \n" +
+                                        "              }\n" +
+                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n"+
+                                        "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
+                                        "          }\n" +
+                                        "         }\n"+
                                         "        }else{\n" +
                                         "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hide();\n" +
                                         "        }\n" +
@@ -1269,9 +1306,7 @@ public class TranslateHtml {
                                         "    $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
                                         "      if(direction==\"reverse\"){\n" +
                                         "        $( \"#mano-"+(i+1)+"-"+j+"-"+k+"\" ).stop();\n" +
-                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"});\n" +
-                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").removeClass(\"moviendo\");\n" +
-                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").fadeIn();\n" +
+                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n" +
                                         "      } else {\n" +
                                         "        $( \"#mano-"+(i+1)+"-"+j+"-"+k+"\" ).finish();\n" +
                                         "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hide();\n" +
