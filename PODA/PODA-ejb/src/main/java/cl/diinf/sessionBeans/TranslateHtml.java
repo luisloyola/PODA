@@ -47,16 +47,16 @@ public class TranslateHtml {
         String codeHtml;       
         String OAName = object.getName_file();
         
-        codeHtml = "<!DOCTYPE html>\n" +"<html>\n" + "<head>\n";
+        codeHtml =  "<!DOCTYPE html>\n" +"<html>\n" + "<head>\n";
         codeHtml += write_headerHtml(object);
         codeHtml += write_scriptHeaderHtml(object);        
         codeHtml += "</head>\n"+"<body>\n";
-        codeHtml += "  <div class=\"deck-container\">\n";
+        codeHtml += "   <div class=\"deck-container\">\n";
         codeHtml += write_contentHtml(object, OAName);
         codeHtml += write_librsHtml(object);
         codeHtml += write_scriptHand(object);
-        codeHtml += "</div>\n";
-        codeHtml+="</body></html>";
+        codeHtml += "   </div>\n";
+        codeHtml += "</body></html>";
         return codeHtml;        
     }
     
@@ -742,15 +742,16 @@ public class TranslateHtml {
                         codeHtml += "<pre class=\"brush: js\">";
                         codeHtml += idea.getText().get(j).getContent();
                         codeHtml += "</pre>";
-                        break;
-                        
-                    case "ejemplo":
-                        list_examples.add(idea.getText().get(j).getContent());
-                        break;
+                        break;                    
                         
                     default:
                         break;
                 };
+            }
+            
+            for(int j = 0; j < idea.getExample().size(); j++){
+                
+                
             }
             
             if(!list_examples.isEmpty()){
