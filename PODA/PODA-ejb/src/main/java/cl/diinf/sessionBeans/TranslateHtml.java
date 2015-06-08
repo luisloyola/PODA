@@ -313,12 +313,12 @@ public class TranslateHtml {
                     
                     script_header +=    "<script>\n" +
                                         "    $(function(){\n" +
-                                        "      $(\"#show-slide-"+(i+1)+"-"+j+"-"+k+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
+                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
                                         "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
                                                     script_voice_became +
                                                     script_hand_became +
                                         "      });\n" +
-                                        "      $(\"#show-slide-"+(i+1)+"-"+j+"-"+k+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
                                         "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
                                                     script_voice_lost +
                                                     script_hand_lost +
@@ -845,7 +845,7 @@ public class TranslateHtml {
                 }
             }                        
                         
-            codeHtml += "<div class=slide id=\"show-slide-"+ number_slide + "-" + number_block + "-" + number_idea + "\"></div>";            
+            codeHtml += "<div class=slide id=\"show-slide-"+ number_slide + "-" + orderedIdea.get(i).getAparitionOrder() + "\"></div>";            
         }
         return codeHtml;
     }      
@@ -1206,7 +1206,7 @@ public class TranslateHtml {
                     
                     
                     scriptHand +=    "<script>\n" +
-                                        "      $(\"#show-slide-"+(i+1)+"-"+j+"-"+k+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
+                                        "      $(\"#show-slide-"+(i+1)+"-"+ idea.getAparitionOrder() +"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
                                         "           var dist;\n"+
                                         "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").show();\n" +
                                         "           var up=-80;\n" +
@@ -1303,7 +1303,7 @@ public class TranslateHtml {
                                         "      }\n" +
                                         "    });\n" +
                                         "\n" +
-                                        "    $(\"#show-slide-"+(i+1)+"-"+j+"-"+k+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                        "    $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
                                         "      if(direction==\"reverse\"){\n" +
                                         "        $( \"#mano-"+(i+1)+"-"+j+"-"+k+"\" ).stop();\n" +
                                         "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n" +
