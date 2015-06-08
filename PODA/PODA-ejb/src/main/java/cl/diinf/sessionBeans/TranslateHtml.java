@@ -400,7 +400,7 @@ public class TranslateHtml {
                                         
         for(int i = 0; i < trozos.size(); i++){
         
-            text +=  "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
+            text +=     "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
                         "   <span class=\"manuscrita\">"+ trozos.get(i) +"</span>\n" +
                         "</div>\n";        
         }
@@ -671,19 +671,42 @@ public class TranslateHtml {
         return total;        
     }*/
     
-    public String write_examples(ArrayList<String> list_examples/*, String start, String end*/){
+    public String write_examples(List<Example> list_examples, String OAName, String OAPath){
         
         String examples = "<script>\nvar ejemplos = new Array(";
         
         for( int i = 0 ; i < list_examples.size(); i++){
             
-            if(i == 0)
-                examples += "\""+ list_examples.get(i) +"\"";
-            else
-                examples += ", \""+ list_examples.get(i) +"\"";
+            if(i > 0)
+                examples += ", ";
+                                        
+            for(int j = 0; j < list_examples.get(i).getTextContent().size(); j++){
+
+                examples += " ";
+
+                String content = list_examples.get(i).getTextContent().get(j).getContent();
+
+                switch ( list_examples.get(i).getTextContent().get(j).getType()){
+
+                    case "normal":
+                        examples += "<p>"+ content +"</p>";
+                        break;
+                    case "codigo":
+                        examples += "<pre class=\"brush: js\">"+ content +"</pre>";
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            for(int j = 0; j < list_examples.get(i).getMediaContent().size(); j++){
+
+                examples += " ";
+                examples += write_media(list_examples.get(i).getMediaContent().get(j), OAName, OAPath);
+            }        
         }
         examples += ")</script>";
-        examples += "<p>"+"<script language=javascript>ej_aleatorio()</script>"+"</p>";
+        examples += "<script language=javascript>ej_aleatorio()</script>";
         
         return examples;
     }    
@@ -704,8 +727,7 @@ public class TranslateHtml {
     
     public String write_block(Block block, int numberSlide, int numberBlock, String design, String OAName, String OAPath, int lim_line){
                         
-        String codeHtml = "";        
-        ArrayList<String>list_examples = new ArrayList();
+        String codeHtml = "";                
         ArrayList<String> trozos = new ArrayList<>();                    
                         
         for(int i = 0; i < block.getIdeas().size(); i++){
@@ -716,15 +738,7 @@ public class TranslateHtml {
             codeHtml += start_label;            
             
             for(int j = 0; j < idea.getText().size(); j++){
-                
-                if(!idea.getText().get(j).getType().equals("ejemplo")){
-                    
-                    if(!list_examples.isEmpty()){
-                        codeHtml += write_examples(list_examples);                        
-                        list_examples.clear();
-                    }
-                }
-
+                                
                 switch(idea.getText().get(j).getType()){
 
                     case "normal":
@@ -749,16 +763,10 @@ public class TranslateHtml {
                 };
             }
             
-            for(int j = 0; j < idea.getExample().size(); j++){
+            if( !idea.getExample().isEmpty() ){
                 
-                
-            }
-            
-            if(!list_examples.isEmpty()){
-                        
-                codeHtml += write_examples(list_examples);
-                list_examples.clear();
-            }
+                codeHtml += write_examples(idea.getExample(), OAName, OAPath);
+            }                        
             
             for(int j = 0; j < idea.getMedia().size(); j++){
                 codeHtml += write_media(idea.getMedia().get(j), OAName, OAPath);
