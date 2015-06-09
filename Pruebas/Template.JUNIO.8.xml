@@ -3,7 +3,7 @@
 		<bloque>
 			<idea orden="1"> <!-- orden="# del orden de aparicion" -->
 				<texto tipo="normal">ABC</texto> <!-- o tipo={"normal","manuscrito","codigo"} -->
-				<media tipo="imagen">URL_Válida</media>
+				<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
 				<ejemplos>
 					<!-- dentro de ejemplos estarán las pilas de ejemplos a mostrar, pueden ser varias -->
 					<ejemplo>
