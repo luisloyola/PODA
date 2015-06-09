@@ -415,7 +415,7 @@ public class ReaderXml {
                     NodeList choiceNode = currentTestNode.getElementsByTagName("pregunta");
                     
                     for(int choices = 0; choices < choiceNode.getLength(); choices++){
-                        Form newForm = new Form();
+                        Question newForm = new Question();
                         
                         Element currentChoiceNode = (Element) choiceNode.item(choices);
                         
@@ -423,7 +423,7 @@ public class ReaderXml {
                         
                         for(int forms = 0; forms < formNode.getLength(); forms++){
                              
-                            Question newQuestion = new Question();
+                            Form newQuestion = new Form();
                             
                             Element currentFormNode = (Element) formNode.item(forms);
                             
