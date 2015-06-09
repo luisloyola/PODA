@@ -74,12 +74,14 @@ public class readerXml {
                 doc = dBuilder.parse(OA_XML_File);
                 if (!errorHandler.getErrorMessage().equals("NO_ERROR")) {
                         /*Error en el documento*/
+                        this.parsingError = errorHandler.getErrorMessage();
                         System.out.println(errorHandler.getErrorMessage());
                         OA_XML_File.delete();
                         return Objects;
                     }
             } catch (org.xml.sax.SAXException e) {
                 /*Error en el parser*/
+                this.parsingError = e.getLocalizedMessage();
                 OA_XML_File.delete();
                 System.out.println(e.getLocalizedMessage());
                 return Objects;
