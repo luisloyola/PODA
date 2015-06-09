@@ -8,7 +8,7 @@ import cl.diinf.objetoAprendizaje.LearningObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-import cl.diinf.sessionBeans.readerXml;
+import cl.diinf.sessionBeans.ReaderXml;
 import cl.diinf.sessionBeans.TranslateHtml;
 import cl.diinf.util.Compressor;
 import java.io.File;
@@ -125,7 +125,7 @@ public class ObjectManaged implements Serializable{
         }
         if (fileContent != null && !fileContent.isEmpty()){
            
-            readerXml nuevoOAR = new readerXml();
+            ReaderXml nuevoOAR = new ReaderXml();
             
             nuevoOAR.setFileContent(fileContent);
             

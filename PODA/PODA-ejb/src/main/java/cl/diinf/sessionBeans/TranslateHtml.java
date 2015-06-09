@@ -276,10 +276,13 @@ public class TranslateHtml {
                     
                     Idea idea = bloque.getIdeas().get(k);
                     int id_hand = -1;
+                    int id_hand_example = -1;
                     String script_voice_became = "";
                     String script_voice_lost = "";
                     String script_hand_became = "";
                     String script_hand_lost = "";
+                    String script_hand_became_example = "";
+                    String script_hand_lost_example = "";
                     
                     if(!idea.getVoice().isEmpty()){
                         script_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
@@ -309,6 +312,32 @@ public class TranslateHtml {
                         
                         script_hand_became = "textBecameCurrent(["+ text_ids + "], direction);";
                         script_hand_lost = "textLostCurrent(["+ text_ids +"], direction);";                        
+                    }
+                    
+                    for(int l = 0; l < idea.getExample().size(); l++){
+                        for(int m = 0; m < idea.getExample().get(l).getTextContent().size(); m++){
+                            if(idea.getExample().get(l).getTextContent().get(m).getType().equals("manuscrito")){
+                                id_hand_example = m;
+                                break;
+                            }
+                        }
+                        if(id_hand_example > -1){
+                            int caracter_max = getCharMax(object, i, j );                                               
+                        trozos = trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
+                        
+                        String text_ids = "";
+                        
+                        for(int m = 0; m < trozos.size(); m++){
+                            text_ids += "\"#manoExample-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
+                            
+                            if(m+1 < trozos.size()){
+                                text_ids +=",";
+                            }                                                            
+                        }
+                        
+                        script_hand_became_example = "textBecameCurrent(["+ text_ids + "], direction);";
+                        script_hand_lost_example = "textLostCurrent(["+ text_ids +"], direction);"; 
+                        }
                     }
                     
                     script_header +=    "<script>\n" +
