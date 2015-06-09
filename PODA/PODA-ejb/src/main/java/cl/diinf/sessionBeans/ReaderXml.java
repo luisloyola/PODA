@@ -669,7 +669,7 @@ public class ReaderXml {
                 + "<!ELEMENT solucion (texto?,media?,voz?)>\n"
                 + "<!ELEMENT feedback (#PCDATA)>\n"
                 + "<!ELEMENT ejemplos (ejemplo*)>\n"
-                + "<!ELEMENT ejemplo (texto_ejemplo?,media_ejemplo?)>\n"
+                + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo?)>\n"
                 + "<!ELEMENT texto_ejemplo (#PCDATA)>\n"
                 + "<!ELEMENT media_ejemplo (#PCDATA)>\n"             
                 + "\n"
