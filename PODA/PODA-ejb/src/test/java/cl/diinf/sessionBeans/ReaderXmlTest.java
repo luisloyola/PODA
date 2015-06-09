@@ -17,18 +17,17 @@ import org.junit.Ignore;
 
 /**
  *
- * @author teban
+ * @author nacho
  */
-public class testReaderXml {
-
+public class ReaderXmlTest {
+    
     List<LearningObject> objects;
     
-    public testReaderXml() {
+    public ReaderXmlTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-
     }
     
     @AfterClass
@@ -38,7 +37,7 @@ public class testReaderXml {
     @Before
     public void setUp() {
                                 
-        readerXml good_instance = new readerXml();
+        ReaderXml good_instance = new ReaderXml();
         
         String good_xml =   "<objeto titulo=\"Nombre del Objeto\" tema=\"usach\" autor=\"Autor\">\n" +
                             "	<escena titulo=\"Titulo de la escena\" tipo=\"1Col\">\n" +
@@ -171,7 +170,7 @@ public class testReaderXml {
                             "			</forma>\n" +
                             "		</pregunta>\n" +
                             "	</evaluacion>"+
-                            "	<feedback><texto tipo=\"normal\">ABC</texto></feedback>\n" +
+                            "	<feedback>ABC</feedback>\n" +
                             "</objeto>";
         
         good_instance.setFileContent(good_xml);
@@ -215,7 +214,7 @@ public class testReaderXml {
                             "           </bloque>\n" +
                             "        \n" +
                             "   </objeto>";                            
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -464,7 +463,7 @@ public class testReaderXml {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -488,7 +487,7 @@ public class testReaderXml {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -512,7 +511,7 @@ public class testReaderXml {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -536,7 +535,7 @@ public class testReaderXml {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -561,7 +560,7 @@ public class testReaderXml {
                             "		</escena>\n" +
                             "	</objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -595,7 +594,7 @@ public class testReaderXml {
                             "		</escena>\n" +
                             "	</objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -606,7 +605,7 @@ public class testReaderXml {
      */
     @Ignore
     public void testReadOADTDAppend() {
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         String content = "<comenzar>\n" +
                         "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
                         "		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
@@ -659,7 +658,7 @@ public class testReaderXml {
     
     @Ignore  
     public void testPreProcessText(){
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                                 "<!DOCTYPE comenzar SYSTEM \"validator.dtd\"> \n" +
                                 "\n" +
