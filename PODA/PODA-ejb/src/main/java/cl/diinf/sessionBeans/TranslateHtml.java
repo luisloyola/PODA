@@ -677,9 +677,13 @@ public class TranslateHtml {
         
         for( int i = 0 ; i < list_examples.size(); i++){
             
+            
+            
             if(i > 0)
                 examples += ", ";
-                                        
+            
+            examples += "\"";
+            
             for(int j = 0; j < list_examples.get(i).getTextContent().size(); j++){
 
                 examples += " ";
@@ -692,7 +696,7 @@ public class TranslateHtml {
                         examples += "<p>"+ content +"</p>";
                         break;
                     case "codigo":
-                        examples += "<pre class=\"brush: js\">"+ content +"</pre>";
+                        examples += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
                         break;
                     default:
                         break;
@@ -700,10 +704,10 @@ public class TranslateHtml {
             }
 
             for(int j = 0; j < list_examples.get(i).getMediaContent().size(); j++){
-
-                examples += " ";
-                examples += write_media(list_examples.get(i).getMediaContent().get(j), OAName, OAPath);
-            }        
+                                
+                examples += write_media(list_examples.get(i).getMediaContent().get(j), OAName, OAPath, true);
+            }
+            examples += "\"";
         }
         examples += ")</script>";
         examples += "<script language=javascript>ej_aleatorio()</script>";
@@ -711,17 +715,22 @@ public class TranslateHtml {
         return examples;
     }    
     
-    public String write_media(Media media, String OAName, String OAPath){
+    public String write_media(Media media, String OAName, String OAPath, boolean isExample){
         
         String code_media = "";
         String mediaName = "";
+        String char_example = "";
+        
+        if(isExample)
+            char_example = "\\";
+        
         try{
             mediaName = ResourcesDownloader.DownloadFromURLAsMozilla(media.getContent(), OAPath, ".img");            
         }catch (IOException ex) {
             
             this.translateError = "NO_MEDIA";
         }        
-        code_media += "<img src=\"resources/medias/"+ OAName+ "/"+mediaName+"\">";            
+        code_media += "<img src="+char_example+"\"resources/medias/"+ OAName+ "/"+mediaName+ char_example +"\">";
         return code_media;
     }
     
@@ -769,7 +778,7 @@ public class TranslateHtml {
             }                        
             
             for(int j = 0; j < idea.getMedia().size(); j++){
-                codeHtml += write_media(idea.getMedia().get(j), OAName, OAPath);
+                codeHtml += write_media(idea.getMedia().get(j), OAName, OAPath, false);
             }
             
             if(!idea.getVoice().isEmpty()){
