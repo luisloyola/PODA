@@ -576,14 +576,15 @@ public class ReaderXml {
                 if(feedBackNode.getLength() > 1){
                     this.fileContent = "Sólo puede haber un elemento de feedback.";
                     return new ArrayList<>();
-                }
-                        
-                Element currentFeedBack = (Element) feedBackNode.item(0);
-                
-                FeedBack newFeedBack = new FeedBack();
+                }                       
                                
-                newFeedBack.setLink(currentFeedBack.getTextContent());
-                
+                FeedBack newFeedBack = new FeedBack();
+                       
+                for(int fbi = 0; fbi < feedBackNode.getLength(); fbi++){
+                    Element currentFeedBack = (Element) feedBackNode.item(0);
+                    newFeedBack.setLink(currentFeedBack.getTextContent());
+                }
+                               
                 newOA.setFeedback(newFeedBack);
                 
                 Objects.add(newOA);
