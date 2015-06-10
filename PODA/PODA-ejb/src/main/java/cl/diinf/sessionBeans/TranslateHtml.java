@@ -53,6 +53,7 @@ public class TranslateHtml {
         codeHtml += "</head>\n"+"<body>\n";
         codeHtml += "   <div class=\"deck-container\">\n";
         codeHtml += write_contentHtml(object, OAName);
+        codeHtml += write_feedbackHtml(object);
         codeHtml += write_librsHtml(object);
         //codeHtml += write_scriptHand(object);
         codeHtml += "   </div>\n";
@@ -278,8 +279,7 @@ public class TranslateHtml {
                 for(int k = 0; k < bloque.getIdeas().size(); k++){
                     
                     Idea idea = bloque.getIdeas().get(k);
-                    int id_hand = -1;
-                    int id_hand_example = -1;
+                    int id_hand = -1;                    
                     String atr_left = write_confHand(slide.getDesign(), j);
                     String script_voice_became = "";
                     String script_voice_lost = "";
@@ -342,6 +342,7 @@ public class TranslateHtml {
                                         "  </script>";
                     
                     for(int l = 0; l < idea.getExample().size(); l++){
+                        int id_hand_example = -1;
                         for(int m = 0; m < idea.getExample().get(l).getTextContent().size(); m++){
                             if(idea.getExample().get(l).getTextContent().get(m).getType().equals("manuscrito")){
                                 id_hand_example = m;
@@ -351,7 +352,6 @@ public class TranslateHtml {
                         if(id_hand_example > -1){
                             int caracter_max = getCharMax(object, i, j );
                             trozos = trozarCadena(idea.getExample().get(l).getTextContent().get(id_hand_example).getContent(), caracter_max);
-
                             String text_ids = "";
 
                             for(int m = 0; m < trozos.size(); m++){
@@ -455,17 +455,20 @@ public class TranslateHtml {
     public String write_hand(ArrayList<String> trozos, int numberSlide, int numberBlock, int numberIdea, int numberExample){
         
         String add_example = "";
-        if(numberExample != -1 )
+        String charE = "";
+        if(numberExample != -1 ){
             add_example = "-"+numberExample;
+            charE = "\\";
+        }
                 
-        String id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+ add_example +"\"";        
-        String text = "\n<IMG id="+ id_handImage+" SRC=\"resources/manoconmanga.png\" WIDTH=800 HEIGHT=800 style=\"position:absolute;\">\n";
+        String id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+ add_example +charE+"\"";        
+        String text = "<IMG id="+charE+ id_handImage+" SRC="+charE+"\"resources/manoconmanga.png"+charE+"\" WIDTH=800 HEIGHT=800 style="+charE+"\"position:absolute;"+charE+"\">";
                                         
         for(int i = 0; i < trozos.size(); i++){
         
-            text +=     "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+ add_example +"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
-                        "   <span class=\"manuscrita\">"+ trozos.get(i) +"</span>\n" +
-                        "</div>\n";        
+            text +=     "<div id="+charE+"\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+ add_example +"-"+ i +charE+"\""+" style="+charE+"\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;"+charE+"\">" +
+                        "<span class="+charE+"\"manuscrita"+charE+"\">"+ trozos.get(i) +"</span>" +
+                        "</div>";
         }
         return text;
     }
@@ -755,12 +758,15 @@ public class TranslateHtml {
                 switch ( list_examples.get(i).getTextContent().get(j).getType()){
 
                     case "normal":
+                        content = content.replaceAll("\n","\\\\n");
                         examples += "<p>"+ write_text(content, design) +"</p>";
                         break;
                     case "codigo":
+                        content = content.replaceAll("\n","\\\\n");
                         examples += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
                         break;
                     case "manuscrito":
+                        content = content.replaceAll("\n","\\\\n");
                         trozos=trozarCadena(content, lim_line);
                         examples += write_hand(trozos, numberSlide, numberBlock, numberIdea, i);
                         break;
@@ -1111,6 +1117,24 @@ public class TranslateHtml {
         
         return codeHtml;
     }     
+    
+        public String write_feedbackHtml(LearningObject object){
+        
+        String codeHtml = "";
+                
+            if(!object.getFeedback().getLink().isEmpty()){
+                codeHtml+=  "<section class=\"slide\" style=\"background-color: #EDFCD0\">\n" +
+                            "   <div id=\"frase\" align=\"center\"><br><br><br><br><br>\n" +
+                            "       <h3 >Por favor, responde la siguiente encuesta para seguir mejorando el objeto de aprendizaje que acabas de ver.</h3>\n" +
+                            "       <div id=\"boton\" style=\"margin-top: 100px;\">\n" +
+                            "              <button class=\"btn btn-lg btn-default\" type=\"button\" onclick=\"ShowIframe('#encuesta','#boton','#frase','";
+                codeHtml += object.getFeedback().getLink();
+                codeHtml += "')\" >\n" +"<strong>Responder encuesta</strong>\n </button>\n </div>\n </div>\n <div id=\"encuesta\">\n </div>\n </section>";
+            }
+        
+        return codeHtml;
+    }
+        
     /**
      * Escribe liberías necesarias para utilizar el framework en el que está
      * construido el objeto.
@@ -1530,3 +1554,4 @@ public class TranslateHtml {
         return codeHtml;
     }*/
 }
+
