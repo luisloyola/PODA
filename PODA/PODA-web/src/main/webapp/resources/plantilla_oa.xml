@@ -30,7 +30,6 @@
 				</opciones>
 				<solucion>
 					<texto tipo="normal">ABC</texto>
-					<voz>Voz correspondiente a la solucion</voz>
 				</solucion>
 			</forma>
 		</pregunta>
