@@ -79,6 +79,9 @@ public class ReaderXml {
                         OA_XML_File.delete();
                         return Objects;
                     }
+                else{
+                    OA_XML_File.delete();
+                }
             } catch (org.xml.sax.SAXException e) {
                 /*Error en el parser*/
                 this.parsingError = e.getLocalizedMessage();
@@ -446,6 +449,7 @@ public class ReaderXml {
                                 
                                 NodeList enunTextNode = currentEnun.getElementsByTagName("texto");
                                 
+                                int enunManusCount = 0;
                                 for(int enunTextCount = 0; enunTextCount < enunTextNode.getLength(); enunTextCount++){
                                     Text newEnunText = new Text();
                                     
@@ -453,24 +457,18 @@ public class ReaderXml {
                                     
                                     newEnunText.setContent(currentEnunText.getTextContent());
                                     newEnunText.setHand(false);
-                                    newEnunText.setType("normal");
+                                    newEnunText.setType(currentEnunText.getAttribute("tipo"));
+                                    if(newEnunText.getType().equals("manuscrito")){
+                                        enunManusCount++;
+                                    }
+                                    if(enunManusCount>1){
+                                        this.parsingError = "sólo puede existir un texto manuscrito por enunciado.";
+                                        return new ArrayList<>();
+                                    }
                                     
                                     newQuestion.addTextContent(newEnunText);
                                 }                 
-                                
-                                NodeList enunMediaNode = currentEnun.getElementsByTagName("media");
-                                
-                                for(int enunMediaCount = 0; enunMediaCount< enunMediaNode.getLength(); enunMediaCount++){
-                                    Media newEnunMedia = new Media();
-                                    
-                                    Element currentEnunMedia = (Element) enunMediaNode.item(enunMediaCount);
-                                    
-                                    newEnunMedia.setType("imagen");
-                                    newEnunMedia.setContent(currentEnunMedia.getTextContent());
-                                    
-                                    newQuestion.addMediaContent(newEnunMedia);
-                                }
-                                
+                                                                
                             }
                  
                             //Alternativas
@@ -482,6 +480,11 @@ public class ReaderXml {
                                 
                                 NodeList choiceNode2 = currentOptionNode.getElementsByTagName("alternativa");
                                 
+                                if(choiceNode2.getLength() > 7){
+                                    this.parsingError = "Sólo es posible agregar hasta 7 alternativas.";
+                                    return new ArrayList<>();
+                                }
+                                
                                 for(int choiceNodeCount = 0; choiceNodeCount < choiceNode2.getLength(); choiceNodeCount++){
                                     Choice newChoice = new Choice();
                                     
@@ -489,32 +492,27 @@ public class ReaderXml {
                                     
                                     NodeList choiceTextNode = currentChoice.getElementsByTagName("texto");
                                     
+                                    int choiceManusCount = 0;
                                     for(int choiceTextCount = 0; choiceTextCount < choiceTextNode.getLength();choiceTextCount++){
                                         Text newChoiceText = new Text();
                                         
                                         Element currentChoiceText = (Element) choiceTextNode.item(choiceTextCount);
 
                                         newChoiceText.setHand(false);
-                                        newChoiceText.setType("normal");
+                                        newChoiceText.setType(currentChoiceText.getAttribute("tipo"));
                                         newChoiceText.setContent(currentChoiceText.getTextContent());
-                                        
+                                        if(newChoiceText.getType().equals("manuscrito")){
+                                            choiceManusCount++;
+                                        }
+                                        if(choiceManusCount>1){
+                                            this.parsingError = "sólo puede existir un texto manuscrito en una alternativa.";
+                                            return new ArrayList<>();
+                                        }
                                         
                                         
                                         newChoice.addTextContent(newChoiceText);
                                     }
                                     
-                                    NodeList choiceMediaNode = currentChoice.getElementsByTagName("media");
-                                    
-                                    for(int choiceTextCount = 0; choiceTextCount < choiceTextNode.getLength();choiceTextCount++){
-                                        Media newChoiceMedia = new Media();
-                                        
-                                        Element currentChoiceText = (Element) choiceTextNode.item(choiceTextCount);
-                                        
-                                        newChoiceMedia.setType("imagen");
-                                        newChoiceMedia.setContent(currentChoiceText.getTextContent());
-                                        
-                                        newChoice.addMediaContent(newChoiceMedia);
-                                    }
                                     newChoice.setTopic(currentChoice.getAttribute("tema"));
                                     newChoice.setType(currentChoice.getAttribute("tipo"));
                                     newQuestion.addChoices(newChoice);
@@ -531,6 +529,7 @@ public class ReaderXml {
                                 
                                 NodeList solutionTextNode = currentSolutionNode.getElementsByTagName("texto");
                                 
+                                int soluManusCount = 0;
                                 for(int solutionTextCount = 0; solutionTextCount < solutionTextNode.getLength(); solutionTextCount++){
                                     
                                     Text newText = new Text();
@@ -538,30 +537,18 @@ public class ReaderXml {
                                     Element currentSolutionTextNode = (Element) solutionTextNode.item(solutionTextCount);
                                     
                                     newText.setHand(false);
-                                    newText.setType("normal");
+                                    newText.setType(currentSolutionTextNode.getAttribute("tipo"));
                                     newText.setContent(currentSolutionTextNode.getTextContent());
-                                    
+                                    if(newText.getType().equals("manuscrito")){
+                                        soluManusCount++;
+                                    }
+                                    if(soluManusCount>1){
+                                        this.parsingError = "sólo puede existir un texto manuscrito en una alternativa.";
+                                        return new ArrayList<>();
+                                    }
                                     newQuestion.addSolutionTextContent(newText);
                                 }
                                 
-                                NodeList solutionMediaNode = currentSolutionNode.getElementsByTagName("media");
-                                
-                                for(int solutionMediaCount = 0; solutionMediaCount < solutionMediaNode.getLength(); solutionMediaCount++){
-                                    
-                                    Media newMedia = new Media();
-                                    
-                                    Element currentSolutionMediaNode = (Element) solutionTextNode.item(solutionMediaCount);
-                                    
-                                    newMedia.setType("imagen");
-                                    newMedia.setContent(currentSolutionMediaNode.getTextContent());
-                                    
-                                    newQuestion.addSolutionMediaContent(newMedia);
-                                }
-                                                            
-                                NodeList solutionVoiceNode = currentSolutionNode.getElementsByTagName("voz");
-                                if(solutionVoiceNode.getLength()>0){
-                                    newQuestion.setVoice(solutionVoiceNode.item(0).getTextContent());
-                                }
                             }
                             
                             newForm.addForm(newQuestion);
@@ -576,14 +563,15 @@ public class ReaderXml {
                 if(feedBackNode.getLength() > 1){
                     this.fileContent = "Sólo puede haber un elemento de feedback.";
                     return new ArrayList<>();
-                }
-                        
-                Element currentFeedBack = (Element) feedBackNode.item(0);
-                
-                FeedBack newFeedBack = new FeedBack();
+                }                       
                                
-                newFeedBack.setLink(currentFeedBack.getTextContent());
-                
+                FeedBack newFeedBack = new FeedBack();
+                       
+                for(int fbi = 0; fbi < feedBackNode.getLength(); fbi++){
+                    Element currentFeedBack = (Element) feedBackNode.item(0);
+                    newFeedBack.setLink(currentFeedBack.getTextContent());
+                }
+                               
                 newOA.setFeedback(newFeedBack);
                 
                 Objects.add(newOA);
@@ -673,10 +661,10 @@ public class ReaderXml {
                 + "<!ELEMENT evaluacion (pregunta+)>\n"
                 + "<!ELEMENT pregunta (forma+)>\n"
                 + "<!ELEMENT forma (enunciado,opciones,solucion?)>\n"
-                + "<!ELEMENT enunciado (texto?,media?)>\n"
+                + "<!ELEMENT enunciado (texto*)>\n"
                 + "<!ELEMENT opciones (alternativa*)>\n"
-                + "<!ELEMENT alternativa (texto?,media?)>\n"
-                + "<!ELEMENT solucion (texto?,media?,voz?)>\n"
+                + "<!ELEMENT alternativa (texto*)>\n"
+                + "<!ELEMENT solucion (texto*,voz?)>\n"
                 + "<!ELEMENT feedback (#PCDATA)>\n"
                 + "<!ELEMENT ejemplos (ejemplo*)>\n"
                 + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo?)>\n"
