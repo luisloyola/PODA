@@ -664,7 +664,7 @@ public class ReaderXml {
                 + "<!ELEMENT enunciado (texto*)>\n"
                 + "<!ELEMENT opciones (alternativa*)>\n"
                 + "<!ELEMENT alternativa (texto*)>\n"
-                + "<!ELEMENT solucion (texto*,voz?)>\n"
+                + "<!ELEMENT solucion (texto*)>\n"
                 + "<!ELEMENT feedback (#PCDATA)>\n"
                 + "<!ELEMENT ejemplos (ejemplo*)>\n"
                 + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo?)>\n"
