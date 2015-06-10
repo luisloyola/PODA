@@ -149,6 +149,10 @@ public class ObjectManaged implements Serializable{
                     code_html = null;
                     error_Message = "No se ha podido conectar con el servidor de medios (imagen no encontrada).";
                 }
+                if(OA_translate.getTranslateError().equals("NO_FORM")){
+                    code_html = null;
+                    error_Message = "El enlace agregado para la encuesta no es válido.";
+                }                
                 
                 this.OA_Name = OA_List.get(0).getTitle();
                 //prepareDownload();

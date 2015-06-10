@@ -1123,15 +1123,19 @@ public class TranslateHtml {
         String codeHtml = "";
                 
             if(!object.getFeedback().getLink().isEmpty()){
-                codeHtml+=  "<section class=\"slide\" style=\"background-color: #EDFCD0\">\n" +
-                            "   <div id=\"frase\" align=\"center\"><br><br><br><br><br>\n" +
-                            "       <h3 >Por favor, responde la siguiente encuesta para seguir mejorando el objeto de aprendizaje que acabas de ver.</h3>\n" +
-                            "       <div id=\"boton\" style=\"margin-top: 100px;\">\n" +
-                            "              <button class=\"btn btn-lg btn-default\" type=\"button\" onclick=\"ShowIframe('#encuesta','#boton','#frase','";
-                codeHtml += object.getFeedback().getLink();
-                codeHtml += "')\" >\n" +"<strong>Responder encuesta</strong>\n </button>\n </div>\n </div>\n <div id=\"encuesta\">\n </div>\n </section>";
-            }
-        
+                
+                if(object.getFeedback().isLinkValid()){
+                    codeHtml+=  "<section class=\"slide\" style=\"background-color: #EDFCD0\">\n" +
+                                "   <div id=\"frase\" align=\"center\"><br><br><br><br><br>\n" +
+                                "       <h3 >Por favor, responde la siguiente encuesta para seguir mejorando el objeto de aprendizaje que acabas de ver.</h3>\n" +
+                                "       <div id=\"boton\" style=\"margin-top: 100px;\">\n" +
+                                "              <button class=\"btn btn-lg btn-default\" type=\"button\" onclick=\"ShowIframe('#encuesta','#boton','#frase','";
+                    codeHtml += object.getFeedback().getLink();
+                    codeHtml += "')\" >\n" +"<strong>Responder encuesta</strong>\n </button>\n </div>\n </div>\n <div id=\"encuesta\">\n </div>\n </section>";
+                }
+                else
+                    this.translateError = "NO_FORM";
+            }        
         return codeHtml;
     }
         
