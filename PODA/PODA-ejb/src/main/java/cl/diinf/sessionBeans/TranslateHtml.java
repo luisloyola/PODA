@@ -53,6 +53,7 @@ public class TranslateHtml {
         codeHtml += "</head>\n"+"<body>\n";
         codeHtml += "   <div class=\"deck-container\">\n";
         codeHtml += write_contentHtml(object, OAName);
+        codeHtml += write_feedbackHtml(object);
         codeHtml += write_librsHtml(object);
         codeHtml += write_scriptHand(object);
         codeHtml += "   </div>\n";
@@ -126,6 +127,7 @@ public class TranslateHtml {
                             "  <script src=\"resources/audioController.js\"></script>\n" +
                             "  <script src=\"resources/visibilityController.js\"></script>\n" +
                             "  <script src=\"resources/textController.js\"></script>\n" +
+                            "  <script src=\"resources/GoogleFormValidator.js\"></script> "+
                             "\n" +
                             "\n" +
                             "  <script>\n" +
@@ -1090,6 +1092,20 @@ public class TranslateHtml {
         
         return codeHtml;
     }     
+    
+    public String write_feedbackHtml(LearningObject object){
+        
+        String codeHtml =   "<section class=\"slide\" style=\"background-color: #EDFCD0\">\n" +
+                            "   <div id=\"frase\" align=\"center\"><br><br><br><br><br>\n" +
+                            "       <h3 >Por favor, responde la siguiente encuesta para seguir mejorando el objeto de aprendizaje que acabas de ver.</h3>\n" +
+                            "       <div id=\"boton\" style=\"margin-top: 100px;\">\n" +
+                            "              <button class=\"btn btn-lg btn-default\" type=\"button\" onclick=\"ShowIframe('#encuesta','#boton','#frase','";
+        codeHtml += object.getFeedback().getLink();
+        codeHtml += "')\" >\n" +"<strong>Responder encuesta</strong>\n </button>\n </div>\n </div>\n <div id=\"encuesta\">\n </div>\n </section>";        
+        
+        return codeHtml;
+    }
+    
     /**
      * Escribe liberías necesarias para utilizar el framework en el que está
      * construido el objeto.
