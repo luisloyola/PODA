@@ -276,13 +276,13 @@ public class TranslateHtml {
                     
                     Idea idea = bloque.getIdeas().get(k);
                     int id_hand = -1;
-                    int id_hand_example = -1;
+                    //int id_hand_example = -1;
                     String script_voice_became = "";
                     String script_voice_lost = "";
                     String script_hand_became = "";
                     String script_hand_lost = "";
-                    String script_hand_became_example = "";
-                    String script_hand_lost_example = "";
+                    //String script_hand_became_example = "";
+                    //String script_hand_lost_example = "";
                     
                     if(!idea.getVoice().isEmpty()){
                         script_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
@@ -296,8 +296,8 @@ public class TranslateHtml {
                         }
                     }                    
                     if(id_hand > -1){
-                                                
-                        int caracter_max = getCharMax(object, i, j );                                               
+
+                        int caracter_max = getCharMax(object, i, j );
                         trozos = trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
@@ -314,32 +314,6 @@ public class TranslateHtml {
                         script_hand_lost = "textLostCurrent(["+ text_ids +"], direction);";                        
                     }
                     
-                    for(int l = 0; l < idea.getExample().size(); l++){
-                        for(int m = 0; m < idea.getExample().get(l).getTextContent().size(); m++){
-                            if(idea.getExample().get(l).getTextContent().get(m).getType().equals("manuscrito")){
-                                id_hand_example = m;
-                                break;
-                            }
-                        }
-                        if(id_hand_example > -1){
-                            int caracter_max = getCharMax(object, i, j );                                               
-                        trozos = trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
-                        
-                        String text_ids = "";
-                        
-                        for(int m = 0; m < trozos.size(); m++){
-                            text_ids += "\"#manoExample-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
-                            
-                            if(m+1 < trozos.size()){
-                                text_ids +=",";
-                            }                                                            
-                        }
-                        
-                        script_hand_became_example = "textBecameCurrent(["+ text_ids + "], direction);";
-                        script_hand_lost_example = "textLostCurrent(["+ text_ids +"], direction);"; 
-                        }
-                    }
-                    
                     script_header +=    "<script>\n" +
                                         "    $(function(){\n" +
                                         "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
@@ -354,6 +328,46 @@ public class TranslateHtml {
                                         "      });\n" +
                                         "    });\n" +
                                         "  </script>";
+                    
+                    /*for(int l = 0; l < idea.getExample().size(); l++){
+                        for(int m = 0; m < idea.getExample().get(l).getTextContent().size(); m++){
+                            if(idea.getExample().get(l).getTextContent().get(m).getType().equals("manuscrito")){
+                                id_hand_example = m;
+                                break;
+                            }
+                        }
+                        if(id_hand_example > -1){
+                            int caracter_max = getCharMax(object, i, j );
+                            trozos = trozarCadena(idea.getExample().get(l).getTextContent().get(id_hand_example).getContent(), caracter_max);
+
+                            String text_ids = "";
+
+                            for(int m = 0; m < trozos.size(); m++){
+                                text_ids += "\"#manoExample-"+(i+1)+"-"+j+"-"+k+"-"+l+"-"+ m + "\"";
+
+                                if(m+1 < trozos.size()){
+                                    text_ids +=",";
+                                }
+                            }
+
+                            script_hand_became_example = "textBecameCurrent(["+ text_ids + "], direction);";
+                            script_hand_lost_example = "textLostCurrent(["+ text_ids +"], direction);"; 
+                        }
+                        script_header +=    "<script>\n" +
+                                        "    $(function(){\n" +
+                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
+                                        "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                    //script_voice_became +
+                                                    script_hand_became +
+                                        "      });\n" +
+                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                        "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                    //script_voice_lost +
+                                                    script_hand_lost +
+                                        "      });\n" +
+                                        "    });\n" +
+                                        "  </script>";
+                    }*/
                 }
             }
         }        
@@ -700,14 +714,12 @@ public class TranslateHtml {
         return total;        
     }*/
     
-    public String write_examples(List<Example> list_examples, String OAName, String OAPath){
+    public String write_examples(List<Example> list_examples, String OAName, String OAPath/*, String numberSlide, String numberBlock, String numberIdea*/){
         
         String examples = "<script>\nvar ejemplos = new Array(";
         
         for( int i = 0 ; i < list_examples.size(); i++){
-            
-            
-            
+                                    
             if(i > 0)
                 examples += ", ";
             
@@ -727,6 +739,10 @@ public class TranslateHtml {
                     case "codigo":
                         examples += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
                         break;
+                    /*case "manuscrito":
+                        examples += "<IMG id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+i+"\"";
+                        break;*/
+                                    
                     default:
                         break;
                 }
@@ -736,6 +752,7 @@ public class TranslateHtml {
                                 
                 examples += write_media(list_examples.get(i).getMediaContent().get(j), OAName, OAPath, true);
             }
+            
             examples += "\"";
         }
         examples += ")</script>";
@@ -1116,6 +1133,7 @@ public class TranslateHtml {
                     
                     Idea idea = bloque.getIdeas().get(k);
                     int id_hand = -1;
+                    //int id_hand_example = -1;
                     String array_textManuscrito = "";                    
                     String left="";
 
@@ -1127,7 +1145,7 @@ public class TranslateHtml {
                     }                    
                     if(id_hand > -1){
                                                 
-                        int caracter_max = getCharMax(object, i, j );                        
+                        int caracter_max = getCharMax(object, i, j );
                         ArrayList <String >trozos= trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
@@ -1136,7 +1154,7 @@ public class TranslateHtml {
                             
                             if(m+1 < trozos.size()){
                                 text_ids +=",";
-                            }                                                            
+                            }
                         }
 
                         switch (slide.getDesign()){

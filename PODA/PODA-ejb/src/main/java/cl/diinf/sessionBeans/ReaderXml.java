@@ -554,9 +554,9 @@ public class ReaderXml {
                                 }
                             }
                             
-                            newForm.addQuestion(newQuestion);
+                            newForm.addForm(newQuestion);
                         }
-                        newTest.addForms(newForm);
+                        newTest.addQuestion(newForm);
                     }                    
                     newOA.addQuiz(newTest);
                 }    

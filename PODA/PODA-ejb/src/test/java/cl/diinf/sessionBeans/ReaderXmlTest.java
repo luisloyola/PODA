@@ -395,21 +395,21 @@ public class ReaderXmlTest {
                 count_test++;
                 count_exigency = objects.get(0).getQuizSet().get(i).getExigency();
                 
-                for(int j = 0; j < objects.get(0).getQuizSet().get(i).getForms().size() ; j++){
+                for(int j = 0; j < objects.get(0).getQuizSet().get(i).getQuestions().size() ; j++){
                     count_questions++;
-                    for(int k = 0; k < objects.get(0).getQuizSet().get(i).getForms().get(j).getQuestion().size(); k++){
+                    for(int k = 0; k < objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){
                         count_forms++;
                         int voice = 0;
                         
-                        count_wording_text += objects.get(0).getQuizSet().get(i).getForms().get(j).getQuestion().get(k).getTextContent().size();
-                        count_wording_media += objects.get(0).getQuizSet().get(i).getForms().get(j).getQuestion().get(k).getMediaContent().size();
+                        count_wording_text += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size();
+                        count_wording_media += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getMediaContent().size();
                         if( (count_wording_media + count_wording_text) > 0)
                             count_wording++;
                                                 
-                        count_solution_media += objects.get(0).getQuizSet().get(i).getForms().get(j).getQuestion().get(k).getSolutionMediaContent().size();
-                        count_solution_text  += objects.get(0).getQuizSet().get(i).getForms().get(j).getQuestion().get(k).getSolutionTextContent().size();
+                        count_solution_media += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionMediaContent().size();
+                        count_solution_text  += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size();
                         
-                        if(!objects.get(0).getQuizSet().get(i).getForms().get(j).getQuestion().get(k).getVoice().isEmpty()){
+                        if(!objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getVoice().isEmpty()){
                             count_solution_voice++;
                             voice = 1;
                         }
@@ -417,10 +417,10 @@ public class ReaderXmlTest {
                         if( (count_solution_media + count_solution_text + voice) > 0)
                             count_solution++;
                         
-                        for( int l = 0; l < objects.get(0).getQuizSet().get(i).getForms().get(j).getQuestion().get(k).getChoices().size(); l++ ){
+                        for( int l = 0; l < objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size(); l++ ){
                             count_choice++;
-                            count_choice_media += objects.get(0).getQuizSet().get(i).getForms().get(j).getQuestion().get(k).getChoices().get(l).getMediaContent().size();
-                            count_choice_text += objects.get(0).getQuizSet().get(i).getForms().get(j).getQuestion().get(k).getChoices().get(l).getTextContent().size();
+                            count_choice_media += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getMediaContent().size();
+                            count_choice_text += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size();
                         }
                     }                    
                 }                
@@ -444,7 +444,19 @@ public class ReaderXmlTest {
         else
             fail("Error en la lectura del xml");
     }
-        
+    /**
+    * Probar creacion de slides
+    */
+    
+    @Test
+    public void testFeedback(){
+        int count_feedback = 1;
+        if(!objects.isEmpty()){
+            assertNotNull("Error en la lectura del feedback desde el xml", objects.get(0).getFeedback().getLink());
+        }
+        else
+            fail("Error en la lectura del xml");                    
+    }
     /**
      * Probar creacion de objeto a partir de un error en el tipo de escena
      */ 
