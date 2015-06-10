@@ -53,9 +53,8 @@ public class TranslateHtml {
         codeHtml += "</head>\n"+"<body>\n";
         codeHtml += "   <div class=\"deck-container\">\n";
         codeHtml += write_contentHtml(object, OAName);
-        codeHtml += write_feedbackHtml(object);
         codeHtml += write_librsHtml(object);
-        codeHtml += write_scriptHand(object);
+        //codeHtml += write_scriptHand(object);
         codeHtml += "   </div>\n";
         codeHtml += "</body></html>";
         return codeHtml;        
@@ -127,7 +126,8 @@ public class TranslateHtml {
                             "  <script src=\"resources/audioController.js\"></script>\n" +
                             "  <script src=\"resources/visibilityController.js\"></script>\n" +
                             "  <script src=\"resources/textController.js\"></script>\n" +
-                            "  <script src=\"resources/GoogleFormValidator.js\"></script> "+
+                            "  <script src=\"resources/GoogleFormValidator.js\"></script>\n"+
+                            "  <script src=\"resources/mano.js\"></script>\n"+
                             "\n" +
                             "\n" +
                             "  <script>\n" +
@@ -279,13 +279,18 @@ public class TranslateHtml {
                     
                     Idea idea = bloque.getIdeas().get(k);
                     int id_hand = -1;
-                    //int id_hand_example = -1;
+                    int id_hand_example = -1;
+                    String atr_left = write_confHand(slide.getDesign(), j);
                     String script_voice_became = "";
                     String script_voice_lost = "";
+                    String script_text_became = "";
+                    String script_text_lost = "";
                     String script_hand_became = "";
                     String script_hand_lost = "";
-                    //String script_hand_became_example = "";
-                    //String script_hand_lost_example = "";
+                    String script_text_became_example = "";
+                    String script_text_lost_example = "";
+                    String script_hand_became_example = "";
+                    String script_hand_lost_example = "";
                     
                     if(!idea.getVoice().isEmpty()){
                         script_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
@@ -313,26 +318,30 @@ public class TranslateHtml {
                             }                                                            
                         }
                         
-                        script_hand_became = "textBecameCurrent(["+ text_ids + "], direction);";
-                        script_hand_lost = "textLostCurrent(["+ text_ids +"], direction);";                        
+                        script_text_became = "textBecameCurrent(["+ text_ids + "], direction);";
+                        script_hand_became = "manoBecameCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"\""+", ["+text_ids+"], "+ atr_left +");";
+                        script_text_lost = "textLostCurrent(["+ text_ids +"], direction);";                        
+                        script_hand_lost = "manoLostCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"\""+", direction,"+ atr_left +");";
                     }
                     
                     script_header +=    "<script>\n" +
                                         "    $(function(){\n" +
                                         "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
                                         "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
-                                                    script_voice_became +
-                                                    script_hand_became +
+                                                    script_voice_became +"\n"+
+                                                    script_text_became +"\n"+
+                                                    script_hand_became +"\n"+
                                         "      });\n" +
                                         "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
                                         "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
-                                                    script_voice_lost +
-                                                    script_hand_lost +
+                                                    script_voice_lost +"\n"+
+                                                    script_text_lost +"\n"+
+                                                    script_hand_lost +"\n"+
                                         "      });\n" +
                                         "    });\n" +
                                         "  </script>";
                     
-                    /*for(int l = 0; l < idea.getExample().size(); l++){
+                    for(int l = 0; l < idea.getExample().size(); l++){
                         for(int m = 0; m < idea.getExample().get(l).getTextContent().size(); m++){
                             if(idea.getExample().get(l).getTextContent().get(m).getType().equals("manuscrito")){
                                 id_hand_example = m;
@@ -346,31 +355,35 @@ public class TranslateHtml {
                             String text_ids = "";
 
                             for(int m = 0; m < trozos.size(); m++){
-                                text_ids += "\"#manoExample-"+(i+1)+"-"+j+"-"+k+"-"+l+"-"+ m + "\"";
+                                text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ l + "-"+ m + "\"";
 
                                 if(m+1 < trozos.size()){
                                     text_ids +=",";
                                 }
                             }
 
-                            script_hand_became_example = "textBecameCurrent(["+ text_ids + "], direction);";
-                            script_hand_lost_example = "textLostCurrent(["+ text_ids +"], direction);"; 
+                            script_text_became_example = "textBecameCurrent(["+ text_ids + "], direction);";
+                            script_text_lost_example = "textLostCurrent(["+ text_ids +"], direction);";
+                            script_hand_became_example = "manoBecameCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ l +"\""+", ["+text_ids+"], "+ atr_left +");";
+                            script_hand_lost_example = "manoLostCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ l +"\""+", direction,"+ atr_left +");";
                         }
                         script_header +=    "<script>\n" +
                                         "    $(function(){\n" +
                                         "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
                                         "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
                                                     //script_voice_became +
-                                                    script_hand_became +
+                                                    script_text_became_example +
+                                                    script_hand_became_example +
                                         "      });\n" +
                                         "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
                                         "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
                                                     //script_voice_lost +
-                                                    script_hand_lost +
+                                                    script_text_lost_example +
+                                                    script_hand_lost_example +
                                         "      });\n" +
                                         "    });\n" +
                                         "  </script>";
-                    }*/
+                    }
                 }
             }
         }        
@@ -439,14 +452,18 @@ public class TranslateHtml {
         return piece_string;        
     }
     
-    public String write_hand(ArrayList<String> trozos, int numberSlide, int numberBlock, int numberIdea){
+    public String write_hand(ArrayList<String> trozos, int numberSlide, int numberBlock, int numberIdea, int numberExample){
         
-        String id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"\"";        
+        String add_example = "";
+        if(numberExample != -1 )
+            add_example = "-"+numberExample;
+                
+        String id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+ add_example +"\"";        
         String text = "\n<IMG id="+ id_handImage+" SRC=\"resources/manoconmanga.png\" WIDTH=800 HEIGHT=800 style=\"position:absolute;\">\n";
                                         
         for(int i = 0; i < trozos.size(); i++){
         
-            text +=     "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
+            text +=     "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+ add_example +"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
                         "   <span class=\"manuscrita\">"+ trozos.get(i) +"</span>\n" +
                         "</div>\n";        
         }
@@ -717,9 +734,10 @@ public class TranslateHtml {
         return total;        
     }*/
     
-    public String write_examples(List<Example> list_examples, String OAName, String OAPath/*, String numberSlide, String numberBlock, String numberIdea*/){
+    public String write_examples(List<Example> list_examples, String OAName, String OAPath, String design, int lim_line, int numberSlide, int numberBlock, int numberIdea){
         
         String examples = "<script>\nvar ejemplos = new Array(";
+        ArrayList<String> trozos;
         
         for( int i = 0 ; i < list_examples.size(); i++){
                                     
@@ -737,14 +755,15 @@ public class TranslateHtml {
                 switch ( list_examples.get(i).getTextContent().get(j).getType()){
 
                     case "normal":
-                        examples += "<p>"+ content +"</p>";
+                        examples += "<p>"+ write_text(content, design) +"</p>";
                         break;
                     case "codigo":
                         examples += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
                         break;
-                    /*case "manuscrito":
-                        examples += "<IMG id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+i+"\"";
-                        break;*/
+                    case "manuscrito":
+                        trozos=trozarCadena(content, lim_line);
+                        examples += write_hand(trozos, numberSlide, numberBlock, numberIdea, i);
+                        break;
                                     
                     default:
                         break;
@@ -786,7 +805,7 @@ public class TranslateHtml {
     public String write_block(Block block, int numberSlide, int numberBlock, String design, String OAName, String OAPath, int lim_line){
                         
         String codeHtml = "";                
-        ArrayList<String> trozos = new ArrayList<>();                    
+        ArrayList<String> trozos;
                         
         for(int i = 0; i < block.getIdeas().size(); i++){
                                         
@@ -807,7 +826,7 @@ public class TranslateHtml {
                         
                     case "manuscrito":                        
                         trozos=trozarCadena(idea.getText().get(j).getContent(), lim_line);
-                        codeHtml += write_hand(trozos, numberSlide, numberBlock, i);                        
+                        codeHtml += write_hand(trozos, numberSlide, numberBlock, i, -1);                        
                         break;
                         
                     case "codigo":
@@ -823,7 +842,7 @@ public class TranslateHtml {
             
             if( !idea.getExample().isEmpty() ){
                 
-                codeHtml += write_examples(idea.getExample(), OAName, OAPath);
+                codeHtml += write_examples(idea.getExample(), OAName, OAPath, design, lim_line, numberSlide, numberBlock, i);
             }                        
             
             for(int j = 0; j < idea.getMedia().size(); j++){
@@ -1092,20 +1111,6 @@ public class TranslateHtml {
         
         return codeHtml;
     }     
-    
-    public String write_feedbackHtml(LearningObject object){
-        
-        String codeHtml =   "<section class=\"slide\" style=\"background-color: #EDFCD0\">\n" +
-                            "   <div id=\"frase\" align=\"center\"><br><br><br><br><br>\n" +
-                            "       <h3 >Por favor, responde la siguiente encuesta para seguir mejorando el objeto de aprendizaje que acabas de ver.</h3>\n" +
-                            "       <div id=\"boton\" style=\"margin-top: 100px;\">\n" +
-                            "              <button class=\"btn btn-lg btn-default\" type=\"button\" onclick=\"ShowIframe('#encuesta','#boton','#frase','";
-        codeHtml += object.getFeedback().getLink();
-        codeHtml += "')\" >\n" +"<strong>Responder encuesta</strong>\n </button>\n </div>\n </div>\n <div id=\"encuesta\">\n </div>\n </section>";        
-        
-        return codeHtml;
-    }
-    
     /**
      * Escribe liberías necesarias para utilizar el framework en el que está
      * construido el objeto.
@@ -1136,6 +1141,125 @@ public class TranslateHtml {
 
         return codeHtml;
     }   
+    
+    public String write_confHand(String design, int numberBLock){
+        
+        String left = "";
+        
+        switch (design){
+            case "1Col":
+                //escribir contenido del primer bloque 
+                left="-80";
+                break;
+
+            case "1Fil2Col":
+                //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="-80";
+                }
+                //bloque 3
+                else{
+                    left="+617";
+                }
+
+                break;
+
+            case "2Col":
+                //bloque 1
+
+                if(numberBLock==0){
+                  left="-80";
+                }
+                else{
+                   left="+617";
+                }
+
+                break;
+
+            case "3Col":
+                //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="+340";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                }
+                //bloque 3
+                else{
+                    left="+760";
+                }
+
+                break;
+
+            case "1Fil3Col":
+                //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="-80";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                }
+                //bloque 3
+                else if(numberBLock==2){
+                    left="+340";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                }
+                else{
+                    left="+760"; 
+                }
+                break;
+
+            case "2Fil2Col":
+
+                //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="-80";   
+                }
+                //bloque 3
+                else if(numberBLock==2){
+                    left="+617"; 
+                }
+                else{
+                    left="-80"; 
+                }
+
+
+                break;
+            case "2Col1Fil":
+               //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="+617";  
+                }
+                //bloque 3
+                else if(numberBLock==2){
+                    left="-80"; 
+                }
+                else{
+                    left="-80"; 
+                }
+
+                break;
+
+            default:
+                break;            
+        }
+        return left;
+    }
+    
+    /*
     public String write_scriptHand(LearningObject object){
         String codeHtml = "";
         String scriptHand= "" ;
@@ -1294,6 +1418,7 @@ public class TranslateHtml {
                                         "           var up=-80;\n" +
                                         "           var down=-40;" +
                                                     array_textManuscrito + 
+                            
                                         "            function move_down(array,num,dist,up,down) {\n" +
                                         "        var n = array.length;\n" +
                                         "        \n" +
@@ -1339,7 +1464,8 @@ public class TranslateHtml {
                                         "        }\n" +
                                         "      }\n" +
                                         "\n" +
-                                        "      function move_up(array,num,dist,up,down) {\n" +
+                                        
+                            "      function move_up(array,num,dist,up,down) {\n" +
                                         "        var n = array.length;\n" +
                                         "        \n" +
                                         "        if(n!=0){\n" +
@@ -1402,5 +1528,5 @@ public class TranslateHtml {
         codeHtml = "\n" + scriptHand;
 
         return codeHtml;
-    }
+    }*/
 }
