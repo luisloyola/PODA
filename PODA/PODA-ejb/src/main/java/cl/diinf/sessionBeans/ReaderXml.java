@@ -472,6 +472,11 @@ public class ReaderXml {
                                 
                                 NodeList choiceNode2 = currentOptionNode.getElementsByTagName("alternativa");
                                 
+                                if(choiceNode2.getLength() > 7){
+                                    this.parsingError = "Sólo es posible agregar hasta 7 alternativas.";
+                                    return new ArrayList<>();
+                                }
+                                
                                 for(int choiceNodeCount = 0; choiceNodeCount < choiceNode2.getLength(); choiceNodeCount++){
                                     Choice newChoice = new Choice();
                                     
