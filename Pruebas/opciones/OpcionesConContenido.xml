@@ -1,5 +1,5 @@
 
-<comenzar>
+
 	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
 <evaluacion>
 							<enunciado>Enunciado Evaluacion </enunciado>
@@ -10,4 +10,4 @@
 								</opciones>		
 						</evaluacion>
 	</objeto>
-</comenzar>
+
