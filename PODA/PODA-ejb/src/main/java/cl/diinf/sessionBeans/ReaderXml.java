@@ -449,6 +449,7 @@ public class ReaderXml {
                                 
                                 NodeList enunTextNode = currentEnun.getElementsByTagName("texto");
                                 
+                                int enunManusCount = 0;
                                 for(int enunTextCount = 0; enunTextCount < enunTextNode.getLength(); enunTextCount++){
                                     Text newEnunText = new Text();
                                     
@@ -456,7 +457,14 @@ public class ReaderXml {
                                     
                                     newEnunText.setContent(currentEnunText.getTextContent());
                                     newEnunText.setHand(false);
-                                    newEnunText.setType("normal");
+                                    newEnunText.setType(currentEnunText.getAttribute("tipo"));
+                                    if(newEnunText.getType().equals("manuscrito")){
+                                        enunManusCount++;
+                                    }
+                                    if(enunManusCount>1){
+                                        this.parsingError = "sólo puede existir un texto manuscrito por enunciado.";
+                                        return new ArrayList<>();
+                                    }
                                     
                                     newQuestion.addTextContent(newEnunText);
                                 }                 
@@ -484,15 +492,22 @@ public class ReaderXml {
                                     
                                     NodeList choiceTextNode = currentChoice.getElementsByTagName("texto");
                                     
+                                    int choiceManusCount = 0;
                                     for(int choiceTextCount = 0; choiceTextCount < choiceTextNode.getLength();choiceTextCount++){
                                         Text newChoiceText = new Text();
                                         
                                         Element currentChoiceText = (Element) choiceTextNode.item(choiceTextCount);
 
                                         newChoiceText.setHand(false);
-                                        newChoiceText.setType("normal");
+                                        newChoiceText.setType(currentChoiceText.getAttribute("tipo"));
                                         newChoiceText.setContent(currentChoiceText.getTextContent());
-                                        
+                                        if(newChoiceText.getType().equals("manuscrito")){
+                                            choiceManusCount++;
+                                        }
+                                        if(choiceManusCount>1){
+                                            this.parsingError = "sólo puede existir un texto manuscrito en una alternativa.";
+                                            return new ArrayList<>();
+                                        }
                                         
                                         
                                         newChoice.addTextContent(newChoiceText);
@@ -514,6 +529,7 @@ public class ReaderXml {
                                 
                                 NodeList solutionTextNode = currentSolutionNode.getElementsByTagName("texto");
                                 
+                                int soluManusCount = 0;
                                 for(int solutionTextCount = 0; solutionTextCount < solutionTextNode.getLength(); solutionTextCount++){
                                     
                                     Text newText = new Text();
@@ -521,9 +537,15 @@ public class ReaderXml {
                                     Element currentSolutionTextNode = (Element) solutionTextNode.item(solutionTextCount);
                                     
                                     newText.setHand(false);
-                                    newText.setType("normal");
+                                    newText.setType(currentSolutionTextNode.getAttribute("tipo"));
                                     newText.setContent(currentSolutionTextNode.getTextContent());
-                                    
+                                    if(newText.getType().equals("manuscrito")){
+                                        soluManusCount++;
+                                    }
+                                    if(soluManusCount>1){
+                                        this.parsingError = "sólo puede existir un texto manuscrito en una alternativa.";
+                                        return new ArrayList<>();
+                                    }
                                     newQuestion.addSolutionTextContent(newText);
                                 }
                                 
@@ -639,10 +661,10 @@ public class ReaderXml {
                 + "<!ELEMENT evaluacion (pregunta+)>\n"
                 + "<!ELEMENT pregunta (forma+)>\n"
                 + "<!ELEMENT forma (enunciado,opciones,solucion?)>\n"
-                + "<!ELEMENT enunciado (texto?,media?)>\n"
+                + "<!ELEMENT enunciado (texto*)>\n"
                 + "<!ELEMENT opciones (alternativa*)>\n"
-                + "<!ELEMENT alternativa (texto?,media?)>\n"
-                + "<!ELEMENT solucion (texto?,media?,voz?)>\n"
+                + "<!ELEMENT alternativa (texto*)>\n"
+                + "<!ELEMENT solucion (texto*,voz?)>\n"
                 + "<!ELEMENT feedback (#PCDATA)>\n"
                 + "<!ELEMENT ejemplos (ejemplo*)>\n"
                 + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo?)>\n"
