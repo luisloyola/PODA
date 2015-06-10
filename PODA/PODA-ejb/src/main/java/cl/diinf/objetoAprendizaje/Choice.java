@@ -16,6 +16,8 @@ public class Choice {
     private String topic;
 
      public Choice(){
+         type = "";
+         topic = "";
          textContent = new ArrayList<>();
          mediaContent = new ArrayList<>();
     }

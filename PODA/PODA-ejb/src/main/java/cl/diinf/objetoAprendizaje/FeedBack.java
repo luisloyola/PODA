@@ -5,7 +5,6 @@
  */
 package cl.diinf.objetoAprendizaje;
 
-import java.net.URL;
 
 /**
  *
@@ -14,6 +13,11 @@ import java.net.URL;
 public class FeedBack {
     private String link;
 
+    public FeedBack(){
+        link = "";
+    }
+    
+    
     public String getLink() {
         return link;
     }

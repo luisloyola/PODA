@@ -15,7 +15,8 @@ public class Text {
     private boolean hand;
     
     public Text(){
-    
+        type = content = "";
+        hand = false;
     }
 
     public String getType() {

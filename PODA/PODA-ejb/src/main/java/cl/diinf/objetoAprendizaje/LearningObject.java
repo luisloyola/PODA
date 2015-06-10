@@ -24,6 +24,8 @@ public class LearningObject {
     private FeedBack feedback;
     
     public LearningObject(){
+        title = author = template = name_file = "";
+        feedback = new FeedBack();
         content = new ArrayList<>();
         quizSet = new ArrayList<>();
     };

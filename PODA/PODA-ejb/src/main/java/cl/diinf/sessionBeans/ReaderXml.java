@@ -320,7 +320,7 @@ public class ReaderXml {
                                     Example newExample = new Example();
                                     
                                     NodeList exampleTextNode = currentExampleNode.getElementsByTagName("texto_ejemplo");
-                                            
+                                    int handwritedExampleCounter = 0;
                                     for(int eTN = 0; eTN < exampleTextNode.getLength(); eTN++){
                                         Text newText2 = new Text();
                                         
@@ -330,10 +330,20 @@ public class ReaderXml {
                                         
                                         String currentExampleTextType = currentExampleText.getAttribute("tipo");
                                         
+                                        newText2.setHand(false);
+                                        
                                         switch(currentExampleTextType){
                                             case "normal":
                                                 break;
                                             case "codigo":
+                                                break;
+                                            case "manuscrito":
+                                                if(handwritedExampleCounter>1){
+                                                    this.parsingError = "Sólo se admite un texto manuscrito por ejemplo.";
+                                                    return new ArrayList<>();
+                                                }
+                                                newText2.setHand(true);
+                                                handwritedExampleCounter++;
                                                 break;
                                             default:
                                                 this.parsingError = "Tipo de texto no soportado para ejemplos.";
@@ -341,7 +351,7 @@ public class ReaderXml {
                                         }
                                         
                                         newText2.setType(currentExampleTextType);
-                                        newText2.setHand(false);
+                                        
                                         
                                         newExample.addTextContent(newText2);
                                     }    

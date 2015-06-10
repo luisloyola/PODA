@@ -18,6 +18,7 @@ public class Scene {
     private List<Block> blocks;
      
     public Scene(){
+        title = design = "";
         blocks = new ArrayList<Block>();
     };
 

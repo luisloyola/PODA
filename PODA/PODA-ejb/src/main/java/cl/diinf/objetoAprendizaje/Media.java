@@ -13,7 +13,9 @@ public class Media {
     private String type;
     private String content;
     
-    public Media(){};
+    public Media(){
+        type = content = "";
+    };
 
     public String getType() {
         return type;
