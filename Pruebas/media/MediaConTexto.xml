@@ -1,17 +1,17 @@
-<comenzar>
+
 	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
 		<escena titulo="Ejemplo de multimedia" tipo="1Col">
 			<bloque>
-				<idea ordenAparicion="1">
+				<idea orden="1">
 					<texto tipo="normal">El siguiente es un ejemplo de una imagen</texto>
 					<media tipo="imagen">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg
 						<texto tipo="normal">El siguiente es un ejemplo de una imagen</texto>
 					</media>
 				</idea>
-				<idea ordenAparicion="3">
+				<idea orden="3">
 					<texto tipo="normal">El siguiente es un ejemplo de audio</texto>				
 				</idea>
 			</bloque>
 		</escena>
 	</objeto>
-</comenzar>
+

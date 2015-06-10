@@ -1,6 +1,6 @@
 
 
-<comenzar>
+
 	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
 					<evaluaciones>
 						<evaluacion>
@@ -16,4 +16,4 @@
 						</evaluacion>
 					</evaluaciones>
 	</objeto>
-</comenzar>
+

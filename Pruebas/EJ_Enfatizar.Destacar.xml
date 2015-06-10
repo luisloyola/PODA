@@ -1,14 +1,14 @@
-<comenzar>
+
 	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
 		<escena titulo="Ejemplo de textos" tipo="1Col">
 			<bloque>
-				<idea ordenAparicion="1">
+				<idea orden="1">
 					<texto tipo="normal"><destacar>Este es un texto destacado</destacar></texto>
 				</idea>
-				<idea ordenAparicion="2">
+				<idea orden="2">
 					<texto tipo="normal"><enfatizar>Este es un texto enfatizado</enfatizar></texto>
 				</idea>
 			</bloque>
 		</escena>
 	</objeto>
-</comenzar>
+

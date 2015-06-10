@@ -1,12 +1,11 @@
-<comenzar>
+
 	<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
 		<escena titulo="Ejemplo de textos" tipo="1Col">
 			<bloque>
-				<idea ordenAparicion="1">
+				<idea orden="1">
 					<texto tipo="normal">Este <destacar es un</destacar> texto</texto>
 				</idea>							
 			</bloque>
 		</escena>
 			
 	</objeto>
-</comenzar>

@@ -42,21 +42,21 @@ public class TranslateHtml {
      * @return String codeHtml, resultado que estará como presentación del OA
      * @throws IOException 
      */
-    public String writeHtml(ObjetoAprendizaje object) throws IOException{
+    public String writeHtml(LearningObject object) throws IOException{
                     
         String codeHtml;       
         String OAName = object.getName_file();
         
-        codeHtml = "<!DOCTYPE html>\n" +"<html>\n" + "<head>\n";
+        codeHtml =  "<!DOCTYPE html>\n" +"<html>\n" + "<head>\n";
         codeHtml += write_headerHtml(object);
         codeHtml += write_scriptHeaderHtml(object);        
         codeHtml += "</head>\n"+"<body>\n";
-        codeHtml += "  <div class=\"deck-container\">\n";
+        codeHtml += "   <div class=\"deck-container\">\n";
         codeHtml += write_contentHtml(object, OAName);
         codeHtml += write_librsHtml(object);
         codeHtml += write_scriptHand(object);
-        codeHtml += "</div>\n";
-        codeHtml+="</body></html>";
+        codeHtml += "   </div>\n";
+        codeHtml += "</body></html>";
         return codeHtml;        
     }
     
@@ -65,11 +65,11 @@ public class TranslateHtml {
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @return string con el header incorporado.
      */
-    public String write_headerHtml(ObjetoAprendizaje object) throws IOException{
+    public String write_headerHtml(LearningObject object) throws IOException{
         //Head del HTML
         
         String templateHtml;
-        String scriptEvaluacion = write_evaluacionHtml(object);
+        //String scriptEvaluacion = write_evaluacionHtml(object);
         switch (object.getTemplate()){
             case "dafault":
                 templateHtml = "default.css";
@@ -145,11 +145,11 @@ public class TranslateHtml {
                             "       document.write(ejemplos[index])\n" +
                             "   }\n" +
                             "</script> ";                                            
-        htmlHeader = htmlHeader + scriptEvaluacion;        
+        //htmlHeader = htmlHeader + scriptEvaluacion;        
         return htmlHeader;
     }
     
-    public int getCharMax(ObjetoAprendizaje object, int numberSlide, int numberBlock){
+    public int getCharMax(LearningObject object, int numberSlide, int numberBlock){
         
         int lim_line = 0;
         
@@ -263,12 +263,12 @@ public class TranslateHtml {
         return lim_line;
     }
     
-    public String write_scriptHeaderHtml(ObjetoAprendizaje object){
+    public String write_scriptHeaderHtml(LearningObject object){
         
         String script_header = "";
         ArrayList<String> trozos;
         for(int i = 0; i < object.getContent().size(); i++){
-            Slide slide = object.getContent().get(i);
+            Scene slide = object.getContent().get(i);
             
             for(int j = 0; j < slide.getBlocks().size(); j++){
                 Block bloque = slide.getBlocks().get(j);
@@ -277,10 +277,13 @@ public class TranslateHtml {
                     
                     Idea idea = bloque.getIdeas().get(k);
                     int id_hand = -1;
+                    //int id_hand_example = -1;
                     String script_voice_became = "";
                     String script_voice_lost = "";
                     String script_hand_became = "";
                     String script_hand_lost = "";
+                    //String script_hand_became_example = "";
+                    //String script_hand_lost_example = "";
                     
                     if(!idea.getVoice().isEmpty()){
                         script_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
@@ -294,8 +297,8 @@ public class TranslateHtml {
                         }
                     }                    
                     if(id_hand > -1){
-                                                
-                        int caracter_max = getCharMax(object, i, j );                                               
+
+                        int caracter_max = getCharMax(object, i, j );
                         trozos = trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
@@ -326,6 +329,46 @@ public class TranslateHtml {
                                         "      });\n" +
                                         "    });\n" +
                                         "  </script>";
+                    
+                    /*for(int l = 0; l < idea.getExample().size(); l++){
+                        for(int m = 0; m < idea.getExample().get(l).getTextContent().size(); m++){
+                            if(idea.getExample().get(l).getTextContent().get(m).getType().equals("manuscrito")){
+                                id_hand_example = m;
+                                break;
+                            }
+                        }
+                        if(id_hand_example > -1){
+                            int caracter_max = getCharMax(object, i, j );
+                            trozos = trozarCadena(idea.getExample().get(l).getTextContent().get(id_hand_example).getContent(), caracter_max);
+
+                            String text_ids = "";
+
+                            for(int m = 0; m < trozos.size(); m++){
+                                text_ids += "\"#manoExample-"+(i+1)+"-"+j+"-"+k+"-"+l+"-"+ m + "\"";
+
+                                if(m+1 < trozos.size()){
+                                    text_ids +=",";
+                                }
+                            }
+
+                            script_hand_became_example = "textBecameCurrent(["+ text_ids + "], direction);";
+                            script_hand_lost_example = "textLostCurrent(["+ text_ids +"], direction);"; 
+                        }
+                        script_header +=    "<script>\n" +
+                                        "    $(function(){\n" +
+                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
+                                        "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                    //script_voice_became +
+                                                    script_hand_became +
+                                        "      });\n" +
+                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                        "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                    //script_voice_lost +
+                                                    script_hand_lost +
+                                        "      });\n" +
+                                        "    });\n" +
+                                        "  </script>";
+                    }*/
                 }
             }
         }        
@@ -401,14 +444,14 @@ public class TranslateHtml {
                                         
         for(int i = 0; i < trozos.size(); i++){
         
-            text +=  "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
+            text +=     "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
                         "   <span class=\"manuscrita\">"+ trozos.get(i) +"</span>\n" +
                         "</div>\n";        
         }
         return text;
     }
     
-    public String write_evaluacionHtml(ObjetoAprendizaje object) throws IOException{
+    /*public String write_evaluacionHtml(LearningObject object) throws IOException{
                     
         String templateCss = "";
         String templateEvaluacion1 = "";
@@ -670,43 +713,77 @@ public class TranslateHtml {
 				"</script>";
         total = templateCss +templateEvaluacion1+tempEval+randomPila+templateRescatarTemas+templateFuncionesFijas;
         return total;        
-    }
+    }*/
     
-    public String write_examples(ArrayList<String> list_examples/*, String start, String end*/){
+    public String write_examples(List<Example> list_examples, String OAName, String OAPath/*, String numberSlide, String numberBlock, String numberIdea*/){
         
         String examples = "<script>\nvar ejemplos = new Array(";
         
         for( int i = 0 ; i < list_examples.size(); i++){
+                                    
+            if(i > 0)
+                examples += ", ";
             
-            if(i == 0)
-                examples += "\""+ list_examples.get(i) +"\"";
-            else
-                examples += ", \""+ list_examples.get(i) +"\"";
+            examples += "\"";
+            
+            for(int j = 0; j < list_examples.get(i).getTextContent().size(); j++){
+
+                examples += " ";
+
+                String content = list_examples.get(i).getTextContent().get(j).getContent();
+
+                switch ( list_examples.get(i).getTextContent().get(j).getType()){
+
+                    case "normal":
+                        examples += "<p>"+ content +"</p>";
+                        break;
+                    case "codigo":
+                        examples += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
+                        break;
+                    /*case "manuscrito":
+                        examples += "<IMG id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+i+"\"";
+                        break;*/
+                                    
+                    default:
+                        break;
+                }
+            }
+
+            for(int j = 0; j < list_examples.get(i).getMediaContent().size(); j++){
+                                
+                examples += write_media(list_examples.get(i).getMediaContent().get(j), OAName, OAPath, true);
+            }
+            
+            examples += "\"";
         }
         examples += ")</script>";
-        examples += "<p>"+"<script language=javascript>ej_aleatorio()</script>"+"</p>";
+        examples += "<script language=javascript>ej_aleatorio()</script>";
         
         return examples;
     }    
     
-    public String write_media(Media media, String OAName, String OAPath){
+    public String write_media(Media media, String OAName, String OAPath, boolean isExample){
         
         String code_media = "";
         String mediaName = "";
+        String char_example = "";
+        
+        if(isExample)
+            char_example = "\\";
+        
         try{
             mediaName = ResourcesDownloader.DownloadFromURLAsMozilla(media.getContent(), OAPath, ".img");            
         }catch (IOException ex) {
             
             this.translateError = "NO_MEDIA";
         }        
-        code_media += "<img src=\"resources/medias/"+ OAName+ "/"+mediaName+"\">";            
+        code_media += "<img src="+char_example+"\"resources/medias/"+ OAName+ "/"+mediaName+ char_example +"\">";
         return code_media;
     }
     
     public String write_block(Block block, int numberSlide, int numberBlock, String design, String OAName, String OAPath, int lim_line){
                         
-        String codeHtml = "";        
-        ArrayList<String>list_examples = new ArrayList();
+        String codeHtml = "";                
         ArrayList<String> trozos = new ArrayList<>();                    
                         
         for(int i = 0; i < block.getIdeas().size(); i++){
@@ -717,15 +794,7 @@ public class TranslateHtml {
             codeHtml += start_label;            
             
             for(int j = 0; j < idea.getText().size(); j++){
-                
-                if(!idea.getText().get(j).getType().equals("ejemplo")){
-                    
-                    if(!list_examples.isEmpty()){
-                        codeHtml += write_examples(list_examples);                        
-                        list_examples.clear();
-                    }
-                }
-
+                                
                 switch(idea.getText().get(j).getType()){
 
                     case "normal":
@@ -743,25 +812,20 @@ public class TranslateHtml {
                         codeHtml += "<pre class=\"brush: js\">";
                         codeHtml += idea.getText().get(j).getContent();
                         codeHtml += "</pre>";
-                        break;
-                        
-                    case "ejemplo":
-                        list_examples.add(idea.getText().get(j).getContent());
-                        break;
+                        break;                    
                         
                     default:
                         break;
                 };
             }
             
-            if(!list_examples.isEmpty()){
-                        
-                codeHtml += write_examples(list_examples);
-                list_examples.clear();
-            }
+            if( !idea.getExample().isEmpty() ){
+                
+                codeHtml += write_examples(idea.getExample(), OAName, OAPath);
+            }                        
             
             for(int j = 0; j < idea.getMedia().size(); j++){
-                codeHtml += write_media(idea.getMedia().get(j), OAName, OAPath);
+                codeHtml += write_media(idea.getMedia().get(j), OAName, OAPath, false);
             }
             
             if(!idea.getVoice().isEmpty()){
@@ -797,7 +861,7 @@ public class TranslateHtml {
         return fecha;
     }
         
-    public String write_titleHtml(ObjetoAprendizaje object){
+    public String write_titleHtml(LearningObject object){
                 
         String codeHtml =   "<section class=\"slide\" id=\"title-slide\">\n" +
                             "<h1>" + object.getTitle() + "</h1>"+
@@ -811,7 +875,7 @@ public class TranslateHtml {
         return codeHtml;
     }
 
-    public String write_animationHtml(Slide scene, int number_slide, String OAPath, String OAName ){
+    public String write_animationHtml(Scene scene, int number_slide, String OAPath, String OAName ){
         
         String codeHtml = "";
         ArrayList<Idea> orderedIdea = new ArrayList<>();
@@ -851,7 +915,7 @@ public class TranslateHtml {
         return codeHtml;
     }      
     
-    public String write_slideHtml(Slide scene, int nro_slide, String OAPath, String OAName, String design){        
+    public String write_slideHtml(Scene scene, int nro_slide, String OAPath, String OAName, String design){        
         
         int tam_fila = 110;
         int tam_2Col = 45;
@@ -1000,7 +1064,7 @@ public class TranslateHtml {
      * @param OAName 
      * @return string con todas las slides incorporadas.
      */
-    public String write_contentHtml(ObjetoAprendizaje object, String OAName){
+    public String write_contentHtml(LearningObject object, String OAName){
 
         /* Obtener la ruta donde guardar el OA*/
         String OAPath = ResourcesDownloader.generatePathForOA(); // Wildfly/standalone/deplayments/...ear/...web.war
@@ -1033,7 +1097,7 @@ public class TranslateHtml {
      * @param codeHtml 
      * @return string con las librerías incorporadas.
      */
-    public String write_librsHtml(ObjetoAprendizaje object){
+    public String write_librsHtml(LearningObject object){
 
         String codeHtml = "";
         String htmlLibrs=   "<div aria-role=\"navigation\">\n" +
@@ -1056,12 +1120,12 @@ public class TranslateHtml {
 
         return codeHtml;
     }   
-    public String write_scriptHand(ObjetoAprendizaje object){
+    public String write_scriptHand(LearningObject object){
         String codeHtml = "";
         String scriptHand= "" ;
 
             for(int i = 0; i < object.getContent().size(); i++){
-            Slide slide = object.getContent().get(i);
+            Scene slide = object.getContent().get(i);
             
             for(int j = 0; j < slide.getBlocks().size(); j++){
                 Block bloque = slide.getBlocks().get(j);
@@ -1070,6 +1134,7 @@ public class TranslateHtml {
                     
                     Idea idea = bloque.getIdeas().get(k);
                     int id_hand = -1;
+                    //int id_hand_example = -1;
                     String array_textManuscrito = "";                    
                     String left="";
 
@@ -1081,7 +1146,7 @@ public class TranslateHtml {
                     }                    
                     if(id_hand > -1){
                                                 
-                        int caracter_max = getCharMax(object, i, j );                        
+                        int caracter_max = getCharMax(object, i, j );
                         ArrayList <String >trozos= trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
@@ -1090,7 +1155,7 @@ public class TranslateHtml {
                             
                             if(m+1 < trozos.size()){
                                 text_ids +=",";
-                            }                                                            
+                            }
                         }
 
                         switch (slide.getDesign()){

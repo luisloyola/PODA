@@ -4,11 +4,11 @@ package cl.diinf.managedBeans;
 import javax.faces.application.FacesMessage;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable; 
-import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
+import cl.diinf.objetoAprendizaje.LearningObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-import cl.diinf.sessionBeans.readerXml;
+import cl.diinf.sessionBeans.ReaderXml;
 import cl.diinf.sessionBeans.TranslateHtml;
 import cl.diinf.util.Compressor;
 import java.io.File;
@@ -125,13 +125,13 @@ public class ObjectManaged implements Serializable{
         }
         if (fileContent != null && !fileContent.isEmpty()){
            
-            readerXml nuevoOAR = new readerXml();
+            ReaderXml nuevoOAR = new ReaderXml();
             
             nuevoOAR.setFileContent(fileContent);
             
             nuevoOAR.AppendDTD();
             
-            List<ObjetoAprendizaje> OA_List = nuevoOAR.readOA();                        
+            List<LearningObject> OA_List = nuevoOAR.readOA();                        
             
             if(OA_List.size() > 0){
                 

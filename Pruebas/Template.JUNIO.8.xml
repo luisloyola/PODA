@@ -1,0 +1,43 @@
+<objeto titulo="Nombre del Objeto" tema="usach" autor="Autor"><!-- o tema="default" -->
+	<escena titulo="Titulo de la escena" tipo="1Col"> <!-- tipo={"2Col", "1Fil2Col", "3Col", "1Fil3Col", etc} -->
+		<bloque>
+			<idea orden="1"> <!-- orden="# del orden de aparicion" -->
+				<texto tipo="normal">ABC</texto> <!-- o tipo={"normal","manuscrito","codigo"} -->
+				<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
+				<ejemplos>
+					<!-- dentro de ejemplos estarán las pilas de ejemplos a mostrar, pueden ser varias -->
+					<ejemplo>
+						<texto_ejemplo tipo="normal">ABCD</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	
+					</ejemplo>				
+				</ejemplos>
+				<voz>voz correspondiente a esta idea</voz>
+				<!-- el orden debe ser siempre: Texto, Media, Ejemplo, Voz. Pueden existir mucho textos y medias o ninguno
+				pero siempre manteniendo aquel orden -->
+			</idea>
+		</bloque>
+		<!-- La cantidad de bloque es la suma de los numeros en el tipo -->
+	</escena>
+	<evaluacion exigencia="100"> <!-- la exigencia es un porcentaje, toma valores de 1 a 100 -->
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">ABC</texto> <!-- 0 o Muchos -->
+					<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>	<!-- 0 o Muchos -->			
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="nuevoTema"> <!-- o distractor --> 
+						<texto tipo="normal">ABC</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">ABC</texto>
+					<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
+					<voz>Voz correspondiente a la solucion</voz>
+				</solucion>
+			</forma>
+		</pregunta>
+	</evaluacion>
+	<feedback><texto tipo="normal">ABC</texto></feedback>
+</objeto>

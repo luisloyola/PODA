@@ -5,7 +5,7 @@
  */
 package cl.diinf.sessionBeans;
 
-import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
+import cl.diinf.objetoAprendizaje.LearningObject;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,18 +17,17 @@ import org.junit.Ignore;
 
 /**
  *
- * @author teban
+ * @author nacho
  */
-public class testReaderXml {
-
-    List<ObjetoAprendizaje> objects;
+public class ReaderXmlTest {
     
-    public testReaderXml() {
+    List<LearningObject> objects;
+    
+    public ReaderXmlTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-
     }
     
     @AfterClass
@@ -38,79 +37,141 @@ public class testReaderXml {
     @Before
     public void setUp() {
                                 
-        readerXml good_instance = new readerXml();
+        ReaderXml good_instance = new ReaderXml();
         
-        String good_xml =   "<comenzar>\n" +
-                            "   <objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-                            "       <escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
-                            "           <bloque>\n" +
-                            "               <idea ordenAparicion=\"1\">\n" +
-                            "                   <texto tipo=\"normal\">Este texto tiene audio</texto>\n" +
-                            "                   <voz>Buenos Dias, tardes, noches</voz>\n" +
-                            "               </idea>\n" +
-                            "               <idea ordenAparicion=\"3\">\n" +
-                            "                   <texto tipo=\"manuscrito\">Este es un texto manuscrito</texto>\n" +
-                            "                   <media tipo=\"imagen\">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>\n" +
-                            "               </idea>\n" +
-                            "               <idea ordenAparicion=\"4\">\n" +
-                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 1</texto>\n" +
-                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 2</texto>\n" +
-                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 3</texto>\n" +
-                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 4</texto>\n" +
-                            "                   <texto tipo=\"ejemplo\">Este es el ejemplo 5</texto>\n" +
-                            "               </idea>\n" +
-                            "           </bloque>\n" +
-                            "       </escena>\n" +
-                            "       <escena titulo=\"Ejemplo de multimedia\" tipo=\"1Col\">\n" +
-                            "           <bloque>\n" +
-                            "               <idea ordenAparicion=\"1\">\n" +
-                            "                   <texto tipo=\"normal\">El siguiente es un ejemplo de una imagen</texto>\n" +
-                            "                   <media tipo=\"imagen\">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>\n" +
-                            "               </idea>\n" +
-                            "           </bloque>\n" +
-                            "       </escena>\n" +
-                            "			<evaluaciones>\n" +
-                            "				<evaluacion>\n" +
-                            "					<enunciado>Enunciado Evaluacion </enunciado>\n" +
-                            "					<opciones>\n" +
-                            "						<alternativa tipo=\"solucion\" tema=\"prueba\">Si</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "					</opciones>\n" +
-                            "				</evaluacion>\n" +
-                            "				<evaluacion>\n" +
-                            "					<enunciado>Enunciado Evaluacion 2</enunciado>\n" +
-                            "					<opciones>\n" +
-                            "						<alternativa tipo=\"solucion\" tema=\"prueba\">Alternativa a</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">Alternativa b</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "					</opciones>\n" +
-                            "				</evaluacion>\n" +
-                            "			</evaluaciones>" +
-                            "			<evaluaciones>\n" +
-                            "				<evaluacion>\n" +
-                            "					<enunciado>Enunciado Evaluacion 3 </enunciado>\n" +
-                            "					<opciones>\n" +
-                            "						<alternativa tipo=\"solucion\" tema=\"prueba\">Si</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "					</opciones>\n" +
-                            "				</evaluacion>\n" +
-                            "				<evaluacion>\n" +
-                            "					<enunciado>Enunciado Evaluacion 4</enunciado>\n" +
-                            "					<opciones>\n" +
-                            "						<alternativa tipo=\"solucion\" tema=\"prueba\">Alternativa a</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">Alternativa b</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "						<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "					</opciones>\n" +
-                            "				</evaluacion>\n" +
-                            "			</evaluaciones>" +
-                            "   </objeto>\n" +
-                            "</comenzar>";
+        String good_xml =   "<objeto titulo=\"Nombre del Objeto\" tema=\"usach\" autor=\"Autor\">\n" +
+                            "	<escena titulo=\"Titulo de la escena\" tipo=\"1Col\">\n" +
+                            "		<bloque>\n" +
+                            "			<idea orden=\"1\"> \n" +
+                            "				<texto tipo=\"normal\">Soy texto normal</texto> \n" +
+                            "				<texto tipo=\"codigo\">\n" +
+                            "					var = 0\n" +
+                            "					while(var++ &lt;= 10)\n" +
+                            "						aux = var + 1\n" +
+                            "\n" +
+                            "				</texto> \n" +
+                            "				<texto tipo=\"manuscrito\">Soy texto manuscrito</texto>\n" +
+                            "				<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>\n" +
+                            "				<ejemplos>					\n" +
+                            "					<ejemplo>\n" +
+                            "						<texto_ejemplo tipo=\"normal\">ABCD</texto_ejemplo>\n" +
+                            "						<media_ejemplo tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	\n" +
+                            "					</ejemplo>				\n" +
+                            "				</ejemplos>\n" +
+                            "				<voz>voz correspondiente a esta idea</voz>				\n" +
+                            "			</idea>\n" +
+                            "			<idea orden=\"3\">\n" +
+                            "				<texto tipo=\"normal\">Soy texto normal 2</texto>\n" +
+                            "			</idea>\n" +
+                            "		</bloque>		\n" +
+                            "	</escena>\n" +
+                            "	<escena titulo=\"Titulo de la escena 2\" tipo=\"1Fil2Col\">\n" +
+                            "		<bloque>\n" +
+                            "			<idea orden=\"1\"> 				\n" +
+                            "				<voz>voz correspondiente a esta idea</voz>				\n" +
+                            "			</idea>\n" +
+                            "			<idea orden=\"2\"> 				\n" +
+                            "				<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>\n" +
+                            "			</idea>\n" +
+                            "			<idea orden=\"3\">\n" +
+                            "				<texto tipo=\"manuscrito\">Soy texto normal 2</texto>\n" +
+                            "			</idea>\n" +
+                            "		</bloque>\n" +
+                            "		<bloque>\n" +
+                            "			<idea orden=\"2\">\n" +
+                            "				<ejemplos>\n" +
+                            "					<!-- dentro de ejemplos estarán las pilas de ejemplos a mostrar, pueden ser varias -->\n" +
+                            "					<ejemplo>\n" +
+                            "						<texto_ejemplo tipo=\"normal\">ABCD</texto_ejemplo>						\n" +
+                            "					</ejemplo>\n" +
+                            "					<ejemplo>\n" +
+                            "						<media_ejemplo tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	\n" +
+                            "					</ejemplo>				\n" +
+                            "					<ejemplo>\n" +
+                            "						<texto_ejemplo tipo=\"normal\">ABCD</texto_ejemplo>\n" +
+                            "						<media_ejemplo tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	\n" +
+                            "					</ejemplo>								\n" +
+                            "					<ejemplo>\n" +
+                            "						<texto_ejemplo tipo=\"codigo\">ABCD</texto_ejemplo>\n" +
+                            "						<media_ejemplo tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	\n" +
+                            "					</ejemplo>						\n" +
+                            "				</ejemplos>\n" +
+                            "			</idea>\n" +
+                            "		</bloque>	\n" +
+                            "		<bloque>\n" +
+                            "			<idea orden=\"5\">\n" +
+                            "				<voz>HOla como estas</voz>\n" +
+                            "			</idea>\n" +
+                            "		</bloque>\n" +
+                            "\n" +
+                            "	</escena>\n" +
+                            "\n" +
+                            "<evaluacion exigencia=\"60\">\n" +
+                            "		<pregunta>\n" +
+                            "			<forma>\n" +
+                            "				<enunciado>\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +
+                            "					<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>	\n" +
+                            "				</enunciado>\n" +
+                            "				<opciones>\n" +
+                            "					<alternativa tipo=\"solucion\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
+                            "						<texto tipo=\"normal\">ABC</texto> <!-- 0 o 1 -->\n" +
+                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "					</alternativa>\n" +
+                            "					<alternativa tipo=\"distractor\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
+                            "						<texto tipo=\"normal\">ABCD</texto> <!-- 0 o 1 -->\n" +
+                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "					</alternativa>\n" +
+                            "				</opciones>\n" +
+                            "				<solucion>\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +
+                            "					<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>\n" +
+                            "					<voz>Voz correspondiente a la solucion</voz>\n" +
+                            "				</solucion>\n" +
+                            "			</forma>\n" +
+                            "		</pregunta>\n" +
+                            "		<pregunta>\n" +
+                            "			<forma>\n" +
+                            "				<enunciado>\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +
+                            "					<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>	\n" +
+                            "				</enunciado>\n" +
+                            "				<opciones>\n" +
+                            "					<alternativa tipo=\"solucion\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
+                            "						<texto tipo=\"normal\">ABC</texto> <!-- 0 o 1 -->\n" +
+                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "					</alternativa>\n" +
+                            "					<alternativa tipo=\"distractor\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
+                            "						<texto tipo=\"normal\">ABCD</texto> <!-- 0 o 1 -->\n" +
+                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "					</alternativa>\n" +
+                            "				</opciones>\n" +
+                            "				<solucion>\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +
+                            "					<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>\n" +
+                            "					<voz>Voz correspondiente a la solucion</voz>\n" +
+                            "				</solucion>\n" +
+                            "			</forma>\n" +
+                            "			<forma>\n" +
+                            "				<enunciado>\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +                            
+                            "				</enunciado>\n" +
+                            "				<opciones>\n" +
+                            "					<alternativa tipo=\"solucion\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
+                            "						<texto tipo=\"normal\">ABC</texto> <!-- 0 o 1 -->\n" +
+                            "					</alternativa>\n" +
+                            "					<alternativa tipo=\"distractor\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
+                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "					</alternativa>\n" +
+                            "				</opciones>\n" +
+                            "				<solucion>\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +
+                            "				</solucion>\n" +
+                            "			</forma>\n" +
+                            "		</pregunta>\n" +
+                            "	</evaluacion>"+
+                            "	<feedback>ABC</feedback>\n" +
+                            "</objeto>";
         
         good_instance.setFileContent(good_xml);
         good_instance.AppendDTD();
@@ -140,7 +201,7 @@ public class testReaderXml {
     @Test
     public void testErrorObject(){
         
-        String error_xml =  "<comenzar>\n" +
+        String error_xml =  
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
                             "       <escena titulo=\"escena1\" tipo=\"1Col\">\n" +
                             "           <bloque>\n" +
@@ -152,9 +213,8 @@ public class testReaderXml {
                             "               </idea>"+
                             "           </bloque>\n" +
                             "        \n" +
-                            "   </objeto>\n" +
-                            "</comenzar>";
-        readerXml instance = new readerXml();
+                            "   </objeto>";                            
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -179,7 +239,7 @@ public class testReaderXml {
     
     @Test
     public void testBlock(){
-        int blocks = 2;
+        int blocks = 4;
         int count_blocks = 0;
         
         if(!objects.isEmpty()){
@@ -198,7 +258,7 @@ public class testReaderXml {
     
     @Test
     public void testIdea(){
-        int ideas = 4;
+        int ideas = 7;
         int count_ideas = 0;
         
         if(!objects.isEmpty()){
@@ -219,7 +279,7 @@ public class testReaderXml {
     
     @Test
     public void testText(){
-        int texts = 8;
+        int texts = 5;
         int count_texts = 0;
         
         if(!objects.isEmpty()){
@@ -263,92 +323,144 @@ public class testReaderXml {
     }
     
     /**
+     * Probar creacion de ejemplos
+     */
+    
+    @Test
+    public void testExamples(){
+        int list_examples = 2;
+        int examples = 5;
+        int count_list = 0;
+        int count_examples = 0;
+        
+        if(!objects.isEmpty()){
+            for(int i = 0; i < objects.get(0).getContent().size(); i++)
+            {
+                for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
+
+                    for(int k = 0; k < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size(); k++){
+                                                
+                        if(!objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getExample().isEmpty()){
+                            count_list++;
+                            count_examples += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getExample().size();
+                        }                                                
+                    }
+                }
+            }
+            assertEquals("Error en la lectura de pilas de ejemplos desde el xml", list_examples, count_list);        
+            assertEquals("Error en la lectura de ejemplos de una pila desde el xml", examples, count_examples);        
+        }
+        else
+            fail("Error en la lectura del xml");
+    }
+    
+    /**
      * Probar creacion de conjunto de evaluaciones
      */
     
     @Test
-    public void testPruebas(){
-        int pruebas = 2;
-        int count_pruebas = 0;
-        
-        if(!objects.isEmpty()){
-            /*for(int i = 0; i < objects.get(0).getContent().size(); i++)
-            {
-                for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
-
-                    for(int k = 0; k < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size(); k++){
-                        
-                        count_pruebas += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size();
-                    }
-                }
-            }*/
-            count_pruebas = objects.get(0).getQuizSet().size();
-            assertEquals("Error en la lectura de conjunto de evaluaciones en el xml", pruebas, count_pruebas);
-        }
-        else
-            fail("Error en la lectura del xml");
-    }
-    /**
-     * Probar creacion de evaluaciones
-     */
-    
-    @Test
     public void testEvaluaciones(){
-        int evaluaciones = 4;
-        int count_evaluaciones = 0;
-        
-        if(!objects.isEmpty()){
-            /*for(int i = 0; i < objects.get(0).getContent().size(); i++)
-            {
-                for(int j = 0; j < objects.get(0).getContent().get(i).getBlocks().size(); j++){
-
-                    for(int k = 0; k < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().size(); k++){
-                        
-                        for(int l = 0; l < objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().size(); l++){
-                            
-                            count_evaluaciones += objects.get(0).getContent().get(i).getBlocks().get(j).getIdeas().get(k).getQuizSet().get(l).getQuiz().size();
-                    }
-                }
-            }*/
-            for(int i = 0; i < objects.get(0).getQuizSet().size(); i++){
-                count_evaluaciones+=objects.get(0).getQuizSet().get(i).getQuiz().size();
-            }
-            assertEquals("Error en la lectura de evaluaciones en el xml", evaluaciones, count_evaluaciones);
-        }
-        else
-            fail("Error en la lectura del xml");
-    }
-    /**
-     * Probar creacion de alternativas de las evaluaciones
-     */
-    
-    @Test
-    public void testAlternativas(){
-        int alternativas = 16;
-        int enunciado = 4;
-        int count_alternativas = 0;
-        int count_enunciado = 0;
+        int test = 1;
+        int question = 2;
+        int forms = 3;
+        int wording = 3;
+        int wording_text = 3;
+        int wording_media = 2;
+        int choice = 6;
+        int choice_text = 5;
+        int choice_media = 5;
+        int solution = 3;
+        int solution_text = 3;
+        int solution_media = 2;
+        int solution_voice = 2;
+        int exigency = 60;
+        int count_test = 0;
+        int count_questions = 0;
+        int count_forms = 0;
+        int count_wording = 0;
+        int count_wording_text = 0;
+        int count_wording_media = 0;
+        int count_choice = 0;
+        int count_choice_text = 0;
+        int count_choice_media = 0;        
+        int count_solution = 0;
+        int count_solution_text = 0;
+        int count_solution_media = 0;
+        int count_solution_voice = 0;
+        int count_exigency = 0;
         
         if(!objects.isEmpty()){
             for(int i = 0; i < objects.get(0).getQuizSet().size(); i++)
             {
+                count_test++;
+                count_exigency = objects.get(0).getQuizSet().get(i).getExigency();
                 
-                for(int j = 0; j < objects.get(0).getQuizSet().get(i).getQuiz().size(); j++){
-                    count_enunciado += 1;
-                    count_alternativas+=objects.get(0).getQuizSet().get(i).getQuiz().get(j).getChoices().size();
-                }
-            }
-            assertEquals("Error en la lectura de evaluaciones en el xml", alternativas, count_alternativas);
-            assertEquals("Error en la lectura de enunciados de evaluaciones en el xml", enunciado, count_enunciado);
+                for(int j = 0; j < objects.get(0).getQuizSet().get(i).getQuestions().size() ; j++){
+                    count_questions++;
+                    for(int k = 0; k < objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){
+                        count_forms++;
+                        int voice = 0;
+                        
+                        count_wording_text += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size();
+                        count_wording_media += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getMediaContent().size();
+                        if( (count_wording_media + count_wording_text) > 0)
+                            count_wording++;
+                                                
+                        count_solution_media += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionMediaContent().size();
+                        count_solution_text  += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size();
+                        
+                        if(!objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getVoice().isEmpty()){
+                            count_solution_voice++;
+                            voice = 1;
+                        }
+                        
+                        if( (count_solution_media + count_solution_text + voice) > 0)
+                            count_solution++;
+                        
+                        for( int l = 0; l < objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size(); l++ ){
+                            count_choice++;
+                            count_choice_media += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getMediaContent().size();
+                            count_choice_text += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size();
+                        }
+                    }                    
+                }                
+            }            
+                        
+            assertEquals("Error en la lectura del conjunto de evaluaciones en el xml", test, count_test );
+            assertEquals("Error en la lectura del conjunto de evaluaciones en el xml", question, count_questions );
+            assertEquals("Error en la lectura de conjuntos de formas del conjunto evaluaciones en el xml", forms, count_forms );
+            assertEquals("Error en la lectura de los enunciados de cada forma en el xml", wording, count_wording );
+            assertEquals("Error en la lectura de imagenes en los enunciados de cada forma en el xml", wording_media, count_wording_media );
+            assertEquals("Error en la lectura de textos en los enunciados de cada forma en el xml", wording_text, count_wording_text );
+            assertEquals("Error en la lectura de las alternativas de cada forma en el xml", choice, count_choice );
+            assertEquals("Error en la lectura de las textos de las alternativas de cada forma en el xml", choice_text, count_choice_text );
+            assertEquals("Error en la lectura de las imagenes de las alternativas de cada forma en el xml", choice_media, count_choice_media );
+            assertEquals("Error en la lectura de las soluciones de forma en el xml", solution, count_solution );
+            assertEquals("Error en la lectura de los textos de las soluciones de forma en el xml", solution_text, count_solution_text );
+            assertEquals("Error en la lectura de las imagenes las soluciones de forma en el xml", solution_media, count_solution_media );
+            assertEquals("Error en la lectura de la voz de las soluciones de forma en el xml", solution_voice, count_solution_voice );
+            assertEquals("Error en la lectura de la voz de las soluciones de forma en el xml", exigency, count_exigency );                        
         }
         else
             fail("Error en la lectura del xml");
     }
+    /**
+    * Probar creacion de slides
+    */
     
+    @Test
+    public void testFeedback(){
+        int count_feedback = 1;
+        if(!objects.isEmpty()){
+            assertNotNull("Error en la lectura del feedback desde el xml", objects.get(0).getFeedback().getLink());
+        }
+        else
+            fail("Error en la lectura del xml");                    
+    }
     /**
      * Probar creacion de objeto a partir de un error en el tipo de escena
      */ 
-    
+    @Ignore
     @Test
     public void testErrorTipoEscena(){
         
@@ -363,7 +475,7 @@ public class testReaderXml {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -372,7 +484,7 @@ public class testReaderXml {
     /**
      * Probar creacion de objeto a partir de un xml con cantidad de bloques inferior al correspondiente 
      */ 
-    
+    @Ignore
     @Test
     public void testErrorCantidadBloques(){
         
@@ -387,7 +499,7 @@ public class testReaderXml {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -396,7 +508,7 @@ public class testReaderXml {
     /**
      * Probar creacion de objeto a partir de un xml con un ordenAparicion no numerico
      */
-    
+    @Ignore
     @Test
     public void testErrorOrdenNumerico(){
         
@@ -411,7 +523,7 @@ public class testReaderXml {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -420,7 +532,7 @@ public class testReaderXml {
     /**
      * Probar creacion de objeto a partir de un xml con un tipo de texto existente
      */
-    
+    @Ignore
     @Test
     public void testErrorTipoTexto(){
         
@@ -435,7 +547,7 @@ public class testReaderXml {
                             "       </escena> \n" +
                             "   </objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -444,7 +556,7 @@ public class testReaderXml {
     /**
      * Probar creacion de objeto a partir de un xml con un tipo de media no existente
      */
-    
+    @Ignore
     @Test
     public void testErrorTipoMedia(){
         
@@ -460,7 +572,7 @@ public class testReaderXml {
                             "		</escena>\n" +
                             "	</objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -469,7 +581,7 @@ public class testReaderXml {
     /**
      * Probar creacion de objeto a partir de un xml con un tipo de evaluacion no existente
      */
-    
+    @Ignore
     @Test
     public void testErrorTipoAlternativa(){
         
@@ -494,7 +606,7 @@ public class testReaderXml {
                             "		</escena>\n" +
                             "	</objeto>\n" +
                             "</comenzar>";
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
         
@@ -503,9 +615,9 @@ public class testReaderXml {
     /**
      * Probar creacion de codigo DTD
      */
-    
+    @Ignore
     public void testReadOADTDAppend() {
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         String content = "<comenzar>\n" +
                         "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
                         "		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
@@ -558,7 +670,7 @@ public class testReaderXml {
     
     @Ignore  
     public void testPreProcessText(){
-        readerXml instance = new readerXml();
+        ReaderXml instance = new ReaderXml();
         instance.setFileContent("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                                 "<!DOCTYPE comenzar SYSTEM \"validator.dtd\"> \n" +
                                 "\n" +

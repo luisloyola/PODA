@@ -12,12 +12,13 @@ import java.util.List;
  *
  * @author teamPODA
  */
-public class Slide {
+public class Scene {
     private String title;
     private String design;
     private List<Block> blocks;
      
-    public Slide(){
+    public Scene(){
+        title = design = "";
         blocks = new ArrayList<Block>();
     };
 

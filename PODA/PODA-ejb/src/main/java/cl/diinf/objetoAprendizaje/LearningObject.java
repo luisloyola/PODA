@@ -13,18 +13,21 @@ import java.util.List;
  *
  * @author teamPODA
  */
-public class ObjetoAprendizaje {
+public class LearningObject {
     private String title;
     private String author;
     private String template;
     private String name_file;
     private Date creationDate;
-    private List<Slide> content;
-    private List<Prueba> quizSet;
+    private List<Scene> content;
+    private List<Test> quizSet;
+    private FeedBack feedback;
     
-    public ObjetoAprendizaje(){
-        content = new ArrayList<Slide>();
-        quizSet = new ArrayList<Prueba>();
+    public LearningObject(){
+        title = author = template = name_file = "";
+        feedback = new FeedBack();
+        content = new ArrayList<>();
+        quizSet = new ArrayList<>();
     };
 
     /**
@@ -62,15 +65,15 @@ public class ObjetoAprendizaje {
      * Agrega una slide a la lista de slides de la presentación.
      * @param slide 
      */
-    public void addContent(Slide slide){
+    public void addContent(Scene slide){
         this.content.add(slide);
     }
     
         /**
      * Devuelve el valor del atributo privado.
-     * @return Slide[] title
+     * @return Scene[] title
      */
-    public List<Slide> getContent(){
+    public List<Scene> getContent(){
         return this.content;
     }
 
@@ -98,17 +101,25 @@ public class ObjetoAprendizaje {
         this.creationDate = creationDate;
     }
     
-    public List<Prueba> getQuizSet() {
+    public List<Test> getQuizSet() {
         return quizSet;
     }
 
-    public void setQuizSet(List<Prueba> quizSet) {
+    public void setQuizSet(List<Test> quizSet) {
         this.quizSet = quizSet;
     }
 
-       
-    public void addQuiz(Prueba quizSet){
+    public void addQuiz(Test quizSet){
         this.quizSet.add(quizSet);
     }
+
+    public FeedBack getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(FeedBack feedback) {
+        this.feedback = feedback;
+    }
+    
     
 }

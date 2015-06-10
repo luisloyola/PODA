@@ -1,34 +1,34 @@
 
-	<comenzar>
+	
 		<objeto titulo="Objeto de prueba de desarrollo" tema="default" autor="Teban">
 			<escena titulo="Ejemplo de textos" tipo="1Col">
 				<bloque>
-					<idea ordenAparicion="1">
+					<idea orden="1">
 						<texto tipo="normal">Este es un texto</texto>
 					</idea>
-					<idea ordenAparicion="2">
+					<idea orden="2">
 						<texto tipo="normal">Este texto tiene audio</texto>
 						<voz>Buenos Dias, tardes, noches</voz>
 					</idea>
-					<idea ordenAparicion="3">
+					<idea orden="3">
 						<texto tipo="manuscrito">Este es un texto manuscrito</texto>
 					</idea>
-					<idea ordenAparicion="4">
-						<texto tipo="ejemplo">Este es el ejemplo 1</texto>
-						<texto tipo="ejemplo">Este es el ejemplo 2</texto>
-						<texto tipo="ejemplo">Este es el ejemplo 3</texto>
-						<texto tipo="ejemplo">Este es el ejemplo 4</texto>
-						<texto tipo="ejemplo">Este es el ejemplo 5</texto>
+					<idea orden="4">
+						<texto tipo="normal">Este es el ejemplo 1</texto>
+						<texto tipo="normal">Este es el ejemplo 2</texto>
+						<texto tipo="normal">Este es el ejemplo 3</texto>
+						<texto tipo="normal">Este es el ejemplo 4</texto>
+						<texto tipo="normal">Este es el ejemplo 5</texto>
 					</idea>
 				</bloque>
 			<escena titulo="Ejemplo de multimedia" tipo="1Col">
 			</escena>			
 				<bloque>
-					<idea ordenAparicion="1">
+					<idea orden="1">
 						<texto tipo="normal">El siguiente es un ejemplo de una imagen</texto>
 						<media tipo="imagen">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>
 					</idea>				
-					<idea ordenAparicion="3">
+					<idea orden="3">
 						<texto tipo="normal">soy un texto</texto>
 					</idea>
 				</bloque>
@@ -36,7 +36,7 @@
 
 			<escena titulo="Ejemplo de mano" tipo="1Col">
 				<bloque>
-					<idea ordenAparicion="1">
+					<idea orden="1">
 						<texto tipo="manuscrito">Este texto será escrito a MANO.</texto>
 					</idea>
 				</bloque>
@@ -51,4 +51,4 @@
 							</evaluacion>
 						</evaluaciones>
 		</objeto>
-	</comenzar>
+	

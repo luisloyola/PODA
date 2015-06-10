@@ -5,7 +5,7 @@
  */
 package cl.diinf.sessionBeans;
 
-import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
+import cl.diinf.objetoAprendizaje.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +21,7 @@ public interface readerXmlLocal {
     
     public String getContenidoFile();
     public void setContenidoFile(String contenidoFile);
-    public List<ObjetoAprendizaje> readOA();
+    public List<cl.diinf.objetoAprendizaje.LearningObject> readOA();
     public File stringToFile(String str) throws IOException;
     
 }

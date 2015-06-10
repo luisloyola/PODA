@@ -9,13 +9,14 @@ package cl.diinf.objetoAprendizaje;
  *
  * @author teamPODA
  */
-public class Texto {
+public class Text {
     private String type;
     private String content;
     private boolean hand;
     
-    public Texto(){
-    
+    public Text(){
+        type = content = "";
+        hand = false;
     }
 
     public String getType() {
