@@ -11,20 +11,16 @@ public class Form {
     
     //Enunciado
     private List<Text> textContent;
-    private List<Media> mediaContent;
+    
     //Lista de alternativas
     private List<Choice> choices;
     //Solucionario
     private List<Text> solutionTextContent;
-    private List<Media> solutionMediaContent;
-    private String voice;
+    
     
     public Form(){
         textContent = new ArrayList<>();
-        mediaContent = new ArrayList<>();
         solutionTextContent = new ArrayList<>();
-        solutionMediaContent = new ArrayList<>();
-        voice = "";
         choices = new ArrayList<>();
     }
    
@@ -39,18 +35,7 @@ public class Form {
     public void addTextContent(Text textContent) {
         this.textContent.add(textContent);
     }
-    
-    public List<Media> getMediaContent() {
-        return mediaContent;
-    }
 
-    public void setMediaContent(List<Media> mediaContent) {
-        this.mediaContent = mediaContent;
-    }
-
-    public void addMediaContent(Media mediaContent) {
-        this.mediaContent.add(mediaContent);
-    }
 
     public List<Choice> getChoices() {
         return choices;
@@ -74,28 +59,6 @@ public class Form {
     
     public void addSolutionTextContent(Text solutionTextContent) {
         this.solutionTextContent.add(solutionTextContent);
-    }
-
-    public List<Media> getSolutionMediaContent() {
-        return solutionMediaContent;
-    }
-
-    public void setSolutionMediaContent(List<Media> solutionMediaContent) {
-        this.solutionMediaContent = solutionMediaContent;
-    }
-    
-    public void addSolutionMediaContent(Media solutionMediaContent) {
-        this.solutionMediaContent.add(solutionMediaContent);
-    }
-
-    public String getVoice() {
-        return voice;
-    }
-
-    public void setVoice(String voice) {
-        this.voice = voice;
-    }
-    
-    
+    }   
    
 }

@@ -79,6 +79,9 @@ public class ReaderXml {
                         OA_XML_File.delete();
                         return Objects;
                     }
+                else{
+                    OA_XML_File.delete();
+                }
             } catch (org.xml.sax.SAXException e) {
                 /*Error en el parser*/
                 this.parsingError = e.getLocalizedMessage();
@@ -457,20 +460,7 @@ public class ReaderXml {
                                     
                                     newQuestion.addTextContent(newEnunText);
                                 }                 
-                                
-                                NodeList enunMediaNode = currentEnun.getElementsByTagName("media");
-                                
-                                for(int enunMediaCount = 0; enunMediaCount< enunMediaNode.getLength(); enunMediaCount++){
-                                    Media newEnunMedia = new Media();
-                                    
-                                    Element currentEnunMedia = (Element) enunMediaNode.item(enunMediaCount);
-                                    
-                                    newEnunMedia.setType("imagen");
-                                    newEnunMedia.setContent(currentEnunMedia.getTextContent());
-                                    
-                                    newQuestion.addMediaContent(newEnunMedia);
-                                }
-                                
+                                                                
                             }
                  
                             //Alternativas
@@ -503,18 +493,6 @@ public class ReaderXml {
                                         newChoice.addTextContent(newChoiceText);
                                     }
                                     
-                                    NodeList choiceMediaNode = currentChoice.getElementsByTagName("media");
-                                    
-                                    for(int choiceTextCount = 0; choiceTextCount < choiceTextNode.getLength();choiceTextCount++){
-                                        Media newChoiceMedia = new Media();
-                                        
-                                        Element currentChoiceText = (Element) choiceTextNode.item(choiceTextCount);
-                                        
-                                        newChoiceMedia.setType("imagen");
-                                        newChoiceMedia.setContent(currentChoiceText.getTextContent());
-                                        
-                                        newChoice.addMediaContent(newChoiceMedia);
-                                    }
                                     newChoice.setTopic(currentChoice.getAttribute("tema"));
                                     newChoice.setType(currentChoice.getAttribute("tipo"));
                                     newQuestion.addChoices(newChoice);
@@ -544,24 +522,6 @@ public class ReaderXml {
                                     newQuestion.addSolutionTextContent(newText);
                                 }
                                 
-                                NodeList solutionMediaNode = currentSolutionNode.getElementsByTagName("media");
-                                
-                                for(int solutionMediaCount = 0; solutionMediaCount < solutionMediaNode.getLength(); solutionMediaCount++){
-                                    
-                                    Media newMedia = new Media();
-                                    
-                                    Element currentSolutionMediaNode = (Element) solutionTextNode.item(solutionMediaCount);
-                                    
-                                    newMedia.setType("imagen");
-                                    newMedia.setContent(currentSolutionMediaNode.getTextContent());
-                                    
-                                    newQuestion.addSolutionMediaContent(newMedia);
-                                }
-                                                            
-                                NodeList solutionVoiceNode = currentSolutionNode.getElementsByTagName("voz");
-                                if(solutionVoiceNode.getLength()>0){
-                                    newQuestion.setVoice(solutionVoiceNode.item(0).getTextContent());
-                                }
                             }
                             
                             newForm.addForm(newQuestion);

@@ -7,7 +7,6 @@ import java.util.List;
 public class Choice {
     //Texto de la alternativa.
     private List<Text> textContent;
-    private List<Media> mediaContent;
     
     //Solución o distractor.
     private String type;
@@ -19,7 +18,6 @@ public class Choice {
          type = "";
          topic = "";
          textContent = new ArrayList<>();
-         mediaContent = new ArrayList<>();
     }
     
     public List<Text> getTextContent() {
@@ -32,18 +30,6 @@ public class Choice {
     
     public void addTextContent(Text textContent){
         this.textContent.add(textContent);
-    }
-
-    public List<Media> getMediaContent() {
-        return mediaContent;
-    }
-
-    public void setMediaContent(List<Media> mediaContent) {
-        this.mediaContent = mediaContent;
-    }
-
-    public void addMediaContent(Media mediaContent){
-        this.mediaContent.add(mediaContent);
     }
 
     public String getType() {
