@@ -85,7 +85,8 @@ public class TranslateHtml {
         String htmlHeader = "  <meta charset=\"utf-8\">\n" +
                             "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n" +
                             "  <meta name=\"viewport\" content=\"width=1024, user-scalable=no\">\n" +
-                            "  <title>" + object.getTitle() + "</title>"+                                
+                            "  <title>" + object.getTitle() + "</title>"+ 
+                             " <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/botones.css\">"+
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/core/deck.core.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/goto/deck.goto.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/menu/deck.menu.css\">\n" +
