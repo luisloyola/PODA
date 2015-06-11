@@ -71,6 +71,7 @@ public class TranslateHtml {
         String templateHtml;
         
         String scriptEvaluacion = "";
+        
         if(!object.getQuizSet().isEmpty()){
             scriptEvaluacion = write_evaluacionHtml(object);
         }
