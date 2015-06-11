@@ -9,31 +9,37 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-/**
- *
- * @author teban
- */
+
 public class SimpleErrorHandler implements ErrorHandler {
     
     String errorMessage;
     
+    /**
+     * Inicializa el manejador de errores.
+     */
     public SimpleErrorHandler(){
         this.errorMessage = "NO_ERROR";
     }
     
+    /**
+     * Retorna el contenido del mensaje producido por el error de parseo.
+     * @param e excelpción obtenida desde el parser.
+     * @throws SAXException 
+     */
+    @Override
     public void warning(SAXParseException e) throws SAXException {
-        //System.out.println(e.getMessage());
-        this.errorMessage = e.getMessage();
+        this.errorMessage = e.getMessage() + "linea: "+ e.getLineNumber() + ", Columna: "+ e.getColumnNumber();
     }
 
+    @Override
     public void error(SAXParseException e) throws SAXException {
-        //System.out.println(e.getMessage());
-        this.errorMessage = e.getMessage();
+        this.errorMessage = e.getMessage() + "linea: "+ e.getLineNumber() + ", Columna: "+ e.getColumnNumber();
+        
     }
 
+    @Override
     public void fatalError(SAXParseException e) throws SAXException {
-        //System.out.println(e.getMessage());
-        this.errorMessage = e.getMessage();
+        this.errorMessage = e.getMessage() + "linea: "+ e.getLineNumber() + ", Columna: "+ e.getColumnNumber();
     }
 
     public String getErrorMessage() {
