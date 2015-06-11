@@ -28,18 +28,18 @@ public class SimpleErrorHandler implements ErrorHandler {
      */
     @Override
     public void warning(SAXParseException e) throws SAXException {
-        this.errorMessage = e.getMessage() + "linea: "+ e.getLineNumber() + ", Columna: "+ e.getColumnNumber();
+        this.errorMessage = e.getMessage() + " (linea: "+ e.getLineNumber() + ", Columna: "+ e.getColumnNumber()+").";
     }
 
     @Override
     public void error(SAXParseException e) throws SAXException {
-        this.errorMessage = e.getMessage() + "linea: "+ e.getLineNumber() + ", Columna: "+ e.getColumnNumber();
-        
+        this.errorMessage = e.getMessage() + " (linea: "+ e.getLineNumber() + ", Columna: "+ e.getColumnNumber()+").";
+    
     }
 
     @Override
     public void fatalError(SAXParseException e) throws SAXException {
-        this.errorMessage = e.getMessage() + "linea: "+ e.getLineNumber() + ", Columna: "+ e.getColumnNumber();
+        this.errorMessage = e.getMessage() + " (linea: "+ e.getLineNumber() + ", Columna: "+ e.getColumnNumber()+").";
     }
 
     public String getErrorMessage() {
