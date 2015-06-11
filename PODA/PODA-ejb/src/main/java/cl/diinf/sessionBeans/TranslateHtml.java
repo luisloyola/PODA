@@ -503,13 +503,14 @@ public class TranslateHtml {
             int cantidadEnunciados = 0;
             
             for(int j = 0; j < object.getQuizSet().get(i).getQuestions().size(); j++) {
-                contador++;
-                cantidadEnunciados++;
-                tempEval+= "var enunciado"+(contador)+" = {	\n" +
-                           "enunciado: \"";
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){ //esta tirando problemas
+                
+                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){    
+                    contador++;
+                    cantidadEnunciados++;
+                    tempEval+= "var enunciado"+(contador)+" = {\n" +
+                               "enunciado: \"";
                     for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size(); l++){                        
-                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size()-1 == k){
+                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size()-1 == l){
                             tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent()+"\",";
                         }
 
@@ -517,13 +518,12 @@ public class TranslateHtml {
                             tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent(); 
                         }
                     }
-                } // fin for k    
-                    
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++) {
+                    tempEval+="solucion: '";
                     for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size(); l++){
-                        tempEval+="solucion: '";
+                        
                         if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getType().equals("solucion")){
-                            switch(k){
+                            
+                            switch(l){
                             case 0:
                                 tempEval+="A',";
                                 break;
@@ -558,9 +558,7 @@ public class TranslateHtml {
 
                         }
                     }
-                } // fin for k 
-                tempEval+="alternativas: [\n";
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){
+                    tempEval+="alternativas: [\n";
                     for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size(); l++){
                             switch(l){
                             case 0:
@@ -594,7 +592,7 @@ public class TranslateHtml {
                                 break;
                         } // fin switch
 
-                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size()-1 == k) {
+                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size()-1 == l) {
                             tempEval+="', pregunta:\"";
                             for(int m = 0; m < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size(); m++){
                                  tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent();
@@ -611,62 +609,58 @@ public class TranslateHtml {
                         }
 
                     }
-                } // fin for k
                     
-                tempEval+="solucionario:\"";
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size(); k++) {
+                    tempEval+="solucionario:\"";
+                    
                     for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size(); l++){
                         tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().get(l).getContent();
                     }
-                } // fin for k
-                    
-  
-                    
+                    tempEval+= "\"};\n";
+                } // fin for k    
+                                     
             } // fin for j
         cantidadEnunciadosList.add(String.valueOf(cantidadEnunciados));        
         } // fin for i
-        tempEval+= "\"};\n";
+        
           
         String randomPila = ""; 
-        int contador2 = 0;
-        for(int i = 0; i < object.getQuizSet().size(); i++){
-            
-            randomPila += "var pila"+(i+1)+" = [";
-            for(int j = 0; j < object.getQuizSet().get(i).getQuestions().size(); j++){
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){
+        int contador2 = 1;
+        for(int i = 0; i < object.getQuizSet().size(); i++){ //Recorro todas las evaluaciones
+            for(int j = 0; j < object.getQuizSet().get(i).getQuestions().size(); j++){ //Recorro cuantas preguntas hay en la evaluacion
+                tempEval+="var pila"+(j+1)+" = [";
+                //contador2++;
+                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){   //Recorro formas
                     if(k == object.getQuizSet().get(i).getQuestions().get(j).getForms().size()-1){
-                        randomPila += "enunciado"+(contador2+1);
-                        contador2++;
+                        tempEval+="enunciado"+contador2+"];\n";
+                        tempEval+="var elementoPila"+(j+1)+"Random= pila"+(j+1)+"[Math.floor(Math.random()*pila"+(j+1)+".length)];\n";
+                        
                     }
                     else{
-                        randomPila += "enunciado"+(contador2+1)+",";
-                        contador2++;
+                         tempEval+="enunciado"+contador2+",";
                     }
+                    contador2++;
                 }
+                
             }
-            randomPila+="];\n";
-            randomPila += "var elementoPila"+(i+1)+"Random= pila"+(i+1)+"[Math.floor(Math.random()*pila"+(i+1)+".length)];";
-                          
-        }
-        String mParameters = "var preguntas = [";
-        for(int i = 0; i < cantidadEnunciadosList.size(); i++){
-            if(i == cantidadEnunciadosList.size()-1){
-                mParameters+="elementoPila"+(i+1)+"Random";
-            }
-            else{
-                mParameters+="elementoPila"+(i+1)+"Random,";
-            }
-        }
-        mParameters += "];\n" +
+            tempEval+="var preguntas=[";
+            for(int j = 0; j < object.getQuizSet().get(i).getQuestions().size(); j++){
+                if(j == object.getQuizSet().get(i).getQuestions().size()-1){
+                    tempEval+="elementoPila"+(j+1)+"Random];\n" +
                        "var temas     = [];\n" +
                        "var temaAgregar;\n" +
                        "var temasActuales    = [];\n" +
                        "var correctas              = 0;\n" +
                        "var puntajeTotalOA         = 0;\n" +
                        "var puntajeTotalOAObtenido = 0;\n";
-                        
+                }
+                else{
+                    tempEval+="elementoPila"+(j+1)+"Random,";
+                }
+            }
+        }
+                              
         
-        templateRescatarTemas=  mParameters+ "for (var contadorPreguntas=0; contadorPreguntas<preguntas.length; contadorPreguntas++){\n" +
+        templateRescatarTemas= "for (var contadorPreguntas=0; contadorPreguntas<preguntas.length; contadorPreguntas++){\n" +
                                "for (var contadorAlternativa=0; contadorAlternativa<preguntas[contadorPreguntas].alternativas.length; contadorAlternativa++){\n" +
                                "temaAgregar=preguntas[contadorPreguntas].alternativas[contadorAlternativa].tema;\n" +
                                "temas.push({ tema:temaAgregar, puntaje:0, puntajeTotal:0, porcentajeLogrado:0, color: null });                                                                    \n" +
