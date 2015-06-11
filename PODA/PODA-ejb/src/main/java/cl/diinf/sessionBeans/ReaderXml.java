@@ -651,7 +651,7 @@ public class ReaderXml {
     public void AppendDTD() {
         this.fileContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<!DOCTYPE objeto [\n"
-                + "<!ELEMENT objeto (escena*,evaluacion*,feedback?)>\n"
+                + "<!ELEMENT objeto (escena*,evaluacion?,feedback?)>\n"
                 + "<!ELEMENT escena (bloque+)>\n"
                 + "<!ELEMENT bloque (idea+)>\n"
                 + "<!ELEMENT idea (texto*, media*,ejemplos?,voz?)>\n"
@@ -660,7 +660,7 @@ public class ReaderXml {
                 + "<!ELEMENT media (#PCDATA)>\n"
                 + "<!ELEMENT evaluacion (pregunta+)>\n"
                 + "<!ELEMENT pregunta (forma+)>\n"
-                + "<!ELEMENT forma (enunciado,opciones,solucion?)>\n"
+                + "<!ELEMENT forma (enunciado,opciones,solucion)>\n"
                 + "<!ELEMENT enunciado (texto*)>\n"
                 + "<!ELEMENT opciones (alternativa*)>\n"
                 + "<!ELEMENT alternativa (texto*)>\n"
