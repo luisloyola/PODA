@@ -11,6 +11,6 @@
 */PODA/PODA-web/target/*
 */PODA/PODA-ear/target/*
 */PODA/PODA-ejb/target/*
-/PODA/PODA-ear/target/
-/PODA/PODA-ejb/target/
-/PODA/PODA-web/target/
+/PODA/PODA-ear/target/**
+/PODA/PODA-ejb/target/**
+/PODA/PODA-web/target/**
