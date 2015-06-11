@@ -204,7 +204,7 @@ h1, .vcenter {
 
 p {
   list-style:square outside none ;
-  display:list-item;
+  
 }
 
 /*p > li
@@ -216,11 +216,11 @@ h2 {
   font-size: 2.25em;
   font-weight: bold;
   padding-top: .5em;
-  margin: 0 0 .66666em 0;
+  margin: 0 0 10px 0;
   /*border-bottom: 3px solid #888;*/
   /*height: 150px;*/
   position: relative;
-  min-height: 150px;
+  min-height: 100px;
   /*max-width:100%;
   height:auto;*/
   /*background-color:#214c7F; */

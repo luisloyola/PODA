@@ -18,26 +18,57 @@
 		</bloque>
 		<!-- La cantidad de bloque es la suma de los numeros en el tipo -->
 	</escena>
-	<evaluacion exigencia="100"> <!-- la exigencia es un porcentaje, toma valores de 1 a 100 -->
+	<evaluacion exigencia="60"> <!-- la exigencia es un porcentaje, toma valores de 1 a 100 -->
 		<pregunta>
 			<forma>
 				<enunciado>
-					<texto tipo="normal">ABC</texto> <!-- 0 o Muchos -->
-					<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>	<!-- 0 o Muchos -->			
+					<texto tipo="normal">asdasdasdasda?</texto> <!-- 0 o Muchos -->
 				</enunciado>
 				<opciones>
-					<alternativa tipo="solucion" tema="nuevoTema"> <!-- o distractor --> 
-						<texto tipo="normal">ABC</texto> <!-- 0 o 1 -->
+					<alternativa tipo="solucion" tema="tema1"> <!-- o distractor --> 
+						<texto tipo="normal">alternativaA</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+					<alternativa tipo="solucion" tema="tema2"> <!-- o distractor --> 
+						<texto tipo="normal">alternativaB</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+					<alternativa tipo="solucion" tema="tema3"> <!-- o distractor --> 
+						<texto tipo="normal">alternativaC</texto> <!-- 0 o 1 -->
 						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
 					</alternativa>
 				</opciones>
 				<solucion>
-					<texto tipo="normal">ABC</texto>
+					<texto tipo="normal">esta es la otra solucion</texto>
+					<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
+					<voz>Voz correspondiente a la solucion</voz>
+				</solucion>
+			</forma>
+			<forma>
+			<enunciado>
+					<texto tipo="normal">111111</texto> <!-- 0 o Muchos -->
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="tema1"> <!-- o distractor --> 
+						<texto tipo="normal">alternativaA</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+					<alternativa tipo="solucion" tema="tema2"> <!-- o distractor --> 
+						<texto tipo="normal">alternativaB</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+					<alternativa tipo="solucion" tema="tema3"> <!-- o distractor --> 
+						<texto tipo="normal">alternativaC</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">e222222</texto>
 					<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
 					<voz>Voz correspondiente a la solucion</voz>
 				</solucion>
 			</forma>
 		</pregunta>
 	</evaluacion>
-	<feedback><texto tipo="normal">ABC</texto></feedback>
+	<feedback>jknnj</feedback>
 </objeto>
