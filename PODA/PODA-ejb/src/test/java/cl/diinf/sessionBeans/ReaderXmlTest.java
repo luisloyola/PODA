@@ -110,46 +110,36 @@ public class ReaderXmlTest {
                             "		<pregunta>\n" +
                             "			<forma>\n" +
                             "				<enunciado>\n" +
-                            "					<texto tipo=\"normal\">ABC</texto>\n" +
-                            "					<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>	\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +                            
                             "				</enunciado>\n" +
                             "				<opciones>\n" +
                             "					<alternativa tipo=\"solucion\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
-                            "						<texto tipo=\"normal\">ABC</texto> <!-- 0 o 1 -->\n" +
-                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "						<texto tipo=\"normal\">ABC</texto> <!-- 0 o 1 -->\n" +                            
                             "					</alternativa>\n" +
                             "					<alternativa tipo=\"distractor\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
-                            "						<texto tipo=\"normal\">ABCD</texto> <!-- 0 o 1 -->\n" +
-                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "						<texto tipo=\"normal\">ABCD</texto> <!-- 0 o 1 -->\n" +                            
                             "					</alternativa>\n" +
                             "				</opciones>\n" +
                             "				<solucion>\n" +
-                            "					<texto tipo=\"normal\">ABC</texto>\n" +
-                            "					<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>\n" +
-                            "					<voz>Voz correspondiente a la solucion</voz>\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +                            
                             "				</solucion>\n" +
                             "			</forma>\n" +
                             "		</pregunta>\n" +
                             "		<pregunta>\n" +
                             "			<forma>\n" +
                             "				<enunciado>\n" +
-                            "					<texto tipo=\"normal\">ABC</texto>\n" +
-                            "					<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>	\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +                            
                             "				</enunciado>\n" +
                             "				<opciones>\n" +
                             "					<alternativa tipo=\"solucion\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
-                            "						<texto tipo=\"normal\">ABC</texto> <!-- 0 o 1 -->\n" +
-                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "						<texto tipo=\"normal\">ABC</texto> <!-- 0 o 1 -->\n" +                            
                             "					</alternativa>\n" +
                             "					<alternativa tipo=\"distractor\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
-                            "						<texto tipo=\"normal\">ABCD</texto> <!-- 0 o 1 -->\n" +
-                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "						<texto tipo=\"normal\">ABCD</texto> <!-- 0 o 1 -->\n" +                            
                             "					</alternativa>\n" +
                             "				</opciones>\n" +
                             "				<solucion>\n" +
-                            "					<texto tipo=\"normal\">ABC</texto>\n" +
-                            "					<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>\n" +
-                            "					<voz>Voz correspondiente a la solucion</voz>\n" +
+                            "					<texto tipo=\"normal\">ABC</texto>\n" +                            
                             "				</solucion>\n" +
                             "			</forma>\n" +
                             "			<forma>\n" +
@@ -161,7 +151,7 @@ public class ReaderXmlTest {
                             "						<texto tipo=\"normal\">ABC</texto> <!-- 0 o 1 -->\n" +
                             "					</alternativa>\n" +
                             "					<alternativa tipo=\"distractor\" tema=\"nuevoTema\"> <!-- o distractor --> \n" +
-                            "						<media tipo=\"imagen\">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->\n" +
+                            "						<texto tipo=\"normal\">ABC</texto> <!-- 0 o 1 -->\n" +
                             "					</alternativa>\n" +
                             "				</opciones>\n" +
                             "				<solucion>\n" +
@@ -364,29 +354,22 @@ public class ReaderXmlTest {
         int question = 2;
         int forms = 3;
         int wording = 3;
-        int wording_text = 3;
-        int wording_media = 2;
+        int wording_text = 3;        
         int choice = 6;
-        int choice_text = 5;
-        int choice_media = 5;
+        int choice_text = 6;        
         int solution = 3;
-        int solution_text = 3;
-        int solution_media = 2;
-        int solution_voice = 2;
+        int solution_text = 3;                
         int exigency = 60;
         int count_test = 0;
         int count_questions = 0;
         int count_forms = 0;
         int count_wording = 0;
         int count_wording_text = 0;
-        int count_wording_media = 0;
         int count_choice = 0;
-        int count_choice_text = 0;
-        int count_choice_media = 0;        
+        int count_choice_text = 0;        
         int count_solution = 0;
         int count_solution_text = 0;
         int count_solution_media = 0;
-        int count_solution_voice = 0;
         int count_exigency = 0;
         
         if(!objects.isEmpty()){
@@ -401,25 +384,17 @@ public class ReaderXmlTest {
                         count_forms++;
                         int voice = 0;
                         
-                        count_wording_text += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size();
-                        count_wording_media += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getMediaContent().size();
-                        if( (count_wording_media + count_wording_text) > 0)
+                        count_wording_text += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size();                        
+                        if( (count_wording_text) > 0)
                             count_wording++;
-                                                
-                        count_solution_media += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionMediaContent().size();
-                        count_solution_text  += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size();
-                        
-                        if(!objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getVoice().isEmpty()){
-                            count_solution_voice++;
-                            voice = 1;
-                        }
+                                                                        
+                        count_solution_text  += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size();                        
                         
                         if( (count_solution_media + count_solution_text + voice) > 0)
                             count_solution++;
                         
                         for( int l = 0; l < objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size(); l++ ){
-                            count_choice++;
-                            count_choice_media += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getMediaContent().size();
+                            count_choice++;                            
                             count_choice_text += objects.get(0).getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size();
                         }
                     }                    
@@ -429,16 +404,12 @@ public class ReaderXmlTest {
             assertEquals("Error en la lectura del conjunto de evaluaciones en el xml", test, count_test );
             assertEquals("Error en la lectura del conjunto de evaluaciones en el xml", question, count_questions );
             assertEquals("Error en la lectura de conjuntos de formas del conjunto evaluaciones en el xml", forms, count_forms );
-            assertEquals("Error en la lectura de los enunciados de cada forma en el xml", wording, count_wording );
-            assertEquals("Error en la lectura de imagenes en los enunciados de cada forma en el xml", wording_media, count_wording_media );
+            assertEquals("Error en la lectura de los enunciados de cada forma en el xml", wording, count_wording );            
             assertEquals("Error en la lectura de textos en los enunciados de cada forma en el xml", wording_text, count_wording_text );
             assertEquals("Error en la lectura de las alternativas de cada forma en el xml", choice, count_choice );
-            assertEquals("Error en la lectura de las textos de las alternativas de cada forma en el xml", choice_text, count_choice_text );
-            assertEquals("Error en la lectura de las imagenes de las alternativas de cada forma en el xml", choice_media, count_choice_media );
+            assertEquals("Error en la lectura de las textos de las alternativas de cada forma en el xml", choice_text, count_choice_text );            
             assertEquals("Error en la lectura de las soluciones de forma en el xml", solution, count_solution );
-            assertEquals("Error en la lectura de los textos de las soluciones de forma en el xml", solution_text, count_solution_text );
-            assertEquals("Error en la lectura de las imagenes las soluciones de forma en el xml", solution_media, count_solution_media );
-            assertEquals("Error en la lectura de la voz de las soluciones de forma en el xml", solution_voice, count_solution_voice );
+            assertEquals("Error en la lectura de los textos de las soluciones de forma en el xml", solution_text, count_solution_text );            
             assertEquals("Error en la lectura de la voz de las soluciones de forma en el xml", exigency, count_exigency );                        
         }
         else
@@ -449,8 +420,7 @@ public class ReaderXmlTest {
     */
     
     @Test
-    public void testFeedback(){
-        int count_feedback = 1;
+    public void testFeedback(){        
         if(!objects.isEmpty()){
             assertNotNull("Error en la lectura del feedback desde el xml", objects.get(0).getFeedback().getLink());
         }

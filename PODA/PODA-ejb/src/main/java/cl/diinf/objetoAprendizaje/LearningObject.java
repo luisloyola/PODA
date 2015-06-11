@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cl.diinf.objetoAprendizaje;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author teamPODA
- */
 public class LearningObject {
     private String title;
     private String author;
@@ -29,6 +21,7 @@ public class LearningObject {
         content = new ArrayList<>();
         quizSet = new ArrayList<>();
     };
+
 
     /**
      * Devuelve el valor del atributo privado.
@@ -77,6 +70,10 @@ public class LearningObject {
         return this.content;
     }
 
+    public void setContent(List<Scene> content) {
+        this.content = content;
+    }
+    
     public String getName_file() {
         return name_file;
     }

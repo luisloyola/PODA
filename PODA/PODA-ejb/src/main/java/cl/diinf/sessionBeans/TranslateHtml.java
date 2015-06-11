@@ -36,8 +36,7 @@ public class TranslateHtml {
     }   
     
     /**
-     * Devuelve una página web completa para ser introducida en el contenedor
-     * en la capa de vista.
+     * Funcion que realiza la traduccion a html completa del objeto a ser creado
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @return String codeHtml, resultado que estará como presentación del OA
      * @throws IOException 
@@ -53,15 +52,16 @@ public class TranslateHtml {
         codeHtml += "</head>\n"+"<body>\n";
         codeHtml += "   <div class=\"deck-container\">\n";
         codeHtml += write_contentHtml(object, OAName);
+        codeHtml += write_feedbackHtml(object);
         codeHtml += write_librsHtml(object);
-        codeHtml += write_scriptHand(object);
+        //codeHtml += write_scriptHand(object);
         codeHtml += "   </div>\n";
         codeHtml += "</body></html>";
         return codeHtml;        
     }
     
     /**
-     * Escribe el header de la página web.
+     * Realiza la traduccion a html del OA, en su seccion del head, agregando los recursos necesarios
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @return string con el header incorporado.
      */
@@ -132,6 +132,8 @@ public class TranslateHtml {
                             "  <script src=\"resources/visibilityController.js\"></script>\n" +
                             "  <script src=\"resources/textController.js\"></script>\n" +
                             "<script src=\"resources/jqBarGraph.1.1.js\"></script>\n" + 
+                            "  <script src=\"resources/GoogleFormValidator.js\"></script>\n"+
+                            "  <script src=\"resources/mano.js\"></script>\n"+
                             "\n" +
                             "\n" +
                             "  <script>\n" +
@@ -154,7 +156,13 @@ public class TranslateHtml {
         htmlHeader = htmlHeader + scriptEvaluacion;        
         return htmlHeader;
     }
-    
+    /**
+     * Funcion que determina la cantidad maxima de caracteres que pueden ir en una linea dentro de un bloque ubicado en cierto tipo de diseño de slide
+     * @param object Objeto que contiene al objeto de aprendizaje con todo su contenido
+     * @param numberSlide Numero de la slide donde se desea escribir el texto
+     * @param numberBlock Numero del bloque donde se desea escribir el texto
+     * @return Un entero con la cantidad de caracteres maximo por linea
+     */
     public int getCharMax(LearningObject object, int numberSlide, int numberBlock){
         
         int lim_line = 0;
@@ -264,40 +272,54 @@ public class TranslateHtml {
                 break;
                 
             default:
+                lim_line = 1;
                 break;            
         }        
         return lim_line;
     }
-    
+    /**
+     * Función que realiza la traduccion a html, en la seccion de los script que controlan el flujo de las slide, el audio y la animacion mano.texto
+     * @param object Objeto que contiene al objeto de aprendizaje con todo su contenido
+     * @return Cadena con el codigo html de la seccion de script
+     */
     public String write_scriptHeaderHtml(LearningObject object){
         
         String script_header = "";
         ArrayList<String> trozos;
         for(int i = 0; i < object.getContent().size(); i++){
+            
             Scene slide = object.getContent().get(i);
             
             for(int j = 0; j < slide.getBlocks().size(); j++){
+
                 Block bloque = slide.getBlocks().get(j);
                 
                 for(int k = 0; k < bloque.getIdeas().size(); k++){
                     
                     Idea idea = bloque.getIdeas().get(k);
-                    int id_hand = -1;
-                    //int id_hand_example = -1;
+                    int id_hand = -1;                    
+                    String atr_left = write_confHand(slide.getDesign(), j);
                     String script_voice_became = "";
                     String script_voice_lost = "";
+                    String script_text_became = "";
+                    String script_text_lost = "";
                     String script_hand_became = "";
                     String script_hand_lost = "";
-                    //String script_hand_became_example = "";
-                    //String script_hand_lost_example = "";
+                    String script_text_became_example = "";
+                    String script_text_lost_example = "";
+                    String script_hand_became_example = "";
+                    String script_hand_lost_example = "";
                     
                     if(!idea.getVoice().isEmpty()){
+                        
                         script_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
                         script_voice_lost = "AudioLostCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
                     }
                     
                     for(int l = 0; l < idea.getText().size(); l++){
+                        
                         if(idea.getText().get(l).getType().equals("manuscrito")){
+                        
                             id_hand = l;
                             break;
                         }
@@ -305,84 +327,103 @@ public class TranslateHtml {
                     if(id_hand > -1){
 
                         int caracter_max = getCharMax(object, i, j );
+                        
                         trozos = trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
                         
                         for(int m = 0; m < trozos.size(); m++){
                             text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
+                        
                             
                             if(m+1 < trozos.size()){
                                 text_ids +=",";
                             }                                                            
                         }
                         
-                        script_hand_became = "textBecameCurrent(["+ text_ids + "], direction);";
-                        script_hand_lost = "textLostCurrent(["+ text_ids +"], direction);";                        
+                        script_text_became = "textBecameCurrent(["+ text_ids + "], direction);";
+                        script_hand_became = "manoBecameCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"\""+", ["+text_ids+"], "+ atr_left +");";
+                        script_text_lost = "textLostCurrent(["+ text_ids +"], direction);";                        
+                        script_hand_lost = "manoLostCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"\""+", direction,"+ atr_left +");";
                     }
                     
                     script_header +=    "<script>\n" +
                                         "    $(function(){\n" +
                                         "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
                                         "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
-                                                    script_voice_became +
-                                                    script_hand_became +
+                                                    script_voice_became +"\n"+
+                                                    script_text_became +"\n"+
+                                                    script_hand_became +"\n"+
                                         "      });\n" +
                                         "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
                                         "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
-                                                    script_voice_lost +
-                                                    script_hand_lost +
+                                                    script_voice_lost +"\n"+
+                                                    script_text_lost +"\n"+
+                                                    script_hand_lost +"\n"+
                                         "      });\n" +
                                         "    });\n" +
                                         "  </script>";
                     
-                    /*for(int l = 0; l < idea.getExample().size(); l++){
+                    for(int l = 0; l < idea.getExample().size(); l++){
+                        
+                        int id_hand_example = -1;
                         for(int m = 0; m < idea.getExample().get(l).getTextContent().size(); m++){
                             if(idea.getExample().get(l).getTextContent().get(m).getType().equals("manuscrito")){
                                 id_hand_example = m;
-                                break;
+                                
+                                break;                                
                             }
                         }
                         if(id_hand_example > -1){
                             int caracter_max = getCharMax(object, i, j );
                             trozos = trozarCadena(idea.getExample().get(l).getTextContent().get(id_hand_example).getContent(), caracter_max);
-
                             String text_ids = "";
 
                             for(int m = 0; m < trozos.size(); m++){
-                                text_ids += "\"#manoExample-"+(i+1)+"-"+j+"-"+k+"-"+l+"-"+ m + "\"";
+                                text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ l + "-"+ m + "\"";
+                                
 
                                 if(m+1 < trozos.size()){
                                     text_ids +=",";
                                 }
                             }
 
-                            script_hand_became_example = "textBecameCurrent(["+ text_ids + "], direction);";
-                            script_hand_lost_example = "textLostCurrent(["+ text_ids +"], direction);"; 
+                            script_text_became_example = "textBecameCurrent(["+ text_ids + "], direction);";
+                            script_text_lost_example = "textLostCurrent(["+ text_ids +"], direction);";
+                            script_hand_became_example = "manoBecameCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ l +"\""+", ["+text_ids+"], "+ atr_left +");";
+                            script_hand_lost_example = "manoLostCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ l +"\""+", direction,"+ atr_left +");";
+                        
+                            script_header +=    "<script>\n" +
+                                            "    $(function(){\n" +
+                                            "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
+                                            "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                        //script_voice_became +
+                                                        script_text_became_example +
+                                                        script_hand_became_example +
+                                            "      });\n" +
+                                            "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                            "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                        //script_voice_lost +
+                                                        script_text_lost_example +
+                                                        script_hand_lost_example +
+                                            "      });\n" +
+                                            "    });\n" +
+                                            "  </script>";
                         }
-                        script_header +=    "<script>\n" +
-                                        "    $(function(){\n" +
-                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
-                                        "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
-                                                    //script_voice_became +
-                                                    script_hand_became +
-                                        "      });\n" +
-                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
-                                        "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
-                                                    //script_voice_lost +
-                                                    script_hand_lost +
-                                        "      });\n" +
-                                        "    });\n" +
-                                        "  </script>";
-                    }*/
-                }
-            }
-        }        
+                    }
+                }                
+            }            
+        }                
         return script_header;
     }
     
     
-    
+    /**
+     * Funcion que realiza la traduccion a html de un texto del tipo normal, agregado el codigo para enfatizar y destacar
+     * @param text Texto a ser escrito
+     * @param desing Tipo de template del OA donde se escribe el texto
+     * @return La cadena de texto traducida a codigo html
+     */
     public String write_text(String text, String desing){
         String color;
         switch (desing){
@@ -401,17 +442,23 @@ public class TranslateHtml {
         
         return text;
     }
-    
-    public ArrayList<String> trozarCadena(String content_text,int filOrCol){
+    /**
+     * Funcion que troza una cadena de manera que cada trozo esta completo y no supera la cantidad maxima de caracteres que se permite 
+     * en una linea de cierto bloque de cierto tipo de slide
+     * @param content_text Texto a ser escrito y que se necesita trozar
+     * @param max_chars Cantidad maxima de caracteres de una cadena
+     * @return Un arreglo de cadenas, donde cada cadena en el arreglo es entera y no supera la cantidad máxima de caracteres
+     */
+    public ArrayList<String> trozarCadena(String content_text,int max_chars){
                
         ArrayList<String> piece_string = new ArrayList();
         
-        int limite = filOrCol;        
+        int limite = max_chars;        
         int count_char = 0;
         String words_line = "";
         String[] words_content = content_text.split(" ");
         
-        for( int i = 0; i < words_content.length; i++){
+        for( int i = 0; i < words_content.length; i++){            
             
             String word_aux = words_content[i] + " ";
             
@@ -424,6 +471,7 @@ public class TranslateHtml {
                     words_line = "";
                 }                
                 while(word_aux.length() > limite){
+                    
                     piece_string.add(word_aux.substring(0, limite));
                     word_aux=word_aux.substring(limite);
                 }   
@@ -442,17 +490,33 @@ public class TranslateHtml {
         }                 
         return piece_string;        
     }
-    
-    public String write_hand(ArrayList<String> trozos, int numberSlide, int numberBlock, int numberIdea){
+    /**
+     * Funcion que realiza la traduccion a html de la animación mano-texto
+     * @param trozos Trozos de cadenas que tienen que ser escritas por la animacion mano-texto
+     * @param numberSlide Posicion de la slide, donde se va a encontrar la animacion, en el arreglo de slides del objeto
+     * @param numberBlock Posicion del bloque, donde se va a encontrar la animacion, en el arreglo de bloques de la slide correspondiente
+     * @param numberIdea Posicion de la idea, donde se va a encontrar la animacion, en el arreglo de ideas del bloque correspondiente
+     * @param numberExample Si la animación es escrita como un ejemplo, se indica la posicion del ejemplo, donde se va a encontrar la animacion,
+     * en el arreglo de ejemplos de la idea correspondiente
+     * @return Cadena con el codigo html que representa a la animacion mano-texto
+     */
+    public String write_hand(ArrayList<String> trozos, int numberSlide, int numberBlock, int numberIdea, int numberExample){
         
-        String id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"\"";        
-        String text = "\n<IMG id="+ id_handImage+" SRC=\"resources/manoconmanga.png\" WIDTH=800 HEIGHT=800 style=\"position:absolute;\">\n";
+        String add_example = "";
+        String charE = "";
+        if(numberExample != -1 ){
+            add_example = "-"+numberExample;
+            charE = "\\";
+        }
+                
+        String id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+ add_example +charE+"\"";        
+        String text = "<IMG id="+charE+ id_handImage+" SRC="+charE+"\"resources/manoconmanga.png"+charE+"\" WIDTH=800 HEIGHT=800 style="+charE+"\"position:absolute;"+charE+"\">";
                                         
         for(int i = 0; i < trozos.size(); i++){
         
-            text +=     "<div id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style=\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;\">\n" +
-                        "   <span class=\"manuscrita\">"+ trozos.get(i) +"</span>\n" +
-                        "</div>\n";        
+            text +=     "<div id="+charE+"\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+ add_example +"-"+ i +charE+"\""+" style="+charE+"\"width: 0px; height: 50px; white-space: nowrap; overflow: hidden;"+charE+"\">" +
+                        "<span class="+charE+"\"manuscrita"+charE+"\">"+ trozos.get(i) +"</span>" +
+                        "</div>";
         }
         return text;
     }
@@ -1009,9 +1073,22 @@ public class TranslateHtml {
         return mostrarSolucion;
     }
     
-    public String write_examples(List<Example> list_examples, String OAName, String OAPath/*, String numberSlide, String numberBlock, String numberIdea*/){
+    /**
+     * Funcion que realiza la traduccion a html de una pila de ejemplos que se quieran agregar a un OA.
+     * @param list_examples arreglo de objetos de la clase Example, que representa a una pila de ejemplos.
+     * @param OAName Nombre del objeto (usado para la descarga de imagenes)
+     * @param OAPath Nombre de la ruta donde se ubica el objeto (para la descarga de imagenes)
+     * @param design Tipo de template del OA
+     * @param lim_line Limite maximo de caracteres por linea segun el bloque y slide encontrado (usado para el texto manuscrito)
+     * @param numberSlide Posicion de la slide, donde se va a encontrar la animacion, en el arreglo de slides del objeto
+     * @param numberBlock Posicion del bloque, donde se va a encontrar la animacion, en el arreglo de bloques de la slide correspondiente
+     * @param numberIdea Posicion de la idea, donde se va a encontrar la animacion, en el arreglo de ideas del bloque correspondiente
+     * @return 
+     */
+    public String write_examples(List<Example> list_examples, String OAName, String OAPath, String design, int lim_line, int numberSlide, int numberBlock, int numberIdea){
         
         String examples = "<script>\nvar ejemplos = new Array(";
+        ArrayList<String> trozos;
         
         for( int i = 0 ; i < list_examples.size(); i++){
                                     
@@ -1029,14 +1106,18 @@ public class TranslateHtml {
                 switch ( list_examples.get(i).getTextContent().get(j).getType()){
 
                     case "normal":
-                        examples += "<p>"+ content +"</p>";
+                        content = content.replaceAll("\n","\\\\n");
+                        examples += "<p>"+ write_text(content, design) +"</p>";
                         break;
                     case "codigo":
+                        content = content.replaceAll("\n","\\\\n");
                         examples += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
                         break;
-                    /*case "manuscrito":
-                        examples += "<IMG id=\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+i+"\"";
-                        break;*/
+                    case "manuscrito":
+                        content = content.replaceAll("\n","\\\\n");
+                        trozos=trozarCadena(content, lim_line);
+                        examples += write_hand(trozos, numberSlide, numberBlock, numberIdea, i);
+                        break;
                                     
                     default:
                         break;
@@ -1055,7 +1136,14 @@ public class TranslateHtml {
         
         return examples;
     }    
-    
+    /**
+     * Funcion que realiza la traduccion a html de los recursos multimedias que se ingresen al OA
+     * @param media Objeto del tipo media que representa al recurso a ser ingresado
+     * @param OAName Nombre del objeto (usado para la descarga de imagenes)
+     * @param OAPath Nombre de la ruta donde se ubica el objeto (para la descarga de imagenes)
+     * @param isExample Booleano que indica si este recurso es ingresado como un ejemplo o no.
+     * @return Cadena con el codigo html que representa al recurso multimedia en el OA
+     */
     public String write_media(Media media, String OAName, String OAPath, boolean isExample){
         
         String code_media = "";
@@ -1078,7 +1166,7 @@ public class TranslateHtml {
     public String write_block(Block block, int numberSlide, int numberBlock, String design, String OAName, String OAPath, int lim_line){
                         
         String codeHtml = "";                
-        ArrayList<String> trozos = new ArrayList<>();                    
+        ArrayList<String> trozos;
                         
         for(int i = 0; i < block.getIdeas().size(); i++){
                                         
@@ -1099,7 +1187,7 @@ public class TranslateHtml {
                         
                     case "manuscrito":                        
                         trozos=trozarCadena(idea.getText().get(j).getContent(), lim_line);
-                        codeHtml += write_hand(trozos, numberSlide, numberBlock, i);                        
+                        codeHtml += write_hand(trozos, numberSlide, numberBlock, i, -1);                        
                         break;
                         
                     case "codigo":
@@ -1115,7 +1203,7 @@ public class TranslateHtml {
             
             if( !idea.getExample().isEmpty() ){
                 
-                codeHtml += write_examples(idea.getExample(), OAName, OAPath);
+                codeHtml += write_examples(idea.getExample(), OAName, OAPath, design, lim_line, numberSlide, numberBlock, i);
             }                        
             
             for(int j = 0; j < idea.getMedia().size(); j++){
@@ -1213,8 +1301,7 @@ public class TranslateHtml {
         
         int tam_fila = 110;
         int tam_2Col = 45;
-        int tam_3Col = 30;
-        
+        int tam_3Col = 30;        
         
         String codeHtml = "";        
         
@@ -1389,6 +1476,32 @@ public class TranslateHtml {
         return codeHtml;
     }     
     /**
+     * Funcion que realiza la traduccion a html de la seccion de encuesta del OA
+     * @param object Objeto de la clase LearningObject que representa al Objeto a ser escrito con todo su contenido
+     * @return Cadena con el codigo html de la seccion de encuestas del OA
+     */
+    public String write_feedbackHtml(LearningObject object){
+        
+        String codeHtml = "";
+                
+            if(!object.getFeedback().getLink().isEmpty()){
+                
+                if(object.getFeedback().isLinkValid()){
+                    codeHtml+=  "<section class=\"slide\" style=\"background-color: #EDFCD0\">\n" +
+                                "   <div id=\"frase\" align=\"center\"><br><br><br><br><br>\n" +
+                                "       <h3 >Por favor, responde la siguiente encuesta para seguir mejorando el objeto de aprendizaje que acabas de ver.</h3>\n" +
+                                "       <div id=\"boton\" style=\"margin-top: 100px;\">\n" +
+                                "              <button class=\"btn btn-lg btn-default\" type=\"button\" onclick=\"ShowIframe('#encuesta','#boton','#frase','";
+                    codeHtml += object.getFeedback().getLink();
+                    codeHtml += "')\" >\n" +"<strong>Responder encuesta</strong>\n </button>\n </div>\n </div>\n <div id=\"encuesta\">\n </div>\n </section>";
+                }
+                else
+                    this.translateError = "NO_FORM";
+            }        
+        return codeHtml;
+    }
+        
+    /**
      * Escribe liberías necesarias para utilizar el framework en el que está
      * construido el objeto.
      * @param object objeto de aprendizaje construido por la clase de reader.
@@ -1418,6 +1531,130 @@ public class TranslateHtml {
 
         return codeHtml;
     }   
+    /**
+     * Funcion que determina la posicion donde comienza un texto en la animacion mano-texto, segun el bloque y slide en que se encuentre
+     * @param design Tipo de diseño de la slide
+     * @param numberBLock Posicion del bloque en el arreglo de bloques de la slide correspondiente
+     * @return cadena que representa el valor de la posicion donde comienza la animacion
+     */
+    public String write_confHand(String design, int numberBLock){
+        
+        String left = "";
+        
+        switch (design){
+            case "1Col":
+                //escribir contenido del primer bloque 
+                left="-80";
+                break;
+
+            case "1Fil2Col":
+                //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="-80";
+                }
+                //bloque 3
+                else{
+                    left="+617";
+                }
+
+                break;
+
+            case "2Col":
+                //bloque 1
+
+                if(numberBLock==0){
+                  left="-80";
+                }
+                else{
+                   left="+617";
+                }
+
+                break;
+
+            case "3Col":
+                //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="+340";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                }
+                //bloque 3
+                else{
+                    left="+760";
+                }
+
+                break;
+
+            case "1Fil3Col":
+                //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="-80";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                }
+                //bloque 3
+                else if(numberBLock==2){
+                    left="+340";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
+                }
+                else{
+                    left="+760"; 
+                }
+                break;
+
+            case "2Fil2Col":
+
+                //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="-80";   
+                }
+                //bloque 3
+                else if(numberBLock==2){
+                    left="+617"; 
+                }
+                else{
+                    left="-80"; 
+                }
+
+
+                break;
+            case "2Col1Fil":
+               //bloque 1
+                if(numberBLock==0){
+                  left="-80";
+                }
+                //bloque 2
+                else if(numberBLock==1){
+                    left="+617";  
+                }
+                //bloque 3
+                else if(numberBLock==2){
+                    left="-80"; 
+                }
+                else{
+                    left="-80"; 
+                }
+
+                break;
+
+            default:
+                break;            
+        }
+        return left;
+    }
+    
+    /*
     public String write_scriptHand(LearningObject object){
         String codeHtml = "";
         String scriptHand= "" ;
@@ -1576,6 +1813,7 @@ public class TranslateHtml {
                                         "           var up=-80;\n" +
                                         "           var down=-40;" +
                                                     array_textManuscrito + 
+                            
                                         "            function move_down(array,num,dist,up,down) {\n" +
                                         "        var n = array.length;\n" +
                                         "        \n" +
@@ -1621,7 +1859,8 @@ public class TranslateHtml {
                                         "        }\n" +
                                         "      }\n" +
                                         "\n" +
-                                        "      function move_up(array,num,dist,up,down) {\n" +
+                                        
+                            "      function move_up(array,num,dist,up,down) {\n" +
                                         "        var n = array.length;\n" +
                                         "        \n" +
                                         "        if(n!=0){\n" +
@@ -1684,5 +1923,6 @@ public class TranslateHtml {
         codeHtml = "\n" + scriptHand;
 
         return codeHtml;
-    }
+    }*/
 }
+
