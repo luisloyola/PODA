@@ -507,110 +507,117 @@ public class TranslateHtml {
                 cantidadEnunciados++;
                 tempEval+= "var enunciado"+(contador)+" = {	\n" +
                            "enunciado: \"";
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size(); k++){ //esta tirando problemas
-                    
-                    if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size()-1 == k){
-                        tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().get(k).getContent()+"\",";
-                    }
-                    
-                    else{
-                        tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().get(k).getContent(); 
+                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){ //esta tirando problemas
+                    for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size(); l++){                        
+                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size()-1 == k){
+                            tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent()+"\",";
+                        }
+
+                        else{
+                            tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent(); 
+                        }
                     }
                 } // fin for k    
                     
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().size(); k++) {
-                    tempEval+="solucion: '";
-                    if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().get(k).getType().equals("solucion")){
-                        switch(k){
-                        case 0:
-                            tempEval+="A',";
-                            break;
-                            
-                        case 1:
-                            tempEval+="B',";
-                            break;
-                            
-                        case 2:
-                            tempEval+="C',";
-                            break;
-                        
-                        case 3:
-                            tempEval+="D',";
-                            break;
-                            
-                        case 4:
-                            tempEval+="E',";
-                            break;    
-                            
-                        case 5:
-                            tempEval+="F',";
-                            break;
-                            
-                        case 6:
-                            tempEval+="G',";
-                            break;    
-                        default:
-                            break;
-                    }
-                        
-                        
+                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++) {
+                    for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size(); l++){
+                        tempEval+="solucion: '";
+                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getType().equals("solucion")){
+                            switch(k){
+                            case 0:
+                                tempEval+="A',";
+                                break;
+
+                            case 1:
+                                tempEval+="B',";
+                                break;
+
+                            case 2:
+                                tempEval+="C',";
+                                break;
+
+                            case 3:
+                                tempEval+="D',";
+                                break;
+
+                            case 4:
+                                tempEval+="E',";
+                                break;    
+
+                            case 5:
+                                tempEval+="F',";
+                                break;
+
+                            case 6:
+                                tempEval+="G',";
+                                break;    
+                            default:
+                                break;
+                        }
+
+
+                        }
                     }
                 } // fin for k 
                 tempEval+="alternativas: [\n";
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().size(); k++){
-                    switch(k){
-                        case 0:
-                            tempEval+="{alternativa: 'A";
-                            break;
-                            
-                        case 1:
-                            tempEval+="{alternativa: 'B";
-                            break;
-                            
-                        case 2:
-                            tempEval+="{alternativa: 'C";
-                            break;
-                        
-                        case 3:
-                            tempEval+="{alternativa: 'D";
-                            break;
-                            
-                        case 4:
-                            tempEval+="{alternativa: 'E";
-                            break;    
-                            
-                        case 5:
-                            tempEval+="{alternativa: 'F";
-                            break;
-                            
-                        case 6:
-                            tempEval+="{alternativa: 'G";
-                            break;    
-                        default:
-                            break;
-                    } // fin switch
-                    
-                    if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().size()-1 == k) {
-                        tempEval+="', pregunta:\"";
-                        for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().get(k).getTextContent().size(); l++){
-                            tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().get(k).getTextContent().get(l).getContent();
+                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){
+                    for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size(); l++){
+                            switch(l){
+                            case 0:
+                                tempEval+="{alternativa: 'A";
+                                break;
+
+                            case 1:
+                                tempEval+="{alternativa: 'B";
+                                break;
+
+                            case 2:
+                                tempEval+="{alternativa: 'C";
+                                break;
+
+                            case 3:
+                                tempEval+="{alternativa: 'D";
+                                break;
+
+                            case 4:
+                                tempEval+="{alternativa: 'E";
+                                break;    
+
+                            case 5:
+                                tempEval+="{alternativa: 'F";
+                                break;
+
+                            case 6:
+                                tempEval+="{alternativa: 'G";
+                                break;    
+                            default:
+                                break;
+                        } // fin switch
+
+                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size()-1 == k) {
+                            tempEval+="', pregunta:\"";
+                            for(int m = 0; m < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size(); m++){
+                                 tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent();
+                            }
+                            tempEval+= "\", tema:\""+object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTopic()+"\"}],";
+
                         }
-                        tempEval+= "\", tema:\""+object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().get(k).getTopic()+"\"}],";
-                        
-                    }
-                    else{
-                        tempEval+="', pregunta:\"";
-                        for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().get(k).getTextContent().size(); l++){
-                            tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().get(k).getTextContent().get(l).getContent();
+                        else{
+                            tempEval+="', pregunta:\"";
+                            for(int m = 0; m < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size(); m++){
+                                tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent();
+                            }
+                            tempEval+= "\", tema:\""+object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTopic()+"\"},";
                         }
-                        tempEval+= "\", tema:\""+object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getChoices().get(k).getTopic()+"\"},";
+
                     }
-                    
                 } // fin for k
                     
                 tempEval+="solucionario:\"";
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getSolutionTextContent().size(); k++) {
-                    tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getSolutionTextContent().get(k).getContent();
+                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size(); k++) {
+                    for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size(); l++){
+                        tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().get(l).getContent();
+                    }
                 } // fin for k
                     
   
