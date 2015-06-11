@@ -261,6 +261,7 @@ public class TranslateHtml {
                 break;
                 
             default:
+                lim_line = 1;
                 break;            
         }        
         return lim_line;
@@ -271,9 +272,11 @@ public class TranslateHtml {
         String script_header = "";
         ArrayList<String> trozos;
         for(int i = 0; i < object.getContent().size(); i++){
+            
             Scene slide = object.getContent().get(i);
             
             for(int j = 0; j < slide.getBlocks().size(); j++){
+
                 Block bloque = slide.getBlocks().get(j);
                 
                 for(int k = 0; k < bloque.getIdeas().size(); k++){
@@ -293,12 +296,15 @@ public class TranslateHtml {
                     String script_hand_lost_example = "";
                     
                     if(!idea.getVoice().isEmpty()){
+                        
                         script_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
                         script_voice_lost = "AudioLostCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"\");";
                     }
                     
                     for(int l = 0; l < idea.getText().size(); l++){
+                        
                         if(idea.getText().get(l).getType().equals("manuscrito")){
+                        
                             id_hand = l;
                             break;
                         }
@@ -306,12 +312,14 @@ public class TranslateHtml {
                     if(id_hand > -1){
 
                         int caracter_max = getCharMax(object, i, j );
+                        
                         trozos = trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
                         
                         String text_ids = "";
                         
                         for(int m = 0; m < trozos.size(); m++){
                             text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
+                        
                             
                             if(m+1 < trozos.size()){
                                 text_ids +=",";
@@ -342,11 +350,13 @@ public class TranslateHtml {
                                         "  </script>";
                     
                     for(int l = 0; l < idea.getExample().size(); l++){
+                        
                         int id_hand_example = -1;
                         for(int m = 0; m < idea.getExample().get(l).getTextContent().size(); m++){
                             if(idea.getExample().get(l).getTextContent().get(m).getType().equals("manuscrito")){
                                 id_hand_example = m;
-                                break;
+                                
+                                break;                                
                             }
                         }
                         if(id_hand_example > -1){
@@ -356,6 +366,7 @@ public class TranslateHtml {
 
                             for(int m = 0; m < trozos.size(); m++){
                                 text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ l + "-"+ m + "\"";
+                                
 
                                 if(m+1 < trozos.size()){
                                     text_ids +=",";
@@ -366,27 +377,28 @@ public class TranslateHtml {
                             script_text_lost_example = "textLostCurrent(["+ text_ids +"], direction);";
                             script_hand_became_example = "manoBecameCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ l +"\""+", ["+text_ids+"], "+ atr_left +");";
                             script_hand_lost_example = "manoLostCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ l +"\""+", direction,"+ atr_left +");";
+                        
+                            script_header +=    "<script>\n" +
+                                            "    $(function(){\n" +
+                                            "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
+                                            "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                        //script_voice_became +
+                                                        script_text_became_example +
+                                                        script_hand_became_example +
+                                            "      });\n" +
+                                            "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                            "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                        //script_voice_lost +
+                                                        script_text_lost_example +
+                                                        script_hand_lost_example +
+                                            "      });\n" +
+                                            "    });\n" +
+                                            "  </script>";
                         }
-                        script_header +=    "<script>\n" +
-                                        "    $(function(){\n" +
-                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
-                                        "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
-                                                    //script_voice_became +
-                                                    script_text_became_example +
-                                                    script_hand_became_example +
-                                        "      });\n" +
-                                        "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
-                                        "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
-                                                    //script_voice_lost +
-                                                    script_text_lost_example +
-                                                    script_hand_lost_example +
-                                        "      });\n" +
-                                        "    });\n" +
-                                        "  </script>";
                     }
-                }
-            }
-        }        
+                }                
+            }            
+        }                
         return script_header;
     }
     
@@ -411,16 +423,16 @@ public class TranslateHtml {
         return text;
     }
     
-    public ArrayList<String> trozarCadena(String content_text,int filOrCol){
+    public ArrayList<String> trozarCadena(String content_text,int max_chars){
                
         ArrayList<String> piece_string = new ArrayList();
         
-        int limite = filOrCol;        
+        int limite = max_chars;        
         int count_char = 0;
         String words_line = "";
         String[] words_content = content_text.split(" ");
         
-        for( int i = 0; i < words_content.length; i++){
+        for( int i = 0; i < words_content.length; i++){            
             
             String word_aux = words_content[i] + " ";
             
@@ -433,6 +445,7 @@ public class TranslateHtml {
                     words_line = "";
                 }                
                 while(word_aux.length() > limite){
+                    
                     piece_string.add(word_aux.substring(0, limite));
                     word_aux=word_aux.substring(limite);
                 }   

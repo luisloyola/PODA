@@ -30,6 +30,7 @@ public class LearningObject {
         quizSet = new ArrayList<>();
     };
 
+
     /**
      * Devuelve el valor del atributo privado.
      * @return String title
@@ -77,6 +78,10 @@ public class LearningObject {
         return this.content;
     }
 
+    public void setContent(List<Scene> content) {
+        this.content = content;
+    }
+    
     public String getName_file() {
         return name_file;
     }

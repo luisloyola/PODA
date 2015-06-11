@@ -9,7 +9,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-
 /**
  *
  * @author teban
@@ -21,6 +20,9 @@ public class FeedBack {
         link = "";
     }
     
+    public FeedBack(String link){
+        this.link = link;
+    }
     
     public String getLink() {
         return link;
