@@ -36,8 +36,7 @@ public class TranslateHtml {
     }   
     
     /**
-     * Devuelve una página web completa para ser introducida en el contenedor
-     * en la capa de vista.
+     * Funcion que realiza la traduccion a html completa del objeto a ser creado
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @return String codeHtml, resultado que estará como presentación del OA
      * @throws IOException 
@@ -62,7 +61,7 @@ public class TranslateHtml {
     }
     
     /**
-     * Escribe el header de la página web.
+     * Realiza la traduccion a html del OA, en su seccion del head, agregando los recursos necesarios
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @return string con el header incorporado.
      */
@@ -151,7 +150,13 @@ public class TranslateHtml {
         //htmlHeader = htmlHeader + scriptEvaluacion;        
         return htmlHeader;
     }
-    
+    /**
+     * Funcion que determina la cantidad maxima de caracteres que pueden ir en una linea dentro de un bloque ubicado en cierto tipo de diseño de slide
+     * @param object Objeto que contiene al objeto de aprendizaje con todo su contenido
+     * @param numberSlide Numero de la slide donde se desea escribir el texto
+     * @param numberBlock Numero del bloque donde se desea escribir el texto
+     * @return Un entero con la cantidad de caracteres maximo por linea
+     */
     public int getCharMax(LearningObject object, int numberSlide, int numberBlock){
         
         int lim_line = 0;
@@ -266,7 +271,11 @@ public class TranslateHtml {
         }        
         return lim_line;
     }
-    
+    /**
+     * Función que realiza la traduccion a html, en la seccion de los script que controlan el flujo de las slide, el audio y la animacion mano.texto
+     * @param object Objeto que contiene al objeto de aprendizaje con todo su contenido
+     * @return Cadena con el codigo html de la seccion de script
+     */
     public String write_scriptHeaderHtml(LearningObject object){
         
         String script_header = "";
@@ -403,7 +412,12 @@ public class TranslateHtml {
     }
     
     
-    
+    /**
+     * Funcion que realiza la traduccion a html de un texto del tipo normal, agregado el codigo para enfatizar y destacar
+     * @param text Texto a ser escrito
+     * @param desing Tipo de template del OA donde se escribe el texto
+     * @return La cadena de texto traducida a codigo html
+     */
     public String write_text(String text, String desing){
         String color;
         switch (desing){
@@ -422,7 +436,13 @@ public class TranslateHtml {
         
         return text;
     }
-    
+    /**
+     * Funcion que troza una cadena de manera que cada trozo esta completo y no supera la cantidad maxima de caracteres que se permite 
+     * en una linea de cierto bloque de cierto tipo de slide
+     * @param content_text Texto a ser escrito y que se necesita trozar
+     * @param max_chars Cantidad maxima de caracteres de una cadena
+     * @return Un arreglo de cadenas, donde cada cadena en el arreglo es entera y no supera la cantidad máxima de caracteres
+     */
     public ArrayList<String> trozarCadena(String content_text,int max_chars){
                
         ArrayList<String> piece_string = new ArrayList();
@@ -464,7 +484,16 @@ public class TranslateHtml {
         }                 
         return piece_string;        
     }
-    
+    /**
+     * Funcion que realiza la traduccion a html de la animación mano-texto
+     * @param trozos Trozos de cadenas que tienen que ser escritas por la animacion mano-texto
+     * @param numberSlide Posicion de la slide, donde se va a encontrar la animacion, en el arreglo de slides del objeto
+     * @param numberBlock Posicion del bloque, donde se va a encontrar la animacion, en el arreglo de bloques de la slide correspondiente
+     * @param numberIdea Posicion de la idea, donde se va a encontrar la animacion, en el arreglo de ideas del bloque correspondiente
+     * @param numberExample Si la animación es escrita como un ejemplo, se indica la posicion del ejemplo, donde se va a encontrar la animacion,
+     * en el arreglo de ejemplos de la idea correspondiente
+     * @return Cadena con el codigo html que representa a la animacion mano-texto
+     */
     public String write_hand(ArrayList<String> trozos, int numberSlide, int numberBlock, int numberIdea, int numberExample){
         
         String add_example = "";
@@ -750,6 +779,18 @@ public class TranslateHtml {
         return total;        
     }*/
     
+    /**
+     * Funcion que realiza la traduccion a html de una pila de ejemplos que se quieran agregar a un OA.
+     * @param list_examples arreglo de objetos de la clase Example, que representa a una pila de ejemplos.
+     * @param OAName Nombre del objeto (usado para la descarga de imagenes)
+     * @param OAPath Nombre de la ruta donde se ubica el objeto (para la descarga de imagenes)
+     * @param design Tipo de template del OA
+     * @param lim_line Limite maximo de caracteres por linea segun el bloque y slide encontrado (usado para el texto manuscrito)
+     * @param numberSlide Posicion de la slide, donde se va a encontrar la animacion, en el arreglo de slides del objeto
+     * @param numberBlock Posicion del bloque, donde se va a encontrar la animacion, en el arreglo de bloques de la slide correspondiente
+     * @param numberIdea Posicion de la idea, donde se va a encontrar la animacion, en el arreglo de ideas del bloque correspondiente
+     * @return 
+     */
     public String write_examples(List<Example> list_examples, String OAName, String OAPath, String design, int lim_line, int numberSlide, int numberBlock, int numberIdea){
         
         String examples = "<script>\nvar ejemplos = new Array(";
@@ -801,7 +842,14 @@ public class TranslateHtml {
         
         return examples;
     }    
-    
+    /**
+     * Funcion que realiza la traduccion a html de los recursos multimedias que se ingresen al OA
+     * @param media Objeto del tipo media que representa al recurso a ser ingresado
+     * @param OAName Nombre del objeto (usado para la descarga de imagenes)
+     * @param OAPath Nombre de la ruta donde se ubica el objeto (para la descarga de imagenes)
+     * @param isExample Booleano que indica si este recurso es ingresado como un ejemplo o no.
+     * @return Cadena con el codigo html que representa al recurso multimedia en el OA
+     */
     public String write_media(Media media, String OAName, String OAPath, boolean isExample){
         
         String code_media = "";
@@ -959,8 +1007,7 @@ public class TranslateHtml {
         
         int tam_fila = 110;
         int tam_2Col = 45;
-        int tam_3Col = 30;
-        
+        int tam_3Col = 30;        
         
         String codeHtml = "";        
         
@@ -1130,8 +1177,12 @@ public class TranslateHtml {
         
         return codeHtml;
     }     
-    
-        public String write_feedbackHtml(LearningObject object){
+    /**
+     * Funcion que realiza la traduccion a html de la seccion de encuesta del OA
+     * @param object Objeto de la clase LearningObject que representa al Objeto a ser escrito con todo su contenido
+     * @return Cadena con el codigo html de la seccion de encuestas del OA
+     */
+    public String write_feedbackHtml(LearningObject object){
         
         String codeHtml = "";
                 
@@ -1182,7 +1233,12 @@ public class TranslateHtml {
 
         return codeHtml;
     }   
-    
+    /**
+     * Funcion que determina la posicion donde comienza un texto en la animacion mano-texto, segun el bloque y slide en que se encuentre
+     * @param design Tipo de diseño de la slide
+     * @param numberBLock Posicion del bloque en el arreglo de bloques de la slide correspondiente
+     * @return cadena que representa el valor de la posicion donde comienza la animacion
+     */
     public String write_confHand(String design, int numberBLock){
         
         String left = "";
