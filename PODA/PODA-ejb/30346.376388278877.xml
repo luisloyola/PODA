@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE objeto [
+<!ELEMENT objeto (escena*,evaluacion*,feedback?)>
+<!ELEMENT escena (bloque+)>
+<!ELEMENT bloque (idea+)>
+<!ELEMENT idea (texto*, media*,ejemplos?,voz?)>
+<!ELEMENT texto (#PCDATA)>
+<!ELEMENT voz (#PCDATA)>
+<!ELEMENT media (#PCDATA)>
+<!ELEMENT evaluacion (pregunta+)>
+<!ELEMENT pregunta (forma+)>
+<!ELEMENT forma (enunciado,opciones,solucion?)>
+<!ELEMENT enunciado (texto?,media?)>
+<!ELEMENT opciones (alternativa*)>
+<!ELEMENT alternativa (texto?,media?)>
+<!ELEMENT solucion (texto?,media?,voz?)>
+<!ELEMENT feedback (#PCDATA)>
+<!ELEMENT ejemplos (ejemplo*)>
+<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo?)>
+<!ELEMENT texto_ejemplo (#PCDATA)>
+<!ELEMENT media_ejemplo (#PCDATA)>
+
+
+<!ATTLIST objeto titulo CDATA #REQUIRED>
+<!ATTLIST objeto autor CDATA #REQUIRED>
+<!ATTLIST objeto tema CDATA #REQUIRED>
+<!ATTLIST escena titulo CDATA #REQUIRED>
+<!ATTLIST escena tipo CDATA #REQUIRED>
+
+<!ATTLIST idea orden CDATA #REQUIRED>
+<!ATTLIST texto tipo CDATA #REQUIRED>
+<!ATTLIST media tipo CDATA #REQUIRED>
+<!ATTLIST texto_ejemplo tipo CDATA #REQUIRED>
+<!ATTLIST media_ejemplo tipo CDATA #REQUIRED>
+
+<!ATTLIST evaluacion exigencia CDATA #REQUIRED>
+<!ATTLIST alternativa tipo CDATA #REQUIRED>
+<!ATTLIST alternativa tema CDATA #REQUIRED>
+]><objeto titulo="Nombre del Objeto" tema="usach" autor="Autor">
+	<escena titulo="Titulo de la escena" tipo="1Col">
+		<bloque>
+			<idea orden="1"> 
+				<texto tipo="normal">Soy texto normal</texto> 
+				<texto tipo="codigo">
+					var = 0
+					while(var++ &lt;= 10)
+						aux = var + 1
+
+				</texto> 
+				<texto tipo="manuscrito">Soy texto manuscrito</texto>
+				<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
+				<ejemplos>					
+					<ejemplo>
+						<texto_ejemplo tipo="normal">ABCD</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	
+					</ejemplo>				
+				</ejemplos>
+				<voz>voz correspondiente a esta idea</voz>				
+			</idea>
+			<idea orden="3">
+				<texto tipo="normal">Soy texto normal 2</texto>
+			</idea>
+		</bloque>		
+	</escena>
+	<escena titulo="Titulo de la escena 2" tipo="1Fil2Col">
+		<bloque>
+			<idea orden="1"> 				
+				<voz>voz correspondiente a esta idea</voz>				
+			</idea>
+			<idea orden="2"> 				
+				<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
+			</idea>
+			<idea orden="3">
+				<texto tipo="manuscrito">Soy texto normal 2</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="2">
+				<ejemplos>
+					<!-- dentro de ejemplos estarán las pilas de ejemplos a mostrar, pueden ser varias -->
+					<ejemplo>
+						<texto_ejemplo tipo="normal">ABCD</texto_ejemplo>						
+					</ejemplo>
+					<ejemplo>
+						<media_ejemplo tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	
+					</ejemplo>				
+					<ejemplo>
+						<texto_ejemplo tipo="normal">ABCD</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	
+					</ejemplo>								
+					<ejemplo>
+						<texto_ejemplo tipo="codigo">ABCD</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	
+					</ejemplo>						
+				</ejemplos>
+			</idea>
+		</bloque>	
+		<bloque>
+			<idea orden="5">
+				<voz>HOla como estas</voz>
+			</idea>
+		</bloque>
+
+	</escena>
+
+<evaluacion exigencia="60">
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">ABC</texto>
+					<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>	
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="nuevoTema"> <!-- o distractor --> 
+						<texto tipo="normal">ABC</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+					<alternativa tipo="distractor" tema="nuevoTema"> <!-- o distractor --> 
+						<texto tipo="normal">ABCD</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">ABC</texto>
+					<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
+					<voz>Voz correspondiente a la solucion</voz>
+				</solucion>
+			</forma>
+		</pregunta>
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">ABC</texto>
+					<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>	
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="nuevoTema"> <!-- o distractor --> 
+						<texto tipo="normal">ABC</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+					<alternativa tipo="distractor" tema="nuevoTema"> <!-- o distractor --> 
+						<texto tipo="normal">ABCD</texto> <!-- 0 o 1 -->
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">ABC</texto>
+					<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
+					<voz>Voz correspondiente a la solucion</voz>
+				</solucion>
+			</forma>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">ABC</texto>
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="nuevoTema"> <!-- o distractor --> 
+						<texto tipo="normal">ABC</texto> <!-- 0 o 1 -->
+					</alternativa>
+					<alternativa tipo="distractor" tema="nuevoTema"> <!-- o distractor --> 
+						<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media> <!-- 0 o 1? -->
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">ABC</texto>
+				</solucion>
+			</forma>
+		</pregunta>
+	</evaluacion>	<feedback>ABC</feedback>
+</objeto>

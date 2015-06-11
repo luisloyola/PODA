@@ -65,7 +65,7 @@ public class TranslateHtml {
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @return string con el header incorporado.
      */
-    public String write_headerHtml(LearningObject object) throws IOException{
+    public String write_headerHtml(LearningObject object) throws IOException {
         //Head del HTML
         
         String templateHtml;
@@ -465,6 +465,7 @@ public class TranslateHtml {
         String templateFuncionesFijas = "";
         String templateFuncionesFijas2 = "";
         String total = null;
+        String templateSolucionario = "";
         
         templateCss = "<style>\n" +
                       "div#evaluacion{ padding:10px 40px 40px 40px; }\n" +
@@ -506,7 +507,7 @@ public class TranslateHtml {
                 cantidadEnunciados++;
                 tempEval+= "var enunciado"+(contador)+" = {	\n" +
                            "enunciado: \"";
-                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size(); k++){
+                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size(); k++){ //esta tirando problemas
                     
                     if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size()-1 == k){
                         tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().get(k).getContent()+"\",";
@@ -700,56 +701,56 @@ public class TranslateHtml {
 "        }\n" +
 "\n" +
 "				function mostrarPregunta() {\n" +
-"          evaluacion           = _(\"evaluacion\");\n" +
-"          var str              = '';\n" +
-"          var strTemasFallados = '';\n" +
-"          var strPorcentaje    = '';\n" +
-"          \n" +
-"					if(posicion >= preguntas.length){\n" +
-"\n" +
-"            temas=cleanup(temas,'tema'); //borrar temas repetidos\n" +
-"\n" +
-"            // Obtener puntaje total del OA\n" +
-"            for (var c3=0; c3<temas.length; c3++) {\n" +
-"              puntajeTotalOA         = puntajeTotalOA + temas[c3].puntajeTotal;\n" +
-"              puntajeTotalOAObtenido = puntajeTotalOAObtenido + temas[c3].puntaje;\n" +
-"            }\n" +
-"            \n" +
-"            // No pueden haber puntajes negativos por lo que se asigna el valor 0\n" +
-"            if (puntajeTotalOAObtenido < 0) {\n" +
-"              puntajeTotalOAObtenido = 0;\n" +
-"            }\n" +
-"\n" +
-"            // Obtener el porcentaje logrado de cada tema y guardarlo en el\n" +
-"            for (var l=0; l<temas.length; l++) {\n" +
-"              temas[l].porcentajeLogrado = porcentaje(temas[l].puntaje, temas[l].puntajeTotal);\n" +
-"            }\n" +
-"\n" +
-"            // No tener puntajes negativos\n" +
-"            for (var j=0; j<temas.length; j++) { \n" +
-"              if (temas[j].puntaje <=0) { \n" +
-"                temas[j].puntaje=0;\n" +
-"              }\n" +
-"            }\n" +
-"\n" +
-"            // Sacar temas que no estan siendo evaluados y cuyo puntaje total es 0\n" +
-"            for (var n=0; n<temas.length; n++) {\n" +
-"              if (temas[n].puntajeTotal == 0) {\n" +
-"                temas.splice(n,1);\n" +
-"              }\n" +
-"\n" +
-"            } \n" +
-"            \n" +
-"            for(var i=0; i<temas.length ; i++){\n" +
-"              \n" +
-"              if (temas[i].puntaje == 0 && temas[i].puntajeTotal == 0) {\n" +
-"                str = str\n" +
-"              } else {\n" +
-"                str = str + \"<tr><td>\"+temas[i].tema +\"</td>\"+\"<td align=\\\"center\\\">\"+temas[i].puntaje +\"</td><td align=\\\"center\\\">\"+temas[i].puntajeTotal + \"</td><td align=\\\"center\\\">\"+ temas[i].porcentajeLogrado +\"</td></tr>\";\n" +
-"              }\n" +
-"            }\n" +
-"\n" +
-"           for (var k1=0; k1< temas.length; k1++) {\n" +
+                    "         evaluacion        = _(\"evaluacion\");\n" +
+                    "         var str           = '';\n" +
+                    "         var strTemas      = '';\n" +
+                    "         var strPorcentaje = '';\n" +
+                    "         puntajeTotalOA         = 0;\n" +
+                    "         puntajeTotalOAObtenido = 0;\n" +
+                    "var strTemasFallados = '';"+
+                    "\n" +
+                    "          if(posicion >= preguntas.length){\n" +
+                    "\n" +
+                    "            temas=cleanup(temas,'tema'); //borrar temas repetidos\n" +
+                    "\n" +
+                    "            for (var c3=0; c3<temas.length; c3++) {\n" +
+                    "              puntajeTotalOA         = puntajeTotalOA + temas[c3].puntajeTotal;\n" +
+                    "              puntajeTotalOAObtenido = puntajeTotalOAObtenido + temas[c3].puntaje;\n" +
+                    "            }\n" +
+                    "            \n" +
+                    "            if (puntajeTotalOAObtenido < 0) {\n" +
+                    "              puntajeTotalOAObtenido = 0;\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var l=0; l<temas.length; l++) {\n" +
+                    "              temas[l].porcentajeLogrado = porcentaje(temas[l].puntaje, temas[l].puntajeTotal);\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var j=0; j<temas.length; j++) { \n" +
+                    "              if (temas[j].puntaje <=0) { \n" +
+                    "                temas[j].puntaje=0;\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var n=0; n<temas.length; n++) {\n" +
+                    "              if (temas[n].puntajeTotal == 0) {\n" +
+                    "                temas.splice(n,1);\n" +
+                    "              }\n" +
+                    "\n" +
+                    "            } \n" +
+                    "            \n" +
+                    "            for(var i=0; i<temas.length ; i++){\n" +
+                    "              \n" +
+                    "              if (temas[i].puntaje == 0 && temas[i].puntajeTotal == 0) {\n" +
+                    "                str = str\n" +
+                    "              } else {\n" +
+                    "                str = str + \"<tr><td>T\"+(i+1) +\"</td><td>\"+temas[i].tema +\"</td>\"+\"<td align=\\\"center\\\">\"+temas[i].puntaje +\"</td><td align=\\\"center\\\">\"+temas[i].puntajeTotal + \"</td></tr>\";\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "\n" +
+                
+                
+                    "             for (var k1=0; k1< temas.length; k1++) {\n" +
 "              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigencia);\n" +
 "              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
 "                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
@@ -757,30 +758,31 @@ public class TranslateHtml {
 "              if(temas[k1].puntajeObtenido == 0) {\n" +
 "                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
 "              }\n" +
-"              console.log(temas[k1].color + \": \" + strTemasFallados);\n" +
-"            }\n" +
-"            \n" +
-"            evaluacion.innerHTML=\"<div class=\\\"right-2columnas\\\" ><div id=\\\"divForGraph\\\" style=\\\"width:100%; height:100%;\\\"></div></div>\";\n" +
-"\n" +
-"            _(\"evaluacion_status\").innerHTML = \"Evaluación completa\";\n" +
-"\n" +
-"            // Impresion en el HTML\n" +
-"            if (puntajeTotalOAObtenido == 0) {\n" +
-"              \n" +
-"              evaluacion.innerHTML += \n" +
-"              \"<div class=\\\"left-2columnas\\\"><table align=\\\"center\\\"><tr><th>Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th><th>Porcentaje logrado (%)</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \".</p><p>Te recomendamos ver el objeto de aprendizaje de nuevo</p><button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button>\";\n" +
-"\n" +
-"            } else if (puntajeTotalOAObtenido == puntajeTotalOA) {\n" +
-"              \n" +
-"              evaluacion.innerHTML += \n" +
-"              \"<div class=\\\"left-2columnas\\\"><table align=\\\"center\\\"><tr><th>Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th><th>Porcentaje logrado (%)</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \".</p><p>Felicidades has aprobado este objeto de aprendizaje</p><button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button>\";\n" +
-"\n" +
-"            } else {\n" +
-"              \n" +
-"              evaluacion.innerHTML += \n" +
-"              \"<div class=\\\"left-2columnas\\\"><table align=\\\"center\\\"><tr><th>Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th><th>Porcentaje logrado (%)</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \".</p><p>Deberias repasar estos temas: \"+strTemasFallados+\"</p><button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button>\";\n" +
-"\n" +
-"            }\n" +
+"            }" + 
+                
+                
+                    "            evaluacion.innerHTML=\"<div class=\\\"right-2columnas\\\" ><div id=\\\"divForGraph\\\" style=\\\"width:100%; height:100%;\\\"></div></div>\";\n" +
+                    "\n" +
+                    "            _(\"evaluacion_status\").innerHTML = \"Evaluación completa\";\n" +
+                    "\n" +
+                    "            \n" +
+                    "            if (puntajeTotalOAObtenido == 0) {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML += \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table align=\\\"center\\\"><tr><th>id Tema</th><th>Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\"></td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \".</p><p>Te recomendamos ver el objeto de aprendizaje de nuevo</p><button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button>\";\n" +
+                    "\n" +
+                    "            } else if (puntajeTotalOAObtenido == puntajeTotalOA) {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML += \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table align=\\\"center\\\"><tr><th>id Tema</th><th>Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\"></td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \".</p><p>Felicidades has aprobado este objeto de aprendizaje</p><button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button>\";\n" +
+                    "\n" +
+                    "            } else {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML += \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table align=\\\"center\\\"><tr><th>id Tema</th><th>Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\"></td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \".</p><p>Deberias repasar estos temas: \"+strTemasFallados+\"</p><button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button>\";\n" +
+                    "\n" +
+                    "            }\n" +
+                    "\n" +
 "\n" +
 "            grafico();\n" +
 "						posicion = 0;\n" +
@@ -799,7 +801,7 @@ public class TranslateHtml {
 "            var alternativa = preguntas[posicion].alternativas[c1].pregunta;\n" +
 "            evaluacion.innerHTML += \"<input type='radio' name='opciones' value=\"+rangoArray[c1]+ \" onclick='mostrar()'> \"+alternativa+\"<br>\";\n" +
 "          }\n" +
-"					evaluacion.innerHTML += \"<br><button class=\\\"btn btn-default btnEnviar\\\" style=\\\"display: none;\\\" onclick='evaluar()'>Enviar respuesta</button>\";\n" +
+"					evaluacion.innerHTML += \"<br><button class=\\\"btn btn-default btnEnviar\\\" disabled onclick='evaluar()'>Enviar respuesta</button>\";\n" +
 "			}";
         
         templateFuncionesFijas2 = "function evaluar() {\n" +
@@ -856,14 +858,148 @@ public class TranslateHtml {
 "				posicion++;\n" +
 "				mostrarPregunta();\n" +
 "			} // fin funcion\n" +
-"			\n" +
-"			window.addEventListener(\"load\", mostrarPregunta, false);\n" +
-"	</script>";
+"			\n" ;
                 
                 
-                
-        total = templateCss + templateEvaluacion1 + tempEval + randomPila + templateRescatarTemas+ templateFuncionesFijas+ templateFuncionesFijas2;
+        templateSolucionario = write_solutionHtml();        
+        total = templateCss + templateEvaluacion1 + tempEval + randomPila + templateRescatarTemas+ templateFuncionesFijas+ templateFuncionesFijas2 + templateSolucionario;
         return total;        
+    }
+    
+    public String write_solutionHtml(){
+        String mostrarSolucion="";
+        
+        mostrarSolucion+="function mostrarSolucion(posicion) {\n" +
+                    "         evaluacion        = _(\"evaluacion\");\n" +
+                    "         var str           = '';\n" +
+                    "         var strTemas      = '';\n" +
+                    "         var strPorcentaje = '';\n" +
+                    "         puntajeTotalOA         = 0;\n" +
+                    "         puntajeTotalOAObtenido = 0;\n" +
+                    "var strTemasFallados = '';"+
+                    "\n" +
+                    "          if(posicion >= preguntas.length){\n" +
+                    "\n" +
+                    "            temas=cleanup(temas,'tema'); //borrar temas repetidos\n" +
+                    "\n" +
+                    "            for (var c3=0; c3<temas.length; c3++) {\n" +
+                    "              puntajeTotalOA         = puntajeTotalOA + temas[c3].puntajeTotal;\n" +
+                    "              puntajeTotalOAObtenido = puntajeTotalOAObtenido + temas[c3].puntaje;\n" +
+                    "            }\n" +
+                    "            \n" +
+                    "            if (puntajeTotalOAObtenido < 0) {\n" +
+                    "              puntajeTotalOAObtenido = 0;\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var l=0; l<temas.length; l++) {\n" +
+                    "              temas[l].porcentajeLogrado = porcentaje(temas[l].puntaje, temas[l].puntajeTotal);\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var j=0; j<temas.length; j++) { \n" +
+                    "              if (temas[j].puntaje <=0) { \n" +
+                    "                temas[j].puntaje=0;\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var n=0; n<temas.length; n++) {\n" +
+                    "              if (temas[n].puntajeTotal == 0) {\n" +
+                    "                temas.splice(n,1);\n" +
+                    "              }\n" +
+                    "\n" +
+                    "            } \n" +
+                    "            \n" +
+                    "            for(var i=0; i<temas.length ; i++){\n" +
+                    "              \n" +
+                    "              if (temas[i].puntaje == 0 && temas[i].puntajeTotal == 0) {\n" +
+                    "                str = str\n" +
+                    "              } else {\n" +
+                    "                str = str + \"<tr><td>T\"+(i+1) +\"</td><td>\"+temas[i].tema +\"</td>\"+\"<td align=\\\"center\\\">\"+temas[i].puntaje +\"</td><td align=\\\"center\\\">\"+temas[i].puntajeTotal + \"</td></tr>\";\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "\n" +
+                
+                
+                    "             for (var k1=0; k1< temas.length; k1++) {\n" +
+"              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigencia);\n" +
+"              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
+"                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
+"              }\n" +
+"              if(temas[k1].puntajeObtenido == 0) {\n" +
+"                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
+"              }\n" +
+"            }" + 
+                
+                
+                    "            evaluacion.innerHTML=\"<div class=\\\"right-2columnas\\\" ><div id=\\\"divForGraph\\\" style=\\\"width:100%; height:100%;\\\"></div></div>\";\n" +
+                    "\n" +
+                    "            _(\"evaluacion_status\").innerHTML = \"Evaluación completa\";\n" +
+                    "\n" +
+                    "            \n" +
+                    "            if (puntajeTotalOAObtenido == 0) {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML += \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table align=\\\"center\\\"><tr><th>id Tema</th><th>Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\"></td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \".</p><p>Te recomendamos ver el objeto de aprendizaje de nuevo</p><button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button>\";\n" +
+                    "\n" +
+                    "            } else if (puntajeTotalOAObtenido == puntajeTotalOA) {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML += \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table align=\\\"center\\\"><tr><th>id Tema</th><th>Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\"></td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \".</p><p>Felicidades has aprobado este objeto de aprendizaje</p><button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button>\";\n" +
+                    "\n" +
+                    "            } else {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML += \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table align=\\\"center\\\"><tr><th>id Tema</th><th>Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\"></td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \".</p><p>Deberias repasar estos temas: \"+strTemasFallados+\"</p><button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button>\";\n" +
+                    "\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            grafico();\n" +
+                    "            posicion = 0;\n" +
+                    "            correcta = 0;\n" +
+                    "            return false;\n" +
+                    "          }\n" +
+                    "          \n" +
+                    "          var valor =[];\n" +
+                    "          pregunta  =preguntas[posicion].enunciado;\n" +
+                    "          sol       = preguntas[posicion].solucionario;\n" +
+                    "          var cantidad_alternativas=preguntas[posicion].alternativas.length;\n" +
+                    "          \n" +
+                    "          for(var j=0;j<cantidad_alternativas;j++){\n" +
+                    "            if(preguntas[posicion].solucion==preguntas[posicion].alternativas[j].alternativa){\n" +
+                    "                  valor[j]=\" <strong>\"+preguntas[posicion].alternativas[j].alternativa+\") \"+preguntas[posicion].alternativas[j].pregunta+\"</strong><br>\";\n" +
+                    "            } else{\n" +
+                    "              valor[j]=preguntas[posicion].alternativas[j].alternativa+\") \"+preguntas[posicion].alternativas[j].pregunta+\"<br>\";\n" +
+                    "            }\n" +
+                    "          \n" +
+                    "          }\n" +
+                    "          \n" +
+                    "          _(\"evaluacion_status\").innerHTML = \"Preguntas \"+(posicion+1)+\" de \"+preguntas.length;\n" +
+                    "          \n" +
+                    "          evaluacion.innerHTML = \"<h3>\"+pregunta+\"</h3>\";\n" +
+                    "          evaluacion.innerHTML += \"<div class=\\\"right-2columnas\\\" align=\\\"center\\\"><p>\"+sol+\"</p></div>\";\n" +
+                    "          \n" +
+                    "          for(var j=0;j<cantidad_alternativas;j++) {\n" +
+                    "            evaluacion.innerHTML += valor[j];\n" +
+                    "          }\n" +
+                    "\n" +
+                    "          if(posicion==preguntas.length-1) {\n" +
+                    "            evaluacion.innerHTML += \"<br><button class=\\\"btn btn-default\\\"onclick='mostrarSolucion(\"+(posicion+1)+\")'>Ir a estadísticas</button>\";\n" +
+                    "          } else {\n" +
+                    "            evaluacion.innerHTML += \"<br><button class=\\\"btn btn-default\\\"onclick='mostrarSolucion(\"+(posicion+1)+\")'>Siguiente</button>\";\n" +
+                    "          }\n" +
+                    "      }function grafico() {\n" +
+                    "        arrayOfData = [];\n" +
+                    "        for (var g=0; g<temas.length; g++) {\n" +
+                    "          arrayOfData.push([temas[g].porcentajeLogrado, \"T\"+(g+1), temas[g].color]);\n" +
+                    "        }\n" +
+                    "        $('#divForGraph').jqBarGraph({ data: arrayOfData, postfix: '%', title: \"<strong>Porcentaje logrado por tema</strong>\" });\n" +
+                    "      }\n" +
+                    "\n" +
+                    "      function mostrar() {  \n" +
+                    "        $(\".btnEnviar\").attr(\"disabled\",false);\n" +
+                    "      }"+
+                    "window.addEventListener(\"load\", mostrarPregunta, false);\n" +
+                    "</script>";
+        return mostrarSolucion;
     }
     
     public String write_examples(List<Example> list_examples, String OAName, String OAPath/*, String numberSlide, String numberBlock, String numberIdea*/){
