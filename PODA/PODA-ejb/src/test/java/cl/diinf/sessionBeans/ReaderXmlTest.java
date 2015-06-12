@@ -6,6 +6,7 @@
 package cl.diinf.sessionBeans;
 
 import cl.diinf.objetoAprendizaje.LearningObject;
+import java.io.IOException;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -35,7 +36,7 @@ public class ReaderXmlTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
                                 
         ReaderXml good_instance = new ReaderXml();
         
@@ -189,7 +190,7 @@ public class ReaderXmlTest {
      */ 
     
     @Test
-    public void testErrorObject(){
+    public void testErrorObject() throws IOException{
         
         String error_xml =  
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
@@ -432,7 +433,7 @@ public class ReaderXmlTest {
      */ 
     @Ignore
     @Test
-    public void testErrorTipoEscena(){
+    public void testErrorTipoEscena() throws IOException{
         
         String error_xml =  "<comenzar>\n" +
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
@@ -456,7 +457,7 @@ public class ReaderXmlTest {
      */ 
     @Ignore
     @Test
-    public void testErrorCantidadBloques(){
+    public void testErrorCantidadBloques() throws IOException{
         
         String error_xml =  "<comenzar>\n" +
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
@@ -480,7 +481,7 @@ public class ReaderXmlTest {
      */
     @Ignore
     @Test
-    public void testErrorOrdenNumerico(){
+    public void testErrorOrdenNumerico() throws IOException{
         
         String error_xml =  "<comenzar>\n" +
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
@@ -504,7 +505,7 @@ public class ReaderXmlTest {
      */
     @Ignore
     @Test
-    public void testErrorTipoTexto(){
+    public void testErrorTipoTexto() throws IOException{
         
         String error_xml =  "<comenzar>\n" +
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
@@ -528,7 +529,7 @@ public class ReaderXmlTest {
      */
     @Ignore
     @Test
-    public void testErrorTipoMedia(){
+    public void testErrorTipoMedia() throws IOException{
         
         String error_xml =  "<comenzar>\n" +
                             "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
@@ -553,7 +554,7 @@ public class ReaderXmlTest {
      */
     @Ignore
     @Test
-    public void testErrorTipoAlternativa(){
+    public void testErrorTipoAlternativa() throws IOException{
         
         String error_xml =  "<comenzar>\n" +
                             "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +

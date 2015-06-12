@@ -79,6 +79,7 @@ public class ReaderXml {
                 if (!errorHandler.getErrorMessage().equals("NO_ERROR")) {
                         /*Error en el documento*/
                         this.parsingError = errorHandler.getErrorMessage();
+                        this.parsingError = this.errorTranslate(this.parsingError);
                         System.out.println(errorHandler.getErrorMessage());
                         logfw.write(parsingError+"\n");
                         logfw.close();
@@ -91,6 +92,7 @@ public class ReaderXml {
             } catch (org.xml.sax.SAXException e) {
                 /*Error en el parser*/
                 this.parsingError = e.getLocalizedMessage();
+                this.parsingError = this.errorTranslate(this.parsingError);
                 logfw.write(parsingError+"\n");
                 logfw.close();
                 OA_XML_File.delete();
@@ -158,47 +160,63 @@ public class ReaderXml {
                             case "1Col":
                                 if (readedBlocks.getLength() != 1) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                                 break;
                             case "1Fil2Col":
                                 if (readedBlocks.getLength() != 3) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                                 break;
                             case "2Col":
                                 if (readedBlocks.getLength() != 2) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                                 break;
                             case "3Col":
                                 if (readedBlocks.getLength() != 3) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                                 break;
                             case "1Fil3Col":
                                 if (readedBlocks.getLength() != 4) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                                 break;
                             case "2Fil2Col":
                                 if (readedBlocks.getLength() != 4) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                                 break;
                             case "2Col1Fil":
                                 if (readedBlocks.getLength() != 3) {
                                     this.parsingError = "\nCantidad de bloques inválido.";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                                 break;
                             default:
                                 this.parsingError = "\nTipo de diseño inválido.";
+                                logfw.write(parsingError+"\n");
+                                logfw.close();
                                 return new ArrayList<>();
 
                         }
@@ -221,11 +239,15 @@ public class ReaderXml {
                                 aparitionOrder = Math.abs(Integer.parseInt(currentIdea.getAttribute("orden")));
                                 if (aparitionOrder < 0) {
                                     this.parsingError = "\nOrden de apareción inválido en: " + newSlide.getTitle() + ".";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                             } catch (Exception e) {
 
                                 this.parsingError = "\nOrden de apareción inválido en: " + newSlide.getTitle() + ".";
+                                logfw.write(parsingError+"\n");
+                                logfw.close();
                                 return new ArrayList<>();
                             }
 
@@ -277,11 +299,15 @@ public class ReaderXml {
                                         break;
                                     default:
                                         this.parsingError = "\nTipo de texto no soportado.";
+                                        logfw.write(parsingError+"\n");
+                                        logfw.close();
                                         return new ArrayList<>();
                                 }
                                 
                                 if(handwriteIdeaCounter>1){
                                     this.parsingError = "Sólo puede haber un texto manuscrito por Idea.";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                                 
@@ -306,6 +332,8 @@ public class ReaderXml {
                                     //CASE VIDEO
                                     default:
                                         this.parsingError = "\nTipo multimedia no soportado.";
+                                        logfw.write(parsingError+"\n");
+                                        logfw.close();
                                         return new ArrayList<>();
                                 }
 
@@ -351,6 +379,8 @@ public class ReaderXml {
                                             case "manuscrito":
                                                 if(handwritedExampleCounter>1){
                                                     this.parsingError = "Sólo se admite un texto manuscrito por ejemplo.";
+                                                    logfw.write(parsingError+"\n");
+                                                    logfw.close();
                                                     return new ArrayList<>();
                                                 }
                                                 newText2.setHand(true);
@@ -358,6 +388,8 @@ public class ReaderXml {
                                                 break;
                                             default:
                                                 this.parsingError = "Tipo de texto no soportado para ejemplos.";
+                                                logfw.write(parsingError+"\n");
+                                                logfw.close();
                                                 return new ArrayList<>();
                                         }
                                         
@@ -378,6 +410,8 @@ public class ReaderXml {
                                         
                                         if(!currentExampleMedia.getAttribute("tipo").equals("imagen")){
                                             this.parsingError = "Tipo multimedia para ejemplo no soportado";
+                                            logfw.write(parsingError+"\n");
+                                            logfw.close();
                                             return new ArrayList<>();
                                         }
                                         
@@ -388,6 +422,8 @@ public class ReaderXml {
                                     
                                     if(newExample.getMediaContent().isEmpty() && newExample.getTextContent().isEmpty()){
                                         this.parsingError = "Debe, al menos, existir un texto o un media en la etiqueta ejemplos.";
+                                        logfw.write(parsingError+"\n");
+                                        logfw.close();
                                         return new ArrayList<>();
                                     }
                                     
@@ -406,6 +442,8 @@ public class ReaderXml {
                             } else if (voiceNode.getLength() >= 1) {
 
                                 this.parsingError = "\n Sólo se permite una voz por idea.";
+                                logfw.write(parsingError+"\n");
+                                logfw.close();
                                 return new ArrayList<>();
                             }
 
@@ -432,11 +470,15 @@ public class ReaderXml {
                     
                     if(newTest.getExigency() > 100 || newTest.getSecondExigency() > 100){
                         this.parsingError = "Las exigencias de una evaluación no debe ser superior a 100%";
+                        logfw.write(parsingError+"\n");
+                        logfw.close();
                         return new ArrayList<>();
                     }
                     
                     if(newTest.getExigency() > newTest.getSecondExigency()){
                         this.parsingError = "exigencia_min debe ser menor a exigencia_max.";
+                        logfw.write(parsingError+"\n");
+                        logfw.close();
                         return new ArrayList<>();
                     }
                     
@@ -478,6 +520,8 @@ public class ReaderXml {
                                     }
                                     if(enunManusCount>1){
                                         this.parsingError = "sólo puede existir un texto manuscrito por enunciado.";
+                                        logfw.write(parsingError+"\n");
+                                        logfw.close();
                                         return new ArrayList<>();
                                     }
                                     
@@ -497,6 +541,8 @@ public class ReaderXml {
                                 
                                 if(choiceNode2.getLength() > 7){
                                     this.parsingError = "Sólo es posible agregar hasta 7 alternativas.";
+                                    logfw.write(parsingError+"\n");
+                                    logfw.close();
                                     return new ArrayList<>();
                                 }
                                 
@@ -521,6 +567,8 @@ public class ReaderXml {
                                         }
                                         if(choiceManusCount>1){
                                             this.parsingError = "sólo puede existir un texto manuscrito en una alternativa.";
+                                            logfw.write(parsingError+"\n");
+                                            logfw.close();
                                             return new ArrayList<>();
                                         }
                                         
@@ -559,6 +607,8 @@ public class ReaderXml {
                                     }
                                     if(soluManusCount>1){
                                         this.parsingError = "sólo puede existir un texto manuscrito en una alternativa.";
+                                        logfw.write(parsingError+"\n");
+                                        logfw.close();
                                         return new ArrayList<>();
                                     }
                                     newQuestion.addSolutionTextContent(newText);
@@ -593,6 +643,8 @@ public class ReaderXml {
             }
         } catch (IOException | ParserConfigurationException | DOMException e) {
             System.out.println(e.getLocalizedMessage());
+            logfw.write(e.getLocalizedMessage()+"\n");
+            logfw.close();
         }
 
         return Objects;
@@ -673,5 +725,10 @@ public class ReaderXml {
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
                 + "]>"
                 + this.fileContent;
+    }
+    
+    public String errorTranslate(String error){
+    
+        return error;
     }
 }
