@@ -675,7 +675,7 @@ public class ReaderXmlTest {
                             "   </objeto>\n" +
                             "</comenzar>";
         
-        instance.preProcessText();
+        
         assertEquals(instance.getFileContent(), expected);
     }
 }
