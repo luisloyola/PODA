@@ -105,7 +105,7 @@ public class ObjectManaged implements Serializable{
      */
     public void upload() throws IOException {
         try {
-            if(!file.equals(null)){            
+            if(!(file == null)){            
                 Scanner scan = new Scanner(file.getInputStream());
                 try{
                     fileContent = scan.useDelimiter("\\A").next();
@@ -127,7 +127,9 @@ public class ObjectManaged implements Serializable{
            
             ReaderXml nuevoOAR = new ReaderXml();
             
-            nuevoOAR.setFileContent(fileContent);
+            String newFileContent = nuevoOAR.preProcessText(fileContent);
+                        
+            nuevoOAR.setFileContent(newFileContent);
             
             nuevoOAR.AppendDTD();
             

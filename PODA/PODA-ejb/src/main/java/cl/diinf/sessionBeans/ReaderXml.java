@@ -24,6 +24,7 @@ public class ReaderXml {
     private String fileContent;
 
     public ReaderXml() {
+        this.fileContent = this.parsingError = "";
     }
 
     public String getFileContent() {
@@ -50,6 +51,8 @@ public class ReaderXml {
      */
     public List<LearningObject> readOA() {
 
+        
+        
         List<LearningObject> Objects = new ArrayList<>();
         
         if (this.fileContent == null) {
@@ -58,9 +61,7 @@ public class ReaderXml {
         
         /*
             Agrega el DTD al archivo.
-        */
-        this.preProcessText();
-        
+        */        
         
         try {
             File OA_XML_File = this.stringToFile(fileContent);
@@ -615,44 +616,12 @@ public class ReaderXml {
         return newFile;
     }
 
-    public void preProcessText() {
-        /*
-         Inicio: Reemplazar <destacado> y </destacado> por /d
-         */
-        String destacado[] = this.fileContent.split("<destacar>");
-        String temp = destacado[0];
-        for (int i = 1; i == destacado.length - 1; i++) {
-            temp += "ltdestacargt" + destacado[i];
-        }
-        this.fileContent = temp;
-        temp = "";
-        String destacado2[] = this.fileContent.split("</destacar>");
-        temp += destacado2[0];
-        for (int i = 1; i == destacado2.length - 1; i++) {
-            temp += "lt/destacargt" + destacado2[i];
-        }
-        this.fileContent = temp;
-        temp = ""; 
-
-        /*
-         FIN: reemplazo de destacado
-         Inicio: Reemplazar <enfatizado> y </enfatizado> por /d
-         */
-        String enfatizado[] = this.fileContent.split("<enfatizar>");
-        temp += enfatizado[0];
-        for (int i = 1; i == enfatizado.length - 1; i++) {
-            temp += "ltenfatizargt" + enfatizado[i];
-        }
-        this.fileContent = temp;
-        temp = "";
-
-        String enfatizado2[] = this.fileContent.split("</enfatizar>");
-        temp += enfatizado2[0];
-        for (int i = 1; i == enfatizado2.length - 1; i++) {
-            temp += "lt/enfatizargt" + enfatizado2[i];
-        }
-        this.fileContent = temp;
-        temp = "";
+    public String preProcessText(String xml) {
+        xml = xml.replaceAll("<destacar>","&lt;destacar&gt;");
+        xml = xml.replaceAll("</destacar>","&lt;/destacar&gt;");
+        xml = xml.replaceAll("<enfatizar>","&lt;enfatizar&gt;");
+        xml = xml.replaceAll("</enfatizar>","&lt;/enfatizar&gt;");
+        return xml;
     }
 
     public void AppendDTD() {
