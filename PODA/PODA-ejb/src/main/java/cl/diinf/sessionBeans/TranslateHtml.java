@@ -132,6 +132,10 @@ public class TranslateHtml {
                             "  <script src=\"resources/audioController.js\"></script>\n" +
                             "  <script src=\"resources/visibilityController.js\"></script>\n" +
                             "  <script src=\"resources/textController.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"SCORM_API_wrapper.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"SCOFunctions.js\"></script>\n"+
+                            "  <script type=\"text/javascript\" src=\"resources/SCORM_API_wrapper.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"resources/SCOFunctions.js\"></script>\n"+
                             "<script src=\"resources/jqBarGraph.1.1.js\"></script>\n" + 
                             "  <script src=\"resources/GoogleFormValidator.js\"></script>\n"+
                             "  <script src=\"resources/mano.js\"></script>\n"+
@@ -549,7 +553,8 @@ public class TranslateHtml {
                              "var puntajeTotal        = 0;\n" +
                              "var puntajePorPregunta  = 0;\n" +
                              "var temasCorrectos      = new Array();\n" +
-                             "var porcentajeExigencia = " +object.getQuizSet().get(0).getExigency() + "\n" +
+                             "var porcentajeExigenciaMin = " +object.getQuizSet().get(0).getExigency() + "\n" +
+                             "var porcentajeExigenciaMax = " +object.getQuizSet().get(0).getSecondExigency() + "\n" +
                              "var temas     = [];\n" +
                              "var temaAgregar;\n" +
                              "var temasActuales    = [];\n" +
@@ -756,23 +761,29 @@ public class TranslateHtml {
 "          return Math.floor(porcentajeObtenido);\n" +
 "        }\n" +
 "\n" +
-"        function porcentajeNivelExigencia(porcentajeLogrado, porcentajeExigencia) {\n" +
-"          if (porcentajeLogrado == 100) { // Aprobado verde\n" +
+"        function porcentajeNivelExigencia(porcentajeLogrado, porcentajeExigenciaMin, porcentajeExigenciaMax) {\n" +
+"          if (porcentajeLogrado >= porcentajeExigenciaMax) { // Aprobado verde\n" +
 "            return \"green\"\n" +
-"          } else if (porcentajeLogrado >= porcentajeExigencia && porcentajeLogrado <100) {\n" +
+"          } else if (porcentajeLogrado >= porcentajeExigenciaMin && porcentajeLogrado <porcentajeExigenciaMax) {\n" +
 "            return \"yellow\"\n" +
-"          } else if (porcentajeLogrado < porcentajeExigencia) {\n" +
+"          } else if (porcentajeLogrado < porcentajeExigenciaMin) {\n" +
 "            return \"red\"\n" +
 "          }\n" +
 "        }\n" +
 "\n" +
+ "function porcentajeMinimo(temas) {\n" +
+" var minimo = Number.POSITIVE_INFINITY; \n"+
+" var maximo = Number.NEGATIVE_INFINITY; \n " +
+" var tmp; \n" +
+" for (var i=temas.length-1; i>=0; i--) { " +
+" tmp = temas[i].porcentajeLogrado; if (tmp < minimo) minimo =tmp; if(tmp>maximo) maximo = tmp;} return minimo;}" +                
 "				function mostrarPregunta() {\n" +
                     "         evaluacion        = _(\"evaluacion\");\n" +
                     "         var str           = '';\n" +
                     "         var strTemas      = '';\n" +
                     "         var strPorcentaje = '';\n" +
                     "         puntajeTotalOA         = 0;\n" +
-                    "         puntajeTotalOAObtenido = 0;\n" +
+                    "         puntajeTotalOAObtenido = 0; var minimo=0\n" +
                     "          var mensaje=\"\";"+
                     "var strTemasFallados = '';"+
                     "\n" +
@@ -818,7 +829,7 @@ public class TranslateHtml {
                 
                 
                     "             for (var k1=0; k1< temas.length; k1++) {\n" +
-"              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigencia);\n" +
+"              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigenciaMin, porcentajeExigenciaMax);\n" +
 "              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
 "                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
 "              }\n" +
@@ -826,9 +837,14 @@ public class TranslateHtml {
 "                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
 "              }\n" +
 "            }" + 
-                
-                
-                    "\n" +
+                "minimo=porcentajeMinimo(temas);\n " +
+                "var evalSuccess1 = pipwerks.SCORM.init();"+
+                "var evalSuccess2 = pipwerks.SCORM.set(\"cmi.score.min\",1);\n" +
+"		 var evalSuccess3 = pipwerks.SCORM.set(\"cmi.score.max\",100);\n" +
+"		 var evalSuccess4 = pipwerks.SCORM.set(\"cmi.score.raw\", minimo);\n"+
+                "var evalSuccess7 = pipwerks.SCORM.SetCompletionStatus(\"completed\"); "+
+                "var evalSuccess5 = pipwerks.SCORM.save(); \n" +
+"		 var evalSuccess6 = pipwerks.SCORM.quit();"+
                     "            _(\"evaluacion_status\").innerHTML = \"Evaluación completa\";\n" +
                     "\n" +
                     "            \n" +
@@ -942,7 +958,7 @@ public class TranslateHtml {
                     "         var strTemas      = '';\n" +
                     "         var strPorcentaje = '';\n" +
                     "         puntajeTotalOA         = 0;\n" +
-                    "         puntajeTotalOAObtenido = 0;\n" +
+                    "         puntajeTotalOAObtenido = 0; var minimo=0\n" +
                     "var strTemasFallados = '';"+
                     "\n" +
                     "          if(posicion >= preguntas.length){\n" +
@@ -987,14 +1003,14 @@ public class TranslateHtml {
                 
                 
                     "             for (var k1=0; k1< temas.length; k1++) {\n" +
-"              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigencia);\n" +
+"              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigenciaMin, porcentajeExigenciaMax);\n" +
 "              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
 "                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
 "              }\n" +
 "              if(temas[k1].puntajeObtenido == 0) {\n" +
 "                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
 "              }\n" +
-"            }" + 
+"            }" + "minimo=porcentajeMinimo(temas); \n" +
                 
                 
                     "\n" +

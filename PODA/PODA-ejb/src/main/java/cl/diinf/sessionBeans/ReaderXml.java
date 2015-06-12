@@ -728,7 +728,11 @@ public class ReaderXml {
     }
     
     public String errorTranslate(String error){
-    
+        if(error.equals("XML document structures must start and end within the same entity.")){
+            error = "Los documentos con estructura XML deben comenzar y finalizar con la misma entidad. Verifique su XML.";
+        }
+        
+        System.out.println("Traducido.");
         return error;
     }
 }
