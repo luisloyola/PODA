@@ -141,7 +141,7 @@
  			if (lbl == undefined) lbl = arr.lbl;
  		
  			out  = "<div class='graphField"+el.id+"' id='graphField"+unique+"' style='position: absolute'>";
- 			out += "<div class='graphValue"+el.id+"' id='graphValue"+unique+"'>"+prefix+value+postfix+"</div>";
+ 			out += "<div class='graphValue"+el.id+"' id='graphValue"+unique+"' style='font-size: 20px'>"+prefix+value+postfix+"</div>";
  			
  			out += "<div class='graphBar"+el.id+"' id='graphFieldBar"+unique+"' style='background-color:"+color+";position: relative; overflow: hidden;'></div>";
 
