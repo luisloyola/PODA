@@ -575,7 +575,7 @@ public class TranslateHtml {
                     tempEval+= "var enunciado"+(contador)+" = {\n" +
                                "enunciado: \"";
                     for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size(); l++){                        
-                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size()-1 == l){
+                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size()-1 == l){
                             tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent()+"\",";
                         }
 
@@ -1057,7 +1057,7 @@ public class TranslateHtml {
                     "        for (var g=0; g<temas.length; g++) {\n" +
                     "          arrayOfData.push([temas[g].porcentajeLogrado, \"T\"+(g+1), temas[g].color]);\n" +
                     "        }\n" +
-                    "        $('#divForGraph').jqBarGraph({ data: arrayOfData, postfix: '%', title: \"<strong>Porcentaje logrado por tema</strong>\" });\n" +
+                    "        $('#divForGraph').jqBarGraph({ data: arrayOfData, title: \"<strong>Porcentaje logrado por tema (%)</strong>\" });\n" +
                     "      }\n" +
                     "\n" +
                     "      function mostrar() {  \n" +
