@@ -18,7 +18,7 @@ function move_down(ManoID, array, num, dist, up,down, atrLeft) {
           new_array.push(array[i]);   
         }
         $(ManoID).animate({left: atrLeft},0);
-        move_down(ManoID, new_array, atrLeft, dist, up+50, down+50, atrLeft);
+        move_down(ManoID, new_array, atrLeft, dist, up+32, down+32, atrLeft);
       }
     }else{
       if(dist<=spanWidth+atrLeft){
@@ -34,7 +34,7 @@ function move_down(ManoID, array, num, dist, up,down, atrLeft) {
           new_array.push(array[i]);   
         }
         $(ManoID).animate({left: atrLeft},0);
-        move_down(ManoID, new_array, atrLeft, dist, up+50, down+50, atrLeft);
+        move_down(ManoID, new_array, atrLeft, dist, up+32, down+32, atrLeft);
       }
     }
   }else{
@@ -63,7 +63,7 @@ function move_up(ManoID, array, num, dist, up,down, atrLeft) {
           new_array.push(array[i]);   
         }
         $(ManoID).animate({left: atrLeft},0);
-        move_down(ManoID, new_array, atrLeft, dist, up+50, down+50, atrLeft);
+        move_down(ManoID, new_array, atrLeft, dist, up+32, down+32, atrLeft);
       }
     }else{
       if(dist<=spanWidth+atrLeft){
@@ -79,7 +79,7 @@ function move_up(ManoID, array, num, dist, up,down, atrLeft) {
           new_array.push(array[i]);   
         }
         $(ManoID).animate({left: atrLeft},0);
-        move_down(ManoID, new_array, atrLeft, dist, up+50, down+50, atrLeft);
+        move_down(ManoID, new_array, atrLeft, dist, up+32, down+32, atrLeft);
       }
     }
   }else{

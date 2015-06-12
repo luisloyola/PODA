@@ -48,14 +48,14 @@
                     <li><a href="/PODA-web/" >Home</a></li>
                     <li><a href="acerca_poda.xhtml">Acerca</a></li>
                </ul><br></br>
-                 <a href="/PODA-web/" style="position: absolute; left:1200px"><button class="btn btn-sm btn-success">Crear Objeto</button></a> 
+                 <a href="/PODA-web/" style="position: absolute; right:100px"><button class="btn btn-sm btn-success">Crear Objeto</button></a> 
                     <h:form rendered="#{fileUpload.code_html ne null}">
-                        <h:commandButton value="Descargar Scorm" styleClass="btn btn-sm btn-default" style="position: absolute;  left: 970px">
+                        <h:commandButton value="Descargar Scorm" styleClass="btn btn-sm btn-default" style="position: absolute; right: 328px">
                             <p:fileDownload value="#{fileUpload.scormFile}" />
                         </h:commandButton>
                     </h:form>
                     <h:form rendered="#{fileUpload.code_html ne null}">
-                        <h:commandButton value="Descargar" styleClass="btn btn-sm btn-default" style="position: absolute;  left: 1100px">
+                        <h:commandButton value="Descargar HTML" styleClass="btn btn-sm btn-default" style="position: absolute;  right: 205px">
                             <p:fileDownload value="#{fileUpload.zipFile}" />
                         </h:commandButton>
                     </h:form>             </div><!--/.nav-collapse -->
