@@ -48,10 +48,13 @@ public class ReaderXml {
      * Devuelve una vista generada a partir del string entregado.
      *
      * @return Objects como lista de objetos de aprendizaje.
+     * @throws java.io.IOException
      */
-    public List<LearningObject> readOA() {
+    public List<LearningObject> readOA() throws IOException {
 
-        
+        File errorLog = new File("log.txt","");
+        FileWriter logfw;
+        logfw = new FileWriter(errorLog,true);
         
         List<LearningObject> Objects = new ArrayList<>();
         
@@ -77,6 +80,8 @@ public class ReaderXml {
                         /*Error en el documento*/
                         this.parsingError = errorHandler.getErrorMessage();
                         System.out.println(errorHandler.getErrorMessage());
+                        logfw.write(parsingError+"\n");
+                        logfw.close();
                         OA_XML_File.delete();
                         return Objects;
                     }
@@ -86,6 +91,8 @@ public class ReaderXml {
             } catch (org.xml.sax.SAXException e) {
                 /*Error en el parser*/
                 this.parsingError = e.getLocalizedMessage();
+                logfw.write(parsingError+"\n");
+                logfw.close();
                 OA_XML_File.delete();
                 System.out.println(e.getLocalizedMessage());
                 return Objects;
