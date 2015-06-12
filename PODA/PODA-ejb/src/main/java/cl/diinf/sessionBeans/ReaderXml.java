@@ -418,10 +418,17 @@ public class ReaderXml {
                     
                     Element currentTestNode = (Element) quizSetNode.item(tests);
                     
-                    newTest.setExigency(Math.abs(Integer.parseInt(currentTestNode.getAttribute("exigencia"))));
+                    newTest.setExigency(Math.abs(Integer.parseInt(currentTestNode.getAttribute("exigencia_min"))));
                     
-                    if(newTest.getExigency() > 100){
-                        this.parsingError = "La exigencia de una evaluación no debe ser superior a 100%";
+                    newTest.setSecondExigency(Math.abs(Integer.parseInt(currentTestNode.getAttribute("exigencia_max"))));
+                    
+                    if(newTest.getExigency() > 100 || newTest.getSecondExigency() > 100){
+                        this.parsingError = "Las exigencias de una evaluación no debe ser superior a 100%";
+                        return new ArrayList<>();
+                    }
+                    
+                    if(newTest.getExigency() > newTest.getSecondExigency()){
+                        this.parsingError = "exigencia_min debe ser menor a exigencia_max.";
                         return new ArrayList<>();
                     }
                     
@@ -684,7 +691,8 @@ public class ReaderXml {
                 + "<!ATTLIST texto_ejemplo tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST media_ejemplo tipo CDATA #REQUIRED>\n"
                 + "\n"
-                + "<!ATTLIST evaluacion exigencia CDATA #REQUIRED>\n"
+                + "<!ATTLIST evaluacion exigencia_min CDATA #REQUIRED>\n"
+                + "<!ATTLIST evaluacion exigencia_max CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
                 + "]>"
