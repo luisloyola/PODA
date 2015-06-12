@@ -62,7 +62,7 @@
 
                     <div id="uno" class="featurette"><br></br>
                         <img class="featurette-image img-circle pull-right" src="resources/archivo1.jpg" width='450' height='450'></img>
-                      <h2 class="featurette-heading">Paso 1: Descarga el archivo base!</h2>
+                      <h2 class="featurette-heading">Paso 1: Descarga el archivo base.</h2>
                       <p class="lead">Lo primero que debes hacer es descargar nuestra plantilla de ejemplo para empezar a crear tu propio objeto
                           de aprendizaje. Haz click en el botón "Descargar Plantilla". 
                             <h:form>
@@ -87,7 +87,7 @@
                       <img class=" img-circle pull-left" src="resources/eti.jpg" width='450' height='450'></img>
                       </div>
                             <div class="col-md-6">
-                                <h2 class="featurette-heading">Paso 2: Escribiendo con etiquetas!</h2>
+                                <h2 class="featurette-heading">Paso 2: Escribiendo con etiquetas.</h2>
                       <p class="lead">Una vez descargado el archivo base, debes escribir todo el contenido de tu objeto de aprendizaje usando
                           las siguientes etiquetas, dependiendo las funcionalidades que deseas agregar. 
                           Para ver las etiquetas haz click en en link "Mostrar etiquetas".</p>
@@ -107,12 +107,6 @@
                             <tbody>
                                 
                                 <tr>
-                                    <td>&lt;comenzar&gt; &lt;/comenzar&gt;</td>
-                                    <td>Etiqueta para indicar el inicio y final del objeto de aprendizaje, todo lo que se encuentre
-                                        dentro de esta etiqueta corresponderá al objeto de aprendizaje.</td>
-                                </tr>
-                                
-                                <tr>
                                     <td>&lt;objeto titulo="tituloObjeto" autor="autorObjeto" tema="temaObjeto"&gt; &lt;/objeto&gt;</td>
                                     <td>Una vez definida la etiqueta &lt;comenzar&gt;, para darle un título, autor y tema al objeto de aprendizaje se deben agregar los atributos titulo, autor, y tema.</td>
                                 </tr>
@@ -124,19 +118,117 @@
                                 </tr>
                                 <tr>
                                     <td>&lt;bloque &gt; &lt;/bloque&gt;</td>
-                                    <td>Etiqueta que define el bloque en particular del objeto de aprendizaje.</td>
+                                    <td>Etiqueta que define el bloque en particular del objeto de aprendizaje. Depende de la cantidad de filas y/o columnas que se definan.</td>                                </tr>
+                                <tr>
+                                    <td>&lt;idea orden="numeroAparicion"&gt; &lt;/idea&gt;</td>
+                                   <td>Etiqueta que define la idea que aparecerá en el bloque en particular del objeto de aprendizaje. El atributo orden indica el orden de aparición de esa idea.</td>                                </tr>
+                                <tr>
+                                   <td>&lt;texto tipo="tipoTexto"&gt; &lt;/texto&gt;</td>
+                                    <td>Etiqueta que define el texto que aparecerá en la idea en particular del objeto de aprendizaje. Los tipos pueden ser; normal, manuscrito y código.</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>&lt;media tipo="imagen"&gt; &lt;/media&gt;</td>
+
+                                    <td>Etiqueta que contiene la URL desde donde se descargará una imagen desde Internet. El tipo indica que es una imagen.</td>
+
                                 </tr>
                                 <tr>
-                                    <td>&lt;idea ordenAparicion="numeroAparicion"&gt; &lt;/idea&gt;</td>
-                                    <td>Etiqueta que define la idea que aparecerá en el bloque en particular del objeto de aprendizaje.</td>
+
+                                    <td>&lt;ejemplos&gt; &lt;/ejemplos&gt;</td>
+
+                                    <td>Etiqueta que define la pila de ejemplos que se quiera mostrar.</td>
+
                                 </tr>
                                 <tr>
-                                    <td>&lt;texto tipo="tipoTexto"&gt; &lt;/texto&gt;</td>
-                                    <td>Etiqueta que define el texto que aparecerá en la idea en particular del objeto de aprendizaje.</td>
+
+                                    <td>&lt;ejemplo&gt; &lt;/ejemplo&gt;</td>
+
+                                    <td>Etiqueta que define un ejemplo a mostrar.</td>
+
                                 </tr>
+
+                               <tr>
+
+                                 <td>&lt;texto_ejemplo tipo="normal"&gt; &lt;/texto_ejemplo&gt;</td>
+
+                                   <td>Etiqueta que define el texto que tendra un ejemplo en particular.</td>
+
+                                </tr>
+
+                              <tr>
+
+                                <td>&lt;media_ejemplo tipo="imagen"&gt; &lt;/media_ejemplo&gt;</td>
+
+                                <td>Etiqueta que define una imagen que se mostrará en un ejemplo en particular.</td>                                </tr>
                                 <tr>
                                     <td>&lt;voz&gt; &lt;/voz&gt;</td>
                                     <td>Etiqueta que contiene un texto que será leido por una voz en tiempo real en la idea en particular del objeto de aprendizaje.</td>
+                                </tr>
+                                <tr>
+
+                                <td>&lt;evaluacion exigencia="cantidadExigencia"&gt; &lt;/evaluacion&gt;</td>
+
+                                <td>Etiqueta que define una evaluación, la cual contendrá preguntas a evaluar. La exigencia va desde 1 a 100.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                <td>&lt;pregunta&gt; &lt;/pregunta&gt;</td>
+
+                                 <td>Etiqueta que define la cantidad de preguntas que tiene una evaluación.</td>
+
+                                </tr>
+
+                               <tr>
+
+                                <td>&lt;forma&gt; &lt;/forma&gt;</td>
+
+                                <td>Etiqueta que define la pregunta que contiene una evaluación. Debe contener una etiqueta &lt;enunciado&gt;, &lt;opciones&gt; y &lt;solucion&gt;</td>
+
+                              </tr>
+
+                              <tr>
+
+                              <td>&lt;enunciado&gt; &lt;/enunciado&gt;</td>
+
+                              <td>Etiqueta que define el enunciado que tendrá la forma. Debe contener una etiqueta &lt;texto&gt;</td>
+
+                             </tr>    
+
+                              <tr>
+
+                              <td>&lt;opciones&gt; &lt;/opciones&gt;</td>
+
+                              <td>Etiqueta que define la cantidad de opciones que tiene la forma. Debe contener una etiqueta &lt;alternativa&gt;</td>
+
+                              </tr>
+
+                                <tr>
+
+                               <td>&lt;alternativa tipo="tipoAlternativa" tema="nombreTema"&gt; &lt;/alternativa&gt;</td>
+
+                               <td>Etiqueta que define las alternativas que puede tener una forma, su tipo puede ser "solucion" o "distractor" y el tema es el nombre
+
+                                  del tema de la alternativa. Debe contener una etiqueta &lt;texto&gt;</td>
+
+                                </tr>
+                                <tr>
+
+                                    <td>&lt;solucion&gt; &lt;/solucion&gt;</td>
+
+                                    <td>Etiqueta que define la solución que se va a mostrar por cada forma. Debe contener una etiqueta &lt;texto&gt;</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>&lt;feedback&gt; &lt;/feedback&gt;</td>
+
+                                    <td>Etiqueta que define el feedback en forma de encuesta.</td>
+
                                 </tr>
 
                             </tbody>
@@ -152,9 +244,9 @@
                     <div id="tres" class="featurette">
                       <img class="featurette-image img-circle pull-right" src="resources/guardar.png" width='450' height='450'></img>
                       <h2 class="featurette-heading">Paso 3: Genera tu OA!</h2>
-                      <p class="lead">Cuando hayas terminado de crear tu archivo XML con las respectivas etiquetas, ve a la página de inicio para generarlo presionando el botón
-                          "Genera tu objeto de aprendizaje Ahora!" y cárgalo en la barra. Luego presiona el bóton 
-                          "Generar", espera a que te aparezca el botón "Ver objeto de aprendizaje" y podrás visualizarlo al instante.</p>
+                      <p class="lead">Cuando hayas terminado de crear tu archivo XML con las respectivas etiquetas, ve a la página de inicio para generarlo, presiona el botón
+                          "Genera tu objeto de aprendizaje Ahora!" y cárgalo en la barra. Luego presiona el botón 
+                         "Generar" y te redireccionará automaticamente para visualizarlo al instante.</p>
                      <a href="home.xhtml"><button class="btn btn-success btn-lg ">Genera tu objeto de aprendizaje Ahora!</button></a>
                     </div>
         </div>

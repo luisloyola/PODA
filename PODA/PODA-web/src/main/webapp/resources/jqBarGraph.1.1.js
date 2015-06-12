@@ -197,8 +197,14 @@
  			
  			// animated apearing
  			if(arr.animate){
- 				$('#graphFieldBar'+unique).css({ 'height' : 0 });
- 				$('#graphFieldBar'+unique).animate({'height': fieldHeight},arr.speed*1000);
+				if(value==0){
+					$('#graphFieldBar'+unique).css({ 'height' : 3 });
+				
+				}else{
+
+					$('#graphFieldBar'+unique).css({ 'height' : 0 });
+	 				$('#graphFieldBar'+unique).animate({'height': fieldHeight},arr.speed*1000);
+	 			}
  			} else {
  				$('#graphFieldBar'+unique).css({'height': fieldHeight});
  			}
