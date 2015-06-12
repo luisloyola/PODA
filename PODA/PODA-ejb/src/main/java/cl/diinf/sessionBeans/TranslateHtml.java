@@ -65,11 +65,16 @@ public class TranslateHtml {
      * @param object objeto de aprendizaje construido por la clase de reader.
      * @return string con el header incorporado.
      */
-    public String write_headerHtml(LearningObject object) throws IOException{
+    public String write_headerHtml(LearningObject object) throws IOException {
         //Head del HTML
         
         String templateHtml;
-        //String scriptEvaluacion = write_evaluacionHtml(object);
+        
+        String scriptEvaluacion = "";
+        
+        if(!object.getQuizSet().isEmpty()){
+            scriptEvaluacion = write_evaluacionHtml(object);
+        }
         switch (object.getTemplate()){
             case "dafault":
                 templateHtml = "default.css";
@@ -86,13 +91,14 @@ public class TranslateHtml {
                             "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n" +
                             "  <meta name=\"viewport\" content=\"width=1024, user-scalable=no\">\n" +
                             "  <title>" + object.getTitle() + "</title>"+ 
-                             " <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/botones.css\">"+
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/botones.css\">"+
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/core/deck.core.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/goto/deck.goto.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/menu/deck.menu.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/navigation/deck.navigation.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/status/deck.status.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/scale/deck.scale.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/botones.css\">\n" + 
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1up.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1down.css\">\n" +
@@ -101,7 +107,7 @@ public class TranslateHtml {
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas-1up.css\">\n" +
                             "  <link href=\"resources/extensions/syntaxhighlighter/shCore.css\" rel=\"stylesheet\" type=\"text/css\" />\n" +
                             "  <link href=\"resources/extensions/syntaxhighlighter/shThemeDefault.css\" rel=\"stylesheet\" type=\"text/css\" />" +
-                            "<link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/swiss.css\">"+
+                            " <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/swiss.css\">"+
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/" + templateHtml +"\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/transition/horizontal-slide.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" +
@@ -126,6 +132,7 @@ public class TranslateHtml {
                             "  <script src=\"resources/audioController.js\"></script>\n" +
                             "  <script src=\"resources/visibilityController.js\"></script>\n" +
                             "  <script src=\"resources/textController.js\"></script>\n" +
+                            "<script src=\"resources/jqBarGraph.1.1.js\"></script>\n" + 
                             "  <script src=\"resources/GoogleFormValidator.js\"></script>\n"+
                             "  <script src=\"resources/mano.js\"></script>\n"+
                             "\n" +
@@ -147,7 +154,7 @@ public class TranslateHtml {
                             "       document.write(ejemplos[index])\n" +
                             "   }\n" +
                             "</script> ";                                            
-        //htmlHeader = htmlHeader + scriptEvaluacion;        
+        htmlHeader = htmlHeader + scriptEvaluacion;        
         return htmlHeader;
     }
     /**
@@ -515,269 +522,557 @@ public class TranslateHtml {
         return text;
     }
     
-    /*public String write_evaluacionHtml(LearningObject object) throws IOException{
+    public String write_evaluacionHtml(LearningObject object) throws IOException{
                     
         String templateCss = "";
         String templateEvaluacion1 = "";
         String templateRescatarTemas = "";
         String templateFuncionesFijas = "";
+        String templateFuncionesFijas2 = "";
         String total = null;
-        templateCss = "<style>div#evaluacion{ border:#000 1px solid; padding:10px 40px 40px 40px; }" +
-                      "table, th, td {border: 1px solid black; border-collapse: collapse;}"+
-                      "th, td {padding: 5px;}</style>";
+        String templateSolucionario = "";
         
-        templateEvaluacion1= "<script>"+
+        templateCss = "<style>\n" +
+                      "div#evaluacion{ padding:10px 40px 40px 40px; }\n" +
+                      "table, th, td {\n" +
+                      "border: 1px solid black;\n" +
+                      "border-collapse: collapse;\n" +
+                      "}\n" +
+                      "th, td {\n" +
+                      "padding: 5px;\n" +
+                      "}\n" +
+                      "</style>";
+        
+        
+        templateEvaluacion1= "<script>\n" +
                              "var posicion = 0, evaluacion, pregunta, seleccion, opciones, correcta = 0;\n" +
-                             "var puntajeTotal       = 0;\n" +
-                             "var puntajePorPregunta = 0;\n" +
-                             "var temasCorrectos     = new Array();\n" +
-                             "var alternativaA, alternativaB, alternativaC, alternativaD = 0;"+
-                             "var temas= [];"+
-                            "var temasTemp  = [];"+
-                            "var objetoTema = {};"+
-                            "var temaAgregar;";
-        
+                             "var puntajeTotal        = 0;\n" +
+                             "var puntajePorPregunta  = 0;\n" +
+                             "var temasCorrectos      = new Array();\n" +
+                             "var porcentajeExigencia = " +object.getQuizSet().get(0).getExigency() + "\n" +
+                             "var temas     = [];\n" +
+                             "var temaAgregar;\n" +
+                             "var temasActuales    = [];\n" +
+                             "var correctas              = 0;\n" +
+                             "var puntajeTotalOA         = 0;\n" +
+                             "var puntajeTotalOAObtenido = 0;\n";
+                             
         String tempEval = "";
         List<String> pilas = new ArrayList<>();
         List<String> cantidadEnunciadosList = new ArrayList<>();
+
         
         int contador=0;
-        for (int i=0; i<object.getQuizSet().size(); i++){
+        for (int i=0; i<object.getQuizSet().size(); i++) {
             String varPila = "";
             int cantidadEnunciados = 0;
             
-            for(int j = 0; j < object.getQuizSet().get(i).getQuiz().size(); j++){
-                contador++;
-                cantidadEnunciados++;
-                tempEval+= "var enunciado"+(contador)+" = {	\n" +
-                           "enunciado: \""+
-                object.getQuizSet().get(i).getQuiz().get(j).getHeader()+"\",\n"; //Enunciado
-                if(j == object.getQuizSet().get(i).getQuiz().size()-1){
-                    varPila+=object.getQuizSet().get(i).getQuiz().get(j).getHeader();
-                }
-                else{
-                    varPila+=object.getQuizSet().get(i).getQuiz().get(j).getHeader()+",";
-                }
-                for(int k = 0; k < object.getQuizSet().get(i).getQuiz().get(j).getChoices().size();k++){
-                    String solutionAlt = "";
-                    switch(object.getQuizSet().get(i).getQuiz().get(j).getChoices().get(k).getType()){
-                        case "solucion":
-                            switch(k){
-                                case 0:
-                                    solutionAlt="A";
-                                    tempEval+="solucion: '"+solutionAlt+"',\n"+"alternativas: [\n";
-                                    break;
-                                case 1:
-                                    solutionAlt="B";
-                                    tempEval+="solucion: '"+solutionAlt+"',\n"+"alternativas: [\n";
-                                    break;
-                                case 2:
-                                    solutionAlt="C";
-                                    tempEval+="solucion: '"+solutionAlt+"',\n"+"alternativas: [\n";
-                                    break;
-                                case 3:
-                                    solutionAlt="D";
-                                    tempEval+="solucion: '"+solutionAlt+"',\n"+"alternativas: [\n";
-                                    break;
-                            }
-                            break;
-                        case "distractor":
-                            break;
+            for(int j = 0; j < object.getQuizSet().get(i).getQuestions().size(); j++) {
+                
+                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){    
+                    contador++;
+                    cantidadEnunciados++;
+                    tempEval+= "var enunciado"+(contador)+" = {\n" +
+                               "enunciado: \"";
+                    for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size(); l++){                        
+                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(j).getTextContent().size()-1 == l){
+                            tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent()+"\",";
+                        }
+
+                        else{
+                            tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent(); 
+                        }
                     }
-                    String solutionAlt2 = "";
-                    switch(k){
-                                case 0:
-                                    solutionAlt2="A";
-                                    break;
-                                case 1:
-                                    solutionAlt2="B";
-                                    break;
-                                case 2:
-                                    solutionAlt2="C";
-                                    break;
-                                case 3:
-                                    solutionAlt2="D";
-                                    break;
+                    tempEval+="solucion: '";
+                    for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size(); l++){
+                        
+                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getType().equals("solucion")){
+                            
+                            switch(l){
+                            case 0:
+                                tempEval+="A',";
+                                break;
+
+                            case 1:
+                                tempEval+="B',";
+                                break;
+
+                            case 2:
+                                tempEval+="C',";
+                                break;
+
+                            case 3:
+                                tempEval+="D',";
+                                break;
+
+                            case 4:
+                                tempEval+="E',";
+                                break;    
+
+                            case 5:
+                                tempEval+="F',";
+                                break;
+
+                            case 6:
+                                tempEval+="G',";
+                                break;    
+                            default:
+                                break;
+                        }
+
+
+                        }
+                    }
+                    tempEval+="alternativas: [\n";
+                    for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size(); l++){
+                            switch(l){
+                            case 0:
+                                tempEval+="{alternativa: 'A";
+                                break;
+
+                            case 1:
+                                tempEval+="{alternativa: 'B";
+                                break;
+
+                            case 2:
+                                tempEval+="{alternativa: 'C";
+                                break;
+
+                            case 3:
+                                tempEval+="{alternativa: 'D";
+                                break;
+
+                            case 4:
+                                tempEval+="{alternativa: 'E";
+                                break;    
+
+                            case 5:
+                                tempEval+="{alternativa: 'F";
+                                break;
+
+                            case 6:
+                                tempEval+="{alternativa: 'G";
+                                break;    
+                            default:
+                                break;
+                        } // fin switch
+
+                        if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size()-1 == l) {
+                            tempEval+="', pregunta:\"";
+                            for(int m = 0; m < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size(); m++){
+                                 tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent();
                             }
-                    tempEval+="{alternativa: '"+solutionAlt2+"', pregunta:\""+object.getQuizSet().get(i).getQuiz().get(j).getChoices().get(k).getContent()+"\", tema:\""+object.getQuizSet().get(i).getQuiz().get(j).getChoices().get(k).getTopic()+"\"},\n";
+                            tempEval+= "\", tema:\""+object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTopic()+"\"}],";
+
+                        }
+                        else{
+                            tempEval+="', pregunta:\"";
+                            for(int m = 0; m < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size(); m++){
+                                tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent();
+                            }
+                            tempEval+= "\", tema:\""+object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTopic()+"\"},";
+                        }
+
+                    }
                     
-                     //cada alternativa tema
-                     //cada alternativa tipo solucion o distractor
-                     //cada alternativa contenido
-                }
-                tempEval+= "]};\n";
-            
-            }//fin for
-            pilas.add(varPila);
-            cantidadEnunciadosList.add(String.valueOf(cantidadEnunciados));
+                    tempEval+="solucionario:\"";
+                    
+                    for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size(); l++){
+                        tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().get(l).getContent();
+                    }
+                    tempEval+= "\"};\n";
+                } // fin for k    
+                                     
+            } // fin for j
+        cantidadEnunciadosList.add(String.valueOf(cantidadEnunciados));        
+        } // fin for i
+        
           
-        }//fin for
         String randomPila = ""; 
-        int contador2 = 0;
-        for(int i = 0; i < object.getQuizSet().size(); i++){
-            
-            randomPila += "var pila"+(i+1)+" = [";
-            for(int j = 0; j < object.getQuizSet().get(i).getQuiz().size(); j++){
-                if(j == object.getQuizSet().get(i).getQuiz().size()-1){
-                    randomPila += "enunciado"+(contador2+1);
+        int contador2 = 1;
+        for(int i = 0; i < object.getQuizSet().size(); i++){ //Recorro todas las evaluaciones
+            for(int j = 0; j < object.getQuizSet().get(i).getQuestions().size(); j++){ //Recorro cuantas preguntas hay en la evaluacion
+                tempEval+="var pila"+(j+1)+" = [";
+                //contador2++;
+                for(int k = 0; k < object.getQuizSet().get(i).getQuestions().get(j).getForms().size(); k++){   //Recorro formas
+                    if(k == object.getQuizSet().get(i).getQuestions().get(j).getForms().size()-1){
+                        tempEval+="enunciado"+contador2+"];\n";
+                        tempEval+="var elementoPila"+(j+1)+"Random= pila"+(j+1)+"[Math.floor(Math.random()*pila"+(j+1)+".length)];\n";
+                        
+                    }
+                    else{
+                         tempEval+="enunciado"+contador2+",";
+                    }
                     contador2++;
+                }
+                
+            }
+            tempEval+="var preguntas=[";
+            for(int j = 0; j < object.getQuizSet().get(i).getQuestions().size(); j++){
+                if(j == object.getQuizSet().get(i).getQuestions().size()-1){
+                    tempEval+="elementoPila"+(j+1)+"Random];\n" +
+                       "var temas     = [];\n" +
+                       "var temaAgregar;\n" +
+                       "var temasActuales    = [];\n" +
+                       "var correctas              = 0;\n" +
+                       "var puntajeTotalOA         = 0;\n" +
+                       "var puntajeTotalOAObtenido = 0;\n";
                 }
                 else{
-                    randomPila += "enunciado"+(contador2+1)+",";
-                    contador2++;
+                    tempEval+="elementoPila"+(j+1)+"Random,";
                 }
             }
-            randomPila+="];\n";
-            randomPila += "var elementoPila"+(i+1)+"Random= pila"+(i+1)+"[Math.floor(Math.random()*pila"+(i+1)+".length)];";
-                          
         }
-        String mParameters = "var preguntas = [";
-        for(int i = 0; i < cantidadEnunciadosList.size(); i++){
-            if(i == cantidadEnunciadosList.size()-1){
-                mParameters+="elementoPila"+(i+1)+"Random";
-            }
-            else{
-                mParameters+="elementoPila"+(i+1)+"Random,";
-            }
-        }
-        mParameters += "];\n" +
-                        "var temas      = [];\n" +
-                        "var temasTemp  = [];\n" +
-                        "var objetoTema = {};\n" +
-                        "var temaAgregar; \n" +
-                        "var temasIncorrectos = [];";
-                        
+                              
         
-        templateRescatarTemas=  mParameters+ "for (var contadorPreguntas=0; contadorPreguntas<preguntas.length; contadorPreguntas++){\n" +
-                             "for (var contadorAlternativa=0; contadorAlternativa<preguntas[contadorPreguntas].alternativas.length; contadorAlternativa++){\n"+
-                             "temaAgregar=preguntas[contadorPreguntas].alternativas[contadorAlternativa].tema;\n" +
-                             "temas.push({ tema:temaAgregar, puntaje:0 });\n"+
-                             "}\n"+
-                             "}\n";
+        templateRescatarTemas= "for (var contadorPreguntas=0; contadorPreguntas<preguntas.length; contadorPreguntas++){\n" +
+                               "for (var contadorAlternativa=0; contadorAlternativa<preguntas[contadorPreguntas].alternativas.length; contadorAlternativa++){\n" +
+                               "temaAgregar=preguntas[contadorPreguntas].alternativas[contadorAlternativa].tema;\n" +
+                               "temas.push({ tema:temaAgregar, puntaje:0, puntajeTotal:0, porcentajeLogrado:0, color: null });                                                                    \n" +
+                               "}\n" +
+                               "}";
 
 	templateFuncionesFijas = "function _(x){\n" +
-				 "return document.getElementById(x);\n" +
-                                  "}\n" +
-                                 "\n" +
-                                "function cleanup(arr, prop) {\n" +
-                                "var new_arr = [];\n" +
-                                "var lookup  = {};\n" +
-                                " \n" + 
-                                "for (var i in arr) {\n" +
-                                "lookup[arr[i][prop]] = arr[i];\n" +
-                                "}\n" +
-                                "\n" +
-                                "for (i in lookup) {\n" +
-                                "new_arr.push(lookup[i]);\n" +
-                                "}\n" +
-                                " \n" +
-                                "return new_arr;\n" +
-                                "}\n"+
-				"function mostrarPregunta() {\n" +
-				"evaluacion = _(\"evaluacion\");\n" +
-                                "var str = '';\n" +
-				"var strTemas='';\n"+
-                                "temasIncorrectos=cleanup(temasIncorrectos,'tema');\n"+
-                                "if(posicion >= preguntas.length){\n" +
-                                "\n" +
-                                "temas=cleanup(temas,'tema');\n" +
-                                "for (var j=0; j<temas.length; j++){\n" +
-                                "if (temas[j].puntaje <=0){\n" +
-                                "temas[j].puntaje=0;\n" +
-                                "}\n" +
-                                "}"+
-                                "for(var i=0; i<temas.length ; i++){\n" +
-                                " str = str + \"<tr><td>\"+temas[i].tema +\"</td>\"+\"<td>\"+temas[i].puntaje +\"</td></tr>\";\n" +
-                                "}\n" +
-                                "for(var k=0; k<temasIncorrectos.length; k++){\n" +
-                                "strTemas = strTemas + temasIncorrectos[k].tema + \" \";\n" +
-                                "}"+
-                                "\n" +
-                                "\n" +
-                                "\n" +
-                                "evaluacion.innerHTML = \n" +
-                                "\"<table align=\\\"center\\\"><tr><th>Tema</th><th>Puntaje obtenido</th></tr>\"+str+\"</tr></table><p>Deberias repasar estos temas: \"+strTemas+\"</p>\";" +
-                                "\n" +
-                                "\n" +
-                                "_(\"evaluacion_status\").innerHTML = \"Evaluación completa\";\n" +
-                                "posicion = 0;\n" +
-                                "correcta = 0;\n" +
-                                "return false;\n" +
-                                "}\n" +
-				"\n" +
-				"pregunta     =preguntas[posicion].enunciado;\n" +
-				"alternativaA =preguntas[posicion].alternativas[0].pregunta;\n" +
-				"alternativaB =preguntas[posicion].alternativas[1].pregunta;\n" +
-				"alternativaC =preguntas[posicion].alternativas[2].pregunta;\n" +
-				"alternativaD =preguntas[posicion].alternativas[3].pregunta;\n" +
-				"_(\"evaluacion_status\").innerHTML = \"Preguntas \"+(posicion+1)+\" de \"+preguntas.length;\n" +
-				"evaluacion.innerHTML = \"<h3>\"+pregunta+\"</h3>\";\n" +
-				"evaluacion.innerHTML += \"<input type='radio' name='opciones' value='A'> \"+alternativaA+\"<br>\";\n" +
-				"evaluacion.innerHTML += \"<input type='radio' name='opciones' value='B'> \"+alternativaB+\"<br>\";\n" +
-				"evaluacion.innerHTML += \"<input type='radio' name='opciones' value='C'> \"+alternativaB+\"<br>\";\n" +
-				"evaluacion.innerHTML += \"<input type='radio' name='opciones' value='D'> \"+alternativaD+\"<br><br>\";\n" +
-				"evaluacion.innerHTML += \"<button onclick='evaluar()'>Enviar respuesta</button>\";\n" +
-				"}\n" +
-				"\n" +
-				"function evaluar() {\n" +
-				"opciones = document.getElementsByName(\"opciones\");\n" +
-				"for(var i=0; i<opciones.length; i++){\n" +
-				"if(opciones[i].checked){\n" +
-				"seleccion = opciones[i].value;\n" +
-				"}\n" +
-				"}\n" +
-				"\n" +
-				"if(seleccion == preguntas[posicion].solucion) {\n" +
-				"correcta++;\n" +
-				"// Si esta buena, le sumo +1 al tema de la alternativa y al resto de los temas de las otras alternativas de la pregunta\n" +
-				"for (var i = 0; i<temas.length; i++) {\n" +
-				"for(var j=0; j<preguntas[posicion].alternativas.length; j++){\n" +
-				"if (temas[i].tema == preguntas[posicion].alternativas[j].tema) {\n" +
-				"temas[i].puntaje = temas[i].puntaje + 1; \n" +
-				"}\n" +
-				"}\n" +
-				"}\n" +
-				"} // fin if\n" +
-				"else {\n" +
-				"// Si esta mala, le resto -1 al tema de la alternativa escogida y al tema de la alternativa correcta\n" +
-				"for (var i = 0; i<temas.length; i++) {\n" +
-				"for (var j=0; j<preguntas[posicion].alternativas.length; j++){\n" +
-				"//resto al tema de la incorrecta\n" +
-				"if (seleccion == preguntas[posicion].alternativas[j].alternativa) {\n" +
-				"if (temas[i].tema == preguntas[posicion].alternativas[j].tema){\n" +
-				"temas[i].puntaje = temas[i].puntaje - 1;\n" +
-                                "temasIncorrectos.push({ tema:preguntas[posicion].alternativas[j].tema });"+
-				"if (temas[i].puntaje < 0){\n" +
-				"temas[i].puntaje = 0;\n" +
-				"}\n" +
-				"}\n" +
-				"}\n" +
-				"}\n" +
-				"}//fin for\n" +
-				"//resto al tema de la correcta\n" +
-				"for (var i=0; i<preguntas[posicion].alternativas.length; i++){\n" +
-				"if (preguntas[posicion].solucion == preguntas[posicion].alternativas[i].alternativa){\n" +
-				"   //recorro lista de temas para restar al tema correspondiente\n" +
-				"   for(var j=0; j<temas.length; j++){\n" +
-				"       if (preguntas[posicion].alternativas[i].tema == temas[j].tema){\n" +
-				"           temas[j].puntaje = temas[j].puntaje - 1;\n" +
-				"       if (temas[i].puntaje < 0){\n" +
-				"           temas[i].puntaje = 0;\n" +
-				"   }\n" +
-				"}\n" +
-				"}\n" +
-				"}\n" +
-				"}				\n" +
-				"}//fin else\n" +
-				"posicion++;\n" +
-				"mostrarPregunta();\n" +
-				"}\n" +
-				"\n" +
-				"window.addEventListener(\"load\", mostrarPregunta, false);\n" +
-				"</script>";
-        total = templateCss +templateEvaluacion1+tempEval+randomPila+templateRescatarTemas+templateFuncionesFijas;
+"					return document.getElementById(x);\n" +
+"				}\n" +
+"\n" +
+"        function cleanup(arr, prop) {\n" +
+"          var new_arr = [];\n" +
+"          var lookup  = {};\n" +
+" \n" +
+"          for (var i in arr) {\n" +
+"            lookup[arr[i][prop]] = arr[i];\n" +
+"          }\n" +
+" \n" +
+"          for (i in lookup) {\n" +
+"            new_arr.push(lookup[i]);\n" +
+"          }\n" +
+" \n" +
+"          return new_arr;\n" +
+"        }\n" +
+"\n" +
+"        function porcentaje(puntajeTotal, puntajeObtenido){\n" +
+"          var porcentajeObtenido = (puntajeTotal/puntajeObtenido) * 100;\n" +
+"          return Math.floor(porcentajeObtenido);\n" +
+"        }\n" +
+"\n" +
+"        function porcentajeNivelExigencia(porcentajeLogrado, porcentajeExigencia) {\n" +
+"          if (porcentajeLogrado == 100) { // Aprobado verde\n" +
+"            return \"green\"\n" +
+"          } else if (porcentajeLogrado >= porcentajeExigencia && porcentajeLogrado <100) {\n" +
+"            return \"yellow\"\n" +
+"          } else if (porcentajeLogrado < porcentajeExigencia) {\n" +
+"            return \"red\"\n" +
+"          }\n" +
+"        }\n" +
+"\n" +
+"				function mostrarPregunta() {\n" +
+                    "         evaluacion        = _(\"evaluacion\");\n" +
+                    "         var str           = '';\n" +
+                    "         var strTemas      = '';\n" +
+                    "         var strPorcentaje = '';\n" +
+                    "         puntajeTotalOA         = 0;\n" +
+                    "         puntajeTotalOAObtenido = 0;\n" +
+                    "          var mensaje=\"\";"+
+                    "var strTemasFallados = '';"+
+                    "\n" +
+                    "          if(posicion >= preguntas.length){\n" +
+                    "\n" +
+                    "            temas=cleanup(temas,'tema'); //borrar temas repetidos\n" +
+                    "\n" +
+                    "            for (var c3=0; c3<temas.length; c3++) {\n" +
+                    "              puntajeTotalOA         = puntajeTotalOA + temas[c3].puntajeTotal;\n" +
+                    "              puntajeTotalOAObtenido = puntajeTotalOAObtenido + temas[c3].puntaje;\n" +
+                    "            }\n" +
+                    "            \n" +
+                    "            if (puntajeTotalOAObtenido < 0) {\n" +
+                    "              puntajeTotalOAObtenido = 0;\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var l=0; l<temas.length; l++) {\n" +
+                    "              temas[l].porcentajeLogrado = porcentaje(temas[l].puntaje, temas[l].puntajeTotal);\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var j=0; j<temas.length; j++) { \n" +
+                    "              if (temas[j].puntaje <=0) { \n" +
+                    "                temas[j].puntaje=0;\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var n=0; n<temas.length; n++) {\n" +
+                    "              if (temas[n].puntajeTotal == 0) {\n" +
+                    "                temas.splice(n,1);\n" +
+                    "              }\n" +
+                    "\n" +
+                    "            } \n" +
+                    "            \n" +
+                    "            for(var i=0; i<temas.length ; i++){\n" +
+                    "              \n" +
+                    "              if (temas[i].puntaje == 0 && temas[i].puntajeTotal == 0) {\n" +
+                    "                str = str\n" +
+                    "              } else {\n" +
+                    "                str = str + \"<tr><td> T\"+(i+1)+\": \"+temas[i].tema +\"</td>\"+\"<td align=\\\"center\\\">\"+temas[i].puntaje +\"</td><td align=\\\"center\\\">\"+temas[i].puntajeTotal + \"</td></tr>\";\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "\n" +
+                
+                
+                    "             for (var k1=0; k1< temas.length; k1++) {\n" +
+"              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigencia);\n" +
+"              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
+"                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
+"              }\n" +
+"              if(temas[k1].puntajeObtenido == 0) {\n" +
+"                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
+"              }\n" +
+"            }" + 
+                
+                
+                    "\n" +
+                    "            _(\"evaluacion_status\").innerHTML = \"Evaluación completa\";\n" +
+                    "\n" +
+                    "            \n" +
+                    "            if (puntajeTotalOAObtenido == 0) {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML = \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th>Nombre del tema</th><th>Puntaje obtenido</th><th>Puntaje esperado</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "\n" +
+                "              mensaje=\"<p style=\\\"text-align: center\\\"><strong>Te recomendamos ver el objeto de aprendizaje de nuevo</strong></p>\";"+
+                    "            } else if (puntajeTotalOAObtenido == puntajeTotalOA) {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML = \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th>Nombre del tema</th><th>Puntaje obtenido</th><th>Puntaje esperado</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "\n" +
+                "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>¡Felicidades, has aprobado este objeto de aprendizaje!</strong></p>\";"+
+                    "            } else {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML = \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th>Nombre del tema</th><th>Puntaje obtenido</th><th>Puntaje esperado</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "\n" +
+                "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>Deberias repasar estos temas: \"+strTemasFallados+\"</strong></p>\";"+
+                    "            }\n" +
+                    "\n" +
+"\n" +
+                "            evaluacion.innerHTML+=\"<div class=\\\"right-2columnas\\\" ><div id=\\\"divForGraph\\\" style=\\\"width:100%; height:100%;\\\"></div>\"+mensaje+\"</div>\";"+
+"            grafico();\n" +
+"						posicion = 0;\n" +
+"						correcta = 0;\n" +
+"						return false;\n" +
+"					}\n" +
+"					pregunta = preguntas[posicion].enunciado;\n" +
+"\n" +
+"					_(\"evaluacion_status\").innerHTML = \"Preguntas \"+(posicion+1)+\" de \"+preguntas.length;\n" +
+"					evaluacion.innerHTML = \"<h3>\"+pregunta+\"</h3>\";\n" +
+"\n" +
+"          var rangoOpciones =\"ABCDEFG\";\n" +
+"          var rangoArray    = rangoOpciones.split('');\n" +
+"\n" +
+"          for (var c1=0; c1<preguntas[posicion].alternativas.length; c1++) {\n" +
+"            var alternativa = preguntas[posicion].alternativas[c1].pregunta;\n" +
+"            evaluacion.innerHTML += \"<input type='radio' name='opciones' value=\"+rangoArray[c1]+ \" onclick='mostrar()'> \"+alternativa+\"<br>\";\n" +
+"          }\n" +
+"					evaluacion.innerHTML += \"<br><button class=\\\"btn btn-default btnEnviar\\\" disabled onclick='evaluar()'>Enviar respuesta</button>\";\n" +
+"			}";
+        
+        templateFuncionesFijas2 = "function evaluar() {\n" +
+"				opciones = document.getElementsByName(\"opciones\");\n" +
+"				for(var i=0; i<opciones.length; i++){\n" +
+"					if(opciones[i].checked){\n" +
+"						seleccion = opciones[i].value;\n" +
+"					}\n" +
+"				}\n" +
+"\n" +
+"        // Algoritmo de evaluacion\n" +
+"        // Pregunta respondida de forma correcta\n" +
+"				if(seleccion == preguntas[posicion].solucion) {\n" +
+"					correcta++;\n" +
+"					// Si esta buena, le sumo +1 al puntaje total de cada tema y al puntaje obtenido por cada tema\n" +
+"					for (var i = 0; i<temas.length; i++) {\n" +
+"						for(var j=0; j<preguntas[posicion].alternativas.length; j++){\n" +
+"							if (temas[i].tema == preguntas[posicion].alternativas[j].tema) {\n" +
+"                temas[i].puntaje      = temas[i].puntaje + 1;\n" +
+"                temas[i].puntajeTotal = temas[i].puntajeTotal + 1;\n" +
+"							}\n" +
+"						}\n" +
+"					}\n" +
+"				} // fin if\n" +
+"\n" +
+"        // Pregunta respondida de forma incorrecta\n" +
+"				else {\n" +
+"					// Si esta mala, le sumo +1 al puntaje total de la que selecciono\n" +
+"          // Busco los temas\n" +
+"					for (var i = 0; i<temas.length; i++) { \n" +
+"            for (var j=0; j<preguntas[posicion].alternativas.length; j++){\n" +
+"							if (seleccion == preguntas[posicion].alternativas[j].alternativa) {\n" +
+"								if (temas[i].tema == preguntas[posicion].alternativas[j].tema) {\n" +
+"                   temas[i].puntajeTotal = temas[i].puntajeTotal + 1;\n" +
+"                } \n" +
+"							}\n" +
+"						}\n" +
+"					} // fin for\n" +
+"\n" +
+"            //Si esta mala, le sumo +1 al puntaje total de la alternativa correcta\n" +
+"            for (var i=0; i<preguntas[posicion].alternativas.length; i++){\n" +
+"              if (preguntas[posicion].solucion == preguntas[posicion].alternativas[i].alternativa){\n" +
+"                //recorro lista de temas para restar al tema correspondiente\n" +
+"                for(var j=0; j<temas.length; j++){\n" +
+"                  if (preguntas[posicion].alternativas[i].tema == temas[j].tema){\n" +
+"                    temas[j].puntajeTotal = temas[j].puntajeTotal + 1;                  \n" +
+"                  }\n" +
+"                }\n" +
+"              }//fin if\n" +
+"            }//fin for\n" +
+"\n" +
+"					} // fin else\n" +
+"					\n" +
+"				posicion++;\n" +
+"				mostrarPregunta();\n" +
+"			} // fin funcion\n" +
+"			\n" ;
+                
+                
+        templateSolucionario = write_solutionHtml();        
+        total = templateCss + templateEvaluacion1 + tempEval + randomPila + templateRescatarTemas+ templateFuncionesFijas+ templateFuncionesFijas2 + templateSolucionario;
         return total;        
-    }*/
+    }
+    
+    public String write_solutionHtml(){
+        String mostrarSolucion="";
+        
+        mostrarSolucion+="function mostrarSolucion(posicion) {\n" +
+                    "         evaluacion        = _(\"evaluacion\");\n" +
+                    "         var str           = '';\n" +
+                    "         var strTemas      = '';\n" +
+                    "         var strPorcentaje = '';\n" +
+                    "         puntajeTotalOA         = 0;\n" +
+                    "         puntajeTotalOAObtenido = 0;\n" +
+                    "var strTemasFallados = '';"+
+                    "\n" +
+                    "          if(posicion >= preguntas.length){\n" +
+                    "\n" +
+                    "            temas=cleanup(temas,'tema'); //borrar temas repetidos\n" +
+                    "\n" +
+                    "            for (var c3=0; c3<temas.length; c3++) {\n" +
+                    "              puntajeTotalOA         = puntajeTotalOA + temas[c3].puntajeTotal;\n" +
+                    "              puntajeTotalOAObtenido = puntajeTotalOAObtenido + temas[c3].puntaje;\n" +
+                    "            }\n" +
+                    "            \n" +
+                    "            if (puntajeTotalOAObtenido < 0) {\n" +
+                    "              puntajeTotalOAObtenido = 0;\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var l=0; l<temas.length; l++) {\n" +
+                    "              temas[l].porcentajeLogrado = porcentaje(temas[l].puntaje, temas[l].puntajeTotal);\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var j=0; j<temas.length; j++) { \n" +
+                    "              if (temas[j].puntaje <=0) { \n" +
+                    "                temas[j].puntaje=0;\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "\n" +
+                    "            for (var n=0; n<temas.length; n++) {\n" +
+                    "              if (temas[n].puntajeTotal == 0) {\n" +
+                    "                temas.splice(n,1);\n" +
+                    "              }\n" +
+                    "\n" +
+                    "            } \n" +
+                    "            \n" +
+                    "            for(var i=0; i<temas.length ; i++){\n" +
+                    "              \n" +
+                    "              if (temas[i].puntaje == 0 && temas[i].puntajeTotal == 0) {\n" +
+                    "                str = str\n" +
+                    "              } else {\n" +
+                    "                str = str + \"<tr><td>T\"+(i+1) +\": \"+temas[i].tema +\"</td>\"+\"<td align=\\\"center\\\">\"+temas[i].puntaje +\"</td><td align=\\\"center\\\">\"+temas[i].puntajeTotal + \"</td></tr>\";\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "\n" +
+                
+                
+                    "             for (var k1=0; k1< temas.length; k1++) {\n" +
+"              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigencia);\n" +
+"              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
+"                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
+"              }\n" +
+"              if(temas[k1].puntajeObtenido == 0) {\n" +
+"                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
+"              }\n" +
+"            }" + 
+                
+                
+                    "\n" +
+                    "            _(\"evaluacion_status\").innerHTML = \"Evaluación completa\";\n" +
+                    "\n" +
+                    "            \n" +
+                    "            if (puntajeTotalOAObtenido == 0) {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML = \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th>Nombre del Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "\n" +
+                "              mensaje=\"<p style=\\\"text-align: center\\\"><strong>Te recomendamos ver el objeto de aprendizaje de nuevo</strong></p>\";"+
+                    "            } else if (puntajeTotalOAObtenido == puntajeTotalOA) {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML = \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th>Nombre del Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "\n" +
+                "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>¡Felicidades, has aprobado este objeto de aprendizaje!</strong></p>\";"+
+                    "            } else {\n" +
+                    "              \n" +
+                    "              evaluacion.innerHTML = \n" +
+                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th>Nombre del Tema</th><th>Puntaje obtenido</th><th>Puntaje total</th></tr>\"+str+\"</tr><tr><td>Total</td><td td align=\\\"center\\\">\"+puntajeTotalOAObtenido+\"</td><td td align=\\\"center\\\">\"+puntajeTotalOA+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "\n" +
+                "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>Deberias repasar estos temas: \"+strTemasFallados+\"</strong></p>\";"+
+                    "            }\n" +
+                "            evaluacion.innerHTML+=\"<div class=\\\"right-2columnas\\\" ><div id=\\\"divForGraph\\\" style=\\\"width:100%; height:100%;\\\"></div>\"+mensaje+\"</div>\";"+
+                    "            grafico();\n" +
+                    "            posicion = 0;\n" +
+                    "            correcta = 0;\n" +
+                    "            return false;\n" +
+                    "          }\n" +
+                    "          \n" +
+                    "          var valor =[];\n" +
+                    "          pregunta  =preguntas[posicion].enunciado;\n" +
+                    "          sol       = preguntas[posicion].solucionario;\n" +
+                    "          var cantidad_alternativas=preguntas[posicion].alternativas.length;\n" +
+                    "          \n" +
+                    "          for(var j=0;j<cantidad_alternativas;j++){\n" +
+                    "            if(preguntas[posicion].solucion==preguntas[posicion].alternativas[j].alternativa){\n" +
+                    "                  valor[j]=\" <strong style=\\\"color:green\\\">\"+preguntas[posicion].alternativas[j].alternativa+\") \"+preguntas[posicion].alternativas[j].pregunta+\"</strong><br>\";\n" +
+                    "            } else{\n" +
+                    "              valor[j]=\"<b style=\\\"color:grey\\\">\"+preguntas[posicion].alternativas[j].alternativa+\") \"+preguntas[posicion].alternativas[j].pregunta+\"</b><br>\";\n" +
+                    "            }\n" +
+                    "          \n" +
+                    "          }\n" +
+                    "          \n" +
+                    "          _(\"evaluacion_status\").innerHTML = \"Preguntas \"+(posicion+1)+\" de \"+preguntas.length;\n" +
+                    "          \n" +
+                    "          evaluacion.innerHTML = \"<h3 style=\\\"color:#514D4D\\\">\"+pregunta+\"</h3>\";" +
+                    "          evaluacion.innerHTML += \"<div class=\\\"right-2columnas\\\" align=\\\"center\\\"><p>\"+sol+\"</p></div>\";\n" +
+                    "          \n" +
+                    "          for(var j=0;j<cantidad_alternativas;j++) {\n" +
+                    "            evaluacion.innerHTML += valor[j];\n" +
+                    "          }\n" +
+                    "\n" +
+                    "          if(posicion==preguntas.length-1) {\n" +
+                    "            evaluacion.innerHTML += \"<br><button class=\\\"btn btn-default\\\"onclick='mostrarSolucion(\"+(posicion+1)+\")'>Ir a estadísticas</button>\";\n" +
+                    "          } else {\n" +
+                    "            evaluacion.innerHTML += \"<br><button class=\\\"btn btn-default\\\"onclick='mostrarSolucion(\"+(posicion+1)+\")'>Siguiente</button>\";\n" +
+                    "          }\n" +
+                    "      }function grafico() {\n" +
+                    "        arrayOfData = [];\n" +
+                    "        for (var g=0; g<temas.length; g++) {\n" +
+                    "          arrayOfData.push([temas[g].porcentajeLogrado, \"T\"+(g+1), temas[g].color]);\n" +
+                    "        }\n" +
+                    "        $('#divForGraph').jqBarGraph({ data: arrayOfData, postfix: '%', title: \"<strong>Porcentaje logrado por tema</strong>\" });\n" +
+                    "      }\n" +
+                    "\n" +
+                    "      function mostrar() {  \n" +
+                    "        $(\".btnEnviar\").attr(\"disabled\",false);\n" +
+                    "      }"+
+                    "window.addEventListener(\"load\", mostrarPregunta, false);\n" +
+                    "</script>";
+        return mostrarSolucion;
+    }
     
     /**
      * Funcion que realiza la traduccion a html de una pila de ejemplos que se quieran agregar a un OA.
@@ -1170,10 +1465,14 @@ public class TranslateHtml {
         //write_slideEvaluaciones();
         
          // Se incluyen slide de evaluaciones
-        codeHtml += "<section class=\"slide\">\n" +
-                    "<h2 id=\"evaluacion_status\"></h2>\n" +
-                    "<div id=\"evaluacion\"></div>\n" +
-                    "</section>\n";
+        
+        // Si hay evaluaciones se inserta el codigo html de evaluaciones
+        if (!object.getQuizSet().isEmpty()){
+            codeHtml += "<section class=\"slide\">\n" +
+                "<h2 id=\"evaluacion_status\"></h2>\n" +
+                "<div id=\"evaluacion\"></div>\n" +
+                "</section>\n";
+        }
         
         return codeHtml;
     }     
