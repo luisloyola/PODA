@@ -834,20 +834,17 @@ public class TranslateHtml {
                     "            \n" +
                     "            if (puntajeTotalOAObtenido == 0) {\n" +
                     "              \n" +
-                    "              evaluacion.innerHTML = \n" +
-                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th style=\\\"text-align:center\\\">Nombre del tema</th>\"+str+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "              evaluacion.innerHTML = \"<div class=\\\"left-2columnas\\\"><p style=\\\"color: #444; text-align: center\\\"><strong>Nombre del tema</strong></p><div style=\\\"width:530px; height:280px; overflow:auto;\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\">\"+str+\"</table></div><p></p><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";" +
                     "\n" +
                 "              mensaje=\"<p style=\\\"text-align: center\\\"><strong>Te recomendamos ver el objeto de aprendizaje de nuevo</strong></p>\";"+
                     "            } else if (puntajeTotalOAObtenido == puntajeTotalOA) {\n" +
                     "              \n" +
-                    "              evaluacion.innerHTML = \n" +
-                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th style=\\\"text-align:center\\\">Nombre del tema</th>\"+str+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "              evaluacion.innerHTML = \"<div class=\\\"left-2columnas\\\"><p style=\\\"color: #444; text-align: center\\\"><strong>Nombre del tema</strong></p><div style=\\\"width:530px; height:280px; overflow:auto;\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\">\"+str+\"</table></div><p></p><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";" +
                     "\n" +
                 "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>¡Felicidades, has aprobado este objeto de aprendizaje!</strong></p>\";"+
                     "            } else {\n" +
                     "              \n" +
-                    "              evaluacion.innerHTML = \n" +
-                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th style=\\\"text-align:center\\\">Nombre del tema</th>\"+str+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "              evaluacion.innerHTML =\"<div class=\\\"left-2columnas\\\"><p style=\\\"color: #444; text-align: center\\\"><strong>Nombre del tema</strong></p><div style=\\\"width:530px; height:280px; overflow:auto;\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\">\"+str+\"</table></div><p></p><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";" +
                     "\n" +
                 "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>Deberias repasar estos temas: \"+strTemasFallados+\"</strong></p>\";"+
                     "            }\n" +
@@ -1006,20 +1003,17 @@ public class TranslateHtml {
                     "            \n" +
                     "            if (puntajeTotalOAObtenido == 0) {\n" +
                     "              \n" +
-                    "              evaluacion.innerHTML = \n" +
-                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th style=\\\"text-align:center\\\">Nombre del Tema</th>\"+str+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "              evaluacion.innerHTML = \"<div class=\\\"left-2columnas\\\"><p style=\\\"color: #444; text-align: center\\\"><strong>Nombre del tema</strong></p><div style=\\\"width:530px; height:280px; overflow:auto;\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\">\"+str+\"</table></div><p></p><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";" +
                     "\n" +
                 "              mensaje=\"<p style=\\\"text-align: center\\\"><strong>Te recomendamos ver el objeto de aprendizaje de nuevo</strong></p>\";"+
                     "            } else if (puntajeTotalOAObtenido == puntajeTotalOA) {\n" +
                     "              \n" +
-                    "              evaluacion.innerHTML = \n" +
-                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th style=\\\"text-align:center\\\">Nombre del Tema</th>\"+str+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "              evaluacion.innerHTML = \"<div class=\\\"left-2columnas\\\"><p style=\\\"color: #444; text-align: center\\\"><strong>Nombre del tema</strong></p><div style=\\\"width:530px; height:280px; overflow:auto;\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\">\"+str+\"</table></div><p></p><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";" +
                     "\n" +
                 "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>¡Felicidades, has aprobado este objeto de aprendizaje!</strong></p>\";"+
                     "            } else {\n" +
                     "              \n" +
-                    "              evaluacion.innerHTML = \n" +
-                    "              \"<div class=\\\"left-2columnas\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\" align=\\\"center\\\"><tr><th style=\\\"text-align:center\\\">Nombre del Tema</th>\"+str+\"</tr></table><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";\n" +
+                    "              evaluacion.innerHTML =\"<div class=\\\"left-2columnas\\\"><p style=\\\"color: #444; text-align: center\\\"><strong>Nombre del tema</strong></p><div style=\\\"width:530px; height:280px; overflow:auto;\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\">\"+str+\"</table></div><p></p><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";" +
                     "\n" +
                 "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>Deberias repasar estos temas: \"+strTemasFallados+\"</strong></p>\";"+
                     "            }\n" +
