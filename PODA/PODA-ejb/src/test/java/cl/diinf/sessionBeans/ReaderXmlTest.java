@@ -106,7 +106,7 @@ public class ReaderXmlTest {
                             "\n" +
                             "	</escena>\n" +
                             "\n" +
-                            "<evaluacion exigencia=\"60\">\n" +
+                            "<evaluacion exigencia_min=\"30\" exigencia_max=\"60\">\n" +
                             "		<pregunta>\n" +
                             "			<forma>\n" +
                             "				<enunciado>\n" +
@@ -359,7 +359,7 @@ public class ReaderXmlTest {
         int choice_text = 6;        
         int solution = 3;
         int solution_text = 3;                
-        int exigency = 60;
+        int exigency = 30;
         int count_test = 0;
         int count_questions = 0;
         int count_forms = 0;
