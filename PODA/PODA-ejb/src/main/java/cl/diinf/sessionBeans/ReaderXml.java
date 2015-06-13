@@ -577,7 +577,19 @@ public class ReaderXml {
                                     }
                                     
                                     newChoice.setTopic(currentChoice.getAttribute("tema"));
+                                    
                                     newChoice.setType(currentChoice.getAttribute("tipo"));
+                                    
+                                    switch(newChoice.getType()){
+                                        case "solucion":
+                                            break;
+                                        case "distractor":
+                                            break;
+                                        default:
+                                            this.parsingError = "Sólo es posible asignar \"solución\" ó \"distractor\" como tipo de alternativa.";
+                                            return new ArrayList<>();
+                                    }
+                                    
                                     newQuestion.addChoices(newChoice);
                                 }
                                 
@@ -731,8 +743,126 @@ public class ReaderXml {
         if(error.equals("XML document structures must start and end within the same entity.")){
             error = "Los documentos con estructura XML deben comenzar y finalizar con la misma entidad. Verifique su XML.";
         }
-        
-        System.out.println("Traducido.");
+        else if(error.equals("Content is not allowed in prolog.")){
+            error = "Por favor, siga la sintaxis XML. Elementos fuera de \"<\" o \">\" no son soportados.";
+        }
+        else{
+            String[] err = error.split(" ");
+            /*for(int i = 0; i < err.length; i++){
+                System.out.println("Item["+i+"]: "+err[i]);
+            }*/
+            
+            switch(err.length){
+                case 6:
+                    return "El elemento: "+err[2]+", debe ser declarado. Por ello no es permitido.";
+                case 9:{
+                         
+                         if(err[0].equals("Attribute")
+                                 && err[2].equals("must")
+                                 && err[3].equals("be")
+                                 && err[4].equals("declared")
+                                 && err[5].equals("for")
+                                 && err[6].equals("element")
+                                 && err[7].equals("type")
+                                 ){
+                             return "El elemento: "+err[8]+", no tiene declarado un atributo: "+err[1]+", revise su sintáxis.";
+                         }
+                         else if(err[0].equals("The")
+                                 && err[1].equals("content")
+                                 && err[2].equals("of")
+                                 && err[3].equals("element")
+                                 && err[4].equals("type")
+                                 && err[6].equals("must")
+                                 && err[7].equals("match")
+                                 ){
+                                 if(err[8].equals("\"null\".")){
+                                     return "El contenido de "+err[5]+" debe ser un valor, no una etiqueta.";
+                                 }
+                                 else{
+                                     return "El contenido de "+err[5]+" debe ser: "+err[8]+".";
+                                 }
+                         }
+                         else{
+                             return error;
+                         }
+                    }
+                case 12:{
+                        if(
+                           err[0].equals("Attribute")
+                        && err[2].equals("is")
+                        && err[3].equals("required")
+                        && err[4].equals("and")
+                        && err[5].equals("must")
+                        && err[6].equals("be")
+                        && err[7].equals("specified")
+                        && err[8].equals("for")
+                        && err[9].equals("element")
+                        && err[10].equals("type")                                
+                                ){
+                            return "El atributo: "+err[1]+", es requerido para el elemento: "+err[11]+".";
+                        }
+                        else if(
+                                err[0].equals("The")
+                             && err[1].equals("content")
+                             && err[2].equals("of")
+                             && err[3].equals("element")
+                             && err[4].equals("type")
+                             && err[6].equals("is")
+                             && err[7].equals("incomplete,")
+                             && err[8].equals("it")
+                             && err[9].equals("must")
+                             && err[10].equals("match")                             
+                                ){
+                                return "El contenido del elemento "+err[5]+", está incompleto, debe ser: "+err[11]+".";
+                        }
+                        else if(error.equals("The content of elements must consist of well-formed character data or markup.")                                ){
+                            return "El contenido de los elementos debe consistir en un caracter o marca bien formada.";
+                        }
+                        else if(
+                                err[0].equals("The")
+                             && err[1].equals("element")
+                             && err[2].equals("type")
+                             && err[4].equals("must")
+                             && err[5].equals("be")
+                             && err[6].equals("terminated")
+                             && err[7].equals("by")
+                             && err[8].equals("the")
+                             && err[9].equals("matching")
+                             && err[10].equals("end-tag")                              
+                                ){
+                            return "Los elementos "+err[3]+", deben terminar con la etiqueta de cierre: "+err[11];
+                        }
+                        else if(
+                                err[0].equals("The")
+                             && err[1].equals("end-tag")
+                             && err[2].equals("for")
+                             && err[3].equals("element")
+                             && err[4].equals("type")
+                             && err[6].equals("must")
+                             && err[7].equals("end")
+                             && err[8].equals("with")
+                             && err[9].equals("a")
+                             && err[11].equals("delimiter.")                              
+                                ){
+                            return "El tag de cierre de: "+err[3]+", debe terminar con: "+err[10]+".";
+                        }
+                        else if(error.equals("The markup in the document following the root element must be well-formed.")){
+                            return "El marcador en el documento siguiente a la raíz debe ser un elemento bien formado.";
+                        }
+                        else{
+                            return error;
+                        }
+                    }
+                case 13:
+                    return "En el elemento: "+err[12]+", el atributo: "+err[6]+", debe de tener comillas (\") que contengan su valor.";
+                case 18:
+                    return "En el elemento: "+err[8]+", el atributo: "+err[2]+", debe ser seguido del caracter \"'='\" y luego su contenido.";
+                case 17:
+                    return "El valor del atriburo: "+err[4]+", asociado al elemento: "+err[10]+", no debe contener el caracter \"<\" ó \">\".";
+                default:
+                    return error;
+            }
+        }
         return error;
     }
 }

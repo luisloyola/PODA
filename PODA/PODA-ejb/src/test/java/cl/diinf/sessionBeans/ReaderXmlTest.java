@@ -161,7 +161,7 @@ public class ReaderXmlTest {
                             "			</forma>\n" +
                             "		</pregunta>\n" +
                             "	</evaluacion>"+
-                            "	<feedback>ABC</feedback>\n" +
+                            "	<feedback>https://docs.google.com/forms/d/1Zrj3pYt84a9bDFoHQrZvUM4uSiGSEUuX20x-Bco1-b8/viewform</feedback>\n" +
                             "</objeto>";
         
         good_instance.setFileContent(good_xml);
@@ -431,21 +431,20 @@ public class ReaderXmlTest {
     /**
      * Probar creacion de objeto a partir de un error en el tipo de escena
      */ 
-    @Ignore
+    
     @Test
     public void testErrorTipoEscena() throws IOException{
         
-        String error_xml =  "<comenzar>\n" +
+        String error_xml =  
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
                             "       <escena titulo=\"escena1\" tipo=\"random\">\n" +
                             "           <bloque>\n" +
-                            "               <idea ordenAparicion=\"1\">\n" +
+                            "               <idea orden=\"1\">\n" +
                             "                   <texto tipo=\"normal\">texto1</texto>\n" +
                             "               </idea>"+
                             "           </bloque>\n" +
                             "       </escena> \n" +
-                            "   </objeto>\n" +
-                            "</comenzar>";
+                            "   </objeto>\n";
         ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
@@ -455,21 +454,19 @@ public class ReaderXmlTest {
     /**
      * Probar creacion de objeto a partir de un xml con cantidad de bloques inferior al correspondiente 
      */ 
-    @Ignore
     @Test
     public void testErrorCantidadBloques() throws IOException{
         
-        String error_xml =  "<comenzar>\n" +
+        String error_xml =  
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
                             "       <escena titulo=\"escena1\" tipo=\"2Col\">\n" +
                             "           <bloque>\n" +
-                            "               <idea ordenAparicion=\"1\">\n" +
+                            "               <idea orden=\"1\">\n" +
                             "                   <texto tipo=\"normal\">texto1</texto>\n" +
                             "               </idea>"+
                             "           </bloque>\n" +
                             "       </escena> \n" +
-                            "   </objeto>\n" +
-                            "</comenzar>";
+                            "   </objeto>\n";
         ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
@@ -479,21 +476,20 @@ public class ReaderXmlTest {
     /**
      * Probar creacion de objeto a partir de un xml con un ordenAparicion no numerico
      */
-    @Ignore
+    
     @Test
     public void testErrorOrdenNumerico() throws IOException{
         
-        String error_xml =  "<comenzar>\n" +
+        String error_xml =  
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
                             "       <escena titulo=\"escena1\" tipo=\"1Col\">\n" +
                             "           <bloque>\n" +
-                            "               <idea ordenAparicion=\"random\">\n" +
+                            "               <idea orden=\"random\">\n" +
                             "                   <texto tipo=\"normal\">texto1</texto>\n" +
                             "               </idea>"+
                             "           </bloque>\n" +
                             "       </escena> \n" +
-                            "   </objeto>\n" +
-                            "</comenzar>";
+                            "   </objeto>\n";
         ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
@@ -503,21 +499,19 @@ public class ReaderXmlTest {
     /**
      * Probar creacion de objeto a partir de un xml con un tipo de texto existente
      */
-    @Ignore
     @Test
     public void testErrorTipoTexto() throws IOException{
         
-        String error_xml =  "<comenzar>\n" +
+        String error_xml =  
                             "   <objeto titulo=\"titulo\" tema=\"default\" autor=\"autor\">\n" +
                             "       <escena titulo=\"escena1\" tipo=\"1Col\">\n" +
                             "           <bloque>\n" +
-                            "               <idea ordenAparicion=\"1\">\n" +
+                            "               <idea orden=\"1\">\n" +
                             "                   <texto tipo=\"randomtipo\">texto1</texto>\n" +
                             "               </idea>"+
                             "           </bloque>\n" +
                             "       </escena> \n" +
-                            "   </objeto>\n" +
-                            "</comenzar>";
+                            "   </objeto>\n";
         ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
@@ -527,22 +521,21 @@ public class ReaderXmlTest {
     /**
      * Probar creacion de objeto a partir de un xml con un tipo de media no existente
      */
-    @Ignore
+    
     @Test
     public void testErrorTipoMedia() throws IOException{
         
-        String error_xml =  "<comenzar>\n" +
+        String error_xml =  
                             "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
                             "		<escena titulo=\"Ejemplo de multimedia\" tipo=\"1Col\">\n" +
                             "			<bloque>\n" +
-                            "				<idea ordenAparicion=\"1\">\n" +
+                            "				<idea orden=\"1\">\n" +
                             "					<texto tipo=\"normal\">El siguiente es un ejemplo de una imagen</texto>\n" +
                             "					<media tipo=\"randomMediaType\">http://cdn.alltheragefaces.com/img/faces/jpg/fuck-yeah-fuck-yeah-clean.jpg</media>\n" +
                             "				</idea>\n" +				
                             "			</bloque>\n" +
                             "		</escena>\n" +
-                            "	</objeto>\n" +
-                            "</comenzar>";
+                            "	</objeto>\n";
         ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
@@ -552,31 +545,36 @@ public class ReaderXmlTest {
     /**
      * Probar creacion de objeto a partir de un xml con un tipo de evaluacion no existente
      */
-    @Ignore
     @Test
     public void testErrorTipoAlternativa() throws IOException{
         
-        String error_xml =  "<comenzar>\n" +
-                            "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-                            "		<escena titulo=\"Ejemplo de evaluacion\" tipo=\"1Col\">\n" +
-                            "			<bloque>\n" +
-                            "				<idea ordenAparicion=\"1\">\n" +
-                            "					<evaluaciones>\n" +
-                            "						<evaluacion>\n" +
-                            "							<enunciado>Enunciado Evaluacion </enunciado>\n" +
-                            "							<opciones>\n" +
-                            "								<alternativa tipo=\"randomType\" tema=\"prueba\">Si</alternativa>\n" +
-                            "								<alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "                                                           <alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "                                                           <alternativa tipo=\"distractor\" tema=\"prueba\">No</alternativa>\n" +
-                            "							</opciones>\n" +
-                            "						</evaluacion>\n" +
-                            "					</evaluaciones>\n" +
-                            "				</idea>\n" +
-                            "			</bloque>\n" +
-                            "		</escena>\n" +
-                            "	</objeto>\n" +
-                            "</comenzar>";
+        String error_xml =  "<objeto titulo=\"Nombre del Objeto\" tema=\"usach\" autor=\"Autor\">\n" +
+"	<escena titulo=\"Titulo de la escena\" tipo=\"1Col\">\n" +
+"		<bloque>\n" +
+"			<idea orden=\"1\">\n" +
+"				<texto tipo=\"normal\"><destacar>A</destacar><enfatizar>B</enfatizar><destacar>C</destacar><esfatizar>D</enfatizar></texto>\n" +
+"\n" +
+"			</idea>\n" +
+"		</bloque>\n" +
+"	</escena>\n" +
+"	<evaluacion exigencia_min=\"1\" exigencia_max=\"2\"> \n" +
+"		<pregunta>\n" +
+"			<forma>\n" +
+"				<enunciado>\n" +
+"					<texto tipo=\"normal\">Enunciado</texto>\n" +
+"				</enunciado>\n" +
+"				<opciones>\n" +
+"					<alternativa tipo=\"random\" tema=\"Pruebas\">\n" +
+"						<texto tipo=\"normal\">Alternativa</texto>\n" +
+"					</alternativa>\n" +
+"				</opciones>\n" +
+"				<solucion>\n" +
+"					<texto tipo=\"normal\">Solución</texto>\n" +
+"				</solucion>\n" +
+"			<forma>\n" +
+"		</pregunta>\n" +
+"	</evaluacion>	\n" +
+"</objeto>";
         ReaderXml instance = new ReaderXml();
         instance.setFileContent(error_xml);  
         instance.AppendDTD();
@@ -586,37 +584,58 @@ public class ReaderXmlTest {
     /**
      * Probar creacion de codigo DTD
      */
-    @Ignore
+    @Test
     public void testReadOADTDAppend() {
         ReaderXml instance = new ReaderXml();
-        String content = "<comenzar>\n" +
-                        "	<objeto titulo=\"Objeto de prueba de desarrollo\" tema=\"default\" autor=\"Teban\">\n" +
-                        "		<escena titulo=\"Ejemplo de textos\" tipo=\"1Col\">\n" +
-                        "			<bloque>\n" +
-                        "				<idea ordenAparicion=\"1\">\n" +
-                        "					<texto tipo=\"manuscrito\">Este es un texto</texto>\n" +
-                        "				</idea>\n" +
-                        "			</bloque>\n" +
-                        "		</escena>\n" +
-                        "			\n" +
-                        "	</objeto>\n" +
-                        "</comenzar>";
+        String content ="<objeto titulo=\"Nombre del Objeto\" tema=\"usach\" autor=\"Autor\">\n" +
+"	<escena titulo=\"Titulo de la escena\" tipo=\"1Col\">\n" +
+"		<bloque>\n" +
+"			<idea orden=\"1\">\n" +
+"				<texto tipo=\"normal\"><destacar>A</destacar><enfatizar>B</enfatizar><destacar>C</destacar><esfatizar>D</enfatizar></texto>\n" +
+"\n" +
+"			</idea>\n" +
+"		</bloque>\n" +
+"	</escena>\n" +
+"	<evaluacion exigencia_min=\"1\" exigencia_max=\"2\"> \n" +
+"		<pregunta>\n" +
+"			<forma>\n" +
+"				<enunciado>\n" +
+"					<texto tipo=\"normal\">Enunciado</texto>\n" +
+"				</enunciado>\n" +
+"				<opciones>\n" +
+"					<alternativa tipo=\"solucion\" tema=\"Pruebas\">\n" +
+"						<texto tipo=\"normal\">Alternativa</texto>\n" +
+"					</alternativa>\n" +
+"				</opciones>\n" +
+"				<solucion>\n" +
+"					<texto tipo=\"normal\">Solución</texto>\n" +
+"				</solucion>\n" +
+"			<forma>\n" +
+"		</pregunta>\n" +
+"	</evaluacion>	\n" +
+"</objeto>";
         
         String dtd =    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                + "<!DOCTYPE comenzar [\n"
-                + "<!ELEMENT comenzar (objeto)>\n"
-                + "<!ELEMENT objeto (escena*,evaluaciones*)>\n"
+                + "<!DOCTYPE objeto [\n"
+                + "<!ELEMENT objeto (escena*,evaluacion?,feedback?)>\n"
                 + "<!ELEMENT escena (bloque+)>\n"
-                + "<!ELEMENT bloque (idea*)>\n"
-                + "<!ELEMENT idea (texto*, voz?, media*)>\n"
+                + "<!ELEMENT bloque (idea+)>\n"
+                + "<!ELEMENT idea (texto*, media*,ejemplos?,voz?)>\n"
                 + "<!ELEMENT texto (#PCDATA)>\n"
                 + "<!ELEMENT voz (#PCDATA)>\n"
                 + "<!ELEMENT media (#PCDATA)>\n"
-                + "<!ELEMENT evaluaciones (evaluacion*)>\n"
-                + "<!ELEMENT evaluacion (enunciado,opciones)>\n"
-                + "<!ELEMENT enunciado (#PCDATA)>\n"
+                + "<!ELEMENT evaluacion (pregunta+)>\n"
+                + "<!ELEMENT pregunta (forma+)>\n"
+                + "<!ELEMENT forma (enunciado,opciones,solucion)>\n"
+                + "<!ELEMENT enunciado (texto*)>\n"
                 + "<!ELEMENT opciones (alternativa*)>\n"
-                + "<!ELEMENT alternativa (#PCDATA)>\n"
+                + "<!ELEMENT alternativa (texto*)>\n"
+                + "<!ELEMENT solucion (texto*)>\n"
+                + "<!ELEMENT feedback (#PCDATA)>\n"
+                + "<!ELEMENT ejemplos (ejemplo*)>\n"
+                + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo?)>\n"
+                + "<!ELEMENT texto_ejemplo (#PCDATA)>\n"
+                + "<!ELEMENT media_ejemplo (#PCDATA)>\n"             
                 + "\n"
                 + "\n"
                 + "<!ATTLIST objeto titulo CDATA #REQUIRED>\n"
@@ -625,10 +644,14 @@ public class ReaderXmlTest {
                 + "<!ATTLIST escena titulo CDATA #REQUIRED>\n"
                 + "<!ATTLIST escena tipo CDATA #REQUIRED>\n"
                 + "\n"
-                + "<!ATTLIST idea ordenAparicion CDATA #REQUIRED>\n"
+                + "<!ATTLIST idea orden CDATA #REQUIRED>\n"
                 + "<!ATTLIST texto tipo CDATA #REQUIRED>\n"
-                + "<!ATTLIST media tipo CDATA #REQUIRED>	\n"
+                + "<!ATTLIST media tipo CDATA #REQUIRED>\n"
+                + "<!ATTLIST texto_ejemplo tipo CDATA #REQUIRED>\n"
+                + "<!ATTLIST media_ejemplo tipo CDATA #REQUIRED>\n"
                 + "\n"
+                + "<!ATTLIST evaluacion exigencia_min CDATA #REQUIRED>\n"
+                + "<!ATTLIST evaluacion exigencia_max CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
                 + "]>";
@@ -678,5 +701,53 @@ public class ReaderXmlTest {
         
         
         assertEquals(instance.getFileContent(), expected);
+    }
+    
+    @Test
+    public void errorTranslateTest(){
+        ReaderXml instance = new ReaderXml();
+        
+        String prueba1 = instance.errorTranslate("Attribute \"orden\" is required and must be specified for element type \"idea\".");
+        String prueba2 = instance.errorTranslate("Attribute \"algo\" must be declared for element type \"voz\".");
+        String prueba3 = instance.errorTranslate("Attribute name \"asd\" associated with an element type \"voz\" must be followed by the ' = ' character.");
+        String prueba4 = instance.errorTranslate("Content is not allowed in prolog.");
+        String prueba5 = instance.errorTranslate("Element type \"sdoot\" must be declared.");
+        String prueba6 = instance.errorTranslate("Open quote is expected for attribute \"algo\" associated with an element type \"voz\".");
+        String prueba7 = instance.errorTranslate("The content of element type \"escena\" is incomplete, it must match \"(bloque)+\".");
+        String prueba8 = instance.errorTranslate("The content of element type \"feedback\" must match \"null\".");
+        String prueba9 = instance.errorTranslate("The content of elements must consist of well-formed character data or markup.");
+        String prueba10 = instance.errorTranslate("The element type \"voz\" must be terminated by the matching end-tag \"</voz>\".");
+        String prueba11 = instance.errorTranslate("The end-tag for element type \"voz\" must end with a '>' delimiter.");
+        String prueba12 = instance.errorTranslate("The markup in the document following the root element must be well-formed.");
+        String prueba13 = instance.errorTranslate("The value of attribute \"algo\" associated with an element type \"voz\" must not contain the '<' character.");    
+        String prueba14 = instance.errorTranslate("XML document structures must start and end within the same entity.");
+        String expected1 = "El atributo: \"orden\", es requerido para el elemento: \"idea\"..";
+        String expected2 = "El elemento: \"voz\"., no tiene declarado un atributo: \"algo\", revise su sintáxis.";
+        String expected3 = "En el elemento: \"voz\", el atributo: \"asd\", debe ser seguido del caracter \"'='\" y luego su contenido.";
+        String expected4 = "Por favor, siga la sintaxis XML. Elementos fuera de \"<\" o \">\" no son soportados.";
+        String expected5 = "El elemento: \"sdoot\", debe ser declarado. Por ello no es permitido.";
+        String expected6 = "En el elemento: \"voz\"., el atributo: \"algo\", debe de tener comillas (\") que contengan su valor.";
+        String expected7 = "El contenido del elemento \"escena\", está incompleto, debe ser: \"(bloque)+\"..";
+        String expected8 = "El contenido de \"feedback\" debe ser un valor, no una etiqueta.";
+        String expected9 = "El contenido de los elementos debe consistir en un caracter o marca bien formada.";
+        String expected10 = "Los elementos \"voz\", deben terminar con la etiqueta de cierre: \"</voz>\".";
+        String expected11 = "El tag de cierre de: element, debe terminar con: '>'.";
+        String expected12 = "El marcador en el documento siguiente a la raíz debe ser un elemento bien formado.";
+        String expected13 = "El valor del atriburo: \"algo\", asociado al elemento: \"voz\", no debe contener el caracter \"<\" ó \">\".";
+        String expected14 = "Los documentos con estructura XML deben comenzar y finalizar con la misma entidad. Verifique su XML.";
+        assertEquals(expected1, prueba1);
+        assertEquals(expected2, prueba2);
+        assertEquals(expected3, prueba3);
+        assertEquals(expected4, prueba4);
+        assertEquals(expected5, prueba5);
+        assertEquals(expected6, prueba6);
+        assertEquals(expected7, prueba7);
+        assertEquals(expected8, prueba8);
+        assertEquals(expected9, prueba9);
+        assertEquals(expected10, prueba10);
+        assertEquals(expected11, prueba11);
+        assertEquals(expected12, prueba12);
+        assertEquals(expected13, prueba13);
+        assertEquals(expected14, prueba14);
     }
 }
