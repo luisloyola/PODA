@@ -12,9 +12,10 @@
         <h:outputStylesheet name="css/alertify.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <h:outputScript library="js" name="bootstrap.min.js"/>
-        <h:outputScript library="js" name="alertify.min.js"/>    
+        <h:outputScript library="js" name="alertify.min.js"/>            
         
-        <body onload="#{fileUpload.reset_message()}"></body>        
+        <body onload="#{ObjectManaged.show_message()}"></body>
+        <body onload="#{ObjectManaged.reset_message()}"></body>       
         
         <script src="resources/codemirror/lib/codemirror.js"></script>
         <link rel="stylesheet" href="resources/codemirror/lib/codemirror.css"></link>
@@ -41,68 +42,98 @@
           
             $(function() {
 
-                $('#insertObjeto').click(function() {
-                    insertTextArea('\t<escena titulo="" tipo="">\n\n\t</escena>');
+                $('#submitObjeto').click(function() {
+                    
+                    var titulo = document.getElementById('titulo_objeto').value;
+                    var tema = document.getElementById('tema_objeto').value;
+                    var autor = document.getElementById('autor_objeto').value;
+                    insertObjeto(titulo, tema, autor);
                 });
-                $('#insertEscena').click(function() {
-                    insertTextArea('\t<escena titulo="" tipo="">\n\n\t</escena>');
+                $('#submitEscena').click(function() {
+                    var titulo = document.getElementById('titulo_escena').value;
+                    var tipo = document.getElementById('tipo_escena').value;
+                    insertEscena(titulo, tipo);
                 });
-                $('#insertBloque').click(function() {
-                    insertTextArea('\t\t<bloque>\n\n\t\t</bloque>');
+                $('#submitBloque').click(function() {
+                    var ideas = document.getElementById('ideas_bloque').value;
+                    insertBloque(ideas);
                 });
-                $('#insertIdea').click(function() {
-                    insertTextArea('\t\t\t<idea orden="">\n\n\t\t\t</idea>');
+                $('#submitIdea').click(function() {
+                    var orden = document.getElementById('orden_idea').value;
+                    var normal = document.getElementById('normal_idea').value;
+                    var codigo = document.getElementById('codigo_idea').value;
+                    var manus = document.getElementById('manus_idea').value;
+                    var media = document.getElementById('imagen_idea').value;
+                    var ejemplos = document.getElementById('ejemplos_idea').value;
+                    var voz = document.getElementById('voz_idea').value;
+                    insertIdea(orden, normal, codigo, manus, media, ejemplos, voz);
                 });
-                $('#insertTexto').click(function() {
-                    insertTextArea('\t\t\t\t<texto tipo="normal"> </texto>\n');
+                $('#submitTexto').click(function() {
+                    var tipo = document.getElementById('tipo_texto').value;
+                    insertText(tipo);
                 });
-                $('#insertCodigo').click(function() {
+                /*$('#insertCodigo').click(function() {
                     insertTextArea('\t\t\t\t<texto tipo="codigo"> </texto>\n');
                 });
                 $('#insertManuscrito').click(function() {
                     insertTextArea('\t\t\t\t<texto tipo="manuscrito"> </texto>\n');
-                });
+                });*/
                 $('#insertVoz').click(function() {
                     insertTextArea('\t\t\t\t<voz> </voz>\n');
                 });
                 $('#insertImagen').click(function() {
                     insertTextArea('\t\t\t\t<media tipo="imagen"> </media>\n');
                 });
-                $('#insertEjemplos').click(function() {
-                    insertTextArea('\t\t\t\t<ejemplos>\n\t\t\t\t\t<ejemplo>\n\n\t\t\t\t\t</ejemplo>\n\t\t\t\t</ejemplos>');
+                $('#submitEjemplos').click(function() {
+                    var cant_ejs = document.getElementById('cant_ejemplos').value;
+                    insertEjemplos(cant_ejs);
                 });
-                $('#insertEjemplo').click(function() {
-                    insertTextArea('\t\t\t\t\t<ejemplo>\n\n\n\t\t\t\t\t</ejemplo>');
+                $('#submitEjemplo').click(function() {
+                    var normal = document.getElementById('normal_ejemplo').value;
+                    var codigo = document.getElementById('codigo_ejemplo').value;
+                    var manus = document.getElementById('manus_ejemplo').value;
+                    var media = document.getElementById('imagen_ejemplo').value;
+                    insertEjemplo(normal, codigo, manus, media);
                 });
-                $('#insertEjemploTexto').click(function() {
-                    insertTextArea('\t\t\t\t\t\t<texto_ejemplo tipo="normal"> </texto_ejemplo>\n');
-                });
+                $('#submitEjemploTexto').click(function() {
+                     var tipo = document.getElementById('tipo_textoEj').value;                     
+                    insertEjemploText(tipo);
+                });/*
                 $('#insertEjemploCodigo').click(function() {
                     insertTextArea('\t\t\t\t\t\t<texto_ejemplo tipo="codigo"> </texto_ejemplo>\n');
                 });
                 $('#insertEjemploManus').click(function() {
                     insertTextArea('\t\t\t\t\t\t<texto_ejemplo tipo="manuscrito"> </texto_ejemplo>\n');
+                });*/
+                $('#submitEvaluacion').click(function() {
+                    var exig_min = document.getElementById('exigMin_evaluacion').value;
+                    var exig_max = document.getElementById('exigMax_evaluacion').value;
+                    insertEvaluacion(exig_min, exig_max);
                 });
-                $('#insertEvaluacion').click(function() {
-                    insertTextArea('\t<evaluacion exigencia_min="" exigencia_max="">\n\n\t</evaluacion>');
+                $('#submitPregunta').click(function() {
+                    var cant_forma = document.getElementById('formas_pregunta').value;
+                    insertPregunta(cant_forma);
                 });
-                $('#insertPregunta').click(function() {
-                    insertTextArea('\t\t<pregunta>\n\n\t\t</pregunta>');
-                });
-                $('#insertForma').click(function() {
-                    insertTextArea('\t\t\t<forma>\n\n\t\t\t</forma>');
-                });
-                $('#insertEnunciado').click(function() {
+                $('#submitForma').click(function() {
+                    var alternativas = document.getElementById('alternativas_forma').value;
+                    var solucionario = document.getElementById('solucionario_forma').value;
+                    insertForma(alternativas, solucionario);
+                });/*
+                $('#submitEnunciado').click(function() {
                     insertTextArea('\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>');
                 });
                 $('#insertOpciones').click(function() {
                     insertTextArea('\t\t\t\t\t<opciones>\n\n\t\t\t\t\t</opciones>');
+                });*/
+                $('#submitAlternativa').click(function() {
+                    var tipo = document.getElementById('tipo_alternativa').value;
+                    var tema= document.getElementById('tema_alternativa').value;                    
+                    insertAlternativa(tipo, tema);
                 });
-                $('#insertAlternativa').click(function() {
-                    insertTextArea('\t\t\t\t\t\t<alternativa tipo="" tema="">\n\n\t\t\t\t\t\t</alternativa>');
-                });
-                $('#insertSolucion').click(function() {
-                    insertTextArea('\t\t\t\t\t<solucion>\n\n\t\t\t\t\t</solucion>');
+                $('#submitSolucionario').click(function() {
+                    var normal = document.getElementById('normal_solucionario').value;
+                    var codigo= document.getElementById('codigo_solucionario').value;                    
+                    insertSolucionario(normal, codigo);
                 });
                 $('#insertFeedback').click(function() {
                     insertTextArea('\t<feedback> </feedback>\n');
@@ -114,104 +145,526 @@
                     var char = window.editor.getCursor().ch;
                     window.editor.replaceSelection(text);                                 
                     window.editor.setCursor({line: line, ch: char});                    
+                }                
+                function insertObjeto(titulo, tema, autor){
+                    var text ='<objeto titulo="'+titulo+'" tema="'+tema+'" autor="'+autor+'">\n\n</objeto>';
+                    insertTextArea(text);
+                }
+                function insertEscena(titulo, tipo){
+                    var text ='\t<escena titulo="'+ titulo +'" tipo="'+tipo+'">\n';
+                    var bloque = '\t\t<bloque>\n\t\t\t<idea orden="">\n\n\t\t\t</idea>\n\t\t</bloque>\n';
+
+                    var nro_bloques = 0;
+                    
+                    if(tipo==="1Col"){
+                        nro_bloques = 1;
+                    }
+                    if(tipo==="2Col"){
+                        nro_bloques = 2;
+                    }
+                    if(tipo==="3Col"){
+                        nro_bloques = 3;
+                    }
+                    if(tipo==="1Fil2Col"){
+                        nro_bloques = 3;
+                    }
+                    if(tipo==="1Fil3Col"){
+                        nro_bloques = 4;
+                    }
+                    if(tipo==="2Fil2Col"){
+                        nro_bloques = 4;
+                    }
+                    if(tipo==="2Col1Fil"){
+                        nro_bloques = 3;
+                    }
+                    
+                    while ( nro_bloques !== 0){
+                        text = text + bloque;
+                        nro_bloques--;
+                    }                    
+                    text = text + "\t</escena>\n";
+                    insertTextArea(text);
+                }
+                function insertBloque(ideas){
+                    var text = '\t\t<bloque>\n';
+                    var cont = ideas;
+                    
+                    while(cont !== 0){
+                        text += '\t\t\t<idea orden="">\n\n\t\t\t</idea>\n';
+                        cont--;
+                    }                    
+                    text += '\t\t</bloque>';
+                    insertTextArea(text);
+                }
+                function insertIdea(orden, normal, codigo, manus, media, ejemplos, voz){
+                    var text = '\t\t\t<idea orden="'+orden+'">\n';
+                    
+                    while(normal !== 0){
+                        text += '\t\t\t\t<texto tipo="normal"> </texto>\n';
+                        normal--;
+                    }
+                    while(codigo !== 0){
+                        text += '\t\t\t\t<texto tipo="codigo"> </texto>\n';
+                        codigo--;
+                    }
+                    if(manus){
+                        text += '\t\t\t\t<texto tipo="manuscrito"> </texto>\n';
+                    }
+                    while(media !== 0){
+                        text += '\t\t\t\t<media tipo="imagen"> </media>\n';
+                        media--;
+                    }   
+                    text += '\t\t\t\t<ejemplos>\n';
+                    while(ejemplos !== 0){
+                        text += "\t\t\t\t\t<ejemplo>\n\n\t\t\t\t\t</ejemplo>\n";
+                        ejemplos--;
+                    }        
+                    text += "\t\t\t\t</ejemplos>\n";
+                    
+                    if(voz){
+                        text += '\t\t\t\t<voz> </voz>\n';
+                    }                    
+                    text += '\t\t\t</idea>';                    
+                    insertTextArea(text);
+                }
+                function insertText(tipo){                                        
+                    var text = '\t\t\t\t<texto tipo="'+tipo+'"> </texto>\n';
+                    insertTextArea(text);
+                }                
+                function insertEjemplos(cant_ejs){
+                    var text = '\t\t\t\t<ejemplos>\n';
+                    
+                    while(cant_ejs!==0){
+                        text += '\t\t\t\t\t<ejemplo>\n\n\t\t\t\t\t</ejemplo>\n';
+                        cant_ejs--;
+                    }
+                    text += '\t\t\t\t</ejemplos>';
+                    insertTextArea(text);
+                }
+                function insertEjemplo(normal, codigo, manus, media){
+                    var text = '\t\t\t\t\t<ejemplo>\n';
+                    
+                    while(normal !== 0){
+                        text += '\t\t\t\t\t\t<texto_ejemplo tipo="normal"> </texto_ejemplo>\n';
+                        normal--;
+                    }
+                    while(codigo !== 0){
+                        text += '\t\t\t\t\t\t<texto_ejemplo tipo="codigo"> </texto_ejemplo>\n';
+                        codigo--;
+                    }
+                    if(manus){
+                        text += '\t\t\t\t\t\t<texto_ejemplo tipo="manuscrito"> </texto_ejemplo>\n';
+                    }
+                    while(media !== 0){
+                        text += '\t\t\t\t\t\t<media_ejemplo tipo="imagen"> </media_ejemplo>\n';
+                        media--;
+                    }
+                    
+                    text += '\t\t\t\t\t</ejemplo>\n';
+                    insertTextArea(text);
+                    
+                }
+                function insertEjemploText(tipo){
+                    var text = '\t\t\t\t\t\t<texto_ejemplo tipo="'+ tipo +'"> </texto_ejemplo>\n';
+                    insertTextArea(text);
+                }
+                function insertEvaluacion(exig_min, exig_max){
+                    
+                    var text = '\t<evaluacion exigencia_min="'+ exig_min +'" exigencia_max="'+ exig_max +'">\n\n\t</evaluacion>'
+                    insertTextArea(text);
+                }
+                function insertPregunta(cant_forma){
+                    var text = "\t\t<pregunta>\n";
+                    
+                    while(cant_forma!==0){
+                        text += '\t\t\t<forma>\n\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>\n\t\t\t\t<opciones>\n\t\t\t\t\t<alternativa tipo="solucion" tema="">\n\n</alternativa>\n\t\t\t\t\t<alternativa tipo="distractor" tema="">\n\n</alternativa>\n\t\t\t\t</opciones>\n\t\t\t\t<solucion>\n\n\t\t\t\t</solucion>\n\t\t\t</forma>\n';
+                        cant_forma--;
+                    }
+                    text += '\t\t</pregunta>';
+                    insertTextArea(text);
+                }
+                function insertForma(alternativas, solucionario){
+                    var text = '\t\t\t<forma>\n\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>\n\t\t\t\t<opciones>\n';
+                    var aux = alternativas;
+                    while (alternativas !== 0){
+                        if(alternativas === aux){
+                            text += '\t\t\t\t\t<alternativa tipo="solucion" tema="">\n\n\t\t\t\t\t</alternativa>\n';
+                        }
+                        else{
+                            text += '\t\t\t\t\t<alternativa tipo="distractor" tema="">\n\n\t\t\t\t\t</alternativa>\n';
+                        }
+                        alternativas--;
+                    }
+                    text += '\t\t\t\t</opciones>\n';
+                    
+                    if(solucionario){
+                        text += '\t\t\t\t<solucion>\n\n\t\t\t\t</solucion>\n';
+                    }
+                    text += '\t\t\t</forma>\n';
+                    insertTextArea(text);
+                }
+                function insertAlternativa(tipo, tema){
+                    var text = '\t\t\t\t\t\t<alternativa tipo="'+tipo+'" tema="'+tema+'">\n\n\t\t\t\t\t\t</alternativa>';
+                    insertTextArea(text);
+                }
+                function insertSolucionario(normal, codigo){
+                    var text = '\t\t\t\t\t<solucion>\n';
+                    
+                    while(normal !== 0){
+                        text += '\t\t\t\t\t\t<texto tipo="normal"> </texto>\n';
+                        normal--;
+                    }
+                    while(codigo !== 0){
+                        text += '\t\t\t\t\t\t<texto tipo="codigo"> </texto>\n';
+                        codigo--;
+                    }
+                    
+                    text += '\t\t\t\t\t</solucion>\n';
+                    insertTextArea(text);
                 }
             });
         </script>
         <script>
+            $(document).ready(function (){
+                $("#insertObjeto, #submitObjeto").click(function(){
+                    $("#formularioObjeto, #submitObjeto").fadeToggle();
+                });
+                $("#insertEscena, #submitEscena").click(function(){
+                    $("#formularioEscena, #submitEscena").fadeToggle();
+                });
+                $("#insertBloque, #submitBloque").click(function(){
+                    $("#formularioBloque, #submitBloque").fadeToggle();
+                });
+                $("#insertIdea, #submitIdea").click(function(){
+                    $("#formularioIdea, #submitIdea").fadeToggle();
+                });
+                $("#insertTexto, #submitTexto").click(function(){
+                    $("#formularioTexto, #submitTexto").fadeToggle();
+                });
+                $("#insertEjemplos, #submitEjemplos").click(function(){
+                    $("#formularioEjemplos, #submitEjemplos").fadeToggle();
+                });
+                $("#insertEjemplo, #submitEjemplo").click(function(){
+                    $("#formularioEjemplo, #submitEjemplo").fadeToggle();
+                });
+                $("#insertEjemploTexto, #submitEjemploTexto").click(function(){
+                    $("#formularioEjemploTexto, #submitEjemploTexto").fadeToggle();
+                });
+                $("#insertEvaluacion, #submitEvaluacion").click(function(){
+                    $("#formularioEvaluacion, #submitEvaluacion").fadeToggle();
+                });
+                $("#insertPregunta, #submitPregunta").click(function(){
+                    $("#formularioPregunta, #submitPregunta").fadeToggle();
+                });
+                $("#insertForma, #submitForma").click(function(){
+                    $("#formularioForma, #submitForma").fadeToggle();
+                });
+                $("#insertAlternativa, #submitAlternativa").click(function(){
+                    $("#formularioAlternativa, #submitAlternativa").fadeToggle();
+                });
+                $("#insertSolucion, #submitSolucionario").click(function(){
+                    $("#formularioSolucionario, #submitSolucionario").fadeToggle();
+                });
+            });
             
             function saveContent(){
                 var input = document.getElementById('myForm:comments');
                 input.value = window.editor.getValue();
-                alert(input.value);
             }
         </script>
     </h:head>
                   
     <h:body>
-        <footer id="header" style="display: block">
-        <div class="navbar navbar-default navbar-fixed-top" >
+        <div class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
-             <div class="navbar-header">
-             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-               <a href="/PODA-web/"><img src="resources/logo.png" WIDTH="150" HEIGHT="45"></img></a>
-             </div>
-             <div class="collapse navbar-collapse" id="navbar-main">
-               <ul class="nav navbar-nav">
-                    <li><a href="/PODA-web/" >Home</a></li>
-                    <li><a href="acerca_poda.xhtml">Acerca</a></li>
-               </ul><br></br>
-                
-                <a href="/PODA-web/" style="position: absolute; left:1200px"><button class="btn btn-sm btn-success">Crear Objeto</button></a>                     
+                 <div class="navbar-header">
+                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                   <a href="/PODA-web/"><img src="resources/logo.png" WIDTH="150" HEIGHT="45"></img></a>
+                 </div>
+                 <div class="collapse navbar-collapse" id="navbar-main">
+                   <ul class="nav navbar-nav">
+                        <li><a href="/PODA-web/" >Home</a></li>
+                        <li><a href="acerca_poda.xhtml">Acerca</a></li>
+                  <div class="col-md-9 col-md-push-8">             
+                 </div>
+                   </ul> 
+                 </div><!--/.nav-collapse --> 
             </div>
-             </div><!--/.nav-collapse -->
-             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
-        </div>
-        </footer>                     
-        
-        <h:column>
-            <div id="home">            
-                <div class="overlay">   
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-danger">Título del botón</button>
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+        </div>                   
+                
+        <div id="home">            
+            <div class="overlay">
 
-                        <button type="button" class="btn btn-danger dropdown-toggle"
-                                data-toggle="dropdown">
-                          <span class="caret"></span>
-                          <span class="sr-only">Desplegar menú</span>
-                        </button>
+                <div id="formularioObjeto" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="titulo_objeto">Titulo</label>
+                            <input class="form-control" id="titulo_objeto" placeholder="Título"></input>
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="tema_objeto">Tema</label>
+                            <input class="form-control" id="tema_objeto" placeholder="Tema"></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="autor_objeto">Autor</label>
+                            <input class="form-control" id="autor_objeto" placeholder="Autor"></input>
+                        </div>
+                    </form>
+                    <button id="submitObjeto" style="display:none" type="submit" class="btn btn-default">Insertar Etiqueta</button>
+                </div>
 
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a id="insertObjeto" class="btn btn-success" type="button" > Objeto </a></li>
-                            <li><a id="insertEscena" class="btn btn-success" type="button" > Escena </a></li>
-                            <li><a id="insertBloque" class="btn btn-success" type="button" > Bloque </a></li>
-                            <li><a id="insertIdea" class="btn btn-success" type="button" > Idea </a></li>
-                            <li><a id="insertTexto" class="btn btn-success" type="button" > Texto </a></li>
-                            <li><a id="insertCodigo" class="btn btn-success" type="button" > Codigo </a></li>
-                            <li><a id="insertManuscrito" class="btn btn-success" type="button" > Manuscrito </a></li>
-                            <li><a id="insertEjemplos" class="btn btn-success" type="button" > Pila ejemplos </a></li>
-                            <li><a id="insertEjemplo" class="btn btn-success" type="button" > Ejemplo </a></li>
-                            <li><a id="insertEjemploTexto" class="btn btn-success" type="button" > Ejemplo texto </a></li>
-                            <li><a id="insertEjemploCodigo" class="btn btn-success" type="button" > Ejemplo codigo </a></li>
-                            <li><a id="insertEjemploManus" class="btn btn-success" type="button" > Ejemplo manuscrito </a></li>
-                            <li><a id="insertImagen" class="btn btn-success" type="button" > Imagen" />                  </a></li>
-                            <li><a id="insertVoz" class="btn btn-success" type="button" > Voz </a></li>
-                            <li><a id="insertEvaluacion" class="btn btn-success" type="button" > Evaluacion </a></li>
-                            <li><a id="insertPregunta" class="btn btn-success" type="button" > Pregunta </a></li>
-                            <li><a id="insertForma" class="btn btn-success" type="button" > Forma </a></li>
-                            <li><a id="insertEnunciado" class="btn btn-success" type="button" > Enunciado </a></li>
-                            <li><a id="insertOpciones" class="btn btn-success" type="button" > Opciones </a></li>
-                            <li><a id="insertAlternativa" class="btn btn-success" type="button" > Alternativa </a></li>
-                            <li><a id="insertSolucion" class="btn btn-success" type="button" > Solucion </a></li>
-                            <li><a id="insertFeedback" class="btn btn-success" type="button" > Feedback </a></li>
-                        </ul>
-                    </div>                                        
-                    <br></br><br></br>
-                    <!--<h:inputTextarea id="comments" value="&lt;objeto titulo=&quot;&quot; tema=&quot;&quot; autor=&quot;&quot;&gt;&#xD;&#xD; &lt;/objeto&gt;"/>-->
-                    <!--<textarea id="comments" name="comments" >&lt;objeto titulo="" tema="" autor=""&gt;&#xD;&#xD;&lt;/objeto&gt;</textarea>-->
-                    <div>
-                        <h:form id="myForm">
-                            <h:commandButton value="Ver Objeto" actionListener="#{ObjectManaged.load_file()}" onclick="saveContent()" class="btn btn-sm btn-default">
-                            </h:commandButton>
+                <div id="formularioEscena" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="titulo_escena">Titulo</label>
+                            <input class="form-control" id="titulo_escena" placeholder="Título"></input>
+                        </div>                            
+                        <div class="form-group">
+                            <label class="sr-only" for="tipo_escena">Tipo</label>                                
+                            <select id="tipo_escena" class="form-control" name="tipo escena">
+                                <option value="1Col"> Tipo Escena </option>
+                                <option value="1Col">1 Columna</option>
+                                <option value="2Col">2 Columnas</option>
+                                <option value="3Col">3 Columnas</option>
+                                <option value="1Fil2Col">1 Fila 2 Columnas</option>
+                                <option value="1Fil3Col">1 Fila 3 Columnas</option>
+                                <option value="2Fil2Col">2 Fila 2 Columnas</option>
+                                <option value="2Col1Fil">2 Columnas 1 Fila</option>
+                            </select>                                
+                        </div>
+                    </form>
+                    <button id="submitEscena" style="display:none" type="submit" class="btn btn-default">Insertar etiqueta</button>
+                </div>
+                <div id="formularioBloque" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="ideas_bloque">Cantidad Ideas</label>
+                            <input class="form-control" id="ideas_bloque" placeholder="Cantidad de ideas"></input>
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitBloque" style="display:none" type="submit" class="btn btn-default">Insertar etiqueta</button>
+                </div>
+                <div id="formularioIdea" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="orden_idea">Orden</label>
+                            <input class="form-control" id="orden_idea" placeholder="Orden"></input>
+                        </div>                                                        
 
-                            <h:commandButton value="Descargar" styleClass="btn btn-sm btn-default">
-                                <p:fileDownload value="#{ObjectManaged.xml}" />
-                            </h:commandButton>
+                        <div class="form-group">
+                        <label class="sr-only" for="normal_idea">Texto normal</label>
+                            <input class="form-control" id="normal_idea" placeholder="Cantidad de texto normal"></input>
+                        </div>                                                        
+                        <div class="form-group">
+                        <label class="sr-only" for="codigo_idea">Texto codigo</label>
+                            <input class="form-control" id="codigo_idea" placeholder="Cantidad de texto codigo"></input>
+                        </div>                                                        
 
-                            <h:inputTextarea id="comments" binding="#{ObjectManaged.text_area}" value="#{ObjectManaged.content_textArea}"/>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="manus_idea"/> Texto manuscrito
+                            </label>
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="imagen_idea">Imagen</label>
+                            <input class="form-control" id="imagen_idea" placeholder="Cantidad de imagenes"></input>
+                        </div>                                                                                
+                        <div class="form-group">
+                        <label class="sr-only" for="ejemplos_idea">Ejemplos</label>
+                            <input class="form-control" id="ejemplos_idea" placeholder="Cantidad de ejemplos"></input>
+                        </div>                                                        
 
-                            <!--<h:commandButton value="Descargar">
-                                <f:ajax execute="comments" />
-                                <p:fileDownload value=""/>
-                            </h:commandButton>                        -->                        
-                        </h:form>                    
-                    </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="voz_idea"/> Voz
+                            </label>
+                        </div>                                                
+                    </form>
+                    <button id="submitIdea" style="display:none" type="submit" class="btn btn-default">Insertar etiqueta</button>
+                </div>
+
+                <div id="formularioTexto" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="sr-only" for="tipo_texto">Tipo</label>                                
+                            <select id="tipo_texto" class="form-control" name="tipo texto">
+                                <option value="normal"> Tipo de texto</option>
+                                <option value="normal">Normal</option>
+                                <option value="codigo">Codigo</option>
+                                <option value="manuscrito">Animado</option>
+                            </select>                                
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitTexto" style="display:none" type="submit" class="btn btn-default">Insertar etiqueta</button>
+                </div>
+                <div id="formularioEjemplos" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="cant_ejemplos">Cantidad ejemplos</label>
+                            <input class="form-control" id="cant_ejemplos" placeholder="Cantidad de ejemplos"></input>
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitEjemplos" style="display:none" type="submit" class="btn btn-default">Insertar etiqueta</button>
+                </div>
+
+                <div id="formularioEjemplo" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="normal_ejemplo">Texto normal</label>
+                            <input class="form-control" id="normal_ejemplo" placeholder="Cantidad de texto normal"></input>
+                        </div>                                                        
+                        <div class="form-group">
+                        <label class="sr-only" for="codigo_ejemplo">Texto codigo</label>
+                            <input class="form-control" id="codigo_ejemplo" placeholder="Cantidad de texto codigo"></input>
+                        </div>                                                        
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="manus_ejemplo"/> Texto manuscrito
+                            </label>
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="imagen_ejemplo">Imagen</label>
+                            <input class="form-control" id="imagen_ejemplo" placeholder="Cantidad de imagenes"></input>
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitEjemplo" style="display:none" type="submit" class="btn btn-default">Insertar etiqueta</button>
+                </div>
+                <div id="formularioEjemploTexto" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="sr-only" for="tipo_textoEj">Tipo</label>                                
+                            <select id="tipo_textoEj" class="form-control" name="tipo textoEj">
+                                <option value="normal"> Tipo de texto</option>
+                                <option value="normal">Normal</option>
+                                <option value="codigo">Codigo</option>
+                                <option value="manuscrito">Animado</option>
+                            </select>                                
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitEjemploTexto" style="display:none" type="submit" class="btn btn-default">Insertar etiqueta</button>
+                </div>
+                <div id="formularioEvaluacion" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="exigMin_evaluacion">Mínima</label>
+                            <input class="form-control" id="exigMin_evaluacion" placeholder="Exigencia mínima"></input>
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="exigMax_evaluacion">Máxima</label>
+                            <input class="form-control" id="exigMax_evaluacion" placeholder="Exigencia máxima"></input>
+                        </div>                            
+                    </form>
+                    <button id="submitEvaluacion" style="display:none" type="submit" class="btn btn-default">Insertar Etiqueta</button>
+                </div>
+                <div id="formularioPregunta" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="formas_pregunta">Formas</label>
+                            <input class="form-control" id="formas_pregunta" placeholder="Cantidad de formas"></input>
+                        </div>                            
+                    </form>
+                    <button id="submitPregunta" style="display:none" type="submit" class="btn btn-default">Insertar Etiqueta</button>
+                </div>
+                <div id="formularioForma" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="alternativas_forma">Formas</label>
+                            <input class="form-control" id="alternativas_forma" placeholder="Cantidad de alternativas"></input>
+                        </div>                        
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="solucionario_forma"/> Con Solucionario
+                            </label>
+                        </div>
+                    </form>
+                    <button id="submitForma" style="display:none" type="submit" class="btn btn-default">Insertar Etiqueta</button>
+                </div>
+                <div id="formularioAlternativa" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="sr-only" for="tipo_alternativa">Tipo</label>                                
+                            <select id="tipo_alternativa" class="form-control" name="tipo alternativa">
+                                <option value="solucion"> Tipo</option>
+                                <option value="solucion">Solucion</option>
+                                <option value="distractor">Distractor</option>
+                            </select>                                
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="tema_alternativa">Tema</label>
+                            <input class="form-control" id="tema_alternativa" placeholder="Tema"></input>
+                        </div>
+                    </form>                        
+                    <button id="submitAlternativa" style="display:none" type="submit" class="btn btn-default">Insertar etiqueta</button>
+                </div>
+                <div id="formularioSolucionario" style="display:none">
+                    <form>
+                        <div class="form-group">
+                        <label class="sr-only" for="normal_solucionario">Texto normal</label>
+                            <input class="form-control" id="normal_solucionario" placeholder="Cantidad de texto normal"></input>
+                        </div>                                                        
+                        <div class="form-group">
+                        <label class="sr-only" for="codigo_solucionario">Texto codigo</label>
+                            <input class="form-control" id="codigo_solucionario" placeholder="Cantidad de texto codigo"></input>
+                        </div>                                                        
+                    </form>
+                    <button id="submitSolucionario" style="display:none" type="submit" class="btn btn-default">Insertar etiqueta</button>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-success" type="button">Insertar</button>
+
+                    <button type="button" class="btn btn-success dropdown-toggle"
+                            data-toggle="dropdown">
+                      <span class="caret"></span>
+                      <span class="sr-only">Desplegar menú</span>
+                    </button>                        
+                    <ul class="dropdown-menu" role="menu">                            
+                        <li><a id="insertObjeto" class="btn btn-success" type="button" > Objeto </a></li>
+                        <li><a id="insertEscena" class="btn btn-success" type="button" > Escena </a></li>
+                        <li><a id="insertBloque" class="btn btn-success" type="button" > Bloque </a></li>
+                        <li><a id="insertIdea" class="btn btn-success" type="button" > Idea </a></li>
+                        <li><a id="insertTexto" class="btn btn-success" type="button" > Texto </a></li>
+                        <!--<li><a id="insertCodigo" class="btn btn-success" type="button" > Codigo </a></li>
+                        <li><a id="insertManuscrito" class="btn btn-success" type="button" > Manuscrito </a></li>-->
+                        <li><a id="insertEjemplos" class="btn btn-success" type="button" > Ejemplos </a></li>
+                        <li><a id="insertEjemplo" class="btn btn-success" type="button" > Ejemplo </a></li>
+                        <li><a id="insertEjemploTexto" class="btn btn-success" type="button" > Ejemplo texto </a></li>
+                        <!--<li><a id="insertEjemploCodigo" class="btn btn-success" type="button" > Ejemplo codigo </a></li>
+                        <li><a id="insertEjemploManus" class="btn btn-success" type="button" > Ejemplo manuscrito </a></li>-->
+                        <li><a id="insertImagen" class="btn btn-success" type="button" > Imagen</a></li>
+                        <li><a id="insertVoz" class="btn btn-success" type="button" > Voz </a></li>
+                        <li><a id="insertEvaluacion" class="btn btn-success" type="button" > Evaluación </a></li>
+                        <li><a id="insertPregunta" class="btn btn-success" type="button" > Pregunta </a></li>
+                        <li><a id="insertForma" class="btn btn-success" type="button" > Forma </a></li>
+                        <!--<li><a id="insertEnunciado" class="btn btn-success" type="button" > Enunciado </a></li>-->
+                        <!--<li><a id="insertOpciones" class="btn btn-success" type="button" > Opciones </a></li>-->
+                        <li><a id="insertAlternativa" class="btn btn-success" type="button" > Alternativa </a></li>
+                        <li><a id="insertSolucion" class="btn btn-success" type="button" > Solución </a></li>
+                        <li><a id="insertFeedback" class="btn btn-success" type="button" > Feedback </a></li>
+                    </ul>
+                </div>                                        
+                <br></br><br></br>
+                <div>
+                    <h:form id="myForm">
+                        <h:commandButton value="Ver Objeto" actionListener="#{ObjectManaged.load_file()}" onclick="saveContent()" class="btn btn-sm btn-default">
+                        </h:commandButton>
+
+                        <h:commandButton value="Descargar" styleClass="btn btn-sm btn-default">
+                            <p:fileDownload value="#{ObjectManaged.xml}" />
+                        </h:commandButton>
+
+                        <h:inputTextarea id="comments" binding="#{ObjectManaged.text_area}" value="#{ObjectManaged.content_textArea}"/>
+
+                    </h:form>                    
                 </div>
             </div>
-        </h:column>        
+        </div>              
         <footer id="footer" style="display: block">
 
             <div class="text-center" style="color: whitesmoke">
