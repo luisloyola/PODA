@@ -89,63 +89,77 @@ public class TranslateHtml {
         
         String htmlHeader = "  <meta charset=\"utf-8\">\n" +
                             "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n" +
-                            "  <meta name=\"viewport\" content=\"width=1024, user-scalable=no\">\n" +
-                            "  <title>" + object.getTitle() + "</title>"+ 
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/botones.css\">"+
+                            "  <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0\"> " +
+                            "  <title>" + object.getTitle() + "</title>"+
+                            " <link rel=\"stylesheet\" href=\"resources/extensions/style-chunks/core.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/core/deck.core.css\">\n" +
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/goto/deck.goto.css\">\n" +
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/menu/deck.menu.css\">\n" +
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/navigation/deck.navigation.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/usach-colores.css\">\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/botones.css\"> \n" +
+                            "  \n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/status/deck.status.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/scale/deck.scale.css\">\n" +
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/botones.css\">\n" + 
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/botones.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1up.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1down.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/2columnas-1up-1down.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/3columnas-1up.css\">\n" +
-                            "  <link href=\"resources/extensions/syntaxhighlighter/shCore.css\" rel=\"stylesheet\" type=\"text/css\" />\n" +
-                            "  <link href=\"resources/extensions/syntaxhighlighter/shThemeDefault.css\" rel=\"stylesheet\" type=\"text/css\" />" +
-                            " <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/swiss.css\">"+
-                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/style/" + templateHtml +"\">\n" +
+                            "    \n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/themes/transition/horizontal-slide.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"print\" href=\"resources/core/print.css\">\n" +
                             "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/css/font-manuscrita.css\">\n" +
-                            "<script src=\"resources/modernizr.custom.js\"></script>"+
                             "  \n" +
-                            "<script src=\"resources/extensions/deck.syntaxhighlighter.js\"></script>\n"+
-                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shCore.js\"></script>\n" +
-                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushPython.js\"></script>\n" +
-                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushJScript.js\"></script>\n" +
                             "  <script src=\"resources/modernizr.custom.js\"></script>\n" +
                             "  <script src=\"resources/jquery.min.js\"></script>\n" +
                             "  <script src=\"resources/core/deck.core.js\"></script>\n" +
-                            "  <script src=\"resources/extensions/menu/deck.menu.js\"></script>\n" +
+                            "\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/fit/deck.fit-fs.css\">\n" +
+                            "  <script src=\"resources/extensions/fit/deck.fit.js\"></script>\n" +
+                            "\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/goto/deck.goto.css\">\n" +
                             "  <script src=\"resources/extensions/goto/deck.goto.js\"></script>\n" +
-                            "  <script src=\"resources/extensions/status/deck.status.js\"></script>\n" +
+                            "\n" +
+                            "\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/navigation/deck.navigation.css\">\n" +
                             "  <script src=\"resources/extensions/navigation/deck.navigation.js\"></script>\n" +
-                            "  <script src=\"resources/extensions/scale/deck.scale.js\"></script>\n" +
+                            "\n" +
+                            "\n" +
+                            "  <script src=\"resources/extensions/menu/deck.menu.js\"></script>\n" +
+                            "  <link rel=\"stylesheet\" media=\"screen\" href=\"resources/extensions/menu/deck.menu.css\">\n" +
+                            "\n" +
+                            "  <script src=\"resources/extensions/status/deck.status.js\"></script>\n" +
+                            "\n" +
+                            "  <script src=\"resources/extensions/step/deck.step.js\"></script>\n" +
                             "  <script src=\"resources/extensions/deck.events/deck.events.js\"></script>\n" +
                             "  <script src=\"resources/extensions/anim/deck.anim.js\"></script>\n" +
-                            "  <script src=\"resources/extensions/step/deck.step.js\"></script> \n" +
+                            "  \n" +
+                            "  <link href=\"resources/extensions/syntaxhighlighter/shCore.css\" rel=\"stylesheet\" type=\"text/css\" />\n" +
+                            "  <link href=\"resources/extensions/syntaxhighlighter/shThemeDefault.css\" rel=\"stylesheet\" type=\"text/css\" /> \n" +
+                            "  <script src=\"resources/extensions/deck.syntaxhighlighter.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shCore.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushPython.js\"></script>\n" +
+                            "  <script type=\"text/javascript\" src=\"resources/extensions/syntaxhighlighter/shBrushJScript.js\"></script>\n" +
+                            "  \n" +
                             "  <script src=\"resources/audioController.js\"></script>\n" +
                             "  <script src=\"resources/visibilityController.js\"></script>\n" +
                             "  <script src=\"resources/textController.js\"></script>\n" +
+                            "  <script src=\"resources/jqBarGraph.1.1.js\"></script>\n" +
+                            "  <script src=\"resources/GoogleFormValidator.js\"></script>\n" +
+                            "  <script src=\"resources/mano.js\"></script> \n" +
                             "  <script type=\"text/javascript\" src=\"SCORM_API_wrapper.js\"></script>\n" +
                             "  <script type=\"text/javascript\" src=\"SCOFunctions.js\"></script>\n"+
                             "  <script type=\"text/javascript\" src=\"resources/SCORM_API_wrapper.js\"></script>\n" +
                             "  <script type=\"text/javascript\" src=\"resources/SCOFunctions.js\"></script>\n"+
-                            "<script src=\"resources/jqBarGraph.1.1.js\"></script>\n" + 
-                            "  <script src=\"resources/GoogleFormValidator.js\"></script>\n"+
-                            "  <script src=\"resources/mano.js\"></script>\n"+
                             "\n" +
                             "\n" +
                             "  <script>\n" +
-                            "    $(function() {\n" +
-                            "      $.deck('.slide');\n" +
-                            "    });\n" +
-                            "  </script>\n" +
+                            "    $(function() {$.deck({\n" +
+                            "      // fitMarginX:100, fitMarginY:100, // uncomment to tune margin\n" +
+                            "      // fitMode: \"stretched\", // uncomment to strech\n" +
+                            "      dummy:\"\"\n" +
+                            "    });});\n" +
+                            "  </script>" +
                             "\n" +
                             "  <script type=\"text/javascript\">\n" +
                             "    SyntaxHighlighter.all()\n" +
@@ -738,46 +752,46 @@ public class TranslateHtml {
                                "}";
 
 	templateFuncionesFijas = "function _(x){\n" +
-"					return document.getElementById(x);\n" +
-"				}\n" +
-"\n" +
-"        function cleanup(arr, prop) {\n" +
-"          var new_arr = [];\n" +
-"          var lookup  = {};\n" +
-" \n" +
-"          for (var i in arr) {\n" +
-"            lookup[arr[i][prop]] = arr[i];\n" +
-"          }\n" +
-" \n" +
-"          for (i in lookup) {\n" +
-"            new_arr.push(lookup[i]);\n" +
-"          }\n" +
-" \n" +
-"          return new_arr;\n" +
-"        }\n" +
-"\n" +
-"        function porcentaje(puntajeTotal, puntajeObtenido){\n" +
-"          var porcentajeObtenido = (puntajeTotal/puntajeObtenido) * 100;\n" +
-"          return Math.floor(porcentajeObtenido);\n" +
-"        }\n" +
-"\n" +
-"        function porcentajeNivelExigencia(porcentajeLogrado, porcentajeExigenciaMin, porcentajeExigenciaMax) {\n" +
-"          if (porcentajeLogrado >= porcentajeExigenciaMax) { // Aprobado verde\n" +
-"            return \"green\"\n" +
-"          } else if (porcentajeLogrado >= porcentajeExigenciaMin && porcentajeLogrado <porcentajeExigenciaMax) {\n" +
-"            return \"yellow\"\n" +
-"          } else if (porcentajeLogrado < porcentajeExigenciaMin) {\n" +
-"            return \"red\"\n" +
-"          }\n" +
-"        }\n" +
-"\n" +
- "function porcentajeMinimo(temas) {\n" +
-" var minimo = Number.POSITIVE_INFINITY; \n"+
-" var maximo = Number.NEGATIVE_INFINITY; \n " +
-" var tmp; \n" +
-" for (var i=temas.length-1; i>=0; i--) { " +
-" tmp = temas[i].porcentajeLogrado; if (tmp < minimo) minimo =tmp; if(tmp>maximo) maximo = tmp;} return minimo;}" +                
-"				function mostrarPregunta() {\n" +
+                                 "return document.getElementById(x);\n" +
+                                 "}\n" +
+                    "\n" +
+                    "        function cleanup(arr, prop) {\n" +
+                    "          var new_arr = [];\n" +
+                    "          var lookup  = {};\n" +
+                    " \n" +
+                    "          for (var i in arr) {\n" +
+                    "            lookup[arr[i][prop]] = arr[i];\n" +
+                    "          }\n" +
+                    " \n" +
+                    "          for (i in lookup) {\n" +
+                    "            new_arr.push(lookup[i]);\n" +
+                    "          }\n" +
+                    " \n" +
+                    "          return new_arr;\n" +
+                    "        }\n" +
+                    "\n" +
+                    "        function porcentaje(puntajeTotal, puntajeObtenido){\n" +
+                    "          var porcentajeObtenido = (puntajeTotal/puntajeObtenido) * 100;\n" +
+                    "          return Math.floor(porcentajeObtenido);\n" +
+                    "        }\n" +
+                    "\n" +
+                    "        function porcentajeNivelExigencia(porcentajeLogrado, porcentajeExigenciaMin, porcentajeExigenciaMax) {\n" +
+                    "          if (porcentajeLogrado >= porcentajeExigenciaMax) { // Aprobado verde\n" +
+                    "            return \"green\"\n" +
+                    "          } else if (porcentajeLogrado >= porcentajeExigenciaMin && porcentajeLogrado <porcentajeExigenciaMax) {\n" +
+                    "            return \"yellow\"\n" +
+                    "          } else if (porcentajeLogrado < porcentajeExigenciaMin) {\n" +
+                    "            return \"red\"\n" +
+                    "          }\n" +
+                    "        }\n" +
+                    "\n" +
+                     "function porcentajeMinimo(temas) {\n" +
+                    " var minimo = Number.POSITIVE_INFINITY; \n"+
+                    " var maximo = Number.NEGATIVE_INFINITY; \n " +
+                    " var tmp; \n" +
+                    " for (var i=temas.length-1; i>=0; i--) { " +
+                    " tmp = temas[i].porcentajeLogrado; if (tmp < minimo) minimo =tmp; if(tmp>maximo) maximo = tmp;} return minimo;}" +                
+                    "				function mostrarPregunta() {\n" +
                     "         evaluacion        = _(\"evaluacion\");\n" +
                     "         var str           = '';\n" +
                     "         var strTemas      = '';\n" +
@@ -825,26 +839,24 @@ public class TranslateHtml {
                     "                str = str + \"<tr><td> T\"+(i+1)+\": \"+temas[i].tema +\"</td></tr>\";\n" +
                     "              }\n" +
                     "            }\n" +
-                    "\n" +
-                
-                
+                    "\n" +                
                     "             for (var k1=0; k1< temas.length; k1++) {\n" +
-"              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigenciaMin, porcentajeExigenciaMax);\n" +
-"              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
-"                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
-"              }\n" +
-"              if(temas[k1].puntajeObtenido == 0) {\n" +
-"                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
-"              }\n" +
-"            }" + 
-                "minimo=porcentajeMinimo(temas);\n " +
-                "var evalSuccess1 = pipwerks.SCORM.init();"+
-                "var evalSuccess2 = pipwerks.SCORM.set(\"cmi.score.min\",1);\n" +
-"		 var evalSuccess3 = pipwerks.SCORM.set(\"cmi.score.max\",100);\n" +
-"		 var evalSuccess4 = pipwerks.SCORM.set(\"cmi.score.raw\", minimo);\n"+
-                "var evalSuccess7 = pipwerks.SCORM.SetCompletionStatus(\"completed\"); "+
-                "var evalSuccess5 = pipwerks.SCORM.save(); \n" +
-"		 var evalSuccess6 = pipwerks.SCORM.quit();"+
+                    "              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigenciaMin, porcentajeExigenciaMax);\n" +
+                    "              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
+                    "                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
+                    "              }\n" +
+                    "              if(temas[k1].puntajeObtenido == 0) {\n" +
+                    "                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
+                    "              }\n" +
+                    "            }" + 
+                    "minimo=porcentajeMinimo(temas);\n " +
+                    "var evalSuccess1 = pipwerks.SCORM.init();"+
+                    "var evalSuccess2 = pipwerks.SCORM.set(\"cmi.score.min\",1);\n" +
+                    "var evalSuccess3 = pipwerks.SCORM.set(\"cmi.score.max\",100);\n" +
+                    "var evalSuccess4 = pipwerks.SCORM.set(\"cmi.score.raw\", minimo);\n"+
+                    "var evalSuccess7 = pipwerks.SCORM.SetCompletionStatus(\"completed\"); "+
+                    "var evalSuccess5 = pipwerks.SCORM.save(); \n" +
+                    "var evalSuccess6 = pipwerks.SCORM.quit();"+
                     "            _(\"evaluacion_status\").innerHTML = \"Evaluación completa\";\n" +
                     "\n" +
                     "            \n" +
@@ -852,96 +864,96 @@ public class TranslateHtml {
                     "              \n" +
                     "              evaluacion.innerHTML = \"<div class=\\\"left-2columnas\\\"><p style=\\\"color: #444; text-align: center\\\"><strong>Nombre del tema</strong></p><div style=\\\"width:530px; height:280px; overflow:auto;\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\">\"+str+\"</table></div><p></p><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";" +
                     "\n" +
-                "              mensaje=\"<p style=\\\"text-align: center\\\"><strong>Te recomendamos ver el objeto de aprendizaje de nuevo</strong></p>\";"+
+                    "mensaje=\"<p style=\\\"text-align: center\\\"><strong>Te recomendamos ver el objeto de aprendizaje de nuevo</strong></p>\";"+
                     "            } else if (puntajeTotalOAObtenido == puntajeTotalOA) {\n" +
                     "              \n" +
                     "              evaluacion.innerHTML = \"<div class=\\\"left-2columnas\\\"><p style=\\\"color: #444; text-align: center\\\"><strong>Nombre del tema</strong></p><div style=\\\"width:530px; height:280px; overflow:auto;\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\">\"+str+\"</table></div><p></p><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";" +
                     "\n" +
-                "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>¡Felicidades, has aprobado este objeto de aprendizaje!</strong></p>\";"+
+                    "mensaje=\"<p style=\\\"text-align: center\\\"><strong>¡Felicidades, has aprobado este objeto de aprendizaje!</strong></p>\";"+
                     "            } else {\n" +
                     "              \n" +
                     "              evaluacion.innerHTML =\"<div class=\\\"left-2columnas\\\"><p style=\\\"color: #444; text-align: center\\\"><strong>Nombre del tema</strong></p><div style=\\\"width:530px; height:280px; overflow:auto;\\\"><table class=\\\"table table-striped table-bordered table-condensed\\\">\"+str+\"</table></div><p></p><p>Puntaje total obtenido de este objeto de aprendizaje: \"+ puntajeTotalOAObtenido + \" de \" + puntajeTotalOA+ \"&nbsp;&nbsp;&nbsp;<button class=\\\"btn btn-primary\\\"  onclick='mostrarSolucion(0)'>Ver soluciones</button></p>\";" +
                     "\n" +
-                "                mensaje=\"<p style=\\\"text-align: center\\\"><strong>Deberias repasar estos temas: \"+strTemasFallados+\"</strong></p>\";"+
+                    "mensaje=\"<p style=\\\"text-align: center\\\"><strong>Deberias repasar estos temas: \"+strTemasFallados+\"</strong></p>\";"+
                     "            }\n" +
                     "\n" +
-"\n" +
-                "            evaluacion.innerHTML+=\"<div class=\\\"right-2columnas\\\" ><div id=\\\"divForGraph\\\" style=\\\"width:100%; height:100%;\\\"></div>\"+mensaje+\"</div>\";"+
-"            grafico();\n" +
-"						posicion = 0;\n" +
-"						correcta = 0;\n" +
-"						return false;\n" +
-"					}\n" +
-"					pregunta = preguntas[posicion].enunciado;\n" +
-"\n" +
-"					_(\"evaluacion_status\").innerHTML = \"Preguntas \"+(posicion+1)+\" de \"+preguntas.length;\n" +
-"					evaluacion.innerHTML = \"<h3>\"+pregunta+\"</h3>\";\n" +
-"\n" +
-"          var rangoOpciones =\"ABCDEFG\";\n" +
-"          var rangoArray    = rangoOpciones.split('');\n" +
-"\n" +
-"          for (var c1=0; c1<preguntas[posicion].alternativas.length; c1++) {\n" +
-"            var alternativa = preguntas[posicion].alternativas[c1].pregunta;\n" +
-"            evaluacion.innerHTML += \"<input type='radio' name='opciones' value=\"+rangoArray[c1]+ \" onclick='mostrar()'> \"+alternativa+\"<br>\";\n" +
-"          }\n" +
-"					evaluacion.innerHTML += \"<br><button class=\\\"btn btn-default btnEnviar\\\" disabled onclick='evaluar()'>Enviar respuesta</button>\";\n" +
-"			}";
+                    "\n" +
+                    "evaluacion.innerHTML+=\"<div class=\\\"right-2columnas\\\" ><div id=\\\"divForGraph\\\" style=\\\"width:100%; height:100%;\\\"></div>\"+mensaje+\"</div>\";"+
+                    "grafico();\n" +
+                    "posicion = 0;\n" +
+                    "correcta = 0;\n" +
+                    "return false;\n" +
+                    "}\n" +
+                    "pregunta = preguntas[posicion].enunciado;\n" +
+                    "\n" +
+                    "_(\"evaluacion_status\").innerHTML = \"Preguntas \"+(posicion+1)+\" de \"+preguntas.length;\n" +
+                    "evaluacion.innerHTML = \"<h3>\"+pregunta+\"</h3>\";\n" +
+                    "\n" +
+                    "var rangoOpciones =\"ABCDEFG\";\n" +
+                    "var rangoArray    = rangoOpciones.split('');\n" +
+                    "\n" +
+                    "for (var c1=0; c1<preguntas[posicion].alternativas.length; c1++) {\n" +
+                    "var alternativa = preguntas[posicion].alternativas[c1].pregunta;\n" +
+                    "evaluacion.innerHTML += \"<input type='radio' name='opciones' value=\"+rangoArray[c1]+ \" onclick='mostrar()'> \"+alternativa+\"<br>\";\n" +
+                    "}\n" +
+                    "evaluacion.innerHTML += \"<br><button class=\\\"btn btn-default btnEnviar\\\" disabled onclick='evaluar()'>Enviar respuesta</button>\";\n" +
+                    "}";
         
         templateFuncionesFijas2 = "function evaluar() {\n" +
-"				opciones = document.getElementsByName(\"opciones\");\n" +
-"				for(var i=0; i<opciones.length; i++){\n" +
-"					if(opciones[i].checked){\n" +
-"						seleccion = opciones[i].value;\n" +
-"					}\n" +
-"				}\n" +
-"\n" +
-"        // Algoritmo de evaluacion\n" +
-"        // Pregunta respondida de forma correcta\n" +
-"				if(seleccion == preguntas[posicion].solucion) {\n" +
-"					correcta++;\n" +
-"					// Si esta buena, le sumo +1 al puntaje total de cada tema y al puntaje obtenido por cada tema\n" +
-"					for (var i = 0; i<temas.length; i++) {\n" +
-"						for(var j=0; j<preguntas[posicion].alternativas.length; j++){\n" +
-"							if (temas[i].tema == preguntas[posicion].alternativas[j].tema) {\n" +
-"                temas[i].puntaje      = temas[i].puntaje + 1;\n" +
-"                temas[i].puntajeTotal = temas[i].puntajeTotal + 1;\n" +
-"							}\n" +
-"						}\n" +
-"					}\n" +
-"				} // fin if\n" +
-"\n" +
-"        // Pregunta respondida de forma incorrecta\n" +
-"				else {\n" +
-"					// Si esta mala, le sumo +1 al puntaje total de la que selecciono\n" +
-"          // Busco los temas\n" +
-"					for (var i = 0; i<temas.length; i++) { \n" +
-"            for (var j=0; j<preguntas[posicion].alternativas.length; j++){\n" +
-"							if (seleccion == preguntas[posicion].alternativas[j].alternativa) {\n" +
-"								if (temas[i].tema == preguntas[posicion].alternativas[j].tema) {\n" +
-"                   temas[i].puntajeTotal = temas[i].puntajeTotal + 1;\n" +
-"                } \n" +
-"							}\n" +
-"						}\n" +
-"					} // fin for\n" +
-"\n" +
-"            //Si esta mala, le sumo +1 al puntaje total de la alternativa correcta\n" +
-"            for (var i=0; i<preguntas[posicion].alternativas.length; i++){\n" +
-"              if (preguntas[posicion].solucion == preguntas[posicion].alternativas[i].alternativa){\n" +
-"                //recorro lista de temas para restar al tema correspondiente\n" +
-"                for(var j=0; j<temas.length; j++){\n" +
-"                  if (preguntas[posicion].alternativas[i].tema == temas[j].tema){\n" +
-"                    temas[j].puntajeTotal = temas[j].puntajeTotal + 1;                  \n" +
-"                  }\n" +
-"                }\n" +
-"              }//fin if\n" +
-"            }//fin for\n" +
-"\n" +
-"					} // fin else\n" +
-"					\n" +
-"				posicion++;\n" +
-"				mostrarPregunta();\n" +
-"			} // fin funcion\n" +
-"			\n" ;
+                                "				opciones = document.getElementsByName(\"opciones\");\n" +
+                                "				for(var i=0; i<opciones.length; i++){\n" +
+                                "					if(opciones[i].checked){\n" +
+                                "						seleccion = opciones[i].value;\n" +
+                                "					}\n" +
+                                "				}\n" +
+                                "\n" +
+                                "        // Algoritmo de evaluacion\n" +
+                                "        // Pregunta respondida de forma correcta\n" +
+                                "				if(seleccion == preguntas[posicion].solucion) {\n" +
+                                "					correcta++;\n" +
+                                "					// Si esta buena, le sumo +1 al puntaje total de cada tema y al puntaje obtenido por cada tema\n" +
+                                "					for (var i = 0; i<temas.length; i++) {\n" +
+                                "						for(var j=0; j<preguntas[posicion].alternativas.length; j++){\n" +
+                                "							if (temas[i].tema == preguntas[posicion].alternativas[j].tema) {\n" +
+                                "                temas[i].puntaje      = temas[i].puntaje + 1;\n" +
+                                "                temas[i].puntajeTotal = temas[i].puntajeTotal + 1;\n" +
+                                "							}\n" +
+                                "						}\n" +
+                                "					}\n" +
+                                "				} // fin if\n" +
+                                "\n" +
+                                "        // Pregunta respondida de forma incorrecta\n" +
+                                "				else {\n" +
+                                "					// Si esta mala, le sumo +1 al puntaje total de la que selecciono\n" +
+                                "          // Busco los temas\n" +
+                                "					for (var i = 0; i<temas.length; i++) { \n" +
+                                "            for (var j=0; j<preguntas[posicion].alternativas.length; j++){\n" +
+                                "							if (seleccion == preguntas[posicion].alternativas[j].alternativa) {\n" +
+                                "								if (temas[i].tema == preguntas[posicion].alternativas[j].tema) {\n" +
+                                "                   temas[i].puntajeTotal = temas[i].puntajeTotal + 1;\n" +
+                                "                } \n" +
+                                "							}\n" +
+                                "						}\n" +
+                                "					} // fin for\n" +
+                                "\n" +
+                                "            //Si esta mala, le sumo +1 al puntaje total de la alternativa correcta\n" +
+                                "            for (var i=0; i<preguntas[posicion].alternativas.length; i++){\n" +
+                                "              if (preguntas[posicion].solucion == preguntas[posicion].alternativas[i].alternativa){\n" +
+                                "                //recorro lista de temas para restar al tema correspondiente\n" +
+                                "                for(var j=0; j<temas.length; j++){\n" +
+                                "                  if (preguntas[posicion].alternativas[i].tema == temas[j].tema){\n" +
+                                "                    temas[j].puntajeTotal = temas[j].puntajeTotal + 1;                  \n" +
+                                "                  }\n" +
+                                "                }\n" +
+                                "              }//fin if\n" +
+                                "            }//fin for\n" +
+                                "\n" +
+                                "					} // fin else\n" +
+                                "					\n" +
+                                "				posicion++;\n" +
+                                "				mostrarPregunta();\n" +
+                                "			} // fin funcion\n" +
+                                "			\n" ;
                 
                 
         templateSolucionario = write_solutionHtml();        
@@ -1000,19 +1012,15 @@ public class TranslateHtml {
                     "              }\n" +
                     "            }\n" +
                     "\n" +
-                
-                
                     "             for (var k1=0; k1< temas.length; k1++) {\n" +
-"              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigenciaMin, porcentajeExigenciaMax);\n" +
-"              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
-"                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
-"              }\n" +
-"              if(temas[k1].puntajeObtenido == 0) {\n" +
-"                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
-"              }\n" +
-"            }" + "minimo=porcentajeMinimo(temas); \n" +
-                
-                
+                    "              temas[k1].color = porcentajeNivelExigencia (temas[k1].porcentajeLogrado, porcentajeExigenciaMin, porcentajeExigenciaMax);\n" +
+                    "              if(temas[k1].color == \"yellow\" || temas[k1].color == \"red\" ) {\n" +
+                    "                strTemasFallados = strTemasFallados + temas[k1].tema + \" \";\n" +
+                    "              }\n" +
+                    "              if(temas[k1].puntajeObtenido == 0) {\n" +
+                    "                strTemasFallados = strTemasFallados + temas[k].tema + \" \";\n" +
+                    "              }\n" +
+                    "            }" + "minimo=porcentajeMinimo(temas); \n" +
                     "\n" +
                     "            _(\"evaluacion_status\").innerHTML = \"Evaluación completa\";\n" +
                     "\n" +
@@ -1080,7 +1088,18 @@ public class TranslateHtml {
                     "        $(\".btnEnviar\").attr(\"disabled\",false);\n" +
                     "      }"+
                     "window.addEventListener(\"load\", mostrarPregunta, false);\n" +
+                    "</script>"+
+                    "<script>\n" +
+                    "$(function(){\n" +
+                    " $(\"#slide-evaluacion\").bind('deck.becameCurrent', function(ev, direction) {\n" +
+                    "  console.log(\"estoy en la slide evaluacion\");  \n" +
+                    "  $( \"#slide-1\" ).remove();\n" +
+                    "\n" +
+                    "  });\n" +
+                    "\n" +
+                    "});\n" +
                     "</script>";
+        
         return mostrarSolucion;
     }
     
@@ -1478,7 +1497,7 @@ public class TranslateHtml {
         
         // Si hay evaluaciones se inserta el codigo html de evaluaciones
         if (!object.getQuizSet().isEmpty()){
-            codeHtml += "<section class=\"slide\">\n" +
+            codeHtml += "<section id=\"slide-evaluacion\" class=\"slide\">\n" +
                 "<h2 id=\"evaluacion_status\"></h2>\n" +
                 "<div id=\"evaluacion\"></div>\n" +
                 "</section>\n";

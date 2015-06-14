@@ -7,7 +7,6 @@ package cl.diinf.util;
 
 import static cl.diinf.util.ResourcesDownloader.generatePathForOA;
 import java.io.File;
-import java.net.MalformedURLException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
