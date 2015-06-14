@@ -620,7 +620,7 @@ public class ReaderXmlTest {
                 + "<!ELEMENT objeto (escena*,evaluacion?,feedback?)>\n"
                 + "<!ELEMENT escena (bloque+)>\n"
                 + "<!ELEMENT bloque (idea+)>\n"
-                + "<!ELEMENT idea (texto*, media*,ejemplos?,voz?)>\n"
+                + "<!ELEMENT idea (texto*, media*,ejemplos?,voz?,subidea*)>\n"
                 + "<!ELEMENT texto (#PCDATA)>\n"
                 + "<!ELEMENT voz (#PCDATA)>\n"
                 + "<!ELEMENT media (#PCDATA)>\n"
@@ -635,7 +635,9 @@ public class ReaderXmlTest {
                 + "<!ELEMENT ejemplos (ejemplo*)>\n"
                 + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo?)>\n"
                 + "<!ELEMENT texto_ejemplo (#PCDATA)>\n"
-                + "<!ELEMENT media_ejemplo (#PCDATA)>\n"             
+                + "<!ELEMENT media_ejemplo (#PCDATA)>\n"     
+                + "<!ELEMENT subidea (subtexto*)>\n"
+                + "<!ELEMENT subtexto (#PCDATA)>\n"   
                 + "\n"
                 + "\n"
                 + "<!ATTLIST objeto titulo CDATA #REQUIRED>\n"
@@ -654,6 +656,8 @@ public class ReaderXmlTest {
                 + "<!ATTLIST evaluacion exigencia_max CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
+                + "<!ATTLIST subidea orden CDATA #REQUIRED>\n"
+                + "<!ATTLIST subtexto voz CDATA #REQUIRED>\n"
                 + "]>";
                 
         instance.setFileContent(content);
