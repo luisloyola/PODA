@@ -32,12 +32,6 @@ public class ObjectManagedTest {
     @After
     public void tearDown() {
     }
-
-    @Ignore
-    @Test
-    public void testCopyDirectory() throws IOException{
-        
-    }
     
     @Test
     public void resetMessageTest(){
