@@ -12,7 +12,7 @@ public class LearningObject {
     private String name_file;
     private Date creationDate;
     private List<Scene> content;
-    private List<Test> quizSet;
+    private List<TestOA> quizSet;
     private FeedBack feedback;
     
     public LearningObject(){
@@ -98,15 +98,15 @@ public class LearningObject {
         this.creationDate = creationDate;
     }
     
-    public List<Test> getQuizSet() {
+    public List<TestOA> getQuizSet() {
         return quizSet;
     }
 
-    public void setQuizSet(List<Test> quizSet) {
+    public void setQuizSet(List<TestOA> quizSet) {
         this.quizSet = quizSet;
     }
 
-    public void addQuiz(Test quizSet){
+    public void addQuiz(TestOA quizSet){
         this.quizSet.add(quizSet);
     }
 

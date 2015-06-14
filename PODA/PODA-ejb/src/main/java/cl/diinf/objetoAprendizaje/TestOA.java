@@ -4,13 +4,13 @@ package cl.diinf.objetoAprendizaje;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Test {
+public class TestOA {
     
     private int exigency;
     private int secondExigency;
     private List<Question> questions;
     
-    public Test(){
+    public TestOA(){
         questions = new ArrayList<>();
     }    
     
