@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <title>Proyecto de Objetos de Aprendizaje</title>
+        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/style.css"/>
+        <h:outputStylesheet name="css/txtarea.css"/>
+        <h:outputStylesheet name="css/alertify.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputScript library="js" name="alertify.min.js"/>    
+        
+        <body onload="#{fileUpload.reset_message()}"></body>        
+        
+        <script src="resources/codemirror/lib/codemirror.js"></script>
+        <link rel="stylesheet" href="resources/codemirror/lib/codemirror.css"></link>
+        <link rel="stylesheet" href="resources/codemirror/theme/monokai.css"></link>
+        <script src="resources/codemirror/mode/javascript/javascript.js"></script>
+        <script src="resources/codemirror/addon/edit/closetag.js"></script>
+        <script src="resources/codemirror/addon/fold/xml-fold.js"></script>
+        <script src="resources/codemirror/mode/xml/xml.js"></script>
+        
+                        
+        <script>
+            window.onload = function() {
+                window.editor = CodeMirror.fromTextArea(document.getElementById('myForm:comments'), {
+                    mode: 'text/xml',
+                    autoCloseTags: true,
+                    lineNumbers: true,
+                    lineWrapping: true,
+                    theme : 'monokai'
+                });                
+            };
+        </script>
+        
+        <script>
+          
+            $(function() {
+
+                $('#insertObjeto').click(function() {
+                    insertTextArea('\t<escena titulo="" tipo="">\n\n\t</escena>');
+                });
+                $('#insertEscena').click(function() {
+                    insertTextArea('\t<escena titulo="" tipo="">\n\n\t</escena>');
+                });
+                $('#insertBloque').click(function() {
+                    insertTextArea('\t\t<bloque>\n\n\t\t</bloque>');
+                });
+                $('#insertIdea').click(function() {
+                    insertTextArea('\t\t\t<idea orden="">\n\n\t\t\t</idea>');
+                });
+                $('#insertTexto').click(function() {
+                    insertTextArea('\t\t\t\t<texto tipo="normal"> </texto>\n');
+                });
+                $('#insertCodigo').click(function() {
+                    insertTextArea('\t\t\t\t<texto tipo="codigo"> </texto>\n');
+                });
+                $('#insertManuscrito').click(function() {
+                    insertTextArea('\t\t\t\t<texto tipo="manuscrito"> </texto>\n');
+                });
+                $('#insertVoz').click(function() {
+                    insertTextArea('\t\t\t\t<voz> </voz>\n');
+                });
+                $('#insertImagen').click(function() {
+                    insertTextArea('\t\t\t\t<media tipo="imagen"> </media>\n');
+                });
+                $('#insertEjemplos').click(function() {
+                    insertTextArea('\t\t\t\t<ejemplos>\n\t\t\t\t\t<ejemplo>\n\n\t\t\t\t\t</ejemplo>\n\t\t\t\t</ejemplos>');
+                });
+                $('#insertEjemplo').click(function() {
+                    insertTextArea('\t\t\t\t\t<ejemplo>\n\n\n\t\t\t\t\t</ejemplo>');
+                });
+                $('#insertEjemploTexto').click(function() {
+                    insertTextArea('\t\t\t\t\t\t<texto_ejemplo tipo="normal"> </texto_ejemplo>\n');
+                });
+                $('#insertEjemploCodigo').click(function() {
+                    insertTextArea('\t\t\t\t\t\t<texto_ejemplo tipo="codigo"> </texto_ejemplo>\n');
+                });
+                $('#insertEjemploManus').click(function() {
+                    insertTextArea('\t\t\t\t\t\t<texto_ejemplo tipo="manuscrito"> </texto_ejemplo>\n');
+                });
+                $('#insertEvaluacion').click(function() {
+                    insertTextArea('\t<evaluacion exigencia_min="" exigencia_max="">\n\n\t</evaluacion>');
+                });
+                $('#insertPregunta').click(function() {
+                    insertTextArea('\t\t<pregunta>\n\n\t\t</pregunta>');
+                });
+                $('#insertForma').click(function() {
+                    insertTextArea('\t\t\t<forma>\n\n\t\t\t</forma>');
+                });
+                $('#insertEnunciado').click(function() {
+                    insertTextArea('\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>');
+                });
+                $('#insertOpciones').click(function() {
+                    insertTextArea('\t\t\t\t\t<opciones>\n\n\t\t\t\t\t</opciones>');
+                });
+                $('#insertAlternativa').click(function() {
+                    insertTextArea('\t\t\t\t\t\t<alternativa tipo="" tema="">\n\n\t\t\t\t\t\t</alternativa>');
+                });
+                $('#insertSolucion').click(function() {
+                    insertTextArea('\t\t\t\t\t<solucion>\n\n\t\t\t\t\t</solucion>');
+                });
+                $('#insertFeedback').click(function() {
+                    insertTextArea('\t<feedback> </feedback>\n');
+                });
+                
+                function insertTextArea(text){
+                                        
+                    var line = window.editor.getCursor().line + 1;
+                    var char = window.editor.getCursor().ch;
+                    window.editor.replaceSelection(text);                                 
+                    window.editor.setCursor({line: line, ch: char});                    
+                }
+            });
+        </script>
+        <script>
+            
+            function saveContent(){
+                var input = document.getElementById('myForm:comments');
+                input.value = window.editor.getValue();
+                alert(input.value);
+            }
+        </script>
+    </h:head>
+                  
+    <h:body>
+        <footer id="header" style="display: block">
+        <div class="navbar navbar-default navbar-fixed-top" >
+            <div class="container-fluid">
+             <div class="navbar-header">
+             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+               <a href="/PODA-web/"><img src="resources/logo.png" WIDTH="150" HEIGHT="45"></img></a>
+             </div>
+             <div class="collapse navbar-collapse" id="navbar-main">
+               <ul class="nav navbar-nav">
+                    <li><a href="/PODA-web/" >Home</a></li>
+                    <li><a href="acerca_poda.xhtml">Acerca</a></li>
+               </ul><br></br>
+                
+                <a href="/PODA-web/" style="position: absolute; left:1200px"><button class="btn btn-sm btn-success">Crear Objeto</button></a>                     
+            </div>
+             </div><!--/.nav-collapse -->
+             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+        </div>
+        </footer>                     
+        
+        <h:column>
+            <div id="home">            
+                <div class="overlay">   
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger">Título del botón</button>
+
+                        <button type="button" class="btn btn-danger dropdown-toggle"
+                                data-toggle="dropdown">
+                          <span class="caret"></span>
+                          <span class="sr-only">Desplegar menú</span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a id="insertObjeto" class="btn btn-success" type="button" > Objeto </a></li>
+                            <li><a id="insertEscena" class="btn btn-success" type="button" > Escena </a></li>
+                            <li><a id="insertBloque" class="btn btn-success" type="button" > Bloque </a></li>
+                            <li><a id="insertIdea" class="btn btn-success" type="button" > Idea </a></li>
+                            <li><a id="insertTexto" class="btn btn-success" type="button" > Texto </a></li>
+                            <li><a id="insertCodigo" class="btn btn-success" type="button" > Codigo </a></li>
+                            <li><a id="insertManuscrito" class="btn btn-success" type="button" > Manuscrito </a></li>
+                            <li><a id="insertEjemplos" class="btn btn-success" type="button" > Pila ejemplos </a></li>
+                            <li><a id="insertEjemplo" class="btn btn-success" type="button" > Ejemplo </a></li>
+                            <li><a id="insertEjemploTexto" class="btn btn-success" type="button" > Ejemplo texto </a></li>
+                            <li><a id="insertEjemploCodigo" class="btn btn-success" type="button" > Ejemplo codigo </a></li>
+                            <li><a id="insertEjemploManus" class="btn btn-success" type="button" > Ejemplo manuscrito </a></li>
+                            <li><a id="insertImagen" class="btn btn-success" type="button" > Imagen" />                  </a></li>
+                            <li><a id="insertVoz" class="btn btn-success" type="button" > Voz </a></li>
+                            <li><a id="insertEvaluacion" class="btn btn-success" type="button" > Evaluacion </a></li>
+                            <li><a id="insertPregunta" class="btn btn-success" type="button" > Pregunta </a></li>
+                            <li><a id="insertForma" class="btn btn-success" type="button" > Forma </a></li>
+                            <li><a id="insertEnunciado" class="btn btn-success" type="button" > Enunciado </a></li>
+                            <li><a id="insertOpciones" class="btn btn-success" type="button" > Opciones </a></li>
+                            <li><a id="insertAlternativa" class="btn btn-success" type="button" > Alternativa </a></li>
+                            <li><a id="insertSolucion" class="btn btn-success" type="button" > Solucion </a></li>
+                            <li><a id="insertFeedback" class="btn btn-success" type="button" > Feedback </a></li>
+                        </ul>
+                    </div>                                        
+                    <br></br><br></br>
+                    <!--<h:inputTextarea id="comments" value="&lt;objeto titulo=&quot;&quot; tema=&quot;&quot; autor=&quot;&quot;&gt;&#xD;&#xD; &lt;/objeto&gt;"/>-->
+                    <!--<textarea id="comments" name="comments" >&lt;objeto titulo="" tema="" autor=""&gt;&#xD;&#xD;&lt;/objeto&gt;</textarea>-->
+                    <div>
+                        <h:form id="myForm">
+                            <h:commandButton value="Ver Objeto" actionListener="#{ObjectManaged.load_file()}" onclick="saveContent()" class="btn btn-sm btn-default">
+                            </h:commandButton>
+
+                            <h:commandButton value="Descargar" styleClass="btn btn-sm btn-default">
+                                <p:fileDownload value="#{ObjectManaged.xml}" />
+                            </h:commandButton>
+
+                            <h:inputTextarea id="comments" binding="#{ObjectManaged.text_area}" value="#{ObjectManaged.content_textArea}"/>
+
+                            <!--<h:commandButton value="Descargar">
+                                <f:ajax execute="comments" />
+                                <p:fileDownload value=""/>
+                            </h:commandButton>                        -->                        
+                        </h:form>                    
+                    </div>
+                </div>
+            </div>
+        </h:column>        
+        <footer id="footer" style="display: block">
+
+            <div class="text-center" style="color: whitesmoke">
+            PODA por PODA TEAM está licenciado bajo la licencia:
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
+            </div>
+            			
+        </footer>
+    </h:body>
+</html>
