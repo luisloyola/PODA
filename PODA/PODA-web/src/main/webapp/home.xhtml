@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head> 
         <title>Proyecto de Objetos de Aprendizaje</title>
-        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/metro-bootstrap.css"/>
         <h:outputStylesheet name="css/style.css"/>
         <h:outputStylesheet name="css/alertify.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -96,7 +96,8 @@
                         </div>  
                         <div class="col-md-4 col-lg-offset-6 " ><br></br>                         
                         
-                            <h:commandButton action="#{ObjectManaged.upload}" value="Generar" styleClass="btn btn-info" onclick=" return ValidateFileFE()"/>&nbsp;
+                            <h:commandButton action="#{ObjectManaged.upload}" value="Generar" styleClass="btn btn-info" style="background-color: #00ABA9" onclick=" return ValidateFileFE()"/>&nbsp;
+                            <a class="btn btn-danger" href="editor.xhtml">Edita tu XML aquí!</a>
                         </div>
                 </h:form>                                                                                    
                 </div>                                   
@@ -130,9 +131,9 @@
                
         </section>    
 
-        <footer>            
+        <footer>
             <br></br>
-            <div class="text-center" style="color: whitesmoke">
+            <div class="text-center" style="color: whitesmoke;">
             PODA por PODA TEAM está licenciado bajo la licencia:
             <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
             </div>
