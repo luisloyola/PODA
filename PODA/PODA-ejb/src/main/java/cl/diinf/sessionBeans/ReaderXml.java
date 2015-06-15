@@ -452,15 +452,7 @@ public class ReaderXml {
                             for(int sI = 0; sI < subIdeas.getLength(); sI++){
                                 Element currentSubIdea = (Element) subIdeas.item(sI);
                                 SubIdea newSubIdea = new SubIdea();
-                                
-                                try{
-                                    newSubIdea.setAparitionOrder(Math.abs(Integer.parseInt(currentSubIdea.getAttribute("orden"))));
-                                }
-                                catch(Exception e){
-                                    this.parsingError = "El orden de una subidea debe ser un número entero positivo.";
-                                    return new ArrayList<>();
-                                }
-                                
+                                                                
                                 NodeList subTexts = currentSubIdea.getElementsByTagName("subtexto");
                                 
                                 for(int sT = 0; sT < subTexts.getLength(); sT++){
@@ -776,7 +768,6 @@ public class ReaderXml {
                 + "<!ATTLIST evaluacion exigencia_max CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
-                + "<!ATTLIST subidea orden CDATA #REQUIRED>\n"
                 + "<!ATTLIST subtexto voz CDATA #REQUIRED>\n"
                 + "]>"
                 + this.fileContent;
@@ -891,6 +882,21 @@ public class ReaderXml {
                         }
                         else if(error.equals("The markup in the document following the root element must be well-formed.")){
                             return "El marcador en el documento siguiente a la raíz debe ser un elemento bien formado.";
+                        }
+                        else if(
+                                err[0].equals("The")
+                             && err[1].equals("entity")
+                             && err[2].equals("name")
+                             && err[3].equals("must")
+                             && err[4].equals("immediately")
+                             && err[5].equals("follow")
+                             && err[6].equals("the")
+                             && err[8].equals("in")
+                             && err[9].equals("the")
+                             && err[10].equals("entity")
+                             && err[11].equals("reference.")
+                                ){
+                            return "El nombre de la entidad debe ir seguido, inmediatamente, por el caracter: "+err[7]+".";
                         }
                         else{
                             return error;

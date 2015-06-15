@@ -49,6 +49,7 @@ public class ObjectManaged implements Serializable{
     private String content_textArea;
 
     public ObjectManaged() {
+        fileContent = "";
         content_textArea = "<objeto titulo=\"\" tema=\"\" autor=\"\">\n\n</objeto>";
     }    
     
@@ -134,7 +135,7 @@ public class ObjectManaged implements Serializable{
     
     public void createObject(String content) throws IOException{
         
-        if (content != null && !content.isEmpty()){
+        if (content != null && !content.isEmpty() && !content.equals("\0")){
            
             ReaderXml nuevoOAR = new ReaderXml();
                                     
@@ -189,6 +190,10 @@ public class ObjectManaged implements Serializable{
                 error_Message = nuevoOAR.getParsingError();
             }     
         }
+        else{
+            code_html = null;
+            error_Message = "Archivo vacío.";
+        }
     }
     
     /**
@@ -197,6 +202,7 @@ public class ObjectManaged implements Serializable{
      * @throws IOException 
      */
     public void upload() throws IOException {
+        fileContent = "";
         try {
             if(!file.equals(null)){            
                 Scanner scan = new Scanner(file.getInputStream());
@@ -216,8 +222,14 @@ public class ObjectManaged implements Serializable{
         } catch (IOException e) {
             error_Message = "Archivo inválido";
         }
-         
-        createObject(fileContent);
+        if(!fileContent.equals("\0") && !fileContent.equals("") && !fileContent.equals(null)){  
+            System.out.println(fileContent);
+            createObject(fileContent);
+        }
+        else{
+            this.error_Message = "Archivo Vacío.";
+            code_html = null;
+        }
     }
     
     public StreamedContent load_file()throws IOException{               

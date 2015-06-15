@@ -7,7 +7,6 @@ import java.util.List;
 
 public class SubIdea {
     private List<SubText> subIdeaContent;
-    private int aparitionOrder;
     
     public SubIdea(){
         subIdeaContent = new ArrayList<>();
@@ -23,14 +22,6 @@ public class SubIdea {
     
     public void addSubIdeaContent(SubText subIdeaContent) {
         this.subIdeaContent.add(subIdeaContent);
-    }
-
-    public int getAparitionOrder() {
-        return aparitionOrder;
-    }
-
-    public void setAparitionOrder(int aparitionOrder) {
-        this.aparitionOrder = aparitionOrder;
     }
     
     

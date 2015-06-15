@@ -656,7 +656,6 @@ public class ReaderXmlTest {
                 + "<!ATTLIST evaluacion exigencia_max CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
-                + "<!ATTLIST subidea orden CDATA #REQUIRED>\n"
                 + "<!ATTLIST subtexto voz CDATA #REQUIRED>\n"
                 + "]>";
                 
@@ -761,11 +760,11 @@ public class ReaderXmlTest {
 "	<escena titulo=\"Titulo de la escena\" tipo=\"1Col\">\n" +
 "		<bloque>\n" +
 "			<idea orden=\"1\">\n" +
-"				<subidea orden=\"1\">\n" +
+"				<subidea>\n" +
 "					<subtexto voz=\"Primero es el if\">If</subtexto>\n" +
 "					<subtexto voz=\"luego la condición\">(var = 1)</subtexto>\n" +
 "				</subidea>\n" +
-"				<subidea orden=\"2\">\n" +
+"				<subidea >\n" +
 "					<subtexto voz=\"luego tenemos la identación\"><tab/></subtexto>\n" +
 "					<subtexto voz=\"y luego continúan las instrucciones\">print(var)</subtexto>\n" +
 "				</subidea>\n" +
@@ -785,11 +784,11 @@ public class ReaderXmlTest {
 "	<escena titulo=\"Titulo de la escena\" tipo=\"1Col\">\n" +
 "		<bloque>\n" +
 "			<idea orden=\"1\">\n" +
-"				<subidea orden=\"1\">\n" +
+"				<subidea>\n" +
 "					<subtexto voz=\"Primero es el if\">If</subtexto>\n" +
 "					<subtexto voz=\"luego la condición\">(var = 1)</subtexto>\n" +
 "				</subidea>\n" +
-"				<subidea orden=\"2\">\n" +
+"				<subidea>\n" +
 "					<subtexto voz=\"luego tenemos la identación\"><tab/></subtexto>\n" +
 "					<subtexto voz=\"y luego continúan las instrucciones\">print(var)</subtexto>\n" +
 "				</subidea>\n" +
