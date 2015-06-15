@@ -474,6 +474,19 @@
                 $('[data-toggle="tooltip"]').tooltip();   
             });
         </script>
+        <script>
+	$(document).ready(function(){
+            $(".botonHome").on({
+                    mouseenter: function(){
+                        $(this).css("background-color", "#E74C3C");
+                    },  
+                    mouseleave: function(){
+                        $(this).css("background-color", "#00ABA9");
+                    }
+                    
+            });
+	});
+        </script>
     </h:head>
                   
     <h:body>
@@ -940,10 +953,10 @@
 
                 <div class="col-md-8">
                     <h:form id="myForm">
-                        <h:commandButton value="Ver Objeto" actionListener="#{ObjectManaged.load_file()}" onclick="saveContent()" class="btn btn-sm btn-default" style="color: #428BCA;">&nbsp;
+                        <h:commandButton value="Ver Objeto" actionListener="#{ObjectManaged.load_file()}" onclick="saveContent()" styleClass="btn btn-sm btn-info botonHome" style="background-color: #00ABA9">&nbsp;
                         </h:commandButton>
 
-                        <h:commandButton value="Descargar XML" styleClass="btn btn-sm btn-default" style="color: #428BCA;">
+                        <h:commandButton value="Descargar XML" styleClass="btn btn-sm btn-info botonHome" style="background-color: #00ABA9">
                             <p:fileDownload value="#{ObjectManaged.xml}" />
                         </h:commandButton>
 
