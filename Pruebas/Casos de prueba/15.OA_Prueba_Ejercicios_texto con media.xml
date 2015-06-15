@@ -1,0 +1,702 @@
+<objeto titulo="Prueba integral" tema="usach" autor="Luis">
+	<escena titulo="Prueba 1: texto ejemplo normal-1Col" tipo="1Col">
+		<bloque>
+			<idea orden="1">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="2">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 2: texto ejemplo normal-2Col" tipo="2Col">
+		<bloque>
+			<idea orden="1">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="2">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="4">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 3: texto ejemplo normal-3Col" tipo="3Col">
+		<bloque>
+			<idea orden="1">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="6">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="2">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="4">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/bWeLwZq.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/DoGlIZN.gif</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/luziJg8.png</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+	</escena>
+
+
+	<escena titulo="Prueba 4: texto ejemplo normal-1Fil2Col" tipo="1Fil2Col">
+		<bloque>
+			<idea orden="1">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="2">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="4">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="6">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+	</escena>
+		<escena titulo="Prueba 5: texto ejemplo normal-1Fil3Col" tipo="1Fil3Col">
+		<bloque>
+			<idea orden="1">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="2">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="4">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="6">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="7">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="8">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 6: texto ejemplo normal-2Fil2Col" tipo="2Fil2Col">
+		<bloque>
+			<idea orden="1">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="2">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="4">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="6">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="7">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="8">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 7: texto ejemplo normal-2Col1Fil" tipo="2Col1Fil">
+		<bloque>
+			<idea orden="1">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="2">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="4">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+			<idea orden="6">
+				<ejemplos>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">1.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/eYoczuZ.png</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">2.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/ojpWCTM.jpg</media_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="normal">3.Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto_ejemplo>
+						<media_ejemplo tipo="imagen">http://i.imgur.com/CaRmIeX.gif</media_ejemplo>
+					</ejemplo>
+				</ejemplos>
+			</idea>
+		</bloque>
+	</escena>
+</objeto>

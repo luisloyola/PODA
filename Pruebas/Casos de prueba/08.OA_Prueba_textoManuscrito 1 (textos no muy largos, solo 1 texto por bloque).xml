@@ -1,0 +1,121 @@
+<objeto titulo="Prueba integral" tema="usach" autor="Luis">
+	<escena titulo="Prueba 1: Texto manuscrito-1Col" tipo="1Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 2: Texto manuscrito-2Col" tipo="2Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="2">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 3: Texto manuscrito-3Col" tipo="3Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="2">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 4: Texto manuscrito-1Fil2Col" tipo="1Fil2Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="2">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+	</escena>
+		<escena titulo="Prueba 5: Texto manuscrito-1Fil3Col" tipo="1Fil3Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="7">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 6: Texto manuscrito-2Fil2Col" tipo="2Fil2Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="7">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 7: Texto manuscrito-2Col1Fil" tipo="2Col1Fil">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<texto tipo="manuscrito">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+	</escena>
+</objeto>

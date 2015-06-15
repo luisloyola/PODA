@@ -1,0 +1,501 @@
+<objeto titulo="Prueba integral" tema="usach" autor="Luis">
+	<escena titulo="Prueba 1: Texto normal-1Col" tipo="1Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="2">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 2: Texto normal-2Col" tipo="2Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="2">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="4">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 3: Texto normal-3Col" tipo="3Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="6">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="2">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="4">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 4: Texto normal-1Fil2Col" tipo="1Fil2Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="2">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="4">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="6">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+	</escena>
+		<escena titulo="Prueba 5: Texto normal-1Fil3Col" tipo="1Fil3Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="2">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="4">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="6">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="7">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="8">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 6: Texto normal-2Fil2Col" tipo="2Fil2Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="2">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="4">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="6">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="7">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="8">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+	</escena>
+
+	<escena titulo="Prueba 7: Texto normal-2Col1Fil" tipo="2Col1Fil">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="2">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="3">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="4">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+		<bloque>
+			<idea orden="5">
+				<texto tipo="codigo">
+					#include things
+
+					def function mifuncion(arg1, arg2):
+					    print "Hola mundo"
+					if a > 3:
+					   print a
+					else:
+					   print 0
+				</texto>
+			</idea>
+			<idea orden="6">
+				<texto tipo="codigo">
+					#include things
+
+					for item in list:
+					    print item
+						#comentario
+					print "Chao Mundo"
+				</texto>
+			</idea>
+		</bloque>
+	</escena>
+</objeto>
