@@ -159,9 +159,6 @@ public class TranslateHtml {
                             "  <script type=\"text/javascript\" src=\"SCOFunctions.js\"></script>\n"+
                             "  <script type=\"text/javascript\" src=\"resources/SCORM_API_wrapper.js\"></script>\n" +
                             "  <script type=\"text/javascript\" src=\"resources/SCOFunctions.js\"></script>\n"+
-                            "  <script src=\"resources/jqBarGraph.1.1.js\"></script>\n" + 
-                            "  <script src=\"resources/GoogleFormValidator.js\"></script>\n"+
-                            "  <script src=\"resources/mano.js\"></script>\n"+
                             "\n" +
                             "\n" +
                             "  <script>\n" +
@@ -1227,14 +1224,17 @@ public class TranslateHtml {
 
                     case "normal":
                         content = content.replaceAll("\n","\\\\n");
+                        content = content.replaceAll("\"","\\\\\"");
                         examples += "<p>"+ write_text(content, design) +"</p>";
                         break;
                     case "codigo":
                         content = content.replaceAll("\n","\\\\n");
+                        content = content.replaceAll("\"","\\\\\"");
                         examples += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
                         break;
                     case "manuscrito":
                         content = content.replaceAll("\n","\\\\n");
+                        content = content.replaceAll("\"","\\\\\"");
                         trozos=trozarCadena(content, lim_line);
                         examples += write_hand(trozos, numberSlide, numberBlock, numberIdea, i);
                         break;

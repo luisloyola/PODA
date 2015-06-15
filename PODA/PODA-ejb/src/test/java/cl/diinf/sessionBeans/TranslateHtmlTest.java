@@ -207,7 +207,7 @@ public class TranslateHtmlTest {
     @After
     public void tearDown() {
     }  
-        
+    @Ignore    
     @Test
     public void testWrite_headerHtml() throws IOException{
         
