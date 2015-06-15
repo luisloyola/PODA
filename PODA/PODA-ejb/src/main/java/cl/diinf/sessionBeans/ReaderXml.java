@@ -716,7 +716,12 @@ public class ReaderXml {
         }
         return newFile;
     }
-
+    
+    /**
+     * Reemplaza etiquetas xml que son usadas luego en la traducción
+     * @param xml  String contenedor del archivo.
+     * @return String listo para ser agregado su DTD.
+     */
     public String preProcessText(String xml) {
         xml = xml.replaceAll("<destacar>","&lt;destacar&gt;");
         xml = xml.replaceAll("</destacar>","&lt;/destacar&gt;");
@@ -726,6 +731,9 @@ public class ReaderXml {
         return xml;
     }
 
+    /**
+     * Agrega el validador dtd al xml.
+     */
     public void AppendDTD() {
         this.fileContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<!DOCTYPE objeto [\n"
@@ -773,6 +781,11 @@ public class ReaderXml {
                 + this.fileContent;
     }
     
+    /**
+     * Devuelve un error traducido al español
+     * @param error error en ingles del parseo del xml.
+     * @return String en español con la traducción.
+     */
     public String errorTranslate(String error){
         if(error.equals("XML document structures must start and end within the same entity.")){
             error = "Los documentos con estructura XML deben comenzar y finalizar con la misma entidad. Verifique su XML.";
