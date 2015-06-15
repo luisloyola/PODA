@@ -338,8 +338,8 @@
                 function insertSubIdea(ideas){                                        
                     var text = '\t\t<subidea>\n';
                     var cont = ideas;
-                    
-                    while(cont !== 0){
+                    cont--;
+                    while(cont !== -1){
                         text += '\t\t\t<subtexto voz="">\n\n\t\t\t</subtexto>\n';
                         cont--;
                     }                    
@@ -920,7 +920,7 @@
                         <div class="form-group">
                             <label class="sr-only" for="subidea">Sub Idea</label>
                                 <select id="subidea" class="selectpicker" name="Cantidad de sub ideas">
-                                    <option value="1">N° Sub ideas a introducir</option>
+                                    <option value="0">N° Sub ideas a introducir</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -950,7 +950,7 @@
                         <h:inputTextarea id="comments" binding="#{ObjectManaged.text_area}" value="#{ObjectManaged.content_textArea}"/>
 
                     </h:form>                    
-                </div>
+                </div>                
                 <div class="col-md-4">
                     <p></p>
                     <ul class="pagination">     
