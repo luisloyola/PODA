@@ -639,6 +639,7 @@ public class TranslateHtml {
         String templateFuncionesFijas2 = "";
         String total = null;
         String templateSolucionario = "";
+        String content = "";
         
         templateCss = "<style>\n" +
                       "div#evaluacion{ padding:10px 40px 40px 40px; }\n" +
@@ -684,11 +685,52 @@ public class TranslateHtml {
                                "enunciado: \"";
                     for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size(); l++){                        
                         if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().size()-1 == l){
-                            tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent()+"\",";
+                            //Obtiene el string enunciado
+                            //tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent()+"\",";
+                            content = object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent();
+                            
+                            switch  ( object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getType() ) {
+
+                                case "normal":
+                                    content = content.replaceAll("\n","\\\\n");
+                                    content = content.replaceAll("\"","\\\\\"");
+                                    tempEval += write_text(content, object.getTemplate());
+                                    break;
+                                case "codigo":
+                                  
+                                    content = content.replaceAll("\n","\\\\n");
+                                    content = content.replaceAll("\"","\\\\\"");
+                                    tempEval += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
+                                    tempEval +="\",";
+                                    break;
+                                                        
+                                default:
+                                    break;
+                                }       
                         }
 
                         else{
-                            tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent(); 
+                            //Obtiene el string enunciado
+                            //tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent(); 
+                            
+                            content = object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getContent(); 
+                            
+                             switch  ( object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getTextContent().get(l).getType() ) {
+
+                                case "normal":
+                                    content = content.replaceAll("\n","\\\\n");
+                                    content = content.replaceAll("\"","\\\\\"");
+                                    tempEval += write_text(content, object.getTemplate());
+                                    break;
+                                case "codigo":
+                                    content = content.replaceAll("\n","\\\\n");
+                                    content = content.replaceAll("\"","\\\\\"");
+                                    tempEval += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
+                                    break;
+                                                        
+                                default:
+                                    break;   
+                            }                                                   
                         }
                     }
                     tempEval+="solucion: '";
@@ -763,28 +805,94 @@ public class TranslateHtml {
                                 break;    
                             default:
                                 break;
-                        } // fin switch
+                        } 
 
                         if(object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().size()-1 == l) {
                             tempEval+="', pregunta:\"";
                             for(int m = 0; m < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size(); m++){
-                                 tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent();
+                                //Obtiene el string de pregunta de la alternativa
+                                 //tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent();
+                              
+                                content = object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent(); 
+                            
+                                switch  ( object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getType() ) {
+
+                                    case "normal":
+                                        content = content.replaceAll("\n","\\\\n");
+                                        content = content.replaceAll("\"","\\\\\"");
+                                        tempEval += write_text(content, object.getTemplate());
+                                        break;
+                                    case "codigo":
+                                        content = content.replaceAll("\n","\\\\n");
+                                        content = content.replaceAll("\"","\\\\\"");
+                                        tempEval += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
+                                        break;                 
+                                    default:
+                                        break;   
+                                }          
+                            
+                            
                             }
+                            
+
+                            //Obtiene el string tema de cada alternativa
                             tempEval+= "\", tema:\""+object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTopic()+"\"}],";
 
                         }
                         else{
                             tempEval+="', pregunta:\"";
+                            //Obtiene el string de pregunta de la alternativa
                             for(int m = 0; m < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().size(); m++){
-                                tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent();
+                                 //tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent();
+                            
+                                
+                                content = object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getContent(); 
+                            
+                                switch  ( object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTextContent().get(m).getType() ) {
+
+                                    case "normal":
+                                        content = content.replaceAll("\n","\\\\n");
+                                        content = content.replaceAll("\"","\\\\\"");
+                                        tempEval += write_text(content, object.getTemplate());
+                                        break;
+                                    case "codigo":
+                                        content = content.replaceAll("\n","\\\\n");
+                                        content = content.replaceAll("\"","\\\\\"");
+                                        tempEval += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
+                                        break;                 
+                                    default:
+                                        break;   
+                                }  
                             }
+                            //Obtiene el string tema de cada alternativa
                             tempEval+= "\", tema:\""+object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTopic()+"\"},";
                         }
-                    }                    
+                    }
+                    
                     tempEval+="solucionario:\"";
                     
                     for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size(); l++){
-                        tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().get(l).getContent();
+                        //Obtiene el string enunciado de cada pregunta
+                        //tempEval+= object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().get(l).getContent();
+                        
+                            content = object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().get(l).getContent();
+                            
+                            switch  ( object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().get(l).getType()) {
+
+                                case "normal":
+                                    content = content.replaceAll("\n","\\\\n");
+                                    content = content.replaceAll("\"","\\\\\"");
+                                    tempEval += write_text(content, object.getTemplate());
+                                    break;
+                                case "codigo":
+                                    content = content.replaceAll("\n","\\\\n");
+                                    content = content.replaceAll("\"","\\\\\"");
+                                    tempEval += "<pre class=\\\"brush: js\\\">"+ content +"</pre>";
+                                    break;
+                                                        
+                                default:
+                                    break; 
+                            }
                     }
                     tempEval+= "\"};\n";
                 } // fin for k    
@@ -1179,7 +1287,6 @@ public class TranslateHtml {
                     "<script>\n" +
                     "$(function(){\n" +
                     " $(\"#slide-evaluacion\").bind('deck.becameCurrent', function(ev, direction) {\n" +
-                    "  console.log(\"estoy en la slide evaluacion\");  \n" +
                     "  $( \"#slide-1\" ).remove();\n" +
                     "\n" +
                     "  });\n" +

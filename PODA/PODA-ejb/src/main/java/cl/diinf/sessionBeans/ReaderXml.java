@@ -452,15 +452,7 @@ public class ReaderXml {
                             for(int sI = 0; sI < subIdeas.getLength(); sI++){
                                 Element currentSubIdea = (Element) subIdeas.item(sI);
                                 SubIdea newSubIdea = new SubIdea();
-                                
-                                try{
-                                    newSubIdea.setAparitionOrder(Math.abs(Integer.parseInt(currentSubIdea.getAttribute("orden"))));
-                                }
-                                catch(Exception e){
-                                    this.parsingError = "El orden de una subidea debe ser un número entero positivo.";
-                                    return new ArrayList<>();
-                                }
-                                
+                                                                
                                 NodeList subTexts = currentSubIdea.getElementsByTagName("subtexto");
                                 
                                 for(int sT = 0; sT < subTexts.getLength(); sT++){
@@ -724,7 +716,12 @@ public class ReaderXml {
         }
         return newFile;
     }
-
+    
+    /**
+     * Reemplaza etiquetas xml que son usadas luego en la traducción
+     * @param xml  String contenedor del archivo.
+     * @return String listo para ser agregado su DTD.
+     */
     public String preProcessText(String xml) {
         xml = xml.replaceAll("<destacar>","&lt;destacar&gt;");
         xml = xml.replaceAll("</destacar>","&lt;/destacar&gt;");
@@ -734,6 +731,9 @@ public class ReaderXml {
         return xml;
     }
 
+    /**
+     * Agrega el validador dtd al xml.
+     */
     public void AppendDTD() {
         this.fileContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<!DOCTYPE objeto [\n"
@@ -776,12 +776,16 @@ public class ReaderXml {
                 + "<!ATTLIST evaluacion exigencia_max CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
-                + "<!ATTLIST subidea orden CDATA #REQUIRED>\n"
                 + "<!ATTLIST subtexto voz CDATA #REQUIRED>\n"
                 + "]>"
                 + this.fileContent;
     }
     
+    /**
+     * Devuelve un error traducido al español
+     * @param error error en ingles del parseo del xml.
+     * @return String en español con la traducción.
+     */
     public String errorTranslate(String error){
         if(error.equals("XML document structures must start and end within the same entity.")){
             error = "Los documentos con estructura XML deben comenzar y finalizar con la misma entidad. Verifique su XML.";
@@ -891,6 +895,21 @@ public class ReaderXml {
                         }
                         else if(error.equals("The markup in the document following the root element must be well-formed.")){
                             return "El marcador en el documento siguiente a la raíz debe ser un elemento bien formado.";
+                        }
+                        else if(
+                                err[0].equals("The")
+                             && err[1].equals("entity")
+                             && err[2].equals("name")
+                             && err[3].equals("must")
+                             && err[4].equals("immediately")
+                             && err[5].equals("follow")
+                             && err[6].equals("the")
+                             && err[8].equals("in")
+                             && err[9].equals("the")
+                             && err[10].equals("entity")
+                             && err[11].equals("reference.")
+                                ){
+                            return "El nombre de la entidad debe ir seguido, inmediatamente, por el caracter: "+err[7]+".";
                         }
                         else{
                             return error;
