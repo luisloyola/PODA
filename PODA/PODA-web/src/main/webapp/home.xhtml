@@ -57,6 +57,28 @@
                 }
             }
         </script>
+        <script>
+	$(document).ready(function(){
+            $(".botonHome").on({
+                    mouseenter: function(){
+                        $(this).css("background-color", "#E74C3C");
+                    },  
+                    mouseleave: function(){
+                        $(this).css("background-color", "#00ABA9");
+                    }
+                    
+            });
+            $("#btnIns").on({
+                    mouseenter: function(){
+                        $(this).css("background-color", "#2ECC71");
+                    },  
+                    mouseleave: function(){
+                        $(this).css("background-color", "#00ABA9");
+                    }
+                    
+            });
+	});
+        </script>
     </h:head>
                   
     <h:body >
@@ -96,8 +118,8 @@
                         </div>  
                         <div class="col-md-4 col-lg-offset-6 " ><br></br>                         
                         
-                            <h:commandButton action="#{ObjectManaged.upload}" value="Generar" styleClass="btn btn-info" style="background-color: #00ABA9" onclick=" return ValidateFileFE()"/>&nbsp;
-                            <a class="btn btn-danger" href="editor.xhtml">Edita tu XML aquí!</a>
+                            <h:commandButton action="#{ObjectManaged.upload}" value="Generar" styleClass="btn btn-info botonHome" style="background-color: #00ABA9" onclick=" return ValidateFileFE()"/>&nbsp;
+                            <a Class="btn btn-info botonHome" style="background-color: #00ABA9" href="editor.xhtml">Edita tu XML aquí!</a>
                         </div>
                 </h:form>                                                                                    
                 </div>                                   
@@ -126,7 +148,7 @@
             </div>
           <br></br>
             <div class="col-md-4 col-md-offset-4">
-                <p><a class="btn btn-lg btn-success btn-block" href="instrucciones.xhtml">Ver Detalles »</a></p>
+                <p><a id="btnIns" class="btn btn-lg btn-success btn-block" style="background-color: #00ABA9" href="instrucciones.xhtml">Ver Detalles »</a></p>
             </div>
                
         </section>    

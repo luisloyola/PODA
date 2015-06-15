@@ -15,7 +15,7 @@
         <h:outputScript library="js" name="alertify.min.js"/>            
         
         <body onload="#{ObjectManaged.show_message()}"></body>
-        <body onload="#{ObjectManaged.reset_message()}"></body>       
+        <body onload="#{ObjectManaged.reset_message()}"></body>
         
         <script src="resources/codemirror/lib/codemirror.js"></script>
         <link rel="stylesheet" href="resources/codemirror/lib/codemirror.css"></link>
@@ -23,8 +23,7 @@
         <script src="resources/codemirror/mode/javascript/javascript.js"></script>
         <script src="resources/codemirror/addon/edit/closetag.js"></script>
         <script src="resources/codemirror/addon/fold/xml-fold.js"></script>
-        <script src="resources/codemirror/mode/xml/xml.js"></script>
-        
+        <script src="resources/codemirror/mode/xml/xml.js"></script>        
                         
         <script>
             window.onload = function() {
@@ -41,7 +40,6 @@
         <script>
           
             $(function() {
-
                 $('#submitObjeto').click(function() {
                     
                     var titulo = document.getElementById('titulo_objeto').value;
@@ -138,14 +136,20 @@
                 $('#insertFeedback').click(function() {
                     insertTextArea('\t<feedback> </feedback>\n');
                 });
-                
+                $('#submitSubIdea').click(function() {
+                    var subideas = document.getElementById('subidea').value;
+                    insertSubIdea(subideas);
+                });
+                $('#insertSubTexto').click(function() {
+                    insertTextArea('\t<subtexto voz=""> </subtexto>\n');
+                });
                 function insertTextArea(text){
                                         
                     var line = window.editor.getCursor().line + 1;
                     var char = window.editor.getCursor().ch;
                     window.editor.replaceSelection(text);                                 
                     window.editor.setCursor({line: line, ch: char});                    
-                }                
+                }
                 function insertObjeto(titulo, tema, autor){
                     var text ='<objeto titulo="'+titulo+'" tema="'+tema+'" autor="'+autor+'">\n\n</objeto>';
                     insertTextArea(text);
@@ -187,41 +191,44 @@
                 }
                 function insertBloque(ideas){
                     var text = '\t\t<bloque>\n';
-                    var cont = ideas;
+                    ideas--;
                     
-                    while(cont !== 0){
+                    while(ideas !== -1){
                         text += '\t\t\t<idea orden="">\n\n\t\t\t</idea>\n';
-                        cont--;
-                    }                    
+                        ideas--;                        
+                    }
                     text += '\t\t</bloque>';
                     insertTextArea(text);
                 }
                 function insertIdea(orden, normal, codigo, manus, media, ejemplos, voz){
                     var text = '\t\t\t<idea orden="'+orden+'">\n';
-                    
-                    while(normal !== 0){
+                    normal--;
+                    while(normal !== -1){
                         text += '\t\t\t\t<texto tipo="normal"> </texto>\n';
                         normal--;
                     }
-                    while(codigo !== 0){
+                    codigo--;
+                    while(codigo !== -1){
                         text += '\t\t\t\t<texto tipo="codigo"> </texto>\n';
                         codigo--;
                     }
-                    if(manus){
+                    if(manus === "s"){
                         text += '\t\t\t\t<texto tipo="manuscrito"> </texto>\n';
                     }
-                    while(media !== 0){
+                    media--;
+                    while(media !== -1){
                         text += '\t\t\t\t<media tipo="imagen"> </media>\n';
                         media--;
                     }   
+                    ejemplos--;
                     text += '\t\t\t\t<ejemplos>\n';
-                    while(ejemplos !== 0){
+                    while(ejemplos !== -1){
                         text += "\t\t\t\t\t<ejemplo>\n\n\t\t\t\t\t</ejemplo>\n";
                         ejemplos--;
                     }        
                     text += "\t\t\t\t</ejemplos>\n";
                     
-                    if(voz){
+                    if(voz === "s"){
                         text += '\t\t\t\t<voz> </voz>\n';
                     }                    
                     text += '\t\t\t</idea>';                    
@@ -234,7 +241,8 @@
                 function insertEjemplos(cant_ejs){
                     var text = '\t\t\t\t<ejemplos>\n';
                     
-                    while(cant_ejs!==0){
+                    cant_ejs--;
+                    while(cant_ejs!==-1){
                         text += '\t\t\t\t\t<ejemplo>\n\n\t\t\t\t\t</ejemplo>\n';
                         cant_ejs--;
                     }
@@ -243,19 +251,21 @@
                 }
                 function insertEjemplo(normal, codigo, manus, media){
                     var text = '\t\t\t\t\t<ejemplo>\n';
-                    
-                    while(normal !== 0){
+                    normal--;
+                    while(normal !== -1){
                         text += '\t\t\t\t\t\t<texto_ejemplo tipo="normal"> </texto_ejemplo>\n';
                         normal--;
                     }
-                    while(codigo !== 0){
+                    codigo--;
+                    while(codigo !== -1){
                         text += '\t\t\t\t\t\t<texto_ejemplo tipo="codigo"> </texto_ejemplo>\n';
                         codigo--;
                     }
-                    if(manus){
+                    if(manus === "s"){
                         text += '\t\t\t\t\t\t<texto_ejemplo tipo="manuscrito"> </texto_ejemplo>\n';
                     }
-                    while(media !== 0){
+                    media--;
+                    while(media !== -1){
                         text += '\t\t\t\t\t\t<media_ejemplo tipo="imagen"> </media_ejemplo>\n';
                         media--;
                     }
@@ -275,9 +285,9 @@
                 }
                 function insertPregunta(cant_forma){
                     var text = "\t\t<pregunta>\n";
-                    
-                    while(cant_forma!==0){
-                        text += '\t\t\t<forma>\n\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>\n\t\t\t\t<opciones>\n\t\t\t\t\t<alternativa tipo="solucion" tema="">\n\n</alternativa>\n\t\t\t\t\t<alternativa tipo="distractor" tema="">\n\n</alternativa>\n\t\t\t\t</opciones>\n\t\t\t\t<solucion>\n\n\t\t\t\t</solucion>\n\t\t\t</forma>\n';
+                    cant_forma--;
+                    while(cant_forma!==-1){
+                        text += '\t\t\t<forma>\n\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>\n\t\t\t\t<opciones>\n\t\t\t\t\t<alternativa tipo="solucion" tema="">\n\n\t\t\t\t\t</alternativa>\n\t\t\t\t\t<alternativa tipo="distractor" tema="">\n\n</alternativa>\n\t\t\t\t</opciones>\n\t\t\t\t<solucion>\n\n\t\t\t\t</solucion>\n\t\t\t</forma>\n';
                         cant_forma--;
                     }
                     text += '\t\t</pregunta>';
@@ -285,8 +295,10 @@
                 }
                 function insertForma(alternativas, solucionario){
                     var text = '\t\t\t<forma>\n\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>\n\t\t\t\t<opciones>\n';
+                    alternativas--;            
                     var aux = alternativas;
-                    while (alternativas !== 0){
+                    
+                    while (alternativas !== -1){
                         if(alternativas === aux){
                             text += '\t\t\t\t\t<alternativa tipo="solucion" tema="">\n\n\t\t\t\t\t</alternativa>\n';
                         }
@@ -297,7 +309,7 @@
                     }
                     text += '\t\t\t\t</opciones>\n';
                     
-                    if(solucionario){
+                    if(solucionario === "s"){
                         text += '\t\t\t\t<solucion>\n\n\t\t\t\t</solucion>\n';
                     }
                     text += '\t\t\t</forma>\n';
@@ -309,12 +321,13 @@
                 }
                 function insertSolucionario(normal, codigo){
                     var text = '\t\t\t\t\t<solucion>\n';
-                    
-                    while(normal !== 0){
+                    normal--;
+                    while(normal !== -1){
                         text += '\t\t\t\t\t\t<texto tipo="normal"> </texto>\n';
                         normal--;
                     }
-                    while(codigo !== 0){
+                    codigo--;
+                    while(codigo !== -1){
                         text += '\t\t\t\t\t\t<texto tipo="codigo"> </texto>\n';
                         codigo--;
                     }
@@ -322,13 +335,24 @@
                     text += '\t\t\t\t\t</solucion>\n';
                     insertTextArea(text);
                 }
+                function insertSubIdea(ideas){                                        
+                    var text = '\t\t<subidea>\n';
+                    var cont = ideas;
+                    cont--;
+                    while(cont !== -1){
+                        text += '\t\t\t<subtexto voz="">\n\n\t\t\t</subtexto>\n';
+                        cont--;
+                    }                    
+                    text += '\t\t</subidea>\n';
+                    insertTextArea(text);
+                } 
             });
         </script>
         <script>
             $(document).ready(function (){
                 $("#insertObjeto, #submitObjeto").click(function(){
                     $("#formularioObjeto, #submitObjeto,#Objeto").show();
-                    $("#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
@@ -344,7 +368,7 @@
                 });
                 $("#insertBloque, #submitBloque").click(function(){
                     $("#formularioBloque, #submitBloque,#Bloque").show();
-                    $("#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioObjeto, #submitObjeto\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioObjeto, #submitObjeto\n\
             ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
@@ -352,7 +376,7 @@
                 });
                 $("#insertIdea, #submitIdea").click(function(){
                     $("#formularioIdea, #submitIdea,#Idea").show();
-                    $("#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioObjeto, #submitObjeto,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
@@ -360,7 +384,7 @@
                 });
                 $("#insertTexto, #submitTexto").click(function(){
                     $("#formularioTexto, #submitTexto,#Texto").show();
-                    $("#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioIdea, #submitIdea,#formularioObjeto, #submitObjeto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
@@ -368,7 +392,7 @@
                 });
                 $("#insertEjemplos, #submitEjemplos").click(function(){
                     $("#formularioEjemplos, #submitEjemplos,#Ejemplos").show();
-                    $("#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Texto,#Idea,#Bloque,#Escena,#Objeto,formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Texto,#Idea,#Bloque,#Escena,#Objeto,formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioObjeto, #submitObjeto\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
@@ -376,7 +400,7 @@
                 });
                 $("#insertEjemplo, #submitEjemplo").click(function(){
                     $("#formularioEjemplo, #submitEjemplo,#Ejemplo").show();
-                    $("#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioObjeto, #submitObjeto,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
@@ -384,7 +408,7 @@
                 });
                 $("#insertEjemploTexto, #submitEjemploTexto").click(function(){
                     $("#formularioEjemploTexto, #submitEjemploTexto,#Ejemplo_texto").show();
-                    $("#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena, #Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena, #Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioObjeto, #submitObjeto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
@@ -400,7 +424,7 @@
                 });
                 $("#insertPregunta, #submitPregunta").click(function(){
                     $("#formularioPregunta, #submitPregunta,#Pregunta").show();
-                    $("#Forma,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioObjeto, #submitObjeto,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
@@ -408,7 +432,7 @@
                 });
                 $("#insertForma, #submitForma").click(function(){
                     $("#formularioForma, #submitForma,#Forma").show();
-                    $("#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioObjeto, #submitObjeto,#formularioAlternativa, #submitAlternativa\n\
@@ -416,7 +440,7 @@
                 });
                 $("#insertAlternativa, #submitAlternativa").click(function(){
                     $("#formularioAlternativa, #submitAlternativa,#Alternativa").show();
-                    $("#Forma,#Pregunta,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioObjeto, #submitObjeto\n\
@@ -424,14 +448,21 @@
                 });
                 $("#insertSolucion, #submitSolucionario").click(function(){
                     $("#formularioSolucionario, #submitSolucionario,#Solucion").show();
-                    $("#Forma,#Pregunta,#Alternativa,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
             ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
 ,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
 ,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
 ,#formularioObjeto, #submitObjeto").hide();
                 });
+            $("#insertSubIdea, #submitSubIdea").click(function(){
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea").show();
+                    $("#formularioObjeto,#submitObjeto,#Objeto,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
             });
-            
             function saveContent(){
                 var input = document.getElementById('myForm:comments');
                 input.value = window.editor.getValue();
@@ -442,6 +473,19 @@
             $(document).ready(function(){
                 $('[data-toggle="tooltip"]').tooltip();   
             });
+        </script>
+        <script>
+	$(document).ready(function(){
+            $(".botonHome").on({
+                    mouseenter: function(){
+                        $(this).css("background-color", "#E74C3C");
+                    },  
+                    mouseleave: function(){
+                        $(this).css("background-color", "#00ABA9");
+                    }
+                    
+            });
+	});
         </script>
     </h:head>
                   
@@ -473,7 +517,7 @@
                     <p class="lead" style="text-align: center;">El editor de XML te ayudará a estructurar de manera inteligente y fácil el archivo que quieres construir para generar tu Objeto de 
                 Aprendizaje, además, puedes visualizarlo y descargarlo al instante.</p>      
         </div>  
-            <div class="overlay">
+            <div class="overlay" style="padding-top: 10px">
                 <h3 id="Objeto" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Objeto</span></h3>
                 <h3 id="Escena" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Escena</span></h3>
                 <h3 id="Bloque" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Bloque</span></h3>
@@ -487,6 +531,7 @@
                 <h3 id="Forma" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Forma</span></h3>
                 <h3 id="Alternativa" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Alternativa</span></h3>
                 <h3 id="Solucion" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Solución</span></h3>
+                <h3 id="SubIdea" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">SubIdea</span></h3>
                 <div class="col-md-12" style="height: 100px;">
                 <div id="formularioObjeto" style="display:none">
                     <form class="form-inline" role="form">
@@ -533,7 +578,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="ideas_bloque">Cantidad Ideas</label>
                             <select id="ideas_bloque" class="selectpicker" name="Cantidad de ideas">
-                                <option value="1">N° etiquetas de idea</option>
+                                <option value="0">Cantidad de ideas</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -554,7 +599,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="orden_idea">Orden</label>
                           <select id="orden_idea" class="selectpicker" name="Orden" >
-                                <option value="1">Orden en que aparecerá</option>
+                                <option value="0">Orden de aparicion</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -571,7 +616,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="normal_idea">Texto normal</label>
                           <select id="normal_idea" class="selectpicker" name="Cantidad texto normal">
-                                <option value="1">N° etiquetas de texto</option>
+                                <option value="0">Cantidad de textos</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -587,7 +632,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="codigo_idea">Texto codigo</label>
                           <select id="codigo_idea" class="selectpicker" name="Cantidad texto codigo">
-                                <option value="1">N° etiquetas de texto código</option>
+                                <option value="0">Cantidad de códigos</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -601,15 +646,18 @@
                             </select>  
                         </div>                                                        
 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="manus_idea"/> Texto manuscrito
-                            </label>
+                        <div class="form-group">
+                        <label class="sr-only" for="manus_idea">Texto manuscrito</label>
+                            <select id="manus_idea" class="selectpicker" name="texto manuscrito">
+                                <option value="n">Hay texto manuscrito</option>
+                                <option value="s">SI</option>
+                                <option value="n">NO</option>                                
+                            </select>  
                         </div>
                         <div class="form-group">
                         <label class="sr-only" for="imagen_idea">Imagen</label>
                           <select id="imagen_idea" class="selectpicker" name="Cantidad imagen">
-                                <option value="1">N° etiquetas de imagen</option>
+                                <option value="0">Cantidad de imágenes</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -625,7 +673,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="ejemplos_idea">Ejemplos</label>
                           <select id="ejemplos_idea" class="selectpicker" name="Cantidad ejemplos">
-                                <option value="1">N° etiquetas de ejemplos</option>
+                                <option value="0">N° de pilas de ejemplos</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -639,11 +687,14 @@
                             </select>  
                         </div>                                                        
 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="voz_idea"/> Voz
-                            </label>
-                        </div>                                                
+                        <div class="form-group">
+                        <label class="sr-only" for="voz_idea">Voz idea</label>
+                            <select id="voz_idea" class="selectpicker" name="texto manuscrito">
+                                <option value="n">Hay voz</option>
+                                <option value="s">SI</option>
+                                <option value="n">NO</option>                                
+                            </select>  
+                        </div>
                     </form>
                     <button id="submitIdea" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
                 </div>
@@ -655,7 +706,7 @@
                             <select id="tipo_texto" class="selectpicker" name="tipo texto">
                                 <option value="normal"> Tipo de texto</option>
                                 <option value="normal">Normal</option>
-                                <option value="codigo">Codigo</option>
+                                <option value="codigo">Código</option>
                                 <option value="manuscrito">Animado</option>
                             </select>                                
                         </div>                                                        
@@ -667,7 +718,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="cant_ejemplos">Cantidad ejemplos</label>
                             <select id="cant_ejemplos" class="selectpicker" name="Cantidad de ejemplos">
-                                <option value="1">N° etiquetas de ejemplo</option>
+                                <option value="0">Cantidad de ejemplos</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -689,7 +740,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="normal_ejemplo">Texto normal</label>
                             <select id="normal_ejemplo" class="selectpicker" name="Cantidad de texto">
-                                <option value="1">N° etiquetas de texto normal</option>
+                                <option value="0">Cantidad de textos</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -705,7 +756,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="codigo_ejemplo">Texto codigo</label>
                             <select id="codigo_ejemplo" class="selectpicker" name="Cantidad texto codigo">
-                                <option value="1">N° etiquetas de texto código</option>
+                                <option value="0">Cantidad de códigos</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -719,15 +770,18 @@
                             </select>  
                         </div>                                                        
 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="manus_ejemplo"/> Texto manuscrito
-                            </label>
+                        <div class="form-group">
+                        <label class="sr-only" for="manus_ejemplo">Texto manuscrito</label>
+                            <select id="manus_ejemplo" class="selectpicker" name="texto ejemplo manuscrito">
+                                <option value="n">Cantidad de manuscrito</option>
+                                <option value="s">SI</option>
+                                <option value="n">NO</option>                                
+                            </select>  
                         </div>
                         <div class="form-group">
                         <label class="sr-only" for="imagen_ejemplo">Imagen</label>
                             <select id="imagen_ejemplo" class="selectpicker" name="Cantidad de imagenes">
-                                <option value="1">N° etiquetas de imágen</option>
+                                <option value="0">Cantidad de imágenes</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -750,7 +804,7 @@
                             <select id="tipo_textoEj" class="selectpicker" name="tipo textoEj">
                                 <option value="normal"> Tipo de texto</option>
                                 <option value="normal">Normal</option>
-                                <option value="codigo">Codigo</option>
+                                <option value="codigo">Código</option>
                                 <option value="manuscrito">Animado</option>
                             </select>                                
                         </div>                                                        
@@ -775,7 +829,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="formas_pregunta">Formas</label>
                             <select id="formas_pregunta" class="selectpicker" name="Cantidad de formas">
-                                <option value="1">N° etiquetas de forma</option>
+                                <option value="0">Cantidad de formas</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -796,7 +850,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="alternativas_forma">Formas</label>
                             <select id="alternativas_forma" class="selectpicker" name="Cantidad de alternativas">
-                                <option value="1">N° de alternativas</option>
+                                <option value="0">N° de alternativas</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -809,10 +863,13 @@
                                 <option value="10">10</option>
                             </select>  
                         </div>                        
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="solucionario_forma"/> Con Solucionario
-                            </label>
+                        <div class="form-group">
+                        <label class="sr-only" for="solucionario_forma">Texto manuscrito</label>
+                            <select id="solucionario_forma" class="selectpicker" name="solucionario">
+                                <option value="n">Tiene solucionario</option>
+                                <option value="s">SI</option>
+                                <option value="n">NO</option>                                
+                            </select>  
                         </div>
                     </form>
                     <button id="submitForma" style="display:none" type="submit" class="btn btn-success">Insertar Etiqueta</button>
@@ -839,7 +896,7 @@
                         <div class="form-group">
                         <label class="sr-only" for="normal_solucionario">Texto normal</label>
                             <select id="normal_solucionario" class="selectpicker" name="Cantidad de texto normal">
-                                <option value="1">N° etiquetas de texto normal</option>
+                                <option value="0">Cantidad de texto</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -854,8 +911,8 @@
                         </div>                                                        
                         <div class="form-group">
                         <label class="sr-only" for="codigo_solucionario">Texto codigo</label>
-                            <select id="ideas_bloque" class="selectpicker" name="Cantidad codigo sol">
-                                <option value="1">N° etiquetas de texto código</option>
+                            <select id="codigo_solucionario" class="selectpicker" name="Cantidad codigo sol">
+                                <option value="0">Cantidad de códigos</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -871,21 +928,42 @@
                     </form>
                     <button id="submitSolucionario" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
                 </div>
+                <div id="formularioSubIdea" style="display:none">
+                <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="sr-only" for="subidea">Sub Idea</label>
+                                <select id="subidea" class="selectpicker" name="Cantidad de sub ideas">
+                                    <option value="0">N° Sub ideas a introducir</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>  
+                        </div>
+                    </form>
+                  <button id="submitSubIdea" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
             </div>
 
                 <div class="col-md-8">
                     <h:form id="myForm">
-                        <h:commandButton value="Ver Objeto" actionListener="#{ObjectManaged.load_file()}" onclick="saveContent()" class="btn btn-sm btn-default" style="color: #428BCA;">&nbsp;
+                        <h:commandButton value="Ver Objeto" actionListener="#{ObjectManaged.load_file()}" onclick="saveContent()" styleClass="btn btn-sm btn-info botonHome" style="background-color: #00ABA9">&nbsp;
                         </h:commandButton>
 
-                        <h:commandButton value="Descargar XML" styleClass="btn btn-sm btn-default" style="color: #428BCA;">
+                        <h:commandButton value="Descargar XML" styleClass="btn btn-sm btn-info botonHome" style="background-color: #00ABA9">
                             <p:fileDownload value="#{ObjectManaged.xml}" />
                         </h:commandButton>
 
                         <h:inputTextarea id="comments" binding="#{ObjectManaged.text_area}" value="#{ObjectManaged.content_textArea}"/>
 
                     </h:form>                    
-                </div>
+                </div>                
                 <div class="col-md-4">
                     <p></p>
                     <ul class="pagination">     
@@ -896,7 +974,7 @@
                         <li><a id="insertBloque" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una sección dentro de una escena. Debe estar dentro de la etiqueta &lt;escena&gt;."> Bloque </a></li>
                         <li><a id="insertIdea" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una idea dentro de un bloque. Debe estar dentro de la etiqueta &lt;bloque&gt;."> Idea </a></li>
                         <li><a id="insertTexto" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a un texto. Debe estar dentro de la etiqueta &lt;idea&gt;."> Texto </a></li>
-                        <!--<li><a id="insertCodigo" class="btn btn-success" type="button" > Codigo </a></li>
+                        <!--<li><a id="insertCodigo" class="btn btn-success" type="button" > Código </a></li>
                         <li><a id="insertManuscrito" class="btn btn-success" type="button" > Manuscrito </a></li>-->
                         <li><a id="insertEjemplos" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a la sección de ejemplos. Debe estar dentro de la etiqueta &lt;idea&gt;."> Ejemplos </a></li>
                         <li><a id="insertEjemplo" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a un ejemplo en sí. Debe estar dentro de la etiqueta &lt;ejemplos&gt;."> Ejemplo </a></li>
@@ -913,6 +991,8 @@
                         <li><a id="insertAlternativa" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una alternativa a una pregunta. Debe estar dentro de la etiqueta &lt;pregunta&gt;."> Alternativa </a></li>
                         <li><a id="insertSolucion" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a la solución a una pregunta. Debe estar dentro de la etiqueta &lt;evaluacion&gt;."> Solución </a></li>
                         <li><a id="insertFeedback" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una encuesta para llenar. Debe estar dentro de la etiqueta &lt;objeto&gt;."> Feedback </a></li>
+                        <li><a id="insertSubIdea" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una idea dentro de otra. Debe estar dentro de la etiqueta &lt;idea&gt;."> Sub idea </a></li>
+                        <li><a id="insertSubTexto" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a un texto escrito por partes. Voz es texto a ser hablado. Debe estar dentro de la etiqueta &lt;subidea&gt;."> Sub texto </a></li>
                     </ul>
                 </div> 
               </div>

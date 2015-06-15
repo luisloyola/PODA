@@ -607,9 +607,21 @@ public class TranslateHtml {
             text += "<IMG id="+ id_handImage+" SRC="+"\"resources/manoconmanga.png"+"\" WIDTH=800 HEIGHT=800 style="+"\"position:absolute; display: none;"+"\">";
             text +=     "<div id="+"\"manoSpan-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style="+"\"width: 0px; height: 32px; white-space: nowrap; overflow: hidden;"+"\">";
             for(int j = 0; j < idea.getSubIdea().get(i).getSubIdeaContent().size(); j++){
-
+                String contenidoSubIdea = idea.getSubIdea().get(i).getSubIdeaContent().get(j).getContent();
+                int tabCounter = 0;
+                while(contenidoSubIdea.contains("<tab/>")){
+                    tabCounter++;
+                    contenidoSubIdea = contenidoSubIdea.replaceFirst("<tab/>", "");
+                }
+                
+                String relleno = "";
+                
+                for(int tab = 0; tab < tabCounter; tab++){
+                    relleno+="&ensp;&ensp;&ensp;&ensp;";
+                }
+                
                 id_span = "\"span"+ numberSlide +"-"+numberBlock + "-"+ numberIdea +"-"+ i + "-" + j + "\"";
-                text += "<span id="+id_span+"class="+"\"manuscrita"+"\">"+ idea.getSubIdea().get(i).getSubIdeaContent().get(j).getContent() +"</span>";
+                text += "<span id="+id_span+"class="+"\"manuscrita"+"\">"+ relleno+contenidoSubIdea +"</span>";
                 
                 if(!idea.getSubIdea().get(i).getSubIdeaContent().get(j).getVoice().isEmpty()){
                     
@@ -1668,7 +1680,7 @@ public class TranslateHtml {
                 
                 //bloque 2
                 codeHtml += "<div class=\"left-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template , OAName, OAPath, tam_fila);                                           
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template , OAName, OAPath, tam_2Col);                                           
                 codeHtml += "</div>";
                 
                 //bloque 3
@@ -1678,7 +1690,7 @@ public class TranslateHtml {
                 
                 //bloque 4
                 codeHtml += "<div class=\"down-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, template, OAName, OAPath, tam_2Col);                                            
+                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, template, OAName, OAPath, tam_fila);                                            
                 codeHtml += "</div>";
                 
                 break;
