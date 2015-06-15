@@ -620,7 +620,7 @@ public class ReaderXmlTest {
                 + "<!ELEMENT objeto (escena*,evaluacion?,feedback?)>\n"
                 + "<!ELEMENT escena (bloque+)>\n"
                 + "<!ELEMENT bloque (idea+)>\n"
-                + "<!ELEMENT idea (texto*, media*,ejemplos?,voz?)>\n"
+                + "<!ELEMENT idea (texto*, media*,ejemplos?,voz?,subidea*)>\n"
                 + "<!ELEMENT texto (#PCDATA)>\n"
                 + "<!ELEMENT voz (#PCDATA)>\n"
                 + "<!ELEMENT media (#PCDATA)>\n"
@@ -635,7 +635,9 @@ public class ReaderXmlTest {
                 + "<!ELEMENT ejemplos (ejemplo*)>\n"
                 + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo?)>\n"
                 + "<!ELEMENT texto_ejemplo (#PCDATA)>\n"
-                + "<!ELEMENT media_ejemplo (#PCDATA)>\n"             
+                + "<!ELEMENT media_ejemplo (#PCDATA)>\n"     
+                + "<!ELEMENT subidea (subtexto*)>\n"
+                + "<!ELEMENT subtexto (#PCDATA)>\n"   
                 + "\n"
                 + "\n"
                 + "<!ATTLIST objeto titulo CDATA #REQUIRED>\n"
@@ -654,6 +656,8 @@ public class ReaderXmlTest {
                 + "<!ATTLIST evaluacion exigencia_max CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
+                + "<!ATTLIST subidea orden CDATA #REQUIRED>\n"
+                + "<!ATTLIST subtexto voz CDATA #REQUIRED>\n"
                 + "]>";
                 
         instance.setFileContent(content);
@@ -749,5 +753,57 @@ public class ReaderXmlTest {
         assertEquals(expected12, prueba12);
         assertEquals(expected13, prueba13);
         assertEquals(expected14, prueba14);
+    }
+    
+    @Test
+    public void subIdeaTest() throws IOException{
+        String content = "<objeto titulo=\"Nombre del Objeto\" tema=\"usach\" autor=\"Autor\">\n" +
+"	<escena titulo=\"Titulo de la escena\" tipo=\"1Col\">\n" +
+"		<bloque>\n" +
+"			<idea orden=\"1\">\n" +
+"				<subidea orden=\"1\">\n" +
+"					<subtexto voz=\"Primero es el if\">If</subtexto>\n" +
+"					<subtexto voz=\"luego la condición\">(var = 1)</subtexto>\n" +
+"				</subidea>\n" +
+"				<subidea orden=\"2\">\n" +
+"					<subtexto voz=\"luego tenemos la identación\"><tab/></subtexto>\n" +
+"					<subtexto voz=\"y luego continúan las instrucciones\">print(var)</subtexto>\n" +
+"				</subidea>\n" +
+"			</idea>\n" +
+"		</bloque>\n" +
+"	</escena>\n" +
+"</objeto>";
+        ReaderXml newRead = new ReaderXml();
+        newRead.setFileContent(newRead.preProcessText(content));
+        newRead.AppendDTD();
+        assertEquals(newRead.readOA().get(0).getContent().get(0).getBlocks().get(0).getIdeas().get(0).getSubIdea().size(),2);
+    }
+    
+    @Test
+    public void subTextTest() throws IOException{
+        String content = "<objeto titulo=\"Nombre del Objeto\" tema=\"usach\" autor=\"Autor\">\n" +
+"	<escena titulo=\"Titulo de la escena\" tipo=\"1Col\">\n" +
+"		<bloque>\n" +
+"			<idea orden=\"1\">\n" +
+"				<subidea orden=\"1\">\n" +
+"					<subtexto voz=\"Primero es el if\">If</subtexto>\n" +
+"					<subtexto voz=\"luego la condición\">(var = 1)</subtexto>\n" +
+"				</subidea>\n" +
+"				<subidea orden=\"2\">\n" +
+"					<subtexto voz=\"luego tenemos la identación\"><tab/></subtexto>\n" +
+"					<subtexto voz=\"y luego continúan las instrucciones\">print(var)</subtexto>\n" +
+"				</subidea>\n" +
+"			</idea>\n" +
+"		</bloque>\n" +
+"	</escena>\n" +
+"</objeto>";
+        ReaderXml newRead = new ReaderXml();
+        newRead.setFileContent(newRead.preProcessText(content));
+        newRead.AppendDTD();
+        int subTextCounter = 0;
+        for(int i = 0; i < newRead.readOA().get(0).getContent().get(0).getBlocks().get(0).getIdeas().get(0).getSubIdea().size(); i++){
+            subTextCounter += newRead.readOA().get(0).getContent().get(0).getBlocks().get(0).getIdeas().get(0).getSubIdea().get(i).getSubIdeaContent().size();
+        }
+        assertEquals(subTextCounter,4);
     }
 }

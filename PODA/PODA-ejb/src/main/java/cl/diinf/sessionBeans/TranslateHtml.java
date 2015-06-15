@@ -151,6 +151,9 @@ public class TranslateHtml {
                             "  <script type=\"text/javascript\" src=\"SCOFunctions.js\"></script>\n"+
                             "  <script type=\"text/javascript\" src=\"resources/SCORM_API_wrapper.js\"></script>\n" +
                             "  <script type=\"text/javascript\" src=\"resources/SCOFunctions.js\"></script>\n"+
+                            "  <script src=\"resources/jqBarGraph.1.1.js\"></script>\n" + 
+                            "  <script src=\"resources/GoogleFormValidator.js\"></script>\n"+
+                            "  <script src=\"resources/mano.js\"></script>\n"+
                             "\n" +
                             "\n" +
                             "  <script>\n" +
@@ -327,7 +330,7 @@ public class TranslateHtml {
                     String script_text_became_example = "";
                     String script_text_lost_example = "";
                     String script_hand_became_example = "";
-                    String script_hand_lost_example = "";
+                    String script_hand_lost_example = "";                    
                     
                     if(!idea.getVoice().isEmpty()){
                         
@@ -353,11 +356,10 @@ public class TranslateHtml {
                         
                         for(int m = 0; m < trozos.size(); m++){
                             text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
-                        
-                            
+                                                    
                             if(m+1 < trozos.size()){
                                 text_ids +=",";
-                            }                                                            
+                            }
                         }
                         
                         script_text_became = "textBecameCurrent(["+ text_ids + "], direction);";
@@ -365,20 +367,20 @@ public class TranslateHtml {
                         script_text_lost = "textLostCurrent(["+ text_ids +"], direction);";                        
                         script_hand_lost = "manoLostCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"\""+", direction,"+ atr_left +");";
                     }
-                    
+                                                                                
                     script_header +=    "<script>\n" +
                                         "    $(function(){\n" +
                                         "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
                                         "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
                                                     script_voice_became +"\n"+
                                                     script_text_became +"\n"+
-                                                    script_hand_became +"\n"+
+                                                    script_hand_became +"\n"+                                                    
                                         "      });\n" +
                                         "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
                                         "        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
                                                     script_voice_lost +"\n"+
                                                     script_text_lost +"\n"+
-                                                    script_hand_lost +"\n"+
+                                                    script_hand_lost +"\n"+                                                    
                                         "      });\n" +
                                         "    });\n" +
                                         "  </script>";
@@ -414,7 +416,7 @@ public class TranslateHtml {
                         
                             script_header +=    "<script>\n" +
                                             "    $(function(){\n" +
-                                            "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
+                                            "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
                                             "        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
                                                         //script_voice_became +
                                                         script_text_became_example +
@@ -430,12 +432,51 @@ public class TranslateHtml {
                                             "  </script>";
                         }
                     }
-                }                
-            }            
-        }                
+                    for(int l = 0 ; l < idea.getSubIdea().size(); l++){
+                        
+                        String script_span_text_became;
+                        String script_span_text_lost;
+                        String script_span_voice_became = "";
+                        String script_span_voice_lost = "";
+                        
+                        String text_ids = "";
+                        for(int m = 0 ; m < idea.getSubIdea().get(l).getSubIdeaContent().size(); m++){
+                            text_ids += "\"#span"+(i+1)+"-"+j+"-"+k+"-"+l+"-"+m+"\"";
+                            if(m+1 < idea.getSubIdea().get(l).getSubIdeaContent().size()){
+                                text_ids +=",";
+                            }
+                        }
+                        for(int m = 0 ; m < idea.getSubIdea().get(l).getSubIdeaContent().size(); m++){
+                            script_span_text_became = "spanBecameCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+l+"\",\"#manoSpan-"+(i+1)+"-"+j+"-"+k+"-"+l+"\", ["+text_ids+"],"+m+",direction);";
+                            script_span_text_lost = "spanLostCurrent(\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+l+"\",\"#manoSpan-"+(i+1)+"-"+j+"-"+k+"-"+l+"\", ["+text_ids+"],"+m+",direction);";
+                            
+                            if(!idea.getSubIdea().get(l).getSubIdeaContent().get(m).getVoice().isEmpty()){
+                                script_span_voice_became = "AudioBecameCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"-"+l+"-"+m+"\");";
+                                script_span_voice_lost = "AudioLostCurrent(\"audio-"+(i+1)+"-"+j+"-"+k+"-"+l+"-"+m+"\");";
+                            }
+
+                            script_header +=    "<script>\n" +
+                                                "    $(function(){\n" +
+                                                "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"-"+l+"-"+m+"\").bind('deck.becameCurrent', function(ev, direction) {\n" +
+                                                //"        SectionBecameCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                            script_span_voice_became +
+                                                            script_span_text_became +
+                                                "      });\n" +
+                                                "      $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"-"+l+"-"+m+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
+                                                //"        SectionLostCurrent(\"slide-"+(i+1)+"-"+j+"-"+k+"\", direction);\n" +
+                                                            script_span_voice_lost +
+                                                            script_span_text_lost +
+                                                "      });\n" +
+                                                "    });\n" +
+                                                "  </script>";
+                        }
+                    }
+                }
+            }
+        }
         return script_header;
     }
-    
+
     
     /**
      * Funcion que realiza la traduccion a html de un texto del tipo normal, agregado el codigo para enfatizar y destacar
@@ -529,7 +570,7 @@ public class TranslateHtml {
         }
                 
         String id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+ add_example +charE+"\"";        
-        String text = "<IMG id="+charE+ id_handImage+" SRC="+charE+"\"resources/manoconmanga.png"+charE+"\" WIDTH=800 HEIGHT=800 style="+charE+"\"position:absolute;"+charE+"\">";
+        String text = "<IMG id="+charE+ id_handImage+" SRC="+charE+"\"resources/manoconmanga.png"+charE+"\" WIDTH=800 HEIGHT=800 style="+charE+"\"position:absolute; display: none;"+charE+"\">";
                                         
         for(int i = 0; i < trozos.size(); i++){
         
@@ -539,7 +580,51 @@ public class TranslateHtml {
         }
         return text;
     }
-    
+    /**
+     * Funcion que realiza la traduccion a html de la animación mano-texto     
+     * @param idea Onbjeto del tipo Idea con todo el contenido necesario que tiene una idea
+     * @param numberSlide Posicion de la slide, donde se va a encontrar la animacion, en el arreglo de slides del objeto
+     * @param numberBlock Posicion del bloque, donde se va a encontrar la animacion, en el arreglo de bloques de la slide correspondiente
+     * @param numberIdea Posicion de la idea, donde se va a encontrar la animacion, en el arreglo de ideas del bloque correspondiente     
+     * @return Cadena con el codigo html que representa a la animacion mano-texto
+     */
+    public String write_subIdea(Idea idea, int numberSlide, int numberBlock, int numberIdea, String OAName, String OAPath){
+        
+        String text = "";
+        String id_span;
+        String id_handImage;
+        String code_audio = "";
+        
+        
+        for(int i = 0 ; i < idea.getSubIdea().size(); i++){
+                        
+            id_handImage="\"mano-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+i+"\"";
+            text += "<IMG id="+ id_handImage+" SRC="+"\"resources/manoconmanga.png"+"\" WIDTH=800 HEIGHT=800 style="+"\"position:absolute; display: none;"+"\">";
+            text +=     "<div id="+"\"manoSpan-"+numberSlide+"-"+numberBlock+"-"+numberIdea+"-"+ i +"\""+" style="+"\"width: 0px; height: 32px; white-space: nowrap; overflow: hidden;"+"\">";
+            for(int j = 0; j < idea.getSubIdea().get(i).getSubIdeaContent().size(); j++){
+
+                id_span = "\"span"+ numberSlide +"-"+numberBlock + "-"+ numberIdea +"-"+ i + "-" + j + "\"";
+                text += "<span id="+id_span+"class="+"\"manuscrita"+"\">"+ idea.getSubIdea().get(i).getSubIdeaContent().get(j).getContent() +"</span>";
+                
+                if(!idea.getSubIdea().get(i).getSubIdeaContent().get(j).getVoice().isEmpty()){
+                    
+                    String audioFileName;
+                    try {
+                        audioFileName = ResourcesDownloader.downloadFromGoogleTTS(idea.getSubIdea().get(i).getSubIdeaContent().get(j).getVoice(), OAPath);
+
+                        code_audio += ("<audio id=\"audio-" + numberSlide + "-" + numberBlock + "-" + numberIdea +"-"+ i +"-"+j+ "\" ");
+                        code_audio += ("source src=\"resources/medias/" + OAName+ "/"+audioFileName +"\" ");
+                        code_audio += ("type=\"audio/ogg\"></audio>");
+
+                    } catch (IOException ex) {
+                        this.translateError = "NO_AUDIO";
+                    }
+                }
+            }
+            text +="</div>"+ code_audio;                        
+        }
+        return text;
+    }
     public String write_evaluacionHtml(LearningObject object) throws IOException{
                     
         String templateCss = "";
@@ -691,9 +776,7 @@ public class TranslateHtml {
                             }
                             tempEval+= "\", tema:\""+object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getChoices().get(l).getTopic()+"\"},";
                         }
-
-                    }
-                    
+                    }                    
                     tempEval+="solucionario:\"";
                     
                     for(int l = 0; l < object.getQuizSet().get(i).getQuestions().get(j).getForms().get(k).getSolutionTextContent().size(); l++){
@@ -1231,6 +1314,9 @@ public class TranslateHtml {
                 };
             }
             
+            if(!idea.getSubIdea().isEmpty()){
+                codeHtml += write_subIdea(idea, numberSlide, numberBlock, i, OAName, OAPath);
+            }                        
             if( !idea.getExample().isEmpty() ){
                 
                 codeHtml += write_examples(idea.getExample(), OAName, OAPath, design, lim_line, numberSlide, numberBlock, i);
@@ -1238,6 +1324,7 @@ public class TranslateHtml {
             
             for(int j = 0; j < idea.getMedia().size(); j++){
                 codeHtml += write_media(idea.getMedia().get(j), OAName, OAPath, false);
+                
             }
             
             if(!idea.getVoice().isEmpty()){
@@ -1250,12 +1337,11 @@ public class TranslateHtml {
                     codeHtml += ("type=\"audio/ogg\"></audio>");
 
                 } catch (IOException ex) {
-                    this.translateError = "NO_AUDIO";                
-                }            
+                    this.translateError = "NO_AUDIO";
+                }
             }
             codeHtml += "</section>";
-        }                                    
-        
+        }
         return codeHtml;
     }
     
@@ -1306,12 +1392,13 @@ public class TranslateHtml {
         }
         
         Collections.sort(orderedIdea);
+        int end_orden = -1;
         
         for (int i = 0; i < orderedIdea.size(); i++){
             
-            int number_idea = -1, number_block = -1;
+            //int number_idea = -1, number_block = -1;
             
-            for(int j = 0; j < blockIdea.size(); j++){
+            /*for(int j = 0; j < blockIdea.size(); j++){
                                 
                 int aux = blockIdea.get(j).indexOf(orderedIdea.get(i));
 
@@ -1320,13 +1407,22 @@ public class TranslateHtml {
                     number_block= j;
                     break;
                 }
-            }                        
-                        
-            codeHtml += "<div class=slide id=\"show-slide-"+ number_slide + "-" + orderedIdea.get(i).getAparitionOrder() + "\"></div>";            
+            }*/
+            
+            if(end_orden != orderedIdea.get(i).getAparitionOrder()){
+                codeHtml += "<div class=slide id=\"show-slide-"+ number_slide + "-" + orderedIdea.get(i).getAparitionOrder() + "\"></div>\n";
+                for(int j = 0 ; j < orderedIdea.get(i).getSubIdea().size(); j++){
+                    for(int k = 0 ; k < orderedIdea.get(i).getSubIdea().get(j).getSubIdeaContent().size();k++){
+                        codeHtml += "<div class=slide id=\"show-slide-"+ number_slide + "-" + orderedIdea.get(i).getAparitionOrder()+ 
+                                    "-"+ j + "-" + k +"\"></div>";
+                    }
+                }
+                end_orden = orderedIdea.get(i).getAparitionOrder();
+            }
         }
         return codeHtml;
-    }      
-    
+    }
+
     public String write_slideHtml(Scene scene, int nro_slide, String OAPath, String OAName, String design){        
         
         int tam_fila = 110;
