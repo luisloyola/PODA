@@ -10,12 +10,13 @@ public class Idea implements Comparable<Idea>{
     List<Text> text;
     List<Media> media;
     List<Example> example;
-    
+    List<SubIdea> subIdea;
     
     public Idea(){
         text = new ArrayList<>();
         media = new ArrayList<>();
         example = new ArrayList<>();
+        subIdea = new ArrayList<>();
         voice = "";
     }
 
@@ -69,6 +70,18 @@ public class Idea implements Comparable<Idea>{
     
     public void addExample(Example example) {
         this.example.add(example);
+    }
+
+    public List<SubIdea> getSubIdea() {
+        return subIdea;
+    }
+
+    public void setSubIdea(List<SubIdea> subIdea) {
+        this.subIdea = subIdea;
+    }
+    
+    public void addSubIdea(SubIdea subIdea) {
+        this.subIdea.add(subIdea);
     }
    
     @Override     

@@ -447,6 +447,27 @@ public class ReaderXml {
                                 return new ArrayList<>();
                             }
 
+                            NodeList subIdeas = currentIdea.getElementsByTagName("subidea");
+                            
+                            for(int sI = 0; sI < subIdeas.getLength(); sI++){
+                                Element currentSubIdea = (Element) subIdeas.item(sI);
+                                SubIdea newSubIdea = new SubIdea();
+                                                                
+                                NodeList subTexts = currentSubIdea.getElementsByTagName("subtexto");
+                                
+                                for(int sT = 0; sT < subTexts.getLength(); sT++){
+                                    Element currentSubText = (Element) subTexts.item(sT);
+                                    
+                                    SubText newSubText = new SubText();
+                                    newSubText.setVoice(currentSubText.getAttribute("voz"));
+                                    newSubText.setContent(currentSubText.getTextContent());
+                                    
+                                    newSubIdea.addSubIdeaContent(newSubText);
+                                }
+                                
+                                newIdea.addSubIdea(newSubIdea);
+                            }
+                            
                             newBlock.addIdeas(newIdea);
                         }
                         newSlide.addBlocks(newBlock);
@@ -460,7 +481,7 @@ public class ReaderXml {
                 NodeList quizSetNode = objectNode.getElementsByTagName("evaluacion");
                 
                 for(int tests = 0; tests < quizSetNode.getLength(); tests++){
-                    Test newTest = new Test();
+                    TestOA newTest = new TestOA();
                     
                     Element currentTestNode = (Element) quizSetNode.item(tests);
                     
@@ -587,6 +608,8 @@ public class ReaderXml {
                                             break;
                                         default:
                                             this.parsingError = "Sólo es posible asignar \"solución\" ó \"distractor\" como tipo de alternativa.";
+                                            logfw.write(parsingError+"\n");
+                                            logfw.close();
                                             return new ArrayList<>();
                                     }
                                     
@@ -639,6 +662,8 @@ public class ReaderXml {
                 
                 if(feedBackNode.getLength() > 1){
                     this.fileContent = "Sólo puede haber un elemento de feedback.";
+                    logfw.write(parsingError+"\n");
+                    logfw.close();
                     return new ArrayList<>();
                 }                       
                                
@@ -646,7 +671,11 @@ public class ReaderXml {
                        
                 for(int fbi = 0; fbi < feedBackNode.getLength(); fbi++){
                     Element currentFeedBack = (Element) feedBackNode.item(0);
-                    newFeedBack.setLink(currentFeedBack.getTextContent());
+                    String feedback = currentFeedBack.getTextContent();
+                    feedback = feedback.replaceAll("\t", "");
+                    feedback = feedback.replaceAll("\n", "");
+                    feedback = feedback.replaceAll(" ", "");
+                    newFeedBack.setLink(feedback);
                 }
                                
                 newOA.setFeedback(newFeedBack);
@@ -657,6 +686,7 @@ public class ReaderXml {
             System.out.println(e.getLocalizedMessage());
             logfw.write(e.getLocalizedMessage()+"\n");
             logfw.close();
+            return new ArrayList<>();
         }
 
         return Objects;
@@ -692,6 +722,7 @@ public class ReaderXml {
         xml = xml.replaceAll("</destacar>","&lt;/destacar&gt;");
         xml = xml.replaceAll("<enfatizar>","&lt;enfatizar&gt;");
         xml = xml.replaceAll("</enfatizar>","&lt;/enfatizar&gt;");
+        xml = xml.replaceAll("<tab/>","&lt;tab/&gt;");
         return xml;
     }
 
@@ -701,7 +732,7 @@ public class ReaderXml {
                 + "<!ELEMENT objeto (escena*,evaluacion?,feedback?)>\n"
                 + "<!ELEMENT escena (bloque+)>\n"
                 + "<!ELEMENT bloque (idea+)>\n"
-                + "<!ELEMENT idea (texto*, media*,ejemplos?,voz?)>\n"
+                + "<!ELEMENT idea (texto*, media*,ejemplos?,voz?,subidea*)>\n"
                 + "<!ELEMENT texto (#PCDATA)>\n"
                 + "<!ELEMENT voz (#PCDATA)>\n"
                 + "<!ELEMENT media (#PCDATA)>\n"
@@ -716,7 +747,9 @@ public class ReaderXml {
                 + "<!ELEMENT ejemplos (ejemplo*)>\n"
                 + "<!ELEMENT ejemplo (texto_ejemplo*,media_ejemplo?)>\n"
                 + "<!ELEMENT texto_ejemplo (#PCDATA)>\n"
-                + "<!ELEMENT media_ejemplo (#PCDATA)>\n"             
+                + "<!ELEMENT media_ejemplo (#PCDATA)>\n"     
+                + "<!ELEMENT subidea (subtexto*)>\n"
+                + "<!ELEMENT subtexto (#PCDATA)>\n"   
                 + "\n"
                 + "\n"
                 + "<!ATTLIST objeto titulo CDATA #REQUIRED>\n"
@@ -735,6 +768,7 @@ public class ReaderXml {
                 + "<!ATTLIST evaluacion exigencia_max CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tipo CDATA #REQUIRED>\n"
                 + "<!ATTLIST alternativa tema CDATA #REQUIRED>\n"
+                + "<!ATTLIST subtexto voz CDATA #REQUIRED>\n"
                 + "]>"
                 + this.fileContent;
     }
@@ -848,6 +882,21 @@ public class ReaderXml {
                         }
                         else if(error.equals("The markup in the document following the root element must be well-formed.")){
                             return "El marcador en el documento siguiente a la raíz debe ser un elemento bien formado.";
+                        }
+                        else if(
+                                err[0].equals("The")
+                             && err[1].equals("entity")
+                             && err[2].equals("name")
+                             && err[3].equals("must")
+                             && err[4].equals("immediately")
+                             && err[5].equals("follow")
+                             && err[6].equals("the")
+                             && err[8].equals("in")
+                             && err[9].equals("the")
+                             && err[10].equals("entity")
+                             && err[11].equals("reference.")
+                                ){
+                            return "El nombre de la entidad debe ir seguido, inmediatamente, por el caracter: "+err[7]+".";
                         }
                         else{
                             return error;

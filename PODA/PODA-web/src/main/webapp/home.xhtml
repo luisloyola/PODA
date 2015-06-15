@@ -6,15 +6,15 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head> 
         <title>Proyecto de Objetos de Aprendizaje</title>
-        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/metro-bootstrap.css"/>
         <h:outputStylesheet name="css/style.css"/>
         <h:outputStylesheet name="css/alertify.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputScript library="js" name="alertify.min.js"/>
         
-        <body onload="#{fileUpload.show_message()}"></body>
-        <body onload="#{fileUpload.reset_message()}"></body>
+        <body onload="#{ObjectManaged.show_message()}"></body>
+        <body onload="#{ObjectManaged.reset_message()}"></body>
             
         <script>
             function ValidateFileFE(){
@@ -92,11 +92,12 @@
                     
                         <div class="col-md-4 col-lg-offset-6">
               
-                            <h:inputFile id="file" value="#{fileUpload.file}" /> <!--validator="{fileUpload.ValidateFileFE}"/>-->
+                            <h:inputFile id="file" value="#{ObjectManaged.file}" /> <!--validator="{ObjectManaged.ValidateFileFE}"/>-->
                         </div>  
                         <div class="col-md-4 col-lg-offset-6 " ><br></br>                         
                         
-                            <h:commandButton action="#{fileUpload.upload}" value="Generar" styleClass="btn btn-info" onclick=" return ValidateFileFE()"/>&nbsp;
+                            <h:commandButton action="#{ObjectManaged.upload}" value="Generar" styleClass="btn btn-info" style="background-color: #00ABA9" onclick=" return ValidateFileFE()"/>&nbsp;
+                            <a class="btn btn-danger" href="editor.xhtml">Edita tu XML aquí!</a>
                         </div>
                 </h:form>                                                                                    
                 </div>                                   
@@ -130,13 +131,13 @@
                
         </section>    
 
-        <footer>            
+        <footer>
             <br></br>
-            <div class="text-center" style="color: whitesmoke">
+            <div class="text-center" style="color: whitesmoke;">
             PODA por PODA TEAM está licenciado bajo la licencia:
             <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
             </div>
-            			
+                        
         </footer>
     </h:body>
 </html>
