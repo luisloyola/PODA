@@ -435,8 +435,7 @@
             function saveContent(){
                 var input = document.getElementById('myForm:comments');
                 input.value = window.editor.getValue();
-                alertify.minimalDialog("Su archivo está siendo procesado. Por favor, espere...");
-
+                alertify.alert("Su archivo está siendo procesado. Por favor, espere...");
             }
         </script>
         <script>
@@ -472,7 +471,7 @@
             <div id="services" class="container-fluid" style="background-image: url(resources/im.png);background-repeat:no-repeat; background-position: right; ">    
                 <h1 >&nbsp;&nbsp;Bienvenido al editor de XML!</h1>
                     <p class="lead" style="text-align: center;">El editor de XML te ayudará a estructurar de manera inteligente y fácil el archivo que quieres construir para generar tu Objeto de 
-                Aprendizaje, así como además, visualizarlo y descargarlo al instante.</p>      
+                Aprendizaje, además, puedes visualizarlo y descargarlo al instante.</p>      
         </div>  
             <div class="overlay">
                 <h3 id="Objeto" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Objeto</span></h3>
@@ -879,7 +878,7 @@
                         <h:commandButton value="Ver Objeto" actionListener="#{ObjectManaged.load_file()}" onclick="saveContent()" class="btn btn-sm btn-default" style="color: #428BCA;">&nbsp;
                         </h:commandButton>
 
-                        <h:commandButton value="Descargar HTML" styleClass="btn btn-sm btn-default" style="color: #428BCA;">
+                        <h:commandButton value="Descargar XML" styleClass="btn btn-sm btn-default" style="color: #428BCA;">
                             <p:fileDownload value="#{ObjectManaged.xml}" />
                         </h:commandButton>
 
