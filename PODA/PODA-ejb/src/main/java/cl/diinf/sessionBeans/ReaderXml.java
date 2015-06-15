@@ -679,7 +679,11 @@ public class ReaderXml {
                        
                 for(int fbi = 0; fbi < feedBackNode.getLength(); fbi++){
                     Element currentFeedBack = (Element) feedBackNode.item(0);
-                    newFeedBack.setLink(currentFeedBack.getTextContent());
+                    String feedback = currentFeedBack.getTextContent();
+                    feedback = feedback.replaceAll("\t", "");
+                    feedback = feedback.replaceAll("\n", "");
+                    feedback = feedback.replaceAll(" ", "");
+                    newFeedBack.setLink(feedback);
                 }
                                
                 newOA.setFeedback(newFeedBack);
