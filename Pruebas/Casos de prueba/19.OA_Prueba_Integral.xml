@@ -1,0 +1,18 @@
+<objeto titulo="Prueba integral" tema="usach" autor="Luis">
+	<escena titulo="Prueba 1: Texto-imágen-voz-1Col" tipo="1Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="normal">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.</texto>
+				<texto tipo="normal">Lorem Ipsum es <enfatizar>simplemente</enfatizar> el texto de relleno de las imprentas y archivos de texto. <destacar>Lorem Ipsum </destacar> ha sido el texto de relleno estándar de las industrias desde el año 1500</texto>
+				<texto tipo="codigo">
+					if True:
+					    #nothing
+					else:
+					    #nothing
+				</texto>
+				<media tipo="imagen">http://i.imgur.com/9UXiCam.png</media>
+				<voz>Esto es una prueba de sonido, debe funcionar offline.</voz>
+			</idea>
+		</bloque>
+	</escena>
+</objeto>
