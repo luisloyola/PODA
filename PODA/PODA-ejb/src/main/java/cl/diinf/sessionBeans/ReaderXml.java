@@ -489,7 +489,7 @@ public class ReaderXml {
                 NodeList quizSetNode = objectNode.getElementsByTagName("evaluacion");
                 
                 for(int tests = 0; tests < quizSetNode.getLength(); tests++){
-                    Test newTest = new Test();
+                    TestOA newTest = new TestOA();
                     
                     Element currentTestNode = (Element) quizSetNode.item(tests);
                     

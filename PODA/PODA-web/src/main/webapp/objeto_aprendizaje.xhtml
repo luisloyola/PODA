@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head> 
         <title>Proyecto de Objetos de Aprendizaje</title>
-        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/metro-bootstrap.css"/>
         <h:outputStylesheet name="css/style.css"/>
         <h:outputStylesheet name="css/alertify.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -28,7 +28,7 @@
             }
         }
         </script>
-        <body onload="#{fileUpload.reset_message()}"></body>
+        <body onload="#{ObjectManaged.reset_message()}"></body>
     </h:head>
                   
     <h:body>
@@ -49,14 +49,14 @@
                     <li><a href="acerca_poda.xhtml">Acerca</a></li>
                </ul><br></br>
                  <a href="/PODA-web/" style="position: absolute; right:100px"><button class="btn btn-sm btn-success">Crear Objeto</button></a> 
-                    <h:form rendered="#{fileUpload.code_html ne null}">
+                    <h:form rendered="#{ObjectManaged.code_html ne null}">
                         <h:commandButton value="Descargar Scorm" styleClass="btn btn-sm btn-default" style="position: absolute; right: 328px">
-                            <p:fileDownload value="#{fileUpload.scormFile}" />
+                            <p:fileDownload value="#{ObjectManaged.scormFile}" />
                         </h:commandButton>
                     </h:form>
-                    <h:form rendered="#{fileUpload.code_html ne null}">
+                    <h:form rendered="#{ObjectManaged.code_html ne null}">
                         <h:commandButton value="Descargar HTML" styleClass="btn btn-sm btn-default" style="position: absolute;  right: 205px">
-                            <p:fileDownload value="#{fileUpload.zipFile}" />
+                            <p:fileDownload value="#{ObjectManaged.zipFile}" />
                         </h:commandButton>
                     </h:form>             </div><!--/.nav-collapse -->
             </div>
@@ -64,9 +64,9 @@
            </footer>
      
         
-        <h:outputText rendered="#{fileUpload.code_html ne null}" value="#{fileUpload.code_html}" escape="false" />
+        <h:outputText rendered="#{ObjectManaged.code_html ne null}" value="#{ObjectManaged.code_html}" escape="false" />
         
-        <h:column rendered="#{fileUpload.code_html eq null}">
+        <h:column rendered="#{ObjectManaged.code_html eq null}">
             <div id="home" >            
                 <div class="overlay">                               
 
@@ -75,13 +75,13 @@
                 </div>                                   
             </div>
         </h:column>        
-        <footer id="footer" style="display: block">
+        <footer id="footer" style="display: block;">
 
-            <div class="text-center" style="color: whitesmoke">
+            <div class="text-center" style="color: whitesmoke;">
             PODA por PODA TEAM está licenciado bajo la licencia:
             <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
             </div>
-            			
+                        
         </footer>
     </h:body>
 </html>

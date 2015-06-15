@@ -18,6 +18,7 @@ import java.util.List;
  *
  * @author teamPODA
  */
+
 @Stateless
 public class TranslateHtml {    
     
@@ -26,11 +27,18 @@ public class TranslateHtml {
     public TranslateHtml(){
         translateError = "NO_ERROR";
     }
-
+    
+    /**
+     * Funcion que obtiene el atributo translateError
+     * @return el valor de translateError
+     */
     public String getTranslateError() {
         return translateError;
     }
-
+    /**
+     * Funcion que setea el valor del atributo translateError
+     * @param translateError valor con cual setear el atributo translateError
+     */
     public void setTranslateError(String translateError) {
         this.translateError = translateError;
     }   
@@ -481,12 +489,12 @@ public class TranslateHtml {
     /**
      * Funcion que realiza la traduccion a html de un texto del tipo normal, agregado el codigo para enfatizar y destacar
      * @param text Texto a ser escrito
-     * @param desing Tipo de template del OA donde se escribe el texto
+     * @param template Tipo de template del OA donde se escribe el texto
      * @return La cadena de texto traducida a codigo html
      */
-    public String write_text(String text, String desing){
+    public String write_text(String text, String template){
         String color;
-        switch (desing){
+        switch (template){
             case "usach":
                 color = "orange";
                 break;
@@ -664,7 +672,6 @@ public class TranslateHtml {
         String tempEval = "";
         List<String> pilas = new ArrayList<>();
         List<String> cantidadEnunciadosList = new ArrayList<>();
-
         
         int contador=0;
         for (int i=0; i<object.getQuizSet().size(); i++) {
@@ -1275,8 +1282,18 @@ public class TranslateHtml {
         code_media += "<img src="+char_example+"\"resources/medias/"+ OAName+ "/"+mediaName+ char_example +"\">";
         return code_media;
     }
-    
-    public String write_block(Block block, int numberSlide, int numberBlock, String design, String OAName, String OAPath, int lim_line){
+    /**
+     * Funcion que realiza la traduccion a html de la representacion de un bloque
+     * @param block Objeto del tipo Block que va a ser traducido
+     * @param numberSlide Posicion de la Scene donde se encuentra el Block, en el arreglo de Scene de un OA
+     * @param numberBlock Posicion del Block, en el arreglo de Block de la Scene
+     * @param template Tipo de template que se esta usando en el OA
+     * @param OAName Nombre del objeto (usado para la descarga de imagenes)
+     * @param OAPath Nombre de la ruta donde se ubica el objeto (para la descarga de imagenes)
+     * @param lim_line Numero maximo de caracteres que se permiten por linea dentro del bloque
+     * @return Cadena de caracteres con el codigo html que corresponde a un bloque
+     */
+    public String write_block(Block block, int numberSlide, int numberBlock, String template, String OAName, String OAPath, int lim_line){
                         
         String codeHtml = "";                
         ArrayList<String> trozos;
@@ -1294,7 +1311,7 @@ public class TranslateHtml {
 
                     case "normal":
                         codeHtml += "<p>";
-                        codeHtml += write_text(idea.getText().get(j).getContent(), design);
+                        codeHtml += write_text(idea.getText().get(j).getContent(), template);
                         codeHtml += "</p>";
                         break;
                         
@@ -1319,7 +1336,7 @@ public class TranslateHtml {
             }                        
             if( !idea.getExample().isEmpty() ){
                 
-                codeHtml += write_examples(idea.getExample(), OAName, OAPath, design, lim_line, numberSlide, numberBlock, i);
+                codeHtml += write_examples(idea.getExample(), OAName, OAPath, template, lim_line, numberSlide, numberBlock, i);
             }                        
             
             for(int j = 0; j < idea.getMedia().size(); j++){
@@ -1344,7 +1361,11 @@ public class TranslateHtml {
         }
         return codeHtml;
     }
-    
+    /**
+     * Funcion que rescata dia, mes y año de una objeto del tipo date
+     * @param date Objeto del tipo Date con la fecha que se desea simplificar
+     * @return Una cadena con los datos del dia de la semana, dia , mes y año. Ejemplo: Mon 10 Jun 2015
+     */
     public String write_date(Date date){
         
         String date_str = date.toString();
@@ -1358,7 +1379,11 @@ public class TranslateHtml {
         }
         return fecha;
     }
-        
+    /**
+     * Funcion que realiza la traduccion a html de la portada de un OA
+     * @param object Objeto que contiene al objeto de aprendizaje con todo su contenido
+     * @return Cadena de caracteres con el cogido html de la portada de un objeto
+     */
     public String write_titleHtml(LearningObject object){
                 
         String codeHtml =   "<section class=\"slide\" id=\"title-slide\">\n" +
@@ -1372,8 +1397,13 @@ public class TranslateHtml {
                             "</section>";        
         return codeHtml;
     }
-
-    public String write_animationHtml(Scene scene, int number_slide, String OAPath, String OAName ){
+    /**
+     * Funcion que realiza la traduccion a html de los section que llaman a los scripts correspondientes para dar el flujo dentro del OA
+     * @param scene Objeto del tipo Scene que representa a la escena donde se escriben los section
+     * @param number_slide Posicion de la Scene en el arreglo que tiene a todas las Scene de un OA     
+     * @return Cadena de caracteres con el codigo html que representa a los section que dan la animacion al OA
+     */
+    public String write_animationHtml(Scene scene, int number_slide){
         
         String codeHtml = "";
         ArrayList<Idea> orderedIdea = new ArrayList<>();
@@ -1421,9 +1451,18 @@ public class TranslateHtml {
             }
         }
         return codeHtml;
-    }
-
-    public String write_slideHtml(Scene scene, int nro_slide, String OAPath, String OAName, String design){        
+    }      
+    
+    /**
+     * Funcion que realiza la traduccion a html de una Escena completa de un OA
+     * @param scene Contenido de una Scene
+     * @param nro_slide Posicion de la scene dentro del OA
+     * @param OAPath Cadena de caracteres con el nombre de la ruta donde se almacena los recursos de un OA (Para la descarga de recursos)
+     * @param OAName Cadena de caracteres con el nombre con el que se guarda el OA (Para la descarga de recursos)
+     * @param template Tipo de template que se esta usando en el OA
+     * @return Cadena de caracteres con el codigo html que representa a una scene
+     */
+    public String write_slideHtml(Scene scene, int nro_slide, String OAPath, String OAName, String template){        
         
         int tam_fila = 110;
         int tam_2Col = 45;
@@ -1437,23 +1476,23 @@ public class TranslateHtml {
         switch (scene.getDesign()){
             case "1Col":
                 //escribir contenido del primer bloque                                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design, OAName, OAPath, tam_fila);
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, template, OAName, OAPath, tam_fila);
                 break;
                 
             case "1Fil2Col":
                 //bloque 1
                 codeHtml += "<div class=\"up-2columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design, OAName, OAPath, tam_fila); 
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, template, OAName, OAPath, tam_fila); 
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"left-2columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design, OAName, OAPath, tam_2Col);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template, OAName, OAPath, tam_2Col);
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"right-2columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_2Col);
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, template, OAName, OAPath, tam_2Col);
                 codeHtml += "</div>";
                         
                 break;
@@ -1461,12 +1500,12 @@ public class TranslateHtml {
             case "2Col":
                 //escribir contenido del primer bloque
                 codeHtml += "<div class=\"left-2columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design, OAName, OAPath, tam_2Col);                                                
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, template, OAName, OAPath, tam_2Col);                                                
                 codeHtml += "</div>";
                 
                 //escribir contenido del segundo bloque
                 codeHtml += "<div class=\"right-2columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_2Col);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template , OAName, OAPath, tam_2Col);
                 codeHtml += "</div>";
                 
                 break;
@@ -1475,17 +1514,17 @@ public class TranslateHtml {
                 
                 //bloque 1
                 codeHtml += "<div class=\"left-3columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, tam_3Col);                                            
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, template , OAName, OAPath, tam_3Col);                                            
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"center-3columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_3Col);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template , OAName, OAPath, tam_3Col);
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"right-3columnas\">";                
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_3Col);
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, template, OAName, OAPath, tam_3Col);
                 codeHtml += "</div>";
                 
                 break;
@@ -1493,22 +1532,22 @@ public class TranslateHtml {
             case "1Fil3Col":
                 //bloque 1
                 codeHtml += "<div class=\"up-3columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, tam_fila);
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, template , OAName, OAPath, tam_fila);
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"left-3columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_3Col);                                           
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template , OAName, OAPath, tam_3Col);                                           
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"center-3columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_3Col);                                          
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, template, OAName, OAPath, tam_3Col);                                          
                 codeHtml += "</div>";
                 
                 //bloque 4
                 codeHtml += "<div class=\"right-3columnas-1up\">";                
-                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, design, OAName, OAPath, tam_3Col);
+                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, template, OAName, OAPath, tam_3Col);
                 codeHtml += "</div>";
                 
                 break;
@@ -1517,22 +1556,22 @@ public class TranslateHtml {
                 
                 //bloque 1
                 codeHtml += "<div class=\"up-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, tam_fila);
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, template , OAName, OAPath, tam_fila);
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"left-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_fila);                                           
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template , OAName, OAPath, tam_fila);                                           
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"right-2columnas-1up-1down\">";
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_2Col);  
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, template, OAName, OAPath, tam_2Col);  
                 codeHtml += "</div>";
                 
                 //bloque 4
                 codeHtml += "<div class=\"down-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, design, OAName, OAPath, tam_2Col);                                            
+                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, template, OAName, OAPath, tam_2Col);                                            
                 codeHtml += "</div>";
                 
                 break;
@@ -1540,17 +1579,17 @@ public class TranslateHtml {
                 
                 //bloque 1
                 codeHtml += "<div class=\"left-2columnas-1down\">";
-                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, design , OAName, OAPath, tam_2Col);                                                
+                codeHtml += write_block(scene.getBlocks().get(0), nro_slide, 0, template , OAName, OAPath, tam_2Col);                                                
                 codeHtml += "</div>";
                 
                 //bloque 2
                 codeHtml += "<div class=\"right-2columnas-1down \">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, design , OAName, OAPath, tam_2Col);
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template , OAName, OAPath, tam_2Col);
                 codeHtml += "</div>";
                 
                 //bloque 3
                 codeHtml += "<div class=\"down-2columnas-1down \">";
-                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, design, OAName, OAPath, tam_fila);                                          
+                codeHtml += write_block(scene.getBlocks().get(2),nro_slide, 2, template, OAName, OAPath, tam_fila);                                          
                 codeHtml += "</div>";
                 
                 break;
@@ -1558,7 +1597,7 @@ public class TranslateHtml {
             default:
                 break;            
         }        
-        codeHtml += write_animationHtml(scene, nro_slide, OAPath, OAName);
+        codeHtml += write_animationHtml(scene, nro_slide);
         codeHtml += "</section>";        
                 
         return codeHtml;
@@ -1566,9 +1605,8 @@ public class TranslateHtml {
     
     /**
      * Escribe todas las escenas o "slides" del objeto en la página.
-     * @param object objeto de aprendizaje construido por la clase de reader.
-     * @param codeHtml 
-     * @param OAName 
+     * @param object objeto de aprendizaje construido por la clase de reader.     
+     * @param OAName Nombre con que se descarga el OA
      * @return string con todas las slides incorporadas.
      */
     public String write_contentHtml(LearningObject object, String OAName){
@@ -1630,14 +1668,12 @@ public class TranslateHtml {
     /**
      * Escribe liberías necesarias para utilizar el framework en el que está
      * construido el objeto.
-     * @param object objeto de aprendizaje construido por la clase de reader.
-     * @param codeHtml 
+     * @param object objeto de aprendizaje construido por la clase de reader.     
      * @return string con las librerías incorporadas.
      */
     public String write_librsHtml(LearningObject object){
 
-        String codeHtml = "";
-        String htmlLibrs=   "<div aria-role=\"navigation\">\n" +
+        String codeHtml =   "\n<div aria-role=\"navigation\">\n" +
                             "    <a href=\"#\" class=\"deck-prev-link\" title=\"Previous\">&#8592;</a>\n" +
                             "    <a href=\"#\" class=\"deck-next-link\" title=\"Next\">&#8594;</a>\n" +
                             "  </div>\n" +
@@ -1651,9 +1687,7 @@ public class TranslateHtml {
                             "    <input type=\"text\" name=\"slidenum\" id=\"goto-slide\" list=\"goto-datalist\">\n" +
                             "    <datalist id=\"goto-datalist\"></datalist>\n" +
                             "    <input type=\"submit\" value=\"Go\">\n" +
-                            "  </form>";
-
-        codeHtml = "\n" + htmlLibrs;
+                            "  </form>";        
 
         return codeHtml;
     }   
@@ -1779,276 +1813,4 @@ public class TranslateHtml {
         }
         return left;
     }
-    
-    /*
-    public String write_scriptHand(LearningObject object){
-        String codeHtml = "";
-        String scriptHand= "" ;
-
-            for(int i = 0; i < object.getContent().size(); i++){
-            Scene slide = object.getContent().get(i);
-            
-            for(int j = 0; j < slide.getBlocks().size(); j++){
-                Block bloque = slide.getBlocks().get(j);
-                
-                for(int k = 0; k < bloque.getIdeas().size(); k++){
-                    
-                    Idea idea = bloque.getIdeas().get(k);
-                    int id_hand = -1;
-                    //int id_hand_example = -1;
-                    String array_textManuscrito = "";                    
-                    String left="";
-
-                    for(int l = 0; l < idea.getText().size(); l++){
-                        if(idea.getText().get(l).getType().equals("manuscrito")){
-                            id_hand = l;
-                            break;
-                        }
-                    }                    
-                    if(id_hand > -1){
-                                                
-                        int caracter_max = getCharMax(object, i, j );
-                        ArrayList <String >trozos= trozarCadena(idea.getText().get(id_hand).getContent(), caracter_max);
-                        
-                        String text_ids = "";
-                        for(int m = 0; m < trozos.size(); m++){
-                            text_ids += "\"#mano-"+(i+1)+"-"+j+"-"+k+"-"+ m + "\"";
-                            
-                            if(m+1 < trozos.size()){
-                                text_ids +=",";
-                            }
-                        }
-
-                        switch (slide.getDesign()){
-                            case "1Col":
-                                //escribir contenido del primer bloque 
-                                left="-80";
-                                break;
-
-                            case "1Fil2Col":
-                                //bloque 1
-                                if(j==0){
-                                  left="-80";
-                                }
-                                //bloque 2
-                                else if(j==1){
-                                    left="-80";
-                                }
-                                //bloque 3
-                                else{
-                                    left="+617";
-                                }
-
-                                break;
-
-                            case "2Col":
-                                //bloque 1
-                               
-                                if(j==0){
-                                  left="-80";
-                                }
-                                else{
-                                   left="+617";
-                                }
-
-                                break;
-
-                            case "3Col":
-                                //bloque 1
-                                if(j==0){
-                                  left="-80";
-                                }
-                                //bloque 2
-                                else if(j==1){
-                                    left="+340";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
-                                }
-                                //bloque 3
-                                else{
-                                    left="+760";
-                                }
-
-                                break;
-
-                            case "1Fil3Col":
-                                //bloque 1
-                                if(j==0){
-                                  left="-80";
-                                }
-                                //bloque 2
-                                else if(j==1){
-                                    left="-80";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
-                                }
-                                //bloque 3
-                                else if(j==2){
-                                    left="+340";    //ARREGLAR, HAY QUE SABER CUANTO VALE PARA EL CENTRO
-                                }
-                                else{
-                                    left="+760"; 
-                                }
-                                break;
-
-                            case "2Fil2Col":
-
-                                //bloque 1
-                                if(j==0){
-                                  left="-80";
-                                }
-                                //bloque 2
-                                else if(j==1){
-                                    left="-80";   
-                                }
-                                //bloque 3
-                                else if(j==2){
-                                    left="+617"; 
-                                }
-                                else{
-                                    left="-80"; 
-                                }
-
-
-                                break;
-                            case "2Col1Fil":
-                               //bloque 1
-                                if(j==0){
-                                  left="-80";
-                                }
-                                //bloque 2
-                                else if(j==1){
-                                    left="+617";  
-                                }
-                                //bloque 3
-                                else if(j==2){
-                                    left="-80"; 
-                                }
-                                else{
-                                    left="-80"; 
-                                }
-
-                                break;
-
-                            default:
-                                break;            
-                        }
-                        array_textManuscrito= "move_down(["+ text_ids+"],"+left+",dist,up,down);\n";                        
-                    
-                    
-                    scriptHand +=    "<script>\n" +
-                                        "      $(\"#show-slide-"+(i+1)+"-"+ idea.getAparitionOrder() +"\").bind('deck.becameCurrent', function(ev, direction) {\n" +                                        
-                                        "           var dist;\n"+
-                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").show();\n" +
-                                        "           var up=-80;\n" +
-                                        "           var down=-40;" +
-                                                    array_textManuscrito + 
-                            
-                                        "            function move_down(array,num,dist,up,down) {\n" +
-                                        "        var n = array.length;\n" +
-                                        "        \n" +
-                                        "        if(n!=0){\n" +
-                                        "          var linea = array[0];\n" +
-                                        "          var spanWidth = $(linea+' span').width();\n" +
-                                        "          dist=num;\n" +
-                                        "           if(n==1){\n" +
-                                        "          if(dist<=spanWidth"+left+"+20 ){\n" +
-                                        "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
-                                        "            \"margin-top\": down+\"px\"\n" +
-                                        "            ,left: dist}, 200, \"linear\", function () {\n" +
-                                        "              num+=11.8;\n" +
-                                        "              move_up(array,num,dist,up,down);\n" +
-                                        "            });\n" +
-                                        "          }else{\n" +
-                                        "              var new_array = [];\n" +
-                                        "              for(i=1; i<n; i++){\n" +
-                                        "                new_array.push(array[i]);   \n" +
-                                        "              }\n" +
-                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n" +
-                                        "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
-                                        "          }\n" +
-                                        "         }else{\n"+
-                                        "          if(dist<=spanWidth"+left+"){\n" +
-                                        "            $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
-                                        "              \"margin-top\": down+\"px\"\n" +
-                                        "              ,left: dist}, 200, \"linear\", function () {\n" +
-                                        "                num+=11.8;\n" +
-                                        "                move_up(array,num,dist,up,down);\n" +
-                                        "            });\n" +
-                                        "          }else{\n" +
-                                        "              var new_array = [];\n" +
-                                        "              for(i=1; i<n; i++){\n" +
-                                        "                new_array.push(array[i]);   \n" +
-                                        "              }\n" +
-                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n"+
-                                        "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
-                                        "          }\n" +
-                                        "         }\n"+
-                                        "        }else{\n" +
-                                        "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hide();\n" +
-                                        "        }\n" +
-                                        "      }\n" +
-                                        "\n" +
-                                        
-                            "      function move_up(array,num,dist,up,down) {\n" +
-                                        "        var n = array.length;\n" +
-                                        "        \n" +
-                                        "        if(n!=0){\n" +
-                                        "        var linea = array[0];\n" +
-                                        "         var spanWidth = $(linea+' span').width();\n" +
-                                        "         dist=num;\n" +
-                                        "           if(n==1){\n" +
-                                        "          if(dist<=spanWidth"+left+"+20 ){\n" +
-                                        "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
-                                        "            \"margin-top\": up+\"px\"\n" +
-                                        "            ,left: dist}, 200, \"linear\", function () {\n" +
-                                        "              num+=11.8;\n" +
-                                        "              move_down(array,num,dist,up,down);\n" +
-                                        "            });\n" +
-                                        "          }else{\n" +
-                                        "              var new_array = [];\n" +
-                                        "              for(i=1; i<n; i++){\n" +
-                                        "                new_array.push(array[i]);   \n" +
-                                        "              }\n" +
-                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n" +
-                                        "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
-                                        "          }\n" +
-                                        "         }else{\n"+
-                                        "          if(dist<=spanWidth"+left+"){\n" +
-                                        "            $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({\n" +
-                                        "              \"margin-top\": up+\"px\"\n" +
-                                        "              ,left: dist}, 200, \"linear\", function () {\n" +
-                                        "                num+=11.8;\n" +
-                                        "                move_down(array,num,dist,up,down);\n" +
-                                        "            });\n" +
-                                        "          }else{\n" +
-                                        "              var new_array = [];\n" +
-                                        "              for(i=1; i<n; i++){\n" +
-                                        "                new_array.push(array[i]);   \n" +
-                                        "              }\n" +
-                                        "           $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n"+
-                                        "            move_down(new_array,"+left+",dist,up+50,down+50);\n" +
-                                        "          }\n" +
-                                        "         }\n"+
-                                        "        }else{\n" +
-                                        "          $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hide();\n" +
-                                        "        }\n" +
-                                        "      }\n" +
-                                        "    });\n" +
-                                        "\n" +
-                                        "    $(\"#show-slide-"+(i+1)+"-"+idea.getAparitionOrder()+"\").bind('deck.lostCurrent', function(ev, direction) {\n" +
-                                        "      if(direction==\"reverse\"){\n" +
-                                        "        $( \"#mano-"+(i+1)+"-"+j+"-"+k+"\" ).stop();\n" +
-                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").animate({left: "+left+"},0);\n" +
-                                        "      } else {\n" +
-                                        "        $( \"#mano-"+(i+1)+"-"+j+"-"+k+"\" ).finish();\n" +
-                                        "        $(\"#mano-"+(i+1)+"-"+j+"-"+k+"\").hide();\n" +
-                                        "      }\n" +
-                                        "    });\n" +
-                                        "</script>" ;
-                    }
-                }
-            }
-        }        
-        codeHtml = "\n" + scriptHand;
-
-        return codeHtml;
-    }*/
 }
-
