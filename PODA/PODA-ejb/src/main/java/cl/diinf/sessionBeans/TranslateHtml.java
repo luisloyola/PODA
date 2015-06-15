@@ -1668,7 +1668,7 @@ public class TranslateHtml {
                 
                 //bloque 2
                 codeHtml += "<div class=\"left-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template , OAName, OAPath, tam_fila);                                           
+                codeHtml += write_block(scene.getBlocks().get(1), nro_slide, 1, template , OAName, OAPath, tam_2Col);                                           
                 codeHtml += "</div>";
                 
                 //bloque 3
@@ -1678,7 +1678,7 @@ public class TranslateHtml {
                 
                 //bloque 4
                 codeHtml += "<div class=\"down-2columnas-1up-1down\">";                
-                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, template, OAName, OAPath, tam_2Col);                                            
+                codeHtml += write_block(scene.getBlocks().get(3),nro_slide, 3, template, OAName, OAPath, tam_fila);                                            
                 codeHtml += "</div>";
                 
                 break;
