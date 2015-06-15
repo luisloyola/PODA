@@ -223,7 +223,6 @@ public class ObjectManaged implements Serializable{
             error_Message = "Archivo inválido";
         }
         if(!fileContent.equals("\0") && !fileContent.equals("") && !fileContent.equals(null)){  
-            System.out.println(fileContent);
             createObject(fileContent);
         }
         else{
