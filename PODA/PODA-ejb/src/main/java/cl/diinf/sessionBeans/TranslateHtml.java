@@ -706,7 +706,7 @@ public class TranslateHtml {
                                 case "normal":
                                     content = content.replaceAll("\n","\\\\n");
                                     content = content.replaceAll("\"","\\\\\"");
-                                    tempEval += write_text(content, object.getTemplate());
+                                    tempEval += write_text(content, object.getTemplate())+"\",";
                                     break;
                                 case "codigo":
                                   
