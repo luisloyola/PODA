@@ -734,7 +734,7 @@ public class ReaderXmlTest {
         String expected8 = "El contenido de \"feedback\" debe ser un valor, no una etiqueta.";
         String expected9 = "El contenido de los elementos debe consistir en un caracter o marca bien formada.";
         String expected10 = "Los elementos \"voz\", deben terminar con la etiqueta de cierre: \"</voz>\".";
-        String expected11 = "El tag de cierre de: element, debe terminar con: '>'.";
+        String expected11 = "El tag de cierre de: \"voz\", debe terminar con: '>'.";
         String expected12 = "El marcador en el documento siguiente a la raíz debe ser un elemento bien formado.";
         String expected13 = "El valor del atriburo: \"algo\", asociado al elemento: \"voz\", no debe contener el caracter \"<\" ó \">\".";
         String expected14 = "Los documentos con estructura XML deben comenzar y finalizar con la misma entidad. Verifique su XML.";
