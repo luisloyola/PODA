@@ -829,6 +829,17 @@ public class ReaderXml {
                                      return "El contenido de "+err[5]+" debe ser: "+err[8]+".";
                                  }
                          }
+                         else if(
+                                 err[0].equals("Document")
+                                 && err[1].equals("root")
+                                 && err[2].equals("element")
+                                 && err[4].equals("must")
+                                 && err[5].equals("match")
+                                 && err[6].equals("DOCTYPE")
+                                 && err[7].equals("root")
+                                 ){
+                             return "La raiz del XML debe ser: "+err[8]+", no: "+err[3];
+                         }
                          else{
                              return error;
                          }
