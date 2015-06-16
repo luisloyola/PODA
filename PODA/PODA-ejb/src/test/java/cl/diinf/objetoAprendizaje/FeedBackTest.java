@@ -5,7 +5,6 @@
  */
 package cl.diinf.objetoAprendizaje;
 
-import cl.diinf.objetoAprendizaje.FeedBack;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

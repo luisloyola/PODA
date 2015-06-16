@@ -14,7 +14,6 @@ import cl.diinf.objetoAprendizaje.Media;
 import cl.diinf.objetoAprendizaje.Scene;
 import cl.diinf.objetoAprendizaje.TestOA;
 import cl.diinf.objetoAprendizaje.Text;
-import cl.diinf.sessionBeans.TranslateHtml;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
