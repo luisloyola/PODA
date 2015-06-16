@@ -147,8 +147,8 @@
                                         
                     var line = window.editor.getCursor().line + 1;
                     var char = window.editor.getCursor().ch;
-                    window.editor.replaceSelection(text);                                 
-                    window.editor.setCursor({line: line, ch: char});                    
+                    window.editor.replaceSelection(text);
+                    window.editor.setCursor({line: line, ch: char});
                 }
                 function insertObjeto(titulo, tema, autor){
                     var text ='<objeto titulo="'+titulo+'" tema="'+tema+'" autor="'+autor+'">\n\n</objeto>';
@@ -340,7 +340,7 @@
                     var cont = ideas;
                     cont--;
                     while(cont !== -1){
-                        text += '\t\t\t<subtexto voz="">\n\n\t\t\t</subtexto>\n';
+                        text += '\t\t\t<subtexto voz=""> </subtexto>\n';
                         cont--;
                     }                    
                     text += '\t\t</subidea>\n';
