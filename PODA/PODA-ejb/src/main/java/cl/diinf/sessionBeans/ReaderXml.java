@@ -891,7 +891,7 @@ public class ReaderXml {
                              && err[9].equals("a")
                              && err[11].equals("delimiter.")                              
                                 ){
-                            return "El tag de cierre de: "+err[3]+", debe terminar con: "+err[10]+".";
+                            return "El tag de cierre de: "+err[5]+", debe terminar con: "+err[10]+".";
                         }
                         else if(error.equals("The markup in the document following the root element must be well-formed.")){
                             return "El marcador en el documento siguiente a la raíz debe ser un elemento bien formado.";
