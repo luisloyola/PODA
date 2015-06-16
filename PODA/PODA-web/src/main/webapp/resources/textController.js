@@ -90,9 +90,9 @@ function showSpanend(IdMano,DivID, Spanend, position){
     var up=-80;
     var down=-40;
         
-
-    hand_down(IdMano,divWidthEnd,divWidthStart-50,dist,up,down);
-      
+    if(divWidthStart != divWidthEnd){
+	    hand_down(IdMano,divWidthEnd,divWidthStart-50,dist,up,down);
+    }  
       
   }
 }
