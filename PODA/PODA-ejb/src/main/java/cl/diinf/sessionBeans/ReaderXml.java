@@ -926,7 +926,9 @@ public class ReaderXml {
                             return error;
                         }
                     }
-                case 13:
+                case 13:                    
+                    return "En el elemento: "+err[12]+", el atributo: "+err[6]+", debe de tener comillas (\") que contengan su valor.";
+                case 15:                    
                     return "En el elemento: "+err[12]+", el atributo: "+err[6]+", debe de tener comillas (\") que contengan su valor.";
                 case 18:
                     return "En el elemento: "+err[8]+", el atributo: "+err[2]+", debe ser seguido del caracter \"'='\" y luego su contenido.";
