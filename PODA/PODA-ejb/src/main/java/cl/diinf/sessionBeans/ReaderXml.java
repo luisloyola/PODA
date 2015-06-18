@@ -829,6 +829,17 @@ public class ReaderXml {
                                      return "El contenido de "+err[5]+" debe ser: "+err[8]+".";
                                  }
                          }
+                         else if(
+                                 err[0].equals("Document")
+                                 && err[1].equals("root")
+                                 && err[2].equals("element")
+                                 && err[4].equals("must")
+                                 && err[5].equals("match")
+                                 && err[6].equals("DOCTYPE")
+                                 && err[7].equals("root")
+                                 ){
+                             return "La raiz del XML debe ser: "+err[8]+", no: "+err[3];
+                         }
                          else{
                              return error;
                          }
@@ -915,7 +926,9 @@ public class ReaderXml {
                             return error;
                         }
                     }
-                case 13:
+                case 13:                    
+                    return "En el elemento: "+err[12]+", el atributo: "+err[6]+", debe de tener comillas (\") que contengan su valor.";
+                case 15:                    
                     return "En el elemento: "+err[12]+", el atributo: "+err[6]+", debe de tener comillas (\") que contengan su valor.";
                 case 18:
                     return "En el elemento: "+err[8]+", el atributo: "+err[2]+", debe ser seguido del caracter \"'='\" y luego su contenido.";

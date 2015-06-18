@@ -90,9 +90,9 @@ function showSpanend(IdMano,DivID, Spanend, position){
     var up=-80;
     var down=-40;
         
-
-    hand_down(IdMano,divWidthEnd,divWidthStart-50,dist,up,down);
-      
+    if(divWidthStart != divWidthEnd){
+	    hand_down(IdMano,divWidthEnd,divWidthStart-50,dist,up,down);
+    }  
       
   }
 }
@@ -167,7 +167,17 @@ function spanBecameCurrent(IdMano, DivID, Spanend, position, direction){
 
 function spanLostCurrent(IdMano, DivID, Spanend, position, direction){
   if(direction =="forward"){
-    //showSpanend(DivID, Spanend, position, "no-anim");
+    var n = Spanend.length;
+    console.log("n="+n+" position=" +position);
+    if(position == n-1){
+      var DivWidth = 0;
+      for(i=0; i<n;i++){
+        DivWidth = DivWidth + $(Spanend[i]).width();
+      }
+      $(DivID).stop();
+      $(DivID).width(DivWidth);
+      $(IdMano).finish();
+    }
   }
   if(direction == "reverse"){
     hideSpanend(IdMano, DivID, Spanend, position);
