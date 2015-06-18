@@ -7,6 +7,7 @@ package cl.diinf.sessionBeans;
 
 import javax.ejb.Stateless;
 import cl.diinf.objetoAprendizaje.*;
+import cl.diinf.util.Limpiador;
 import cl.diinf.util.ResourcesDownloader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +22,10 @@ import java.util.List;
 
 @Stateless
 public class TranslateHtml {    
-    
+    /**
+     * Tiempo para limpiar el OA que se acaba de generar.
+     */
+    private final int cleanTimeOut = 10;
     private String translateError;    
     
     public TranslateHtml(){
@@ -53,6 +57,7 @@ public class TranslateHtml {
                     
         String codeHtml;       
         String OAName = object.getName_file();
+                
         
         codeHtml =  "<!DOCTYPE html>\n" +"<html>\n" + "<head>\n";
         codeHtml += write_headerHtml(object);
@@ -1734,7 +1739,11 @@ public class TranslateHtml {
         String OAPath = ResourcesDownloader.generatePathForOA(); // Wildfly/standalone/deplayments/...ear/...web.war
         
         OAPath = OAPath.concat("/resources/medias/" + OAName +"/");
-
+        
+        //Llamado al limpiador de OA.
+        Limpiador cleaner = new Limpiador(OAPath, cleanTimeOut);
+        cleaner.start();
+        
         //Codigo de las escenas
         String codeHtml = "";        
         codeHtml += write_titleHtml(object);
