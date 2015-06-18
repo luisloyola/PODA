@@ -1,38 +1,60 @@
+
 <objeto titulo="Nombre del Objeto" tema="usach" autor="Autor">
 	<escena titulo="Titulo de la escena" tipo="1Col">
 		<bloque>
-			<idea orden="1">>
-				<texto tipo="normal">ABC</texto>
-				<media tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media>
+			<idea orden="1">
+				<texto tipo="normal"><!-- Rellene con texto aqui --></texto>
+				<media tipo="imagen"><!-- Ingrese una URL válida aquii --></media>
 				<ejemplos>
+					<!-- Se eligirá uno de estos aleatoreamente -->
 					<ejemplo>
-						<texto_ejemplo tipo="normal">ABCD</texto_ejemplo>
-						<media_ejemplo tipo="imagen">http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306</media_ejemplo>	
-					</ejemplo>				
+						<texto_ejemplo tipo="normal"><!-- Este texto se mostrará normal --></texto_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="codigo"><!-- Este texto se mostrará codigo --></texto_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<texto_ejemplo tipo="manuscrito"><!-- Este texto se mostrará manuscrito --></texto_ejemplo>
+					</ejemplo>
+					<ejemplo>
+						<media_ejemplo tipo="imagen"><!-- URL de imagen válida --></media_ejemplo>
+					</ejemplo>
 				</ejemplos>
-				<voz>voz correspondiente a esta idea</voz>
+				<voz>hola, hola</voz>
+			</idea>
+			<idea orden="2">
+				<subidea>
+					<subtexto voz="Primero es el if">If</subtexto>
+					<subtexto voz="luego la condición">(var = 1)</subtexto>
+				</subidea>
+				<subidea>
+					<subtexto voz="luego tenemos la identación"><tab/></subtexto>
+					<subtexto voz="y luego continúan las instrucciones">print(var)</subtexto>
+				</subidea>
 			</idea>
 		</bloque>
 	</escena>
-	<evaluacion exigencia="33">
+	<evaluacion exigencia_min="40" exigencia_max="70">
 		<pregunta>
 			<forma>
 				<enunciado>
-					<texto tipo="normal">ABC</texto>	
+					<texto tipo="normal">QWERTY?</texto>
 				</enunciado>
 				<opciones>
-					<alternativa tipo="solucion" tema="nuevoTema"> 
-						<texto tipo="normal">ABC Solucion</texto> 
+					<alternativa tipo="solucion" tema="tema">
+						<texto tipo="normal">Si</texto>
 					</alternativa>
-					<alternativa tipo="distractor" tema="nuevoTema"> 
-						<texto tipo="normal">ABC Distractor</texto> 
+					<alternativa tipo="distractor" tema="tema">
+						<texto tipo="normal">No</texto>
 					</alternativa>
 				</opciones>
 				<solucion>
-					<texto tipo="normal">ABC</texto>
+					<texto tipo="normal">Solucion</texto>
 				</solucion>
 			</forma>
 		</pregunta>
 	</evaluacion>
-	<feedback>https://docs.google.com/forms/d/17gSAqJphEQ4QHUp3LF_Xwr7y8_QXb37fPfs4YYWob04/viewform</feedback>
+	<feedback>https://docs.google.com/forms/d/1Zrj3pYt84a9bDFoHQrZvUM4uSiGSEUuX20x-Bco1-b8/viewform</feedback>
 </objeto>
+
+
