@@ -4,13 +4,14 @@ package cl.diinf.managedBeans;
 import javax.faces.application.FacesMessage;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable; 
-import cl.diinf.objetoAprendizaje.ObjetoAprendizaje;
+import cl.diinf.objetoAprendizaje.LearningObject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-import cl.diinf.sessionBeans.readerXml;
+import cl.diinf.sessionBeans.ReaderXml;
 import cl.diinf.sessionBeans.TranslateHtml;
 import cl.diinf.util.Compressor;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,8 +20,10 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.NoSuchElementException;
+import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Part; 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -29,7 +32,7 @@ import org.apache.commons.io.FileUtils;
  *
  * @author teamPODA
  */
-@Named(value = "fileUpload")
+@Named(value = "ObjectManaged")
 @SessionScoped
 public class ObjectManaged implements Serializable{
    
@@ -42,7 +45,37 @@ public class ObjectManaged implements Serializable{
     private String error_Message_Donwload;
     private String generatedZipPath;
     private String OA_Name;
+    private HtmlInputTextarea text_area;
+    private String content_textArea;
 
+    public ObjectManaged() {
+        fileContent = "";
+        content_textArea = "<objeto titulo=\"\" tema=\"\" autor=\"\">\n\n</objeto>";
+    }    
+    
+    public String getContent_textArea() {
+        return content_textArea;
+    }
+
+    public void setContent_textArea(String content_textArea) {
+        this.content_textArea = content_textArea;
+    }   
+    public String getOA_Name() {
+        return OA_Name;
+    }
+
+    public void setOA_Name(String OA_Name) {
+        this.OA_Name = OA_Name;
+    }
+
+    public HtmlInputTextarea getText_area() {
+        return text_area;
+    }
+
+    public void setText_area(HtmlInputTextarea text_area) {
+        this.text_area = text_area;
+    }   
+    
     public void setZipFile(StreamedContent file) {
         this.zipFile = file;
     } 
@@ -97,41 +130,22 @@ public class ObjectManaged implements Serializable{
 
     public void setError_Message_Donwload(String error_Message_Donwload) {
         this.error_Message_Donwload = error_Message_Donwload;
-    } 
-    /**
-     * Cambia el contenido del la variable privada code_html para ser mostrada
-     * como objeto de aprendizaje.
-     * @throws IOException 
-     */
-    public void upload() throws IOException {
-        try {
-            if(!file.equals(null)){            
-                Scanner scan = new Scanner(file.getInputStream());
-                try{
-                    fileContent = scan.useDelimiter("\\A").next();
-                    error_Message = null;
-                }
-                catch(NoSuchElementException e){
-                    /*Archivo vacío*/
-                    code_html = null;
-                    error_Message = "El archivo ingresado se encuentra vacío.";
-                }
-            }
-            else{
-                fileContent = "Error: debe ingresar un archivo";
-            }
-        } catch (IOException e) {
-            error_Message = "Archivo inválido";
-        }
-        if (fileContent != null && !fileContent.isEmpty()){
+    }
+    
+    
+    public void createObject(String content) throws IOException{
+        
+        if (content != null && !content.isEmpty() && !content.equals("\0")){
            
-            readerXml nuevoOAR = new readerXml();
-            
-            nuevoOAR.setFileContent(fileContent);
+            ReaderXml nuevoOAR = new ReaderXml();
+                                    
+            String newFileContent = nuevoOAR.preProcessText(content);
+                        
+            nuevoOAR.setFileContent(newFileContent);
             
             nuevoOAR.AppendDTD();
             
-            List<ObjetoAprendizaje> OA_List = nuevoOAR.readOA();                        
+            List<LearningObject> OA_List = nuevoOAR.readOA();                        
             
             if(OA_List.size() > 0){
                 
@@ -149,6 +163,10 @@ public class ObjectManaged implements Serializable{
                     code_html = null;
                     error_Message = "No se ha podido conectar con el servidor de medios (imagen no encontrada).";
                 }
+                if(OA_translate.getTranslateError().equals("NO_FORM")){
+                    code_html = null;
+                    error_Message = "El enlace agregado para la encuesta no es válido.";
+                }                
                 
                 this.OA_Name = OA_List.get(0).getTitle();
                 //prepareDownload();
@@ -171,7 +189,60 @@ public class ObjectManaged implements Serializable{
                 code_html = null;
                 error_Message = nuevoOAR.getParsingError();
             }     
-        }        
+        }
+        else{
+            code_html = null;
+            error_Message = "Archivo vacío.";
+        }
+    }
+    
+    /**
+     * Cambia el contenido del la variable privada code_html para ser mostrada
+     * como objeto de aprendizaje.
+     * @throws IOException 
+     */
+    public void upload() throws IOException {
+        fileContent = "";
+        try {
+            if(!file.equals(null)){            
+                Scanner scan = new Scanner(file.getInputStream());
+                try{
+                    fileContent = scan.useDelimiter("\\A").next();
+                    error_Message = null;
+                }
+                catch(NoSuchElementException e){
+                    /*Archivo vacío*/
+                    code_html = null;
+                    error_Message = "El archivo ingresado se encuentra vacío.";
+                }
+            }
+            else{
+                fileContent = "Error: debe ingresar un archivo";
+            }
+        } catch (IOException e) {
+            error_Message = "Archivo inválido";
+        }
+        if(!fileContent.equals("\0") && !fileContent.equals("") && !fileContent.equals(null)){  
+            createObject(fileContent);
+        }
+        else{
+            this.error_Message = "Archivo Vacío.";
+            code_html = null;
+        }
+    }
+    
+    public StreamedContent load_file()throws IOException{               
+                
+        createObject(text_area.getValue().toString());
+        
+        return null;        
+    }    
+    
+    public StreamedContent getXml() {
+        InputStream stream = new ByteArrayInputStream(text_area.getValue().toString().getBytes());
+        StreamedContent xml = new DefaultStreamedContent(stream, "text/plain", "youxml.xml");
+        
+        return xml;
     }
     
     public void show_message(){

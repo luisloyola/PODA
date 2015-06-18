@@ -1,0 +1,1010 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <title>Proyecto de Objetos de Aprendizaje</title>
+        <h:outputStylesheet name="css/metro-bootstrap.css"/>
+        <h:outputStylesheet name="css/style.css"/>
+        <h:outputStylesheet name="css/txtarea.css"/>
+        <h:outputStylesheet name="css/alertify.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputScript library="js" name="alertify.min.js"/>            
+        
+        <body onload="#{ObjectManaged.show_message()}"></body>
+        <body onload="#{ObjectManaged.reset_message()}"></body>
+        
+        <script src="resources/codemirror/lib/codemirror.js"></script>
+        <link rel="stylesheet" href="resources/codemirror/lib/codemirror.css"></link>
+        <link rel="stylesheet" href="resources/codemirror/theme/monokai.css"></link>
+        <script src="resources/codemirror/mode/javascript/javascript.js"></script>
+        <script src="resources/codemirror/addon/edit/closetag.js"></script>
+        <script src="resources/codemirror/addon/fold/xml-fold.js"></script>
+        <script src="resources/codemirror/mode/xml/xml.js"></script>        
+                        
+        <script>
+            window.onload = function() {
+                window.editor = CodeMirror.fromTextArea(document.getElementById('myForm:comments'), {
+                    mode: 'text/xml',
+                    autoCloseTags: true,
+                    lineNumbers: true,
+                    lineWrapping: true,
+                    theme : 'monokai'
+                });                
+            };
+        </script>
+        
+        <script>
+          
+            $(function() {
+                $('#submitObjeto').click(function() {
+                    
+                    var titulo = document.getElementById('titulo_objeto').value;
+                    var tema = document.getElementById('tema_objeto').value;
+                    var autor = document.getElementById('autor_objeto').value;
+                    insertObjeto(titulo, tema, autor);
+                });
+                $('#submitEscena').click(function() {
+                    var titulo = document.getElementById('titulo_escena').value;
+                    var tipo = document.getElementById('tipo_escena').value;
+                    insertEscena(titulo, tipo);
+                });
+                $('#submitBloque').click(function() {
+                    var ideas = document.getElementById('ideas_bloque').value;
+                    insertBloque(ideas);
+                });
+                $('#submitIdea').click(function() {
+                    var orden = document.getElementById('orden_idea').value;
+                    var normal = document.getElementById('normal_idea').value;
+                    var codigo = document.getElementById('codigo_idea').value;
+                    var manus = document.getElementById('manus_idea').value;
+                    var media = document.getElementById('imagen_idea').value;
+                    var ejemplos = document.getElementById('ejemplos_idea').value;
+                    var voz = document.getElementById('voz_idea').value;
+                    insertIdea(orden, normal, codigo, manus, media, ejemplos, voz);
+                });
+                $('#submitTexto').click(function() {
+                    var tipo = document.getElementById('tipo_texto').value;
+                    insertText(tipo);
+                });
+                /*$('#insertCodigo').click(function() {
+                    insertTextArea('\t\t\t\t<texto tipo="codigo"> </texto>\n');
+                });
+                $('#insertManuscrito').click(function() {
+                    insertTextArea('\t\t\t\t<texto tipo="manuscrito"> </texto>\n');
+                });*/
+                $('#insertVoz').click(function() {
+                    insertTextArea('\t\t\t\t<voz> </voz>\n');
+                });
+                $('#insertImagen').click(function() {
+                    insertTextArea('\t\t\t\t<media tipo="imagen"> </media>\n');
+                });
+                $('#submitEjemplos').click(function() {
+                    var cant_ejs = document.getElementById('cant_ejemplos').value;
+                    insertEjemplos(cant_ejs);
+                });
+                $('#submitEjemplo').click(function() {
+                    var normal = document.getElementById('normal_ejemplo').value;
+                    var codigo = document.getElementById('codigo_ejemplo').value;
+                    var manus = document.getElementById('manus_ejemplo').value;
+                    var media = document.getElementById('imagen_ejemplo').value;
+                    insertEjemplo(normal, codigo, manus, media);
+                });
+                $('#submitEjemploTexto').click(function() {
+                     var tipo = document.getElementById('tipo_textoEj').value;                     
+                    insertEjemploText(tipo);
+                });/*
+                $('#insertEjemploCodigo').click(function() {
+                    insertTextArea('\t\t\t\t\t\t<texto_ejemplo tipo="codigo"> </texto_ejemplo>\n');
+                });
+                $('#insertEjemploManus').click(function() {
+                    insertTextArea('\t\t\t\t\t\t<texto_ejemplo tipo="manuscrito"> </texto_ejemplo>\n');
+                });*/
+                $('#submitEvaluacion').click(function() {
+                    var exig_min = document.getElementById('exigMin_evaluacion').value;
+                    var exig_max = document.getElementById('exigMax_evaluacion').value;
+                    insertEvaluacion(exig_min, exig_max);
+                });
+                $('#submitPregunta').click(function() {
+                    var cant_forma = document.getElementById('formas_pregunta').value;
+                    insertPregunta(cant_forma);
+                });
+                $('#submitForma').click(function() {
+                    var alternativas = document.getElementById('alternativas_forma').value;
+                    var solucionario = document.getElementById('solucionario_forma').value;
+                    insertForma(alternativas, solucionario);
+                });/*
+                $('#submitEnunciado').click(function() {
+                    insertTextArea('\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>');
+                });
+                $('#insertOpciones').click(function() {
+                    insertTextArea('\t\t\t\t\t<opciones>\n\n\t\t\t\t\t</opciones>');
+                });*/
+                $('#submitAlternativa').click(function() {
+                    var tipo = document.getElementById('tipo_alternativa').value;
+                    var tema= document.getElementById('tema_alternativa').value;                    
+                    insertAlternativa(tipo, tema);
+                });
+                $('#submitSolucionario').click(function() {
+                    var normal = document.getElementById('normal_solucionario').value;
+                    var codigo= document.getElementById('codigo_solucionario').value;                    
+                    insertSolucionario(normal, codigo);
+                });
+                $('#insertFeedback').click(function() {
+                    insertTextArea('\t<feedback> </feedback>\n');
+                });
+                $('#submitSubIdea').click(function() {
+                    var subideas = document.getElementById('subidea').value;
+                    insertSubIdea(subideas);
+                });
+                $('#insertSubTexto').click(function() {
+                    insertTextArea('\t<subtexto voz=""> </subtexto>\n');
+                });
+                function insertTextArea(text){
+                                        
+                    var line = window.editor.getCursor().line + 1;
+                    var char = window.editor.getCursor().ch;
+                    window.editor.replaceSelection(text);
+                    window.editor.setCursor({line: line, ch: char});
+                }
+                function insertObjeto(titulo, tema, autor){
+                    var text ='<objeto titulo="'+titulo+'" tema="'+tema+'" autor="'+autor+'">\n\n</objeto>';
+                    insertTextArea(text);
+                }
+                function insertEscena(titulo, tipo){
+                    var text ='\t<escena titulo="'+ titulo +'" tipo="'+tipo+'">\n';
+                    var bloque = '\t\t<bloque>\n\t\t\t<idea orden="">\n\n\t\t\t</idea>\n\t\t</bloque>\n';
+
+                    var nro_bloques = 0;
+                    
+                    if(tipo==="1Col"){
+                        nro_bloques = 1;
+                    }
+                    if(tipo==="2Col"){
+                        nro_bloques = 2;
+                    }
+                    if(tipo==="3Col"){
+                        nro_bloques = 3;
+                    }
+                    if(tipo==="1Fil2Col"){
+                        nro_bloques = 3;
+                    }
+                    if(tipo==="1Fil3Col"){
+                        nro_bloques = 4;
+                    }
+                    if(tipo==="2Fil2Col"){
+                        nro_bloques = 4;
+                    }
+                    if(tipo==="2Col1Fil"){
+                        nro_bloques = 3;
+                    }
+                    
+                    while ( nro_bloques !== 0){
+                        text = text + bloque;
+                        nro_bloques--;
+                    }                    
+                    text = text + "\t</escena>\n";
+                    insertTextArea(text);
+                }
+                function insertBloque(ideas){
+                    var text = '\t\t<bloque>\n';
+                    ideas--;
+                    
+                    while(ideas !== -1){
+                        text += '\t\t\t<idea orden="">\n\n\t\t\t</idea>\n';
+                        ideas--;                        
+                    }
+                    text += '\t\t</bloque>';
+                    insertTextArea(text);
+                }
+                function insertIdea(orden, normal, codigo, manus, media, ejemplos, voz){
+                    var text = '\t\t\t<idea orden="'+orden+'">\n';
+                    normal--;
+                    while(normal !== -1){
+                        text += '\t\t\t\t<texto tipo="normal"> </texto>\n';
+                        normal--;
+                    }
+                    codigo--;
+                    while(codigo !== -1){
+                        text += '\t\t\t\t<texto tipo="codigo"> </texto>\n';
+                        codigo--;
+                    }
+                    if(manus === "s"){
+                        text += '\t\t\t\t<texto tipo="manuscrito"> </texto>\n';
+                    }
+                    media--;
+                    while(media !== -1){
+                        text += '\t\t\t\t<media tipo="imagen"> </media>\n';
+                        media--;
+                    }   
+                    ejemplos--;
+                    text += '\t\t\t\t<ejemplos>\n';
+                    while(ejemplos !== -1){
+                        text += "\t\t\t\t\t<ejemplo>\n\n\t\t\t\t\t</ejemplo>\n";
+                        ejemplos--;
+                    }        
+                    text += "\t\t\t\t</ejemplos>\n";
+                    
+                    if(voz === "s"){
+                        text += '\t\t\t\t<voz> </voz>\n';
+                    }                    
+                    text += '\t\t\t</idea>';                    
+                    insertTextArea(text);
+                }
+                function insertText(tipo){                                        
+                    var text = '\t\t\t\t<texto tipo="'+tipo+'"> </texto>\n';
+                    insertTextArea(text);
+                }                
+                function insertEjemplos(cant_ejs){
+                    var text = '\t\t\t\t<ejemplos>\n';
+                    
+                    cant_ejs--;
+                    while(cant_ejs!==-1){
+                        text += '\t\t\t\t\t<ejemplo>\n\n\t\t\t\t\t</ejemplo>\n';
+                        cant_ejs--;
+                    }
+                    text += '\t\t\t\t</ejemplos>';
+                    insertTextArea(text);
+                }
+                function insertEjemplo(normal, codigo, manus, media){
+                    var text = '\t\t\t\t\t<ejemplo>\n';
+                    normal--;
+                    while(normal !== -1){
+                        text += '\t\t\t\t\t\t<texto_ejemplo tipo="normal"> </texto_ejemplo>\n';
+                        normal--;
+                    }
+                    codigo--;
+                    while(codigo !== -1){
+                        text += '\t\t\t\t\t\t<texto_ejemplo tipo="codigo"> </texto_ejemplo>\n';
+                        codigo--;
+                    }
+                    if(manus === "s"){
+                        text += '\t\t\t\t\t\t<texto_ejemplo tipo="manuscrito"> </texto_ejemplo>\n';
+                    }
+                    media--;
+                    while(media !== -1){
+                        text += '\t\t\t\t\t\t<media_ejemplo tipo="imagen"> </media_ejemplo>\n';
+                        media--;
+                    }
+                    
+                    text += '\t\t\t\t\t</ejemplo>\n';
+                    insertTextArea(text);
+                    
+                }
+                function insertEjemploText(tipo){
+                    var text = '\t\t\t\t\t\t<texto_ejemplo tipo="'+ tipo +'"> </texto_ejemplo>\n';
+                    insertTextArea(text);
+                }
+                function insertEvaluacion(exig_min, exig_max){
+                    
+                    var text = '\t<evaluacion exigencia_min="'+ exig_min +'" exigencia_max="'+ exig_max +'">\n\n\t</evaluacion>'
+                    insertTextArea(text);
+                }
+                function insertPregunta(cant_forma){
+                    var text = "\t\t<pregunta>\n";
+                    cant_forma--;
+                    while(cant_forma!==-1){
+                        text += '\t\t\t<forma>\n\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>\n\t\t\t\t<opciones>\n\t\t\t\t\t<alternativa tipo="solucion" tema="">\n\n\t\t\t\t\t</alternativa>\n\t\t\t\t\t<alternativa tipo="distractor" tema="">\n\n</alternativa>\n\t\t\t\t</opciones>\n\t\t\t\t<solucion>\n\n\t\t\t\t</solucion>\n\t\t\t</forma>\n';
+                        cant_forma--;
+                    }
+                    text += '\t\t</pregunta>';
+                    insertTextArea(text);
+                }
+                function insertForma(alternativas, solucionario){
+                    var text = '\t\t\t<forma>\n\t\t\t\t<enunciado>\n\n\t\t\t\t</enunciado>\n\t\t\t\t<opciones>\n';
+                    alternativas--;            
+                    var aux = alternativas;
+                    
+                    while (alternativas !== -1){
+                        if(alternativas === aux){
+                            text += '\t\t\t\t\t<alternativa tipo="solucion" tema="">\n\n\t\t\t\t\t</alternativa>\n';
+                        }
+                        else{
+                            text += '\t\t\t\t\t<alternativa tipo="distractor" tema="">\n\n\t\t\t\t\t</alternativa>\n';
+                        }
+                        alternativas--;
+                    }
+                    text += '\t\t\t\t</opciones>\n';
+                    
+                    if(solucionario === "s"){
+                        text += '\t\t\t\t<solucion>\n\n\t\t\t\t</solucion>\n';
+                    }
+                    text += '\t\t\t</forma>\n';
+                    insertTextArea(text);
+                }
+                function insertAlternativa(tipo, tema){
+                    var text = '\t\t\t\t\t\t<alternativa tipo="'+tipo+'" tema="'+tema+'">\n\n\t\t\t\t\t\t</alternativa>';
+                    insertTextArea(text);
+                }
+                function insertSolucionario(normal, codigo){
+                    var text = '\t\t\t\t\t<solucion>\n';
+                    normal--;
+                    while(normal !== -1){
+                        text += '\t\t\t\t\t\t<texto tipo="normal"> </texto>\n';
+                        normal--;
+                    }
+                    codigo--;
+                    while(codigo !== -1){
+                        text += '\t\t\t\t\t\t<texto tipo="codigo"> </texto>\n';
+                        codigo--;
+                    }
+                    
+                    text += '\t\t\t\t\t</solucion>\n';
+                    insertTextArea(text);
+                }
+                function insertSubIdea(ideas){                                        
+                    var text = '\t\t<subidea>\n';
+                    var cont = ideas;
+                    cont--;
+                    while(cont !== -1){
+                        text += '\t\t\t<subtexto voz=""> </subtexto>\n';
+                        cont--;
+                    }                    
+                    text += '\t\t</subidea>\n';
+                    insertTextArea(text);
+                } 
+            });
+        </script>
+        <script>
+            $(document).ready(function (){
+                $("#insertObjeto, #submitObjeto").click(function(){
+                    $("#formularioObjeto, #submitObjeto,#Objeto").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertEscena, #submitEscena").click(function(){
+                    $("#formularioEscena, #submitEscena,#Escena").show();
+                    $("#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Objeto,#formularioObjeto, #submitObjeto,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertBloque, #submitBloque").click(function(){
+                    $("#formularioBloque, #submitBloque,#Bloque").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioObjeto, #submitObjeto\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertIdea, #submitIdea").click(function(){
+                    $("#formularioIdea, #submitIdea,#Idea").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioObjeto, #submitObjeto,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertTexto, #submitTexto").click(function(){
+                    $("#formularioTexto, #submitTexto,#Texto").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioObjeto, #submitObjeto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();                   
+                });
+                $("#insertEjemplos, #submitEjemplos").click(function(){
+                    $("#formularioEjemplos, #submitEjemplos,#Ejemplos").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Texto,#Idea,#Bloque,#Escena,#Objeto,formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioObjeto, #submitObjeto\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertEjemplo, #submitEjemplo").click(function(){
+                    $("#formularioEjemplo, #submitEjemplo,#Ejemplo").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioObjeto, #submitObjeto,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertEjemploTexto, #submitEjemploTexto").click(function(){
+                    $("#formularioEjemploTexto, #submitEjemploTexto,#Ejemplo_texto").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena, #Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioObjeto, #submitObjeto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertEvaluacion, #submitEvaluacion").click(function(){
+                    $("#formularioEvaluacion, #submitEvaluacion,#Evaluacion").show();
+                    $("#Forma,#Pregunta,#Alternativa,#Solucion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioObjeto, #submitObjeto\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertPregunta, #submitPregunta").click(function(){
+                    $("#formularioPregunta, #submitPregunta,#Pregunta").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioObjeto, #submitObjeto,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertForma, #submitForma").click(function(){
+                    $("#formularioForma, #submitForma,#Forma").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioObjeto, #submitObjeto,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertAlternativa, #submitAlternativa").click(function(){
+                    $("#formularioAlternativa, #submitAlternativa,#Alternativa").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioObjeto, #submitObjeto\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+                $("#insertSolucion, #submitSolucionario").click(function(){
+                    $("#formularioSolucionario, #submitSolucionario,#Solucion").show();
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea,#Forma,#Pregunta,#Alternativa,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#Objeto,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioObjeto, #submitObjeto").hide();
+                });
+            $("#insertSubIdea, #submitSubIdea").click(function(){
+                    $("#formularioSubIdea, #submitSubIdea,#SubIdea").show();
+                    $("#formularioObjeto,#submitObjeto,#Objeto,#Forma,#Pregunta,#Alternativa,#Solucion,#Evaluacion,#Ejemplo_texto,#Ejemplo,#Ejemplos,#Texto,#Idea,#Bloque,#Escena,#formularioEscena, #submitEscena,#formularioBloque, #submitBloque\n\
+            ,#formularioIdea, #submitIdea,#formularioTexto, #submitTexto,#formularioEjemplos, #submitEjemplos\n\
+,#formularioEjemplo, #submitEjemplo,#formularioEjemploTexto, #submitEjemploTexto,#formularioEvaluacion, #submitEvaluacion\n\
+,#formularioPregunta, #submitPregunta,#formularioForma, #submitForma,#formularioAlternativa, #submitAlternativa\n\
+,#formularioSolucionario, #submitSolucionario").hide();
+                });
+            });
+            function saveContent(){
+                var input = document.getElementById('myForm:comments');
+                input.value = window.editor.getValue();
+                alertify.alert("Su archivo está siendo procesado. Por favor, espere...");
+            }
+        </script>
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();   
+            });
+        </script>
+        <script>
+	$(document).ready(function(){
+            $(".botonHome").on({
+                    mouseenter: function(){
+                        $(this).css("background-color", "#E74C3C");
+                    },  
+                    mouseleave: function(){
+                        $(this).css("background-color", "#00ABA9");
+                    }
+                    
+            });
+	});
+        </script>
+    </h:head>
+                  
+    <h:body>
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                 <div class="navbar-header">
+                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                   <a href="/PODA-web/"><img src="resources/logo.png" WIDTH="150" HEIGHT="45"></img></a>
+                 </div>
+                 <div class="collapse navbar-collapse" id="navbar-main">
+                   <ul class="nav navbar-nav">
+                        <li><a href="/PODA-web/" >Home</a></li>
+                        <li><a href="acerca_poda.xhtml">Acerca</a></li>
+                  <div class="col-md-9 col-md-push-8">             
+                 </div>
+                   </ul> 
+                 </div><!--/.nav-collapse --> 
+            </div>
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+        </div>                     
+        <div id="home" > 
+            <div id="services" class="container-fluid" style="background-image: url(resources/im.png);background-repeat:no-repeat; background-position: right; ">    
+                <h1 >&nbsp;&nbsp;Bienvenido al editor de XML!</h1>
+                    <p class="lead" style="text-align: center;">El editor de XML te ayudará a estructurar de manera inteligente y fácil el archivo que quieres construir para generar tu Objeto de 
+                Aprendizaje, además, puedes visualizarlo y descargarlo al instante.</p>      
+        </div>  
+            <div class="overlay" style="padding-top: 10px">
+                <h3 id="Objeto" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Objeto</span></h3>
+                <h3 id="Escena" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Escena</span></h3>
+                <h3 id="Bloque" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Bloque</span></h3>
+                <h3 id="Idea" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Idea</span></h3>
+                <h3 id="Texto" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Texto</span></h3>
+                <h3 id="Ejemplos" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Ejemplos</span></h3>
+                <h3 id="Ejemplo" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Ejemplo</span></h3>
+                <h3 id="Ejemplo_texto" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Ejemplo texto</span></h3>
+                <h3 id="Evaluacion" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Evaluación</span></h3>
+                <h3 id="Pregunta" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Pregunta</span></h3>
+                <h3 id="Forma" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Forma</span></h3>
+                <h3 id="Alternativa" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Alternativa</span></h3>
+                <h3 id="Solucion" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">Solución</span></h3>
+                <h3 id="SubIdea" style="display: none">&nbsp;&nbsp;<span class="label label-default" style="background-color: #ECF0F1; color: #34495E">SubIdea</span></h3>
+                <div class="col-md-12" style="height: 100px;">
+                <div id="formularioObjeto" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="titulo_objeto">Titulo</label>
+                            <input class="form-control" id="titulo_objeto" placeholder="Título"></input>
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="tema_objeto">Tema</label>
+                            <input class="form-control" id="tema_objeto" placeholder="Tema"></input>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="autor_objeto">Autor</label>
+                            <input class="form-control" id="autor_objeto" placeholder="Autor"></input>
+                        </div>
+                    </form>
+                    <button id="submitObjeto" style="display:none" type="submit" class="btn btn-success">Insertar Etiqueta</button>
+                </div>
+
+                <div id="formularioEscena" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="titulo_escena">Titulo</label>
+                            <input class="form-control" id="titulo_escena" placeholder="Título"></input>
+                        </div>                            
+                        <div class="form-group">
+                            <label class="sr-only" for="tipo_escena">Tipo</label>                                
+                            <select id="tipo_escena" class="selectpicker" name="tipo escena" >
+                                <option value="1Col"> Tipo Escena </option>
+                                <option value="1Col">1 Columna</option>
+                                <option value="2Col">2 Columnas</option>
+                                <option value="3Col">3 Columnas</option>
+                                <option value="1Fil2Col">1 Fila 2 Columnas</option>
+                                <option value="1Fil3Col">1 Fila 3 Columnas</option>
+                                <option value="2Fil2Col">2 Fila 2 Columnas</option>
+                                <option value="2Col1Fil">2 Columnas 1 Fila</option>
+                            </select>                                
+                        </div>
+                    </form>
+                    <button id="submitEscena" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+                <div id="formularioBloque" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="ideas_bloque">Cantidad Ideas</label>
+                            <select id="ideas_bloque" class="selectpicker" name="Cantidad de ideas">
+                                <option value="0">Cantidad de ideas</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitBloque" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+                <div id="formularioIdea" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="orden_idea">Orden</label>
+                          <select id="orden_idea" class="selectpicker" name="Orden" >
+                                <option value="0">Orden de aparicion</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+
+                        <div class="form-group">
+                        <label class="sr-only" for="normal_idea">Texto normal</label>
+                          <select id="normal_idea" class="selectpicker" name="Cantidad texto normal">
+                                <option value="0">Cantidad de textos</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+                        <div class="form-group">
+                        <label class="sr-only" for="codigo_idea">Texto codigo</label>
+                          <select id="codigo_idea" class="selectpicker" name="Cantidad texto codigo">
+                                <option value="0">Cantidad de códigos</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+
+                        <div class="form-group">
+                        <label class="sr-only" for="manus_idea">Texto manuscrito</label>
+                            <select id="manus_idea" class="selectpicker" name="texto manuscrito">
+                                <option value="n">Hay texto manuscrito</option>
+                                <option value="s">SI</option>
+                                <option value="n">NO</option>                                
+                            </select>  
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="imagen_idea">Imagen</label>
+                          <select id="imagen_idea" class="selectpicker" name="Cantidad imagen">
+                                <option value="0">Cantidad de imágenes</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                                                
+                        <div class="form-group">
+                        <label class="sr-only" for="ejemplos_idea">Ejemplos</label>
+                          <select id="ejemplos_idea" class="selectpicker" name="Cantidad ejemplos">
+                                <option value="0">N° de pilas de ejemplos</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+
+                        <div class="form-group">
+                        <label class="sr-only" for="voz_idea">Voz idea</label>
+                            <select id="voz_idea" class="selectpicker" name="texto manuscrito">
+                                <option value="n">Hay voz</option>
+                                <option value="s">SI</option>
+                                <option value="n">NO</option>                                
+                            </select>  
+                        </div>
+                    </form>
+                    <button id="submitIdea" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+
+                <div id="formularioTexto" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="sr-only" for="tipo_texto">Tipo</label>                                
+                            <select id="tipo_texto" class="selectpicker" name="tipo texto">
+                                <option value="normal"> Tipo de texto</option>
+                                <option value="normal">Normal</option>
+                                <option value="codigo">Código</option>
+                                <option value="manuscrito">Animado</option>
+                            </select>                                
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitTexto" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+                <div id="formularioEjemplos" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="cant_ejemplos">Cantidad ejemplos</label>
+                            <select id="cant_ejemplos" class="selectpicker" name="Cantidad de ejemplos">
+                                <option value="0">Cantidad de ejemplos</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitEjemplos" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+
+                <div id="formularioEjemplo" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="normal_ejemplo">Texto normal</label>
+                            <select id="normal_ejemplo" class="selectpicker" name="Cantidad de texto">
+                                <option value="0">Cantidad de textos</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+                        <div class="form-group">
+                        <label class="sr-only" for="codigo_ejemplo">Texto codigo</label>
+                            <select id="codigo_ejemplo" class="selectpicker" name="Cantidad texto codigo">
+                                <option value="0">Cantidad de códigos</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+
+                        <div class="form-group">
+                        <label class="sr-only" for="manus_ejemplo">Texto manuscrito</label>
+                            <select id="manus_ejemplo" class="selectpicker" name="texto ejemplo manuscrito">
+                                <option value="n">Cantidad de manuscrito</option>
+                                <option value="s">SI</option>
+                                <option value="n">NO</option>                                
+                            </select>  
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="imagen_ejemplo">Imagen</label>
+                            <select id="imagen_ejemplo" class="selectpicker" name="Cantidad de imagenes">
+                                <option value="0">Cantidad de imágenes</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitEjemplo" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+                <div id="formularioEjemploTexto" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="sr-only" for="tipo_textoEj">Tipo</label>                                
+                            <select id="tipo_textoEj" class="selectpicker" name="tipo textoEj">
+                                <option value="normal"> Tipo de texto</option>
+                                <option value="normal">Normal</option>
+                                <option value="codigo">Código</option>
+                                <option value="manuscrito">Animado</option>
+                            </select>                                
+                        </div>                                                        
+                    </form>                        
+                    <button id="submitEjemploTexto" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+                <div id="formularioEvaluacion" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="exigMin_evaluacion">Mínima</label>
+                            <input class="form-control" id="exigMin_evaluacion" placeholder="Exigencia mínima (1-100)"></input>
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="exigMax_evaluacion">Máxima</label>
+                            <input class="form-control" id="exigMax_evaluacion" placeholder="Exigencia máxima (1-100)"></input>
+                        </div>                            
+                    </form>
+                    <button id="submitEvaluacion" style="display:none" type="submit" class="btn btn-success">Insertar Etiqueta</button>
+                </div>
+                <div id="formularioPregunta" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="formas_pregunta">Formas</label>
+                            <select id="formas_pregunta" class="selectpicker" name="Cantidad de formas">
+                                <option value="0">Cantidad de formas</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                            
+                    </form>
+                    <button id="submitPregunta" style="display:none" type="submit" class="btn btn-success">Insertar Etiqueta</button>
+                </div>
+                <div id="formularioForma" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="alternativas_forma">Formas</label>
+                            <select id="alternativas_forma" class="selectpicker" name="Cantidad de alternativas">
+                                <option value="0">N° de alternativas</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                        
+                        <div class="form-group">
+                        <label class="sr-only" for="solucionario_forma">Texto manuscrito</label>
+                            <select id="solucionario_forma" class="selectpicker" name="solucionario">
+                                <option value="n">Tiene solucionario</option>
+                                <option value="s">SI</option>
+                                <option value="n">NO</option>                                
+                            </select>  
+                        </div>
+                    </form>
+                    <button id="submitForma" style="display:none" type="submit" class="btn btn-success">Insertar Etiqueta</button>
+                </div>
+                <div id="formularioAlternativa" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="sr-only" for="tipo_alternativa">Tipo</label>                                
+                            <select id="tipo_alternativa" class="selectpicker" name="tipo alternativa">
+                                <option value="solucion"> Tipo</option>
+                                <option value="solucion">Solucion</option>
+                                <option value="distractor">Distractor</option>
+                            </select>                                
+                        </div>
+                        <div class="form-group">
+                        <label class="sr-only" for="tema_alternativa">Tema</label>
+                            <input class="form-control" id="tema_alternativa" placeholder="Tema"></input>
+                        </div>
+                    </form>                        
+                    <button id="submitAlternativa" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+                <div id="formularioSolucionario" style="display:none">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                        <label class="sr-only" for="normal_solucionario">Texto normal</label>
+                            <select id="normal_solucionario" class="selectpicker" name="Cantidad de texto normal">
+                                <option value="0">Cantidad de texto</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+                        <div class="form-group">
+                        <label class="sr-only" for="codigo_solucionario">Texto codigo</label>
+                            <select id="codigo_solucionario" class="selectpicker" name="Cantidad codigo sol">
+                                <option value="0">Cantidad de códigos</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>  
+                        </div>                                                        
+                    </form>
+                    <button id="submitSolucionario" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+                <div id="formularioSubIdea" style="display:none">
+                <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="sr-only" for="subidea">Sub Idea</label>
+                                <select id="subidea" class="selectpicker" name="Cantidad de sub ideas">
+                                    <option value="0">N° Sub ideas a introducir</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>  
+                        </div>
+                    </form>
+                  <button id="submitSubIdea" style="display:none" type="submit" class="btn btn-success">Insertar etiqueta</button>
+                </div>
+            </div>
+
+                <div class="col-md-8">
+                    <h:form id="myForm">
+                        <h:commandButton value="Ver Objeto" actionListener="#{ObjectManaged.load_file()}" onclick="saveContent()" styleClass="btn btn-sm btn-info botonHome" style="background-color: #00ABA9">&nbsp;
+                        </h:commandButton>
+
+                        <h:commandButton value="Descargar XML" styleClass="btn btn-sm btn-info botonHome" style="background-color: #00ABA9">
+                            <p:fileDownload value="#{ObjectManaged.xml}" />
+                        </h:commandButton>
+
+                        <h:inputTextarea id="comments" binding="#{ObjectManaged.text_area}" value="#{ObjectManaged.content_textArea}"/>
+
+                    </h:form>                    
+                </div>                
+                <div class="col-md-4">
+                    <p></p>
+                    <ul class="pagination">     
+                        <li><a id="nada1" type="button" style="display: none"> Objeto </a></li>
+                        <li><a id="nada" style="height: 40px;width: 388px; background-color: #E74C3C; text-align: center;color: white;"> Tags </a></li>
+                        <li><a id="insertObjeto" class="btn bot" type="button" data-toggle="tooltip" title="Es la que contiene al resto de las etiquetas. Debe haber solo una."> Objeto </a></li>
+                        <li><a id="insertEscena" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una slide. Debe estar dentro de la etiqueta &lt;objeto&gt;." > Escena </a></li>
+                        <li><a id="insertBloque" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una sección dentro de una escena. Debe estar dentro de la etiqueta &lt;escena&gt;."> Bloque </a></li>
+                        <li><a id="insertIdea" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una idea dentro de un bloque. Debe estar dentro de la etiqueta &lt;bloque&gt;."> Idea </a></li>
+                        <li><a id="insertTexto" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a un texto. Debe estar dentro de la etiqueta &lt;idea&gt;."> Texto </a></li>
+                        <!--<li><a id="insertCodigo" class="btn btn-success" type="button" > Código </a></li>
+                        <li><a id="insertManuscrito" class="btn btn-success" type="button" > Manuscrito </a></li>-->
+                        <li><a id="insertEjemplos" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a la sección de ejemplos. Debe estar dentro de la etiqueta &lt;idea&gt;."> Ejemplos </a></li>
+                        <li><a id="insertEjemplo" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a un ejemplo en sí. Debe estar dentro de la etiqueta &lt;ejemplos&gt;."> Ejemplo </a></li>
+                        <li><a id="insertEjemploTexto" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a un texto de ejemplo. Debe estar dentro de la etiqueta &lt;ejemplos&gt;."> Ejemplo texto </a></li>
+                        <!--<li><a id="insertEjemploCodigo" class="btn btn-success" type="button" > Ejemplo codigo </a></li>
+                        <li><a id="insertEjemploManus" class="btn btn-success" type="button" > Ejemplo manuscrito </a></li>-->
+                        <li><a id="insertImagen" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una imágen. Debe estar dentro de la etiqueta &lt;idea&gt;."> Imágen</a></li>
+                        <li><a id="insertVoz" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una texto hablado. Debe estar dentro de la etiqueta &lt;idea&gt; y es solo una por idea."> Voz </a></li>
+                        <li><a id="insertEvaluacion" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una evalucación. Debe estar dentro de la etiqueta &lt;escena&gt;."> Evaluación </a></li>
+                        <li><a id="insertPregunta" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a las preguntas. Debe estar dentro de la etiqueta &lt;evaluacion&gt;."> Pregunta </a></li>
+                        <li><a id="insertForma" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una pregunta en sí. Debe estar dentro de la etiqueta &lt;pregunta&gt;."> Forma </a></li>
+                        <!--<li><a id="insertEnunciado" class="btn btn-success" type="button" > Enunciado </a></li>-->
+                        <!--<li><a id="insertOpciones" class="btn btn-success" type="button" > Opciones </a></li>-->
+                        <li><a id="insertAlternativa" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una alternativa a una pregunta. Debe estar dentro de la etiqueta &lt;pregunta&gt;."> Alternativa </a></li>
+                        <li><a id="insertSolucion" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a la solución a una pregunta. Debe estar dentro de la etiqueta &lt;evaluacion&gt;."> Solución </a></li>
+                        <li><a id="insertFeedback" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una encuesta para llenar. Debe estar dentro de la etiqueta &lt;objeto&gt;."> Feedback </a></li>
+                        <li><a id="insertSubIdea" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a una idea dentro de otra. Debe estar dentro de la etiqueta &lt;idea&gt;."> Sub idea </a></li>
+                        <li><a id="insertSubTexto" class="btn bot" type="button" data-toggle="tooltip" title="Esta etiqueta corresponde a un texto escrito por partes. Voz es texto a ser hablado. Debe estar dentro de la etiqueta &lt;subidea&gt;."> Sub texto </a></li>
+                    </ul>
+                </div> 
+              </div>
+            
+        </div>              
+        <footer >
+            <br></br>
+            <div class="text-center" style="color: whitesmoke">
+            PODA por PODA TEAM está licenciado bajo la licencia:
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
+            </div>
+            			
+        </footer>
+    </h:body>
+</html>

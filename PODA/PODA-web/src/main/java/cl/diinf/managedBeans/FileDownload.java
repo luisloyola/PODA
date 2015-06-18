@@ -1,6 +1,7 @@
 
 package cl.diinf.managedBeans;
 
+
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
  
@@ -19,10 +20,14 @@ import org.primefaces.model.StreamedContent;
 public class FileDownload {
 
     private StreamedContent file;
-
+    private StreamedContent manual;
+ 
     public void setFile(StreamedContent file) {
         this.file = file;
-    }        
+    }
+    public void setManual(StreamedContent manual) {
+        this.manual = manual;
+    }      
  
     /**
      * Devuelve un stream para ser capaz de ser descargado.
@@ -33,6 +38,13 @@ public class FileDownload {
         file = new DefaultStreamedContent(stream, "text/plain", "plantilla_objeto.xml");
         
         return file;
+    }
+    
+    public StreamedContent getManual() {
+        InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/resources/manual.pdf");
+        manual = new DefaultStreamedContent(stream, "application/pdf", "Manual de Usuario.pdf");
+        
+        return manual;
     }
     
 }

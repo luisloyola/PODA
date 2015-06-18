@@ -1,0 +1,15 @@
+<objeto titulo="Prueba integral" tema="usach" autor="Luis">
+	<escena titulo="Prueba 1: Texto normal-1Col" tipo="1Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="normal">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+			<idea orden="2">
+				<texto tipo="normal">
+					Desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos.
+				</texto>
+			</idea>
+		</bloque>
+	</escena>
+	<feedback>https://docs.google.com/forms/d/1Zrj3pYt84a9bDFoHQrZvUM4uSiGSEUuX20x-Bco1-b8/viewform</feedback>
+</objeto>

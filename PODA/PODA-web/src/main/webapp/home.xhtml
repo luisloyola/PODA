@@ -6,15 +6,15 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head> 
         <title>Proyecto de Objetos de Aprendizaje</title>
-        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/metro-bootstrap.css"/>
         <h:outputStylesheet name="css/style.css"/>
         <h:outputStylesheet name="css/alertify.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputScript library="js" name="alertify.min.js"/>
         
-        <body onload="#{fileUpload.show_message()}"></body>
-        <body onload="#{fileUpload.reset_message()}"></body>
+        <body onload="#{ObjectManaged.show_message()}"></body>
+        <body onload="#{ObjectManaged.reset_message()}"></body>
             
         <script>
             function ValidateFileFE(){
@@ -57,6 +57,28 @@
                 }
             }
         </script>
+        <script>
+	$(document).ready(function(){
+            $(".botonHome").on({
+                    mouseenter: function(){
+                        $(this).css("background-color", "#E74C3C");
+                    },  
+                    mouseleave: function(){
+                        $(this).css("background-color", "#00ABA9");
+                    }
+                    
+            });
+            $("#btnIns").on({
+                    mouseenter: function(){
+                        $(this).css("background-color", "#2ECC71");
+                    },  
+                    mouseleave: function(){
+                        $(this).css("background-color", "#00ABA9");
+                    }
+                    
+            });
+	});
+        </script>
     </h:head>
                   
     <h:body >
@@ -92,11 +114,12 @@
                     
                         <div class="col-md-4 col-lg-offset-6">
               
-                            <h:inputFile id="file" value="#{fileUpload.file}" /> <!--validator="{fileUpload.ValidateFileFE}"/>-->
+                            <h:inputFile id="file" value="#{ObjectManaged.file}" /> <!--validator="{ObjectManaged.ValidateFileFE}"/>-->
                         </div>  
                         <div class="col-md-4 col-lg-offset-6 " ><br></br>                         
                         
-                            <h:commandButton action="#{fileUpload.upload}" value="Generar" styleClass="btn btn-info" onclick=" return ValidateFileFE()"/>&nbsp;
+                            <h:commandButton action="#{ObjectManaged.upload}" value="Generar" styleClass="btn btn-info botonHome" style="background-color: #00ABA9" onclick=" return ValidateFileFE()"/>&nbsp;
+                            <a Class="btn btn-info botonHome" style="background-color: #00ABA9" href="editor.xhtml">Edita tu XML aquí!</a>
                         </div>
                 </h:form>                                                                                    
                 </div>                                   
@@ -113,30 +136,30 @@
                 <div class="col-md-4 text-center">
                   <img class="img-circle" src="resources/carga.png" width='140' height='140'></img>
                   <h2>Carga</h2>
-                  <p>Carga en la barra de arriba el archivo desde tu ordenador de manera fácil y presiona "Generar".</p>
+                  <p>Carga fácilmente en la barra de arriba el archivo desde tu ordenador y presiona "Generar".</p>
                  
                 </div>
                 <div class="col-md-4 text-center">
                   <img class="img-circle" src="resources/check.png" width='140' height='140'></img>
                   <h2>Listo</h2>
-                  <p>Solo debes hacer click en "Ver Objeto de Aprendizaje".</p>
+                  <p>Se redireccionará automaticamente a tu OA para que lo puedas ver.</p>
                  
                 </div>
             </div>
           <br></br>
             <div class="col-md-4 col-md-offset-4">
-                <p><a class="btn btn-lg btn-success btn-block" href="instrucciones.xhtml">Ver Detalles »</a></p>
+                <p><a id="btnIns" class="btn btn-lg btn-success btn-block" style="background-color: #00ABA9" href="instrucciones.xhtml">Ver Detalles »</a></p>
             </div>
                
         </section>    
 
-        <footer>            
+        <footer>
             <br></br>
-            <div class="text-center" style="color: whitesmoke">
+            <div class="text-center" style="color: whitesmoke;">
             PODA por PODA TEAM está licenciado bajo la licencia:
             <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></img></a>
             </div>
-            			
+                        
         </footer>
     </h:body>
 </html>

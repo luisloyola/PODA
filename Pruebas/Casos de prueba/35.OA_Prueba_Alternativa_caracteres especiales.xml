@@ -1,0 +1,43 @@
+<objeto titulo="Prueba integral" tema="usach" autor="Luis">
+	<escena titulo="Prueba 1: Texto-imágen-voz-1Col" tipo="1Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="normal">asdf</texto>
+				<texto tipo="normal">Caracteres especiales:<enfatizar> ; , !"#$%/()=?¡¿+´´{}_-.,*+~`^</enfatizar> Caracteres especiales:<destacar>; , !"#$%/()=?¡¿+´´{}_-.,*+~`^</destacar> test end</texto>
+				<texto tipo="codigo">
+					if asdf :
+					    #nothing
+					else:
+					    #nothing
+				</texto>
+				<media tipo="imagen">http://i.imgur.com/9UXiCam.png</media>
+				<voz>asdf </voz>
+			</idea>
+		</bloque>
+	</escena>
+
+	<evaluacion exigencia_min="60" exigencia_max="80">
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">Enun:asdf </texto> <!-- 0 o Muchos -->
+				</enunciado>
+				<opciones>
+					<alternativa tipo="distractor" tema="Iteración"> <!-- o distractor --> 
+						<texto tipo="normal">Alt1:Caracteres especiales: ; , !"#$%/()=?¡¿+´´{}_-.,*+~`^ </texto> <!-- 0 o 1 -->						
+					</alternativa>
+					<alternativa tipo="solucion" tema="Sintaxis básica"> <!-- o distractor --> 
+						<texto tipo="normal">Alt2:asdf </texto> <!-- 0 o 1 -->						
+					</alternativa>
+					<alternativa tipo="distractor" tema="Recursión"> <!-- o distractor --> 
+						<texto tipo="normal">Alt3:asdf </texto> <!-- 0 o 1 -->						
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">Sol:asdf </texto>
+				</solucion>
+			</forma>
+		</pregunta>
+	</evaluacion>
+	<feedback>https://docs.google.com/forms/d/1Zrj3pYt84a9bDFoHQrZvUM4uSiGSEUuX20x-Bco1-b8/viewform</feedback>
+</objeto>

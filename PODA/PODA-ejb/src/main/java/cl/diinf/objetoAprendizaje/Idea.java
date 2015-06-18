@@ -1,28 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cl.diinf.objetoAprendizaje;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Comparator;
 
-/**
- *
- * @author teban
- */
 public class Idea implements Comparable<Idea>{
     int aparitionOrder;
     String voice;
-    List<Texto> text;
+    List<Text> text;
     List<Media> media;
-    
+    List<Example> example;
+    List<SubIdea> subIdea;
     
     public Idea(){
-        text = new ArrayList<Texto>();
-        media = new ArrayList<Media>();
+        text = new ArrayList<>();
+        media = new ArrayList<>();
+        example = new ArrayList<>();
+        subIdea = new ArrayList<>();
         voice = "";
     }
 
@@ -42,15 +36,15 @@ public class Idea implements Comparable<Idea>{
         this.voice = voice;
     }
 
-    public List<Texto> getText() {
+    public List<Text> getText() {
         return text;
     }
 
-    public void setText(List<Texto> text) {
+    public void setText(List<Text> text) {
         this.text = text;
     }
     
-    public void addText(Texto text) {
+    public void addText(Text text) {
         this.text.add(text);
     }
 
@@ -64,6 +58,30 @@ public class Idea implements Comparable<Idea>{
     
     public void addMedia(Media media) {
         this.media.add(media);
+    }
+
+    public List<Example> getExample() {
+        return example;
+    }
+
+    public void setExample(List<Example> example) {
+        this.example = example;
+    }
+    
+    public void addExample(Example example) {
+        this.example.add(example);
+    }
+
+    public List<SubIdea> getSubIdea() {
+        return subIdea;
+    }
+
+    public void setSubIdea(List<SubIdea> subIdea) {
+        this.subIdea = subIdea;
+    }
+    
+    public void addSubIdea(SubIdea subIdea) {
+        this.subIdea.add(subIdea);
     }
    
     @Override     

@@ -1,0 +1,152 @@
+<objeto titulo="Prueba integral" tema="usach" autor="Luis">
+	<escena titulo="Prueba 1: Texto normal-1Col" tipo="1Col">
+		<bloque>
+			<idea orden="1">
+				<texto tipo="normal">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta).</texto>
+			</idea>
+		</bloque>
+	</escena>
+	
+	<evaluacion exigencia_min="60" exigencia_max="80">
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">Texto normal??</texto>
+					<texto tipo="normal">otro texto normal</texto>
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="tema">
+						<texto tipo="normal">Sí</texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="tema">
+						<texto tipo="normal">No</texto>
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">Solución</texto>
+				</solucion>
+			</forma>
+		</pregunta>
+<!--
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">Texto <destacado>destacado??</destacado></texto>
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="tema">
+						<texto tipo="normal">Sí <destacado>destacado</destacado></texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="tema">
+						<texto tipo="normal">No<destacado>destacado</destacado></texto>
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">Solución <destacado>destacada</destacado></texto>
+				</solucion>
+			</forma>
+		</pregunta>
+	-->	
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">Texto <enfatizado>enfatizado??</enfatizado></texto>
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="tema">
+						<texto tipo="normal">Sí <destacado>destacado</destacado></texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="tema">
+						<texto tipo="normal">No<destacado>destacado</destacado></texto>
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">Solución <destacado>destacada</destacado></texto>
+				</solucion>
+			</forma>
+		</pregunta>
+		
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="codigo">
+						if condicion :
+							print "hola"
+					</texto>
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="tema">
+						<texto tipo="codigo">
+							else:
+								print "otra cosa"
+						</texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="tema">
+						<texto tipo="codigo">
+							else{
+								printf("otra cosa");
+							}
+						</texto>
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="codigo">
+						print "Solución"
+					</texto>
+				</solucion>
+			</forma>
+		</pregunta>
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">Texto normal??</texto>
+					<texto tipo="normal">otro texto normal</texto>
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="tema">
+						<texto tipo="normal">Sí</texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="tema">
+						<texto tipo="normal">No</texto>
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">Solución</texto>
+				</solucion>
+			</forma>
+		</pregunta>
+		<pregunta>
+			<forma>
+				<enunciado>
+					<texto tipo="normal">Muchas alternativas</texto>
+				</enunciado>
+				<opciones>
+					<alternativa tipo="solucion" tema="Tema1A">
+						<texto tipo="normal">alternativa 1</texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="Tema2B">
+						<texto tipo="normal">alternativa 2</texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="Tema3C">
+						<texto tipo="normal">alternativa 3</texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="Tema4D">
+						<texto tipo="normal">alternativa 4</texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="Tema5E">
+						<texto tipo="normal">alternativa 5</texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="Tema6F">
+						<texto tipo="normal">alternativa 6</texto>
+					</alternativa>
+					<alternativa tipo="distractor" tema="Tema7G">
+						<texto tipo="normal">alternativa 7</texto>
+					</alternativa>
+				</opciones>
+				<solucion>
+					<texto tipo="normal">Solución</texto>
+				</solucion>
+			</forma>
+		</pregunta>
+	</evaluacion>
+</objeto>
