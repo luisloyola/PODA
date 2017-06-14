@@ -23,3 +23,6 @@ $ git clone https://github.com/luisloyola/PODA
 Licenciado bajo GNU GPLv3.
 
 Puede ver la licencia en detalle en el siguiente enlace: https://www.gnu.org/licenses/gpl-3.0.html
+
+## Testimonio del cliente ##
+[Testimonio del Product Owner del proyeco PODA.](https://www.youtube.com/watch?v=2x2QGQQ0za4)
